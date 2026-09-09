@@ -104,3 +104,16 @@ InitTestScene*.unity*
 
 # Auto-generated cache in Assets folder
 /[Aa]ssets/[Ss]ceneDependencyCache*
+
+# --- Unity 프로젝트가 하위 폴더('My project/')에 있어서 추가한 보정 ---
+# 위쪽 표준 패턴들은 '/'로 시작해 저장소 루트에만 적용되므로,
+# 하위 폴더의 Library/Temp 등을 잡지 못함. 아래는 어느 깊이에서든 적용됨.
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+[Mm]emoryCaptures/
+[Rr]ecordings/
