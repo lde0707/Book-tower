@@ -62,7 +62,7 @@ public static class PrototypeSceneBuilder
     private static readonly Color Ribbon = Hex("#D9694F");       // 책갈피새 — 크레파스 빨강
     /// <summary>그림자. 완전 검정 금지 — 종이에 지는 그림자는 세피아 그레이다</summary>
     /// <summary>그림자. 연필로 문지른 회색이지 검정이 아니다</summary>
-    private static readonly Color ShadowTint = Hex("#6E6A63");
+    private static readonly Color ShadowTint = Hex("#6B6B73");   // 살짝 차갑게 — 연필 흑연색
 
     [MenuItem("Book Tower/InGame 씬 구성하기", priority = 0)]
     public static void Build()
@@ -162,7 +162,13 @@ public static class PrototypeSceneBuilder
 
         var sun = sunGo.AddComponent<Light>();
         sun.type = LightType.Directional;
-        sun.color = LightWarm;
+        // 주광원은 거의 흰색이다.
+        //
+        // 여기에 #F2C879 를 쓰면 흰 종이가 전부 누렇게 물든다. 실제로 그랬다.
+        // "빛 = 유일한 채도색" 규칙은 **강조광**이 지킨다 — 그 등이 닿은 자리만
+        // 따뜻한 색을 얻고, 나머지는 흰 종이로 남는다.
+        // 오히려 이쪽이 "빛이 닿는 곳만 색을 얻는다"에 더 충실하다.
+        sun.color = Hex("#FFFCF4");
         sun.intensity = 1.0f;      // 실제 값은 방에 들어갈 때 정해진다
 
         // 그림자가 곧 퍼즐의 정답이므로 품질은 타협하지 않는다.
@@ -350,6 +356,12 @@ public static class PrototypeSceneBuilder
     {
         GameObject systems = GameObject.Find("[Systems]");
         GameObject host = systems != null ? systems : new GameObject("[Systems]");
+
+        // 퍼즐이 풀리면 방의 등이 확 밝아진다. 이게 없으면 풀어도 아무 일이 없다
+        if (host.GetComponent<PuzzleFeedback>() == null) host.AddComponent<PuzzleFeedback>();
+
+        // 개발용 조작 안내. 출시 빌드에서는 빼야 한다
+        if (host.GetComponent<PrototypeHud>() == null) host.AddComponent<PrototypeHud>();
 
         var mgr = host.AddComponent<RoomManager>();
         SetPrivate(mgr, "player", player);

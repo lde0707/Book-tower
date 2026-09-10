@@ -5,6 +5,7 @@ using BookTower.Fold;
 using BookTower.Puzzles;
 using BookTower.Rooms;
 using BookTower.Presentation;
+using BookTower.Interaction;
 using System;
 using System.IO;
 using System.Collections.Generic;
@@ -246,6 +247,7 @@ namespace BookTower.EditorTools
                 if (go != null && !string.IsNullOrEmpty(o.note)) Note(go, o.note);
                 if (go != null) AttachWall(go, o.face);
                 if (go != null && o.kind != "marker") Outline(go);
+                if (go != null) MakeInteractable(go, o);
             }
 
             BuildAccents(area, a);
@@ -281,6 +283,40 @@ namespace BookTower.EditorTools
                 l.range = ac.range;
                 l.shadows = LightShadows.None;   // 두 번째 그림자 금지
             }
+        }
+
+        /// <summary>
+        /// "여기 뭔가 할 수 있다"를 물체 자신이 알리게 한다.
+        ///
+        /// 대사도 UI 도 없으므로 이게 없으면 화면에 놓인 게 전부 배경으로 보인다.
+        /// 거리는 실제 상호작용 거리와 맞춰야 한다 — 반응은 하는데 눌리지 않거나
+        /// 그 반대면, 플레이어는 조작이 고장 난 줄 안다.
+        /// </summary>
+        private static void MakeInteractable(GameObject go, ObjDef o)
+        {
+            string label, verb;
+            float range;
+
+            switch (o.kind)
+            {
+                case "fold":
+                    label = "접이면"; verb = "접는다"; range = 7f;       // FoldInteractor.maxDistance
+                    break;
+                case "piece":
+                    label = "조각"; verb = "줍는다"; range = 3f;         // CollectiblePiece.pickupRange
+                    break;
+                case "crease":
+                    if (!o.active) return;                               // 죽은 주름은 반응하면 안 된다
+                    label = "주름"; verb = "깨운다"; range = 3.5f;
+                    break;
+                default:
+                    return;
+            }
+
+            var it = go.AddComponent<Interactable>();
+            SetString(it, "label", label);
+            SetString(it, "verb", verb);
+            SetFloat(it, "range", range);
         }
 
         // ─────────────────────────────────────────── 룸
