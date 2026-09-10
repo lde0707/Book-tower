@@ -106,7 +106,7 @@ public static class PrototypeSceneBuilder
     {
         foreach (GameObject go in scene.GetRootGameObjects().ToList())
             if (GeneratedRoots.Contains(go.name))
-                Object.DestroyImmediate(go);
+                UnityEngine.Object.DestroyImmediate(go);
     }
 
     // ---------------------------------------------------------------- 시스템
@@ -161,7 +161,7 @@ public static class PrototypeSceneBuilder
         sea.transform.localPosition = new Vector3(0f, -22f, 0f);
         sea.transform.localScale = new Vector3(500f, 0.5f, 500f);
         sea.GetComponent<MeshRenderer>().sharedMaterial = seaMat;
-        Object.DestroyImmediate(sea.GetComponent<Collider>());   // 떨어지면 복귀 처리로 잡는다
+        UnityEngine.Object.DestroyImmediate(sea.GetComponent<Collider>());   // 떨어지면 복귀 처리로 잡는다
 
         // 안개 — 수평선을 지워 끝이 없어 보이게. 플레이 영역은 안 가리도록 멀리서 시작
         RenderSettings.fog = true;
@@ -191,7 +191,7 @@ public static class PrototypeSceneBuilder
             leaf.transform.localScale = new Vector3(s, s * 1.3f, 1f);
 
             leaf.GetComponent<MeshRenderer>().sharedMaterial = (i % 3 == 0) ? shadeMat : paperMat;
-            Object.DestroyImmediate(leaf.GetComponent<Collider>());
+            UnityEngine.Object.DestroyImmediate(leaf.GetComponent<Collider>());
 
             leaf.AddComponent<FloatingPage>();
         }
@@ -226,7 +226,7 @@ public static class PrototypeSceneBuilder
         body.transform.SetParent(player.transform, false);
         body.transform.localPosition = new Vector3(0f, 0.45f, 0f);
         body.transform.localScale = new Vector3(0.4f, 0.3f, 0.4f);
-        Object.DestroyImmediate(body.GetComponent<Collider>());
+        UnityEngine.Object.DestroyImmediate(body.GetComponent<Collider>());
         body.GetComponent<MeshRenderer>().sharedMaterial = ribbonMat;
 
         var beak = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -234,7 +234,7 @@ public static class PrototypeSceneBuilder
         beak.transform.SetParent(player.transform, false);
         beak.transform.localPosition = new Vector3(0f, 0.45f, 0.28f);
         beak.transform.localScale = new Vector3(0.08f, 0.08f, 0.22f);
-        Object.DestroyImmediate(beak.GetComponent<Collider>());
+        UnityEngine.Object.DestroyImmediate(beak.GetComponent<Collider>());
         beak.GetComponent<MeshRenderer>().sharedMaterial = ribbonMat;
 
         return player;

@@ -240,7 +240,7 @@ namespace BookTower.EditorTools
                         if (lookup.TryGetValue(a.id + "/" + pn, out FoldPanel fp)) panels.Add(fp);
                         else Debug.LogWarning($"[LevelBuilder] {a.id} {a.puzzle.id}: 접이면 '{pn}' 못 찾음");
                     }
-                    if (panels.Count == 0) { Object.DestroyImmediate(go); return; }
+                    if (panels.Count == 0) { UnityEngine.Object.DestroyImmediate(go); return; }
 
                     var group = go.AddComponent<FoldGroup>();
                     var fc = go.AddComponent<FoldCombinationPuzzle>();
@@ -252,7 +252,7 @@ namespace BookTower.EditorTools
                 }
             }
 
-            if (puzzle == null) { Object.DestroyImmediate(go); return; }
+            if (puzzle == null) { UnityEngine.Object.DestroyImmediate(go); return; }
 
             SetString(puzzle, "puzzleId", a.puzzle.id);
             SetFloat(puzzle, "targetSeconds", a.puzzle.targetSeconds);

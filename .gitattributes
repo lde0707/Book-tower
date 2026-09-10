@@ -1,0 +1,52 @@
+# 줄바꿈 정규화
+#
+# 윈도우 유니티는 파일을 CRLF로 저장하고, 리눅스/맥은 LF로 저장한다.
+# .gitattributes 가 없으면 git 이 이 차이를 "파일이 통째로 바뀜"으로 읽어서
+# 실제로는 아무것도 안 고쳤는데 140개 파일이 수정된 것처럼 보인다.
+#
+# text=auto 를 걸면 저장소 안에는 항상 LF 로 들어가고,
+# 비교할 때도 정규화한 뒤에 비교하므로 작업 폴더가 CRLF 여도 조용하다.
+* text=auto
+
+# 유니티 텍스트 자산 (YAML) — 머지/디프가 되어야 한다
+*.cs        text diff=csharp
+*.unity     text
+*.prefab    text
+*.asset     text
+*.meta      text
+*.mat       text
+*.anim      text
+*.controller text
+*.shader    text
+*.shadergraph text
+*.inputactions text
+*.json      text
+*.md        text
+*.py        text
+*.txt       text
+*.uxml      text
+*.uss       text
+
+# 바이너리 — 절대 건드리면 안 된다
+*.png       binary
+*.jpg       binary
+*.jpeg      binary
+*.gif       binary
+*.psd       binary
+*.tga       binary
+*.tif       binary
+*.exr       binary
+*.hdr       binary
+*.fbx       binary
+*.obj       binary
+*.blend     binary
+*.wav       binary
+*.mp3       binary
+*.ogg       binary
+*.ttf       binary
+*.otf       binary
+*.dll       binary
+*.so        binary
+*.dylib     binary
+*.pdb       binary
+*.unitypackage binary
