@@ -174,6 +174,7 @@ namespace BookTower.EditorTools
         {
             pal = palette;
             root = new GameObject("Map").transform;
+            hiddenRoot = new GameObject("Map (히든)").transform;
 
             if (!File.Exists(JsonPath))
             {
@@ -214,7 +215,7 @@ namespace BookTower.EditorTools
         private static void BuildArea(AreaDef a, Dictionary<string, FoldPanel> lookup)
         {
             var area = new GameObject(a.name).transform;
-            area.SetParent(root, false);
+            area.SetParent(a.id == "HD" ? hiddenRoot : root, false);
             area.localPosition = a.pos.V;
 
             if (!string.IsNullOrEmpty(a.note)) Note(area.gameObject, a.note);
@@ -409,6 +410,7 @@ namespace BookTower.EditorTools
             if (a.puzzle == null || string.IsNullOrEmpty(a.puzzle.id)) return;
 
             Transform area = root.Find(a.name);
+            if (area == null && hiddenRoot != null) area = hiddenRoot.Find(a.name);
             if (area == null) return;
 
             var go = new GameObject($"{a.puzzle.id}_퍼즐");

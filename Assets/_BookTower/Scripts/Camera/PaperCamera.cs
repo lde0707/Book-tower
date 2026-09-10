@@ -160,8 +160,7 @@ namespace BookTower.CameraSystem
             focus = bounds.center;
             orthoSize = Mathf.Lerp(orthoSize, needed, 1f - Mathf.Exp(-rotateSpeed * Time.deltaTime));
 
-            // 뒤쪽 오브젝트가 카메라 뒤로 넘어가지 않게 거리를 넉넉히
-            distance = Mathf.Max(40f, bounds.size.magnitude * 2f);
+            distance = Mathf.Max(40f, bounds.size.magnitude * 0.75f + 15f);
         }
 
         /// <summary>
@@ -218,8 +217,11 @@ namespace BookTower.CameraSystem
             orthoSize = Mathf.Lerp(orthoSize, wantSize, k);
             focus = Vector3.Lerp(focus, wantFocus, k);
 
-            // 방 뒤쪽 물체가 카메라 뒤로 넘어가지 않게 넉넉히 물린다
-            distance = Mathf.Max(60f, roomBounds.size.magnitude * 2f);
+            // 직교 카메라에서 거리는 원근에 영향을 주지 않는다.
+            // 방이 카메라 뒤로 넘어가지만 않으면 되므로 딱 그만큼만 물린다.
+            // 예전엔 대각선의 2배(60~137)를 썼는데, 거리 기반 효과를 쓸 때
+            // 그게 그대로 화면 전체에 걸린다.
+            distance = Mathf.Max(40f, roomBounds.size.magnitude * 0.75f + 15f);
         }
 
         /// <summary>RoomManager 가 방이 바뀔 때 호출한다.</summary>

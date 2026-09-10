@@ -198,12 +198,21 @@ public static class PrototypeSceneBuilder
         RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Flat;
         RenderSettings.ambientLight = ShadowTint * 0.42f;
 
-        // 안개도 흰색이다. 멀어질수록 백지로 흐려지면서
-        // "여기까지가 그려진 부분"이라는 느낌이 난다
-        RenderSettings.fog = true;
-        RenderSettings.fogMode = FogMode.Exponential;
-        RenderSettings.fogColor = VoidColor;
-        RenderSettings.fogDensity = 0.010f;
+        // 안개는 끈다.
+        //
+        // 직교 카메라는 "카메라 평면에서 얼마나 떨어졌나"로 안개를 먹인다.
+        // 그런데 우리는 카메라를 distance 만큼 뒤로 물려 놓으므로
+        // **씬 전체가 그 거리에 통째로 놓인다.** 거리 차이가 없으니
+        // 원근 연출이 되는 게 아니라 화면 전체가 균일하게 흐려진다.
+        //
+        // 실측: 방 안에서 50~67% 가 흰색으로 덮이고 있었고,
+        // 전체 조망에서는 98% — 화면이 통째로 백지였다.
+        // "전체가 밝다 · 빛이 강조되지 않는다 · 전체 조망이 안 된다"가
+        // 전부 이 하나에서 나왔다.
+        //
+        // 가장자리를 흐리게 하고 싶으면 카메라 거리가 아니라
+        // 물체와 탑 중심 사이의 거리로 계산하는 셰이더를 써야 한다.
+        RenderSettings.fog = false;
 
         var director = group.gameObject.AddComponent<LightingDirector>();
         SetPrivate(director, "sun", sun);

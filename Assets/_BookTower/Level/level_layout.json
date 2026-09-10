@@ -135,7 +135,7 @@
    "light": {
     "sun": 0.22,
     "ambient": 0.1,
-    "fog": 0.016,
+    "fog": 0.0,
     "shadowStrength": 0.62
    },
    "accents": [
@@ -301,7 +301,7 @@
    "light": {
     "sun": 0.72,
     "ambient": 0.24,
-    "fog": 0.01,
+    "fog": 0.0,
     "shadowStrength": 0.62
    },
    "accents": [
@@ -422,7 +422,7 @@
    "light": {
     "sun": 0.72,
     "ambient": 0.24,
-    "fog": 0.01,
+    "fog": 0.0,
     "shadowStrength": 0.62
    },
    "accents": [
@@ -614,7 +614,7 @@
    "light": {
     "sun": 0.72,
     "ambient": 0.24,
-    "fog": 0.01,
+    "fog": 0.0,
     "shadowStrength": 0.62
    },
    "accents": [
@@ -779,7 +779,7 @@
    "light": {
     "sun": 0.72,
     "ambient": 0.24,
-    "fog": 0.01,
+    "fog": 0.0,
     "shadowStrength": 0.62
    },
    "accents": [
@@ -960,7 +960,7 @@
    "light": {
     "sun": 0.72,
     "ambient": 0.24,
-    "fog": 0.01,
+    "fog": 0.0,
     "shadowStrength": 0.62
    },
    "accents": [
@@ -1076,7 +1076,7 @@
    "light": {
     "sun": 0.84,
     "ambient": 0.2,
-    "fog": 0.009,
+    "fog": 0.0,
     "shadowStrength": 0.62
    },
    "accents": [
@@ -1224,7 +1224,7 @@
    "light": {
     "sun": 0.84,
     "ambient": 0.2,
-    "fog": 0.009,
+    "fog": 0.0,
     "shadowStrength": 0.62
    },
    "accents": [
@@ -1352,7 +1352,7 @@
    "light": {
     "sun": 0.84,
     "ambient": 0.2,
-    "fog": 0.009,
+    "fog": 0.0,
     "shadowStrength": 0.62
    },
    "accents": [
@@ -1513,7 +1513,7 @@
    "light": {
     "sun": 0.84,
     "ambient": 0.2,
-    "fog": 0.009,
+    "fog": 0.0,
     "shadowStrength": 0.62
    },
    "accents": [
@@ -1786,7 +1786,7 @@
    "light": {
     "sun": 0.84,
     "ambient": 0.2,
-    "fog": 0.009,
+    "fog": 0.0,
     "shadowStrength": 0.62
    },
    "accents": [
@@ -1953,7 +1953,7 @@
    "light": {
     "sun": 0.84,
     "ambient": 0.2,
-    "fog": 0.009,
+    "fog": 0.0,
     "shadowStrength": 0.62
    },
    "accents": [
@@ -2453,7 +2453,7 @@
    "light": {
     "sun": 1.05,
     "ambient": 0.3,
-    "fog": 0.005,
+    "fog": 0.0,
     "shadowStrength": 0.62
    },
    "accents": [
@@ -2752,7 +2752,7 @@
    "light": {
     "sun": 1.05,
     "ambient": 0.3,
-    "fog": 0.005,
+    "fog": 0.0,
     "shadowStrength": 0.62
    },
    "accents": [
@@ -2852,7 +2852,7 @@
    "light": {
     "sun": 1.05,
     "ambient": 0.3,
-    "fog": 0.005,
+    "fog": 0.0,
     "shadowStrength": 0.62
    },
    "accents": [
@@ -2944,7 +2944,7 @@
    "light": {
     "sun": 0.66,
     "ambient": 0.18,
-    "fog": 0.012,
+    "fog": 0.0,
     "shadowStrength": 0.62
    },
    "accents": [
