@@ -22,6 +22,9 @@ namespace BookTower.PlayerSystem
         /// <summary>활공 키를 누르고 있는가</summary>
         public bool GlideHeld { get; private set; }
 
+        /// <summary>이번 프레임에 스페이스를 눌렀는가. 땅에 있으면 점프가 된다</summary>
+        public bool JumpPressed { get; private set; }
+
         /// <summary>이번 프레임에 상호작용을 눌렀는가</summary>
         public bool InteractPressed { get; private set; }
 
@@ -53,6 +56,7 @@ namespace BookTower.PlayerSystem
             Move = raw.sqrMagnitude > 1f ? raw.normalized : raw;
 
             GlideHeld = kb.spaceKey.isPressed;
+            JumpPressed = kb.spaceKey.wasPressedThisFrame;
             ModifierHeld = kb.leftShiftKey.isPressed;
             InteractPressed = mouse != null && mouse.leftButton.wasPressedThisFrame;
         }
@@ -64,6 +68,7 @@ namespace BookTower.PlayerSystem
         {
             Move = Vector2.zero;
             GlideHeld = false;
+            JumpPressed = false;
             InteractPressed = false;
             ModifierHeld = false;
         }

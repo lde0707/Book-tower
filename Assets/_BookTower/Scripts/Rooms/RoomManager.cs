@@ -1,6 +1,7 @@
 using UnityEngine;
 using BookTower.CameraSystem;
 using BookTower.PlayerSystem;
+using BookTower.Presentation;
 
 namespace BookTower.Rooms
 {
@@ -152,6 +153,7 @@ namespace BookTower.Rooms
         {
             if (next == null) return;
 
+            bool first = current == null;
             if (current != null) current.SetVisible(false);
             current = next;
             current.SetVisible(true);
@@ -167,6 +169,13 @@ namespace BookTower.Rooms
             }
 
             current.ApplyYaw(appliedYaw);
+
+            // 층이 올라갈수록 밝아진다. 첫 방은 보간 없이 즉시 맞춘다 —
+            // 안 그러면 게임 시작 직후 화면이 밝았다가 어두워진다.
+            if (LightingDirector.Instance != null)
+                LightingDirector.Instance.ApplyRoom(
+                    current.SunIntensity, current.Ambient, current.Fog,
+                    current.ShadowStrength, snap: first);
         }
     }
 }

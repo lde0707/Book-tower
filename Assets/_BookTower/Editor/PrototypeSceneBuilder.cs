@@ -8,9 +8,12 @@ using BookTower.Core;
 using BookTower.PlayerSystem;
 using BookTower.CameraSystem;
 using BookTower.Rooms;
+using BookTower.Presentation;
+using UnityEngine.Rendering.Universal;
 using BookTower.Interaction;
 using BookTower.Puzzles;
 using BookTower.Presentation;
+using UnityEngine.Rendering.Universal;
 using BookTower.Info;
 using BookTower.EchoSystem;
 using BookTower.EditorTools;
@@ -44,6 +47,8 @@ public static class PrototypeSceneBuilder
     private static readonly Color SeaColor = Hex("#22222A");
     private static readonly Color LightWarm = Hex("#F2C879");
     private static readonly Color Ribbon = Hex("#A8705E");
+    /// <summary>그림자. 완전 검정 금지 — 종이에 지는 그림자는 세피아 그레이다</summary>
+    private static readonly Color ShadowTint = Hex("#5C5648");
 
     [MenuItem("Book Tower/InGame 씬 구성하기", priority = 0)]
     public static void Build()
@@ -133,22 +138,65 @@ public static class PrototypeSceneBuilder
 
         var sunGo = new GameObject("Sun (탑 꼭대기 빛)");
         sunGo.transform.SetParent(group);
+
+        // 각도는 고정이다. 방마다 바꾸지 않는다.
+        // "접힘 → 그림자" 인과가 방마다 달라지면 60분 동안 배운 규칙이 무너진다.
+        // 세기만 LightingDirector 가 층에 따라 바꾼다.
         sunGo.transform.rotation = Quaternion.Euler(55f, -30f, 0f);
 
         var sun = sunGo.AddComponent<Light>();
         sun.type = LightType.Directional;
         sun.color = LightWarm;
-        sun.intensity = 1.15f;
+        sun.intensity = 1.0f;      // 실제 값은 방에 들어갈 때 정해진다
 
-        // 그림자가 곧 퍼즐의 정답이므로 품질은 타협하지 않는다
+        // 그림자가 곧 퍼즐의 정답이므로 품질은 타협하지 않는다.
+        // Soft 를 쓰되 해상도를 올려서 엣지를 붙잡는다 — Hard 는 계단이 심하게 져서
+        // 오히려 모양이 안 읽힌다. 아트 문서의 "엣지는 항상 선명하게"는
+        // '흐리지 않게'라는 뜻이지 '계단지게'가 아니다.
         sun.shadows = LightShadows.Soft;
-        sun.shadowStrength = 0.85f;
+        sun.shadowStrength = 0.82f;
         sun.shadowBias = 0.02f;
         sun.shadowNormalBias = 0.2f;
+        sun.shadowNearPlane = 0.1f;
+        sun.shadowResolution = UnityEngine.Rendering.LightShadowResolution.VeryHigh;
 
-        // 두 번째 그림자를 만드는 광원은 두지 않는다 (정답이 흐려짐)
+        // 방 하나만 보이므로 그림자 거리를 짧게 잡을수록 픽셀 밀도가 올라간다
+        var urp = UniversalRenderPipeline.asset;
+        if (urp != null)
+        {
+            var so = new SerializedObject(urp);
+            SetIfExists(so, "m_ShadowDistance", 120f);
+            SetIfExists(so, "m_Cascade2Split", 0.25f);
+            so.ApplyModifiedPropertiesWithoutUndo();
+            EditorUtility.SetDirty(urp);
+        }
+
+        // 두 번째 그림자를 만드는 광원은 두지 않는다 (정답이 흐려짐).
+        // 강조광은 전부 LightShadows.None 이라 이 규칙을 어기지 않는다.
         RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Flat;
-        RenderSettings.ambientLight = new Color(0.32f, 0.31f, 0.30f);
+        RenderSettings.ambientLight = ShadowTint * 0.30f;
+
+        RenderSettings.fog = true;
+        RenderSettings.fogMode = FogMode.Exponential;
+        RenderSettings.fogColor = VoidColor;
+        RenderSettings.fogDensity = 0.012f;
+
+        var director = group.gameObject.AddComponent<LightingDirector>();
+        SetPrivate(director, "sun", sun);
+        SetColor(director, "shadowTint", ShadowTint);
+    }
+
+    private static void SetIfExists(SerializedObject so, string field, float v)
+    {
+        SerializedProperty p = so.FindProperty(field);
+        if (p != null) p.floatValue = v;
+    }
+
+    private static void SetColor(Object target, string field, Color v)
+    {
+        var so = new SerializedObject(target);
+        SerializedProperty p = so.FindProperty(field);
+        if (p != null) { p.colorValue = v; so.ApplyModifiedPropertiesWithoutUndo(); }
     }
 
     // ------------------------------------------------------------------ 배경
@@ -217,7 +265,9 @@ public static class PrototypeSceneBuilder
         cc.radius = 0.25f;
         cc.center = new Vector3(0f, 0.45f, 0f);
         cc.slopeLimit = 50f;
-        cc.stepOffset = 0.25f;
+        // 작은 턱에 걸려 멈추는 게 조작 불만의 대부분이다.
+        // 점프보다 이쪽이 먼저 할 일이고, 퍼즐에는 아무 영향이 없다.
+        cc.stepOffset = 0.45f;
         cc.skinWidth = 0.02f;
 
         player.AddComponent<PlayerInputReader>();

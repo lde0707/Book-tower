@@ -28,6 +28,12 @@ namespace BookTower.PlayerSystem
         [Header("활공 — 상승 불가, 하강만")]
         [SerializeField] private float gravity = -18f;
         [Tooltip("활공 중 최대 하강 속도(음수). 0에 가까울수록 오래 뜬다")]
+        [Tooltip("점프로 오르는 높이. 이 값은 마음대로 못 올린다 — " +
+                 "Tools/level_layout.py 의 점프 검증이 P3(1B의 끊긴 길)를 " +
+                 "뛰어넘지 않는지 확인하고 있고, C# 과 파이썬 값이 어긋나면 " +
+                 "그 검증이 아무것도 보장하지 않게 된다")]
+        [SerializeField] private float jumpHeight = 1.2f;
+
         [SerializeField] private float glideFallSpeed = -1.6f;
         [Tooltip("활공 중 추가되는 전진력")]
         [SerializeField] private float glideDrift = 1.4f;
@@ -57,11 +63,23 @@ namespace BookTower.PlayerSystem
         // ---- 공유 값 ----
         public float MoveSpeed => moveSpeed;
         public float Gravity => gravity;
+        public float JumpHeight => jumpHeight;
         public float GlideFallSpeed => glideFallSpeed;
         public float GlideDrift => glideDrift;
 
         /// <summary>수직 속도. 상태들이 공유한다</summary>
         public float VerticalVelocity { get; set; }
+
+        /// <summary>
+        /// 점프로 떠 있는가.
+        ///
+        /// 점프 뒤에 활공을 이어 붙이면 체공이 크게 늘어나 1B 의 틈(6.4)을
+        /// 그냥 넘어가고, P3 의 "그림자로 길을 잇는다"가 통째로 무의미해진다.
+        /// (점프만: 4.0 · 점프+활공: 7.2 — 계산은 level_layout.py 에 있다)
+        /// 그래서 점프로 뜬 동안에는 활공을 막는다.
+        /// 발을 헛디뎌 떨어지는 경우는 그대로 활공할 수 있다.
+        /// </summary>
+        public bool JumpedThisAir { get; set; }
 
         /// <summary>현재 상태 이름 (QA·디버그용)</summary>
         public string StateName => Machine?.CurrentName ?? "(none)";
@@ -150,6 +168,7 @@ namespace BookTower.PlayerSystem
             transform.position = safePoint + Vector3.up * 0.5f;
             Controller.enabled = true;
             VerticalVelocity = 0f;
+            JumpedThisAir = false;
         }
     }
 }

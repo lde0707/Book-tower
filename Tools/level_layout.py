@@ -57,9 +57,15 @@ def marker(name, pos, note=""):
     return dict(kind="marker", name=name, pos=dict(x=pos[0], y=pos[1], z=pos[2]),
                 scale=dict(x=1, y=1, z=1), mat="light", note=note)
 
-def puzzle(pid, target, answer, panels, note="", ptype="fold", pieces=None, creases=None):
+def puzzle(pid, target, answer, panels, note="", ptype="fold", pieces=None, creases=None,
+           at=None, assembly_range=0.0):
+    # at = 이 퍼즐을 '푸는 자리'. 조립 퍼즐은 조각을 모으는 것으로 끝나지 않고
+    # 걸쇠나 복원대까지 가져가야 완성된다. 자리를 안 정해 두면 조각을 줍는 순간
+    # 서 있던 데서 그냥 풀려버린다.
     return dict(id=pid, type=ptype, targetSeconds=target, answer=answer or [],
-                panels=panels or [], pieces=pieces or [], creases=creases or [], note=note)
+                panels=panels or [], pieces=pieces or [], creases=creases or [], note=note,
+                at=dict(x=at[0], y=at[1], z=at[2]) if at else dict(x=0.0, y=0.0, z=0.0),
+                hasAt=1 if at else 0, assemblyRange=assembly_range)
 
 # ─────────────────────────────────────────────────────────── 구역 정의
 AREAS = []
@@ -83,10 +89,19 @@ AREAS.append(area("F0", "F0_표지", 0, P_F0, (14, 12), wall=0,
     objects=[
         box("랜드마크_걸쇠", (0, 0.5, 2), (1.6, 0.8, 0.5), "accent",
             "P1 · 조각 2개를 맞추면 표지가 열린다"),
-        box("조각_A", (-4.5, 0.25, 3.5), (0.9, 0.1, 0.9), "light"),
-        box("조각_B", (4.5, 0.25, -0.5), (0.9, 0.1, 0.9), "light"),
+        # 조각을 걸쇠 기준 좌우 반대편에 둔다.
+        # 하나를 줍고 나머지를 가지러 반대편으로 걸어야 하고, 그 왕복이
+        # 곧 이동 튜토리얼이 된다. 가르치지 않고 걷게 만드는 자리다.
+        piece("조각_A", (-4.5, 0.25, 3.5), "P1_a", "표지 조각 1", "F0"),
+        piece("조각_B", (4.5, 0.25, -0.5), "P1_b", "표지 조각 2", "F0"),
+        box("위화감_긁힌자국", (0.9, 0.55, 2), (0.35, 0.25, 0.06), "shade",
+            "위화감 ① 걸쇠 옆면에 최근에 긁힌 자국. 강조 연출 없이 지나가게 둔다"),
         marker("▲시작지점", (0, 0.2, -4)),
-    ]))
+    ],
+    puzzle=puzzle("P1", 90, [], [], ptype="assembly", pieces=["P1_a", "P1_b"],
+                  at=(0, 0.5, 2), assembly_range=3.5,
+                  note="첫 퍼즐은 절대 막히면 안 된다. 실패 조건도 가짜 조각도 없다. "
+                       "여기서 배우는 건 '줍는다 → 맞춘다' 하나뿐이다")))
 
 # ═══════════════════════════════════════════════ Floor 1 · 갈라진 페이지들
 # 1C 는 앞뒤로 30 이나 되는 긴 방이라 기본 반경으로는 안쪽 끝이 F0 위에 걸친다.
@@ -148,6 +163,7 @@ AREAS.append(area("1D", "1D_다급한발자국", 1, P_1D, (16, 14), wall=5,
                "조각을 맞추면 '전임이 다급하게 향하는' 그림 → 놀람 포인트 #1"),
     ],
     puzzle=puzzle("P5", 240, None, None, ptype="assembly", pieces=["P5_a", "P5_b"],
+                  at=(0, 0.2, 5), assembly_range=4.0,   # 랜드마크_발자국그림 자리
                   note="진짜 조각 2개만 모아야 한다. 가짜를 골라내는 게 퍼즐")))
 
 AREAS.append(area("1E", "1E_첫번째봉인", 1, P_1E, (18, 16), wall=8,
@@ -295,6 +311,7 @@ AREAS.append(area("3A", "3A_복원의방", 3, P_3A, (32, 28), wall=0,
     ],
     puzzle=puzzle("P13", 480, None, None, ptype="assembly",
                   pieces=["P13_1","P13_2","P13_3","P13_4","P13_5","P13_6","P13_7"],
+                  at=(0, 0.6, -6), assembly_range=5.0,
                   note="그을음 각도 순서로 복원. 기준점은 1E에서 얻은 네 번째 조각. "
                        "피드백은 구간(초·중·후반)까지만")))
 
@@ -380,6 +397,20 @@ for pair in [("F0","1A"),("1A","1B"),("1B","1C"),("1C","1D"),("1D","1E"),
 #   손으로 적은 300줄짜리 좌표를 다시 검토할 필요가 없다.
 
 XZ_SCALE = 1.6
+
+# ─────────────────────────────────────────── 플레이어 이동 제원
+#
+# PlayerController 의 값을 그대로 옮겨 적은 것이다. 둘이 어긋나면
+# 아래 점프 검증이 아무것도 보장하지 못하므로 C# 을 고치면 여기도 고쳐야 한다.
+MOVE_SPEED_P   = 5.5
+GRAVITY        = 18.0
+JUMP_HEIGHT    = 1.2
+GLIDE_FALL     = 1.6
+GLIDE_DRIFT    = 1.4
+
+# 1B 의 바닥 틈. 여기가 P3 의 전부다 —
+# "빠진 조각은 찾을 수 없다. 다른 페이지를 접어 그림자로 덮어라"
+FLOOR_GAP_BASE = 4.0
 CAM_PITCH = 30.0            # PaperCamera.pitch 와 같아야 한다
 CAM_PAD   = 1.18            # 방 가장자리 여백
 CAM_DIST  = 90.0            # 직교 카메라를 뒤로 물리는 거리
@@ -402,11 +433,22 @@ def apply_xz_scale(s):
             o["pos"]["z"] = round(o["pos"]["z"] * s, 2)
             o["scale"]["x"] = round(o["scale"]["x"] * s, 2)
             o["scale"]["z"] = round(o["scale"]["z"] * s, 2)
+        q = a.get("puzzle")
+        if q and q.get("hasAt"):
+            q["at"]["x"] = round(q["at"]["x"] * s, 2)
+            q["at"]["z"] = round(q["at"]["z"] * s, 2)
+            q["assemblyRange"] = round(q["assemblyRange"] * s, 2)
     for r in RAMPS:
         for k in ("from", "to"):
             r[k]["x"] = round(r[k]["x"] * s, 2)
             r[k]["z"] = round(r[k]["z"] * s, 2)
         r["width"] = round(r["width"] * s, 2)
+
+    global FLOOR_GAP
+    FLOOR_GAP = round(FLOOR_GAP_BASE * s, 2)
+
+
+FLOOR_GAP = FLOOR_GAP_BASE
 
 
 def apply_room_cameras():
@@ -508,12 +550,133 @@ def seg_hits_box(p0, p1, c, e):
     return True
 
 
+# ═══════════════════════════════════════════════ 조명
+#
+# 아트 문서(Docs/02) 7절이 규칙을 못 박아 뒀다. 그대로 지킨다.
+#   · 주광원은 1개(탑 꼭대기). 방향이 항상 명확해야 퍼즐이 성립한다
+#   · 광량은 층이 올라갈수록 증가한다
+#   · 그림자 엣지는 선명하게 — 그림자가 곧 정답이라 흐릿하면 버그다
+#   · 보조광은 약한 앰비언트만. 두 번째 그림자를 만드는 광원은 금지
+#   · 색온도는 등불빛 #F2C879
+#
+# 그래서 강조광(accent)은 전부 그림자를 만들지 않는다.
+# 그림자를 안 만드는 광원은 "두 번째 그림자"를 만들지 않으므로 규칙에 어긋나지 않고,
+# "빛이 닿는 곳만 존재한다"는 컬러 규칙을 실제 조명으로 구현해 준다.
+#
+# 앰비언트를 0으로 두지 않는 이유
+#   팔레트에 '그림자 = #5C5648, 완전 검정 금지'라고 적혀 있다.
+#   앰비언트가 0이면 그림자가 새까매져서 그 규칙이 깨지고,
+#   무엇보다 그림자 안의 형태가 안 읽혀 퍼즐이 불가능해진다.
+
+# 층별 광량 — 위로 갈수록 밝아진다
+FLOOR_LIGHT = {
+    0: dict(sun=0.30, ambient=0.10, fog=0.020),   # 표지 · 게임에서 가장 어둡다
+    1: dict(sun=1.00, ambient=0.30, fog=0.012),   # 정돈 · 빛이 잘 든다
+    2: dict(sun=1.15, ambient=0.24, fog=0.010),   # 혼란 · 밝지만 대비가 세다 = 조각난 빛
+    3: dict(sun=1.55, ambient=0.38, fog=0.006),   # 개방
+}
+HIDDEN_LIGHT = dict(sun=0.90, ambient=0.22, fog=0.014)
+
+SHADOW_STRENGTH = 0.82   # 1.0 이면 그림자가 새까매진다
+
+
+# 랜드마크가 아니지만 반드시 눈에 띄어야 하는 설비.
+# 통째로 규칙을 만들지 않고 하나씩 고른 이유가 있다.
+#   · mat=="accent" 인 것 전부에 빛을 주면 2D 의 '기록_3_어긋남'까지 빛난다.
+#     넷 중 어긋난 하나를 찾는 게 P10 인데, 빛으로 찍어주면 퍼즐이 사라진다.
+#   · 위화감 ①②③(반쯤 접힌 페이지·깃털·진한 얼룩)도 빼야 한다.
+#     스토리보드가 "강조 연출 없이 지나가면서 마주치게"라고 못 박아 뒀다.
+FOCAL = {
+    "2C": ["고정표식_못자국"],   # 과거·현재의 공통 참조점. 못 찾으면 P9 가 불공정해진다
+    "3A": ["복원대"],           # 조각을 올리는 자리
+    "3B": ["열쇠구멍"],          # P14 의 목표
+    "3C": ["빛_점화대"],         # 이 방의 전부
+}
+
+# 그림자를 받아내는 면. 여기에 빛을 더하면 그림자 대비가 죽어 정답이 안 읽힌다.
+# 강조광을 이 근처에 두지 않는다.
+SHADOW_CANVAS_HINT = ("뒷벽", "판독벽", "벽_", "천장", "분리벽")
+
+
+def accent(name, pos, intensity, rng):
+    return dict(name=name,
+                pos=dict(x=round(pos[0], 2), y=round(pos[1], 2), z=round(pos[2], 2)),
+                intensity=intensity, range=rng)
+
+
+def apply_lighting():
+    exit_of = {}
+    for r in RAMPS:
+        exit_of.setdefault(r["fromId"], r["from"])
+
+    for a in AREAS:
+        base = FLOOR_LIGHT.get(a["floor"], HIDDEN_LIGHT) if a["id"] != "HD" else HIDDEN_LIGHT
+        a["light"] = dict(sun=base["sun"], ambient=base["ambient"],
+                          fog=base["fog"], shadowStrength=SHADOW_STRENGTH)
+
+        acc = []
+        for o in a["objects"]:
+            px, py, pz = o["pos"]["x"], o["pos"]["y"], o["pos"]["z"]
+
+            # 랜드마크 — 멀리서도 보이는 그 방의 목표물
+            if o["name"].startswith("랜드마크"):
+                # 뒷벽에 붙어 있는 랜드마크(1E 의 봉인된 페이지 같은 것)에는
+                # 등을 달지 않는다. 그 벽이 곧 그림자 캔버스라서, 램프를 달면
+                # 정답인 그림자가 씻겨 나간다. 이런 랜드마크는 빛이 아니라
+                # 그림자가 드러내야 한다.
+                on_canvas = (a["backWall"] > 0.01
+                             and abs(pz - a["size"]["z"] * 0.5) < 4.0)
+                if on_canvas:
+                    continue
+                strong = a["id"] == "F0"      # 표지에선 이것 하나만 빛난다
+                acc.append(accent("빛_" + o["name"], (px, py + 2.2, pz),
+                                  3.2 if strong else 1.7, 14 if strong else 6.5))
+
+            # 활성 주름은 미세하게 빛을 머금는다 (2A에서 세운 시각 규칙)
+            elif o["kind"] == "crease" and o.get("active"):
+                acc.append(accent("빛_" + o["name"], (px, py + 1.2, pz), 0.9, 5))
+
+            # 주울 수 있는 조각. 가짜도 똑같이 빛나야 한다 —
+            # 진짜만 빛나면 결을 볼 필요 없이 답이 나온다
+            elif o["kind"] == "piece":
+                # 표지는 "빛을 받는 건 걸쇠 하나뿐"인 방이다.
+                # 그래도 조각이 아예 안 보이면 찾을 방법이 없으므로,
+                # 걸쇠를 보러 간 뒤에야 겨우 알아볼 만큼만 남긴다.
+                dim = a["id"] == "F0"
+                acc.append(accent("빛_" + o["name"], (px, py + 1.4, pz),
+                                  0.35 if dim else 1.1, 3.0 if dim else 5))
+
+            elif o["name"] in FOCAL.get(a["id"], ()):
+                acc.append(accent("빛_" + o["name"], (px, py + 2.0, pz), 1.8, 9))
+
+        # 다음 목적지 쪽이 항상 미세하게 더 밝다 (Docs/07 길찾기)
+        # 표지만 예외 — 걸쇠를 풀기 전에는 출구가 없다
+        # 낮고 좁게 깐다. 문간 바닥에 고이는 정도여야지,
+        # 크게 잡으면 출구 쪽 벽까지 밝혀서 그 벽에 지는 그림자를 씻어낸다.
+        # "미세하게 더 밝다"가 원래 문서의 표현이기도 하다.
+        # 문간에 딱 붙이지 않고 방 안쪽으로 6할 지점에 둔다.
+        # 출구는 대개 +z 쪽 가장자리이고 뒷벽도 거기 있어서, 문간에 두면
+        # 그 벽에 지는 그림자를 씻어낸다. 안쪽에 두면 "저쪽이 밝다"는
+        # 방향 신호는 그대로면서 벽은 건드리지 않는다.
+        e = exit_of.get(a["id"])
+        if e is not None and a["id"] != "F0":
+            ex = (e["x"] - a["pos"]["x"]) * 0.6
+            ez = (e["z"] - a["pos"]["z"]) * 0.6
+            acc.append(accent("빛_출구", (ex, 1.0, ez), 1.0, 7))
+
+        a["accents"] = acc
+
+
+apply_lighting()
+
+
 # ═══════════════════════════════════════════════ 출력 / 검증
 def build():
     out = dict(areas=AREAS, ramps=RAMPS,
                meta=dict(spiralRadius1=R1, spiralRadius2=R2, slopeLimit=SLOPE_LIMIT,
                          glideDrop=GLIDE_DROP, foldRise=FOLD_RISE,
-                         xzScale=XZ_SCALE, camPitch=CAM_PITCH, camPad=CAM_PAD))
+                         xzScale=XZ_SCALE, camPitch=CAM_PITCH, camPad=CAM_PAD,
+                         floorGap=FLOOR_GAP, jumpHeight=JUMP_HEIGHT))
     d = "Assets/_BookTower/Level"
     os.makedirs(d, exist_ok=True)
     p = os.path.join(d, "level_layout.json")
@@ -693,6 +856,86 @@ def validate():
                     errs.append(
                         f"{a['id']}: '{o['name']}'(높이 {o['scale']['y']:.1f}) 뒤 사각지대에 "
                         f"'{t['name']}' 가 들어감 — 카메라에서 안 보인다")
+
+    # 8) 강조광이 그림자를 씻어내지 않는가
+    #
+    #    이 게임은 그림자가 정답이다. 그림자를 받아내는 면 가까이에 빛을 하나 더 두면
+    #    대비가 죽어서 정답이 안 읽힌다. 아트 문서의 "보조광 금지"와 같은 취지다.
+    #
+    #    단, 벽이라고 다 그림자 면은 아니다.
+    #    접이면이 없는 방(2E 는 주름 순서 퍼즐이다)의 벽은 그냥 벽이고,
+    #    거기 그어진 주름은 오히려 빛을 머금어야 한다 — 2A 에서 세운 규칙이다.
+    #    그래서 접기 퍼즐이 있는 방의 수직면만 그림자 면으로 본다. 천장은 제외한다.
+    for a in AREAS:
+        pz = a.get("puzzle")
+        if not pz or pz.get("type") != "fold":
+            continue
+
+        canvases = [o for o in a["objects"]
+                    if o["kind"] == "box" and o["scale"]["y"] >= 2.0
+                    and any(h in o["name"] for h in SHADOW_CANVAS_HINT)
+                    and "천장" not in o["name"]]
+        if a["backWall"] > 0.01:
+            canvases.append(dict(name="뒷벽(자동)",
+                                 pos=dict(x=0.0, y=a["backWall"] * 0.5, z=a["size"]["z"] * 0.5),
+                                 scale=dict(x=a["size"]["x"], y=a["backWall"], z=0.3)))
+
+        for ac in a.get("accents", []):
+            for c in canvases:
+                dx = abs(ac["pos"]["x"] - c["pos"]["x"]) - c["scale"]["x"] * 0.5
+                dz = abs(ac["pos"]["z"] - c["pos"]["z"]) - c["scale"]["z"] * 0.5
+                d = math.hypot(max(dx, 0.0), max(dz, 0.0))
+                if d < ac["range"] * 0.55:
+                    errs.append(f"{a['id']}: 강조광 '{ac['name']}' 이 그림자 면 "
+                                f"'{c['name']}' 에서 {d:.1f} — 그림자 대비가 죽는다 "
+                                f"(도달 {ac['range']:.0f})")
+
+    # 9) 점프가 퍼즐을 건너뛰지 않는가
+    #
+    #    플레이어 스펙(Docs/04)이 "자유 비행 금지"를 명시하고 어떤 퍼즐이 깨지는지까지
+    #    적어 뒀다. 점프는 자유 비행의 축소판이라 같은 검사를 받아야 한다.
+    #
+    #    특히 점프 직후 활공을 이어 붙이면 체공이 길어져 1B 의 틈을 그냥 넘는다.
+    #    그래서 코드에서 '점프로 뜬 동안은 활공 금지'를 걸었고, 여기서 그 전제 아래
+    #    실제로 못 넘는지 확인한다. 전제가 깨지면 이 검사도 같이 깨져야 한다.
+    t_up = math.sqrt(2 * JUMP_HEIGHT / GRAVITY)
+    jump_dist = MOVE_SPEED_P * 2 * t_up
+    chain_dist = MOVE_SPEED_P * t_up + (MOVE_SPEED_P + GLIDE_DRIFT) * (JUMP_HEIGHT / GLIDE_FALL)
+
+    if jump_dist >= FLOOR_GAP * 0.85:
+        errs.append(f"점프 도달 거리 {jump_dist:.1f} 가 1B 의 틈 {FLOOR_GAP:.1f} 에 너무 가깝다 "
+                    f"— P3(그림자로 길 잇기)를 그냥 뛰어넘게 된다")
+    if chain_dist < FLOOR_GAP:
+        warns.append(f"점프+활공 도달 {chain_dist:.1f} < 틈 {FLOOR_GAP:.1f} — "
+                     f"활공 금지 없이도 안전하지만, 값이 바뀌면 다시 위험해진다")
+
+    # 접이면을 세웠을 때의 높이를 점프로 넘어버리면 접을 이유가 없어진다
+    for a in AREAS:
+        for o in a["objects"]:
+            if o["kind"] != "fold":
+                continue
+            upright = o["scale"]["z"]          # 90도로 세우면 z 길이만큼 선다
+            if JUMP_HEIGHT >= upright * 0.8:
+                errs.append(f"{a['id']}: 점프 {JUMP_HEIGHT} 로 접이면 '{o['name']}'"
+                            f"(세우면 {upright:.1f}) 를 넘는다 — 접을 이유가 사라진다")
+
+    # 10) 조립 퍼즐의 '맞추는 자리'가 실제 설비 위에 있는가
+    #
+    #    조각을 다 모아도 이 자리까지 가야 완성된다. 자리가 허공이면
+    #    플레이어는 조각을 들고 방을 헤매게 되고, 아무 단서도 없다.
+    for a in AREAS:
+        q = a.get("puzzle")
+        if not q or not q.get("hasAt"):
+            continue
+        near = None
+        for o in a["objects"]:
+            d = math.hypot(o["pos"]["x"] - q["at"]["x"], o["pos"]["z"] - q["at"]["z"])
+            if near is None or d < near[0]:
+                near = (d, o["name"])
+        if near is None or near[0] > 2.5:
+            errs.append(f"{a['id']} {q['id']}: 맞추는 자리가 허공이다 "
+                        f"(가장 가까운 것 {near[1] if near else '없음'} "
+                        f"{near[0]:.1f} 떨어짐) — 어디로 가져가야 할지 알 수 없다")
 
     print(f"구역 {len(AREAS)} / 경사로 {len(RAMPS)}")
     print(f"\n오류 {len(errs)}건")

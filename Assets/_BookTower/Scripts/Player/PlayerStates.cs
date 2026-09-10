@@ -23,6 +23,16 @@ namespace BookTower.PlayerSystem
             p.FaceDirection(dir);
             p.RecordSafePoint();
 
+            // 스페이스: 땅에서는 점프, 공중에서는 활공.
+            // v = sqrt(2 * g * h) — 원하는 높이에서 필요한 초기 속도를 역산한다.
+            if (p.Input.JumpPressed)
+            {
+                p.VerticalVelocity = Mathf.Sqrt(2f * Mathf.Abs(p.Gravity) * p.JumpHeight);
+                p.JumpedThisAir = true;
+                p.Machine.Change(p.Airborne);
+                return;
+            }
+
             if (!p.Controller.isGrounded)
                 p.Machine.Change(p.Airborne);
         }
@@ -50,7 +60,11 @@ namespace BookTower.PlayerSystem
             }
 
             // 하강 중에만 활공 진입 — 점프처럼 쓰이는 걸 막는다
-            if (p.Input.GlideHeld && p.VerticalVelocity < 0f)
+            // 점프로 뜬 동안에는 활공을 막는다.
+            // 이어 붙이면 체공이 4.0 → 7.2 로 늘어나 1B 의 틈(6.4)을 그냥 넘고,
+            // P3 의 "다른 페이지를 접어 그림자로 길을 잇는다"가 통째로 무의미해진다.
+            // 발을 헛디뎌 떨어지는 경우는 그대로 활공할 수 있다.
+            if (p.Input.GlideHeld && p.VerticalVelocity < 0f && !p.JumpedThisAir)
                 p.Machine.Change(p.Glide);
         }
 

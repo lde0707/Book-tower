@@ -24,6 +24,13 @@ namespace BookTower.Rooms
         [Tooltip("이 방 바닥의 월드 높이. 부피가 겹치는 방을 구분하는 기준")]
         [SerializeField] private float floorY;
 
+        [Header("조명")]
+        [Tooltip("이 방에서의 주광원 세기. 층이 올라갈수록 커진다")]
+        [SerializeField] private float sunIntensity = 1f;
+        [SerializeField] private float ambient = 0.3f;
+        [SerializeField] private float fog = 0.01f;
+        [SerializeField] private float shadowStrength = 0.82f;
+
         [Header("카메라")]
         [Tooltip("이 방을 보여줄 기본 스냅 각도 (0~3)")]
         [SerializeField] private int camYaw;
@@ -32,6 +39,7 @@ namespace BookTower.Rooms
 
         private Renderer[] renderers;
         private RoomWall[] walls;
+        private Light[] lights;
         private bool visible = true;
 
         public string RoomId => roomId;
@@ -39,6 +47,10 @@ namespace BookTower.Rooms
         public float CamPad => camPad;
         public bool IsVisible => visible;
         public float FloorY => floorY;
+        public float SunIntensity => sunIntensity;
+        public float Ambient => ambient;
+        public float Fog => fog;
+        public float ShadowStrength => shadowStrength;
 
         public Bounds WorldBounds => new(transform.position + boundsCenter, boundsSize);
 
@@ -46,6 +58,7 @@ namespace BookTower.Rooms
         {
             renderers = GetComponentsInChildren<Renderer>(true);
             walls = GetComponentsInChildren<RoomWall>(true);
+            lights = GetComponentsInChildren<Light>(true);
         }
 
         /// <summary>
@@ -70,8 +83,16 @@ namespace BookTower.Rooms
         {
             if (renderers == null) return;
             visible = on;
+
             foreach (Renderer r in renderers)
                 if (r != null) r.enabled = on;
+
+            // 강조광도 같이 꺼야 한다. Light 는 Renderer 가 아니라서
+            // 위 반복문이 건드리지 못하고, 안 끄면 숨긴 방의 등이
+            // 지금 방까지 밝혀서 그림자 대비가 무너진다.
+            if (lights != null)
+                foreach (Light l in lights)
+                    if (l != null) l.enabled = on;
         }
 
         /// <summary>카메라 각도가 바뀌면 가리는 벽도 바뀐다.</summary>

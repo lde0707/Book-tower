@@ -35,6 +35,20 @@ namespace BookTower.Puzzles
 
         private Transform player;
 
+        /// <summary>플레이어. 없으면 null — 하위 퍼즐이 거리 판정에 쓴다</summary>
+        protected Transform Player
+        {
+            get
+            {
+                if (player == null)
+                {
+                    var pc = FindFirstObjectByType<BookTower.PlayerSystem.PlayerController>();
+                    if (pc != null) player = pc.transform;
+                }
+                return player;
+            }
+        }
+
         public string PuzzleId => puzzleId;
         public float TargetSeconds => targetSeconds;
         public PuzzleState State { get; private set; } = PuzzleState.Locked;

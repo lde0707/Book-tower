@@ -34,7 +34,7 @@
      "face": ""
     },
     {
-     "kind": "box",
+     "kind": "piece",
      "name": "조각_A",
      "pos": {
       "x": -7.2,
@@ -42,16 +42,20 @@
       "z": 5.6
      },
      "scale": {
-      "x": 1.44,
-      "y": 0.1,
-      "z": 1.44
+      "x": 1.6,
+      "y": 0.12,
+      "z": 1.92
      },
      "mat": "light",
      "note": "",
+     "pieceId": "P1_a",
+     "label": "표지 조각 1",
+     "areaId": "F0",
+     "decoy": false,
      "face": ""
     },
     {
-     "kind": "box",
+     "kind": "piece",
      "name": "조각_B",
      "pos": {
       "x": 7.2,
@@ -59,12 +63,33 @@
       "z": -0.8
      },
      "scale": {
-      "x": 1.44,
-      "y": 0.1,
-      "z": 1.44
+      "x": 1.6,
+      "y": 0.12,
+      "z": 1.92
      },
      "mat": "light",
      "note": "",
+     "pieceId": "P1_b",
+     "label": "표지 조각 2",
+     "areaId": "F0",
+     "decoy": false,
+     "face": ""
+    },
+    {
+     "kind": "box",
+     "name": "위화감_긁힌자국",
+     "pos": {
+      "x": 1.44,
+      "y": 0.55,
+      "z": 3.2
+     },
+     "scale": {
+      "x": 0.56,
+      "y": 0.25,
+      "z": 0.1
+     },
+     "mat": "shade",
+     "note": "위화감 ① 걸쇠 옆면에 최근에 긁힌 자국. 강조 연출 없이 지나가게 둔다",
      "face": ""
     },
     {
@@ -85,9 +110,66 @@
      "face": ""
     }
    ],
-   "puzzle": null,
+   "puzzle": {
+    "id": "P1",
+    "type": "assembly",
+    "targetSeconds": 90,
+    "answer": [],
+    "panels": [],
+    "pieces": [
+     "P1_a",
+     "P1_b"
+    ],
+    "creases": [],
+    "note": "첫 퍼즐은 절대 막히면 안 된다. 실패 조건도 가짜 조각도 없다. 여기서 배우는 건 '줍는다 → 맞춘다' 하나뿐이다",
+    "at": {
+     "x": 0.0,
+     "y": 0.5,
+     "z": 3.2
+    },
+    "hasAt": 1,
+    "assemblyRange": 5.6
+   },
    "camYaw": 0,
-   "camPad": 1.18
+   "camPad": 1.18,
+   "light": {
+    "sun": 0.3,
+    "ambient": 0.1,
+    "fog": 0.02,
+    "shadowStrength": 0.82
+   },
+   "accents": [
+    {
+     "name": "빛_랜드마크_걸쇠",
+     "pos": {
+      "x": 0.0,
+      "y": 2.7,
+      "z": 3.2
+     },
+     "intensity": 3.2,
+     "range": 14
+    },
+    {
+     "name": "빛_조각_A",
+     "pos": {
+      "x": -7.2,
+      "y": 1.65,
+      "z": 5.6
+     },
+     "intensity": 0.35,
+     "range": 3.0
+    },
+    {
+     "name": "빛_조각_B",
+     "pos": {
+      "x": 7.2,
+      "y": 1.65,
+      "z": -0.8
+     },
+     "intensity": 0.35,
+     "range": 3.0
+    }
+   ]
   },
   {
    "id": "1A",
@@ -205,10 +287,45 @@
     ],
     "pieces": [],
     "creases": [],
-    "note": "목표 지점에서 확인한 방향대로 접어야 한다. 접는 자리에선 목표가 안 보인다"
+    "note": "목표 지점에서 확인한 방향대로 접어야 한다. 접는 자리에선 목표가 안 보인다",
+    "at": {
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "hasAt": 0,
+    "assemblyRange": 0.0
    },
    "camYaw": 0,
-   "camPad": 1.18
+   "camPad": 1.18,
+   "light": {
+    "sun": 1.0,
+    "ambient": 0.3,
+    "fog": 0.012,
+    "shadowStrength": 0.82
+   },
+   "accents": [
+    {
+     "name": "빛_랜드마크_세워진페이지",
+     "pos": {
+      "x": 0.0,
+      "y": 4.7,
+      "z": 0.0
+     },
+     "intensity": 1.7,
+     "range": 6.5
+    },
+    {
+     "name": "빛_출구",
+     "pos": {
+      "x": 6.72,
+      "y": 1.0,
+      "z": -6.72
+     },
+     "intensity": 1.0,
+     "range": 7
+    }
+   ]
   },
   {
    "id": "1B",
@@ -291,10 +408,45 @@
     ],
     "pieces": [],
     "creases": [],
-    "note": "빠진 조각은 찾을 수 없다. 다른 페이지를 접어 그 그림자로 간극을 덮는다"
+    "note": "빠진 조각은 찾을 수 없다. 다른 페이지를 접어 그 그림자로 간극을 덮는다",
+    "at": {
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "hasAt": 0,
+    "assemblyRange": 0.0
    },
    "camYaw": 0,
-   "camPad": 1.18
+   "camPad": 1.18,
+   "light": {
+    "sun": 1.0,
+    "ambient": 0.3,
+    "fog": 0.012,
+    "shadowStrength": 0.82
+   },
+   "accents": [
+    {
+     "name": "빛_랜드마크_찢겨나간_간극",
+     "pos": {
+      "x": 0.0,
+      "y": 2.8,
+      "z": 0.8
+     },
+     "intensity": 1.7,
+     "range": 6.5
+    },
+    {
+     "name": "빛_출구",
+     "pos": {
+      "x": -4.66,
+      "y": 1.0,
+      "z": -6.72
+     },
+     "intensity": 1.0,
+     "range": 7
+    }
+   ]
   },
   {
    "id": "1C",
@@ -448,10 +600,45 @@
     ],
     "pieces": [],
     "creases": [],
-    "note": "두 방의 그림자가 교차하는 지점에 통로가 드러난다. 반사 페이지로 왕복 없이 확인"
+    "note": "두 방의 그림자가 교차하는 지점에 통로가 드러난다. 반사 페이지로 왕복 없이 확인",
+    "at": {
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "hasAt": 0,
+    "assemblyRange": 0.0
    },
    "camYaw": 0,
-   "camPad": 1.18
+   "camPad": 1.18,
+   "light": {
+    "sun": 1.0,
+    "ambient": 0.3,
+    "fog": 0.012,
+    "shadowStrength": 0.82
+   },
+   "accents": [
+    {
+     "name": "빛_랜드마크_반사페이지",
+     "pos": {
+      "x": 0.0,
+      "y": 4.2,
+      "z": 0.0
+     },
+     "intensity": 1.7,
+     "range": 6.5
+    },
+    {
+     "name": "빛_출구",
+     "pos": {
+      "x": -7.68,
+      "y": 1.0,
+      "z": 11.1
+     },
+     "intensity": 1.0,
+     "range": 7
+    }
+   ]
   },
   {
    "id": "1D",
@@ -578,10 +765,65 @@
      "P5_b"
     ],
     "creases": [],
-    "note": "진짜 조각 2개만 모아야 한다. 가짜를 골라내는 게 퍼즐"
+    "note": "진짜 조각 2개만 모아야 한다. 가짜를 골라내는 게 퍼즐",
+    "at": {
+     "x": 0.0,
+     "y": 0.2,
+     "z": 8.0
+    },
+    "hasAt": 1,
+    "assemblyRange": 6.4
    },
    "camYaw": 0,
-   "camPad": 1.18
+   "camPad": 1.18,
+   "light": {
+    "sun": 1.0,
+    "ambient": 0.3,
+    "fog": 0.012,
+    "shadowStrength": 0.82
+   },
+   "accents": [
+    {
+     "name": "빛_조각_1",
+     "pos": {
+      "x": -8.0,
+      "y": 1.65,
+      "z": -6.4
+     },
+     "intensity": 1.1,
+     "range": 5
+    },
+    {
+     "name": "빛_조각_2",
+     "pos": {
+      "x": 1.6,
+      "y": 1.65,
+      "z": 3.2
+     },
+     "intensity": 1.1,
+     "range": 5
+    },
+    {
+     "name": "빛_조각_3_레드헤링",
+     "pos": {
+      "x": 9.6,
+      "y": 1.65,
+      "z": 8.0
+     },
+     "intensity": 1.1,
+     "range": 5
+    },
+    {
+     "name": "빛_출구",
+     "pos": {
+      "x": 6.72,
+      "y": 1.0,
+      "z": 6.72
+     },
+     "intensity": 1.0,
+     "range": 7
+    }
+   ]
   },
   {
    "id": "1E",
@@ -704,10 +946,35 @@
     ],
     "pieces": [],
     "creases": [],
-    "note": "세 그림자가 합쳐져 문양이 되면 봉인 해제"
+    "note": "세 그림자가 합쳐져 문양이 되면 봉인 해제",
+    "at": {
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "hasAt": 0,
+    "assemblyRange": 0.0
    },
    "camYaw": 0,
-   "camPad": 1.18
+   "camPad": 1.18,
+   "light": {
+    "sun": 1.0,
+    "ambient": 0.3,
+    "fog": 0.012,
+    "shadowStrength": 0.82
+   },
+   "accents": [
+    {
+     "name": "빛_출구",
+     "pos": {
+      "x": 8.64,
+      "y": 1.0,
+      "z": -5.98
+     },
+     "intensity": 1.0,
+     "range": 7
+    }
+   ]
   },
   {
    "id": "2A",
@@ -805,7 +1072,45 @@
    ],
    "puzzle": null,
    "camYaw": 0,
-   "camPad": 1.18
+   "camPad": 1.18,
+   "light": {
+    "sun": 1.15,
+    "ambient": 0.24,
+    "fog": 0.01,
+    "shadowStrength": 0.82
+   },
+   "accents": [
+    {
+     "name": "빛_주름_활성",
+     "pos": {
+      "x": 0.0,
+      "y": 1.33,
+      "z": 1.6
+     },
+     "intensity": 0.9,
+     "range": 5
+    },
+    {
+     "name": "빛_랜드마크_빛나는주름",
+     "pos": {
+      "x": 0.0,
+      "y": 2.7,
+      "z": 1.6
+     },
+     "intensity": 1.7,
+     "range": 6.5
+    },
+    {
+     "name": "빛_출구",
+     "pos": {
+      "x": -5.76,
+      "y": 1.0,
+      "z": -5.76
+     },
+     "intensity": 1.0,
+     "range": 7
+    }
+   ]
   },
   {
    "id": "2B",
@@ -905,10 +1210,35 @@
     ],
     "pieces": [],
     "creases": [],
-    "note": "재생 화면에서 손동작은 가려져 있다. 결과 그림자만 보고 각도를 역산"
+    "note": "재생 화면에서 손동작은 가려져 있다. 결과 그림자만 보고 각도를 역산",
+    "at": {
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "hasAt": 0,
+    "assemblyRange": 0.0
    },
    "camYaw": 0,
-   "camPad": 1.18
+   "camPad": 1.18,
+   "light": {
+    "sun": 1.15,
+    "ambient": 0.24,
+    "fog": 0.01,
+    "shadowStrength": 0.82
+   },
+   "accents": [
+    {
+     "name": "빛_출구",
+     "pos": {
+      "x": -6.72,
+      "y": 1.0,
+      "z": 6.72
+     },
+     "intensity": 1.0,
+     "range": 7
+    }
+   ]
   },
   {
    "id": "2C",
@@ -1008,10 +1338,55 @@
     ],
     "pieces": [],
     "creases": [],
-    "note": "기억은 지금과 다르게 접혀 있던 시절의 장면. 못자국을 기준으로 현재 위치를 계산"
+    "note": "기억은 지금과 다르게 접혀 있던 시절의 장면. 못자국을 기준으로 현재 위치를 계산",
+    "at": {
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "hasAt": 0,
+    "assemblyRange": 0.0
    },
    "camYaw": 0,
-   "camPad": 1.18
+   "camPad": 1.18,
+   "light": {
+    "sun": 1.15,
+    "ambient": 0.24,
+    "fog": 0.01,
+    "shadowStrength": 0.82
+   },
+   "accents": [
+    {
+     "name": "빛_고정표식_못자국",
+     "pos": {
+      "x": -9.6,
+      "y": 2.14,
+      "z": 4.8
+     },
+     "intensity": 1.8,
+     "range": 9
+    },
+    {
+     "name": "빛_랜드마크_두겹페이지",
+     "pos": {
+      "x": 0.0,
+      "y": 3.7,
+      "z": -9.6
+     },
+     "intensity": 1.7,
+     "range": 6.5
+    },
+    {
+     "name": "빛_출구",
+     "pos": {
+      "x": 8.64,
+      "y": 1.0,
+      "z": 8.64
+     },
+     "intensity": 1.0,
+     "range": 7
+    }
+   ]
   },
   {
    "id": "2D",
@@ -1134,7 +1509,35 @@
    ],
    "puzzle": null,
    "camYaw": 0,
-   "camPad": 1.18
+   "camPad": 1.18,
+   "light": {
+    "sun": 1.15,
+    "ambient": 0.24,
+    "fog": 0.01,
+    "shadowStrength": 0.82
+   },
+   "accents": [
+    {
+     "name": "빛_랜드마크_나란한기록",
+     "pos": {
+      "x": 0.0,
+      "y": 5.2,
+      "z": -3.2
+     },
+     "intensity": 1.7,
+     "range": 6.5
+    },
+    {
+     "name": "빛_출구",
+     "pos": {
+      "x": 7.68,
+      "y": 1.0,
+      "z": -6.24
+     },
+     "intensity": 1.0,
+     "range": 7
+    }
+   ]
   },
   {
    "id": "2E",
@@ -1369,10 +1772,95 @@
      "2E_4",
      "2E_5"
     ],
-    "note": "마모가 오래된 것부터. 틀려도 단서 소실 없이 8초 후 초기화"
+    "note": "마모가 오래된 것부터. 틀려도 단서 소실 없이 8초 후 초기화",
+    "at": {
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "hasAt": 0,
+    "assemblyRange": 0.0
    },
    "camYaw": 0,
-   "camPad": 1.18
+   "camPad": 1.18,
+   "light": {
+    "sun": 1.15,
+    "ambient": 0.24,
+    "fog": 0.01,
+    "shadowStrength": 0.82
+   },
+   "accents": [
+    {
+     "name": "빛_주름_1_가장오래됨",
+     "pos": {
+      "x": 0.0,
+      "y": 2.7,
+      "z": 16.64
+     },
+     "intensity": 0.9,
+     "range": 5
+    },
+    {
+     "name": "빛_주름_2",
+     "pos": {
+      "x": 16.64,
+      "y": 2.7,
+      "z": 0.0
+     },
+     "intensity": 0.9,
+     "range": 5
+    },
+    {
+     "name": "빛_주름_3",
+     "pos": {
+      "x": 0.0,
+      "y": 2.7,
+      "z": -16.64
+     },
+     "intensity": 0.9,
+     "range": 5
+    },
+    {
+     "name": "빛_주름_4",
+     "pos": {
+      "x": -16.64,
+      "y": 2.7,
+      "z": 0.0
+     },
+     "intensity": 0.9,
+     "range": 5
+    },
+    {
+     "name": "빛_주름_5_가장최근",
+     "pos": {
+      "x": 0.0,
+      "y": 8.0,
+      "z": 0.0
+     },
+     "intensity": 0.9,
+     "range": 5
+    },
+    {
+     "name": "빛_랜드마크_사방의주름",
+     "pos": {
+      "x": 0.0,
+      "y": 5.2,
+      "z": 0.0
+     },
+     "intensity": 1.7,
+     "range": 6.5
+    },
+    {
+     "name": "빛_출구",
+     "pos": {
+      "x": -10.56,
+      "y": 1.0,
+      "z": -8.58
+     },
+     "intensity": 1.0,
+     "range": 7
+    }
+   ]
   },
   {
    "id": "2F",
@@ -1461,7 +1949,25 @@
    ],
    "puzzle": null,
    "camYaw": 0,
-   "camPad": 1.18
+   "camPad": 1.18,
+   "light": {
+    "sun": 1.15,
+    "ambient": 0.24,
+    "fog": 0.01,
+    "shadowStrength": 0.82
+   },
+   "accents": [
+    {
+     "name": "빛_출구",
+     "pos": {
+      "x": 0.0,
+      "y": 1.0,
+      "z": 4.8
+     },
+     "intensity": 1.0,
+     "range": 7
+    }
+   ]
   },
   {
    "id": "3A",
@@ -1933,10 +2439,115 @@
      "P13_7"
     ],
     "creases": [],
-    "note": "그을음 각도 순서로 복원. 기준점은 1E에서 얻은 네 번째 조각. 피드백은 구간(초·중·후반)까지만"
+    "note": "그을음 각도 순서로 복원. 기준점은 1E에서 얻은 네 번째 조각. 피드백은 구간(초·중·후반)까지만",
+    "at": {
+     "x": 0.0,
+     "y": 0.6,
+     "z": -9.6
+    },
+    "hasAt": 1,
+    "assemblyRange": 8.0
    },
    "camYaw": 0,
-   "camPad": 1.18
+   "camPad": 1.18,
+   "light": {
+    "sun": 1.55,
+    "ambient": 0.38,
+    "fog": 0.006,
+    "shadowStrength": 0.82
+   },
+   "accents": [
+    {
+     "name": "빛_복원대",
+     "pos": {
+      "x": 0.0,
+      "y": 2.6,
+      "z": -9.6
+     },
+     "intensity": 1.8,
+     "range": 9
+    },
+    {
+     "name": "빛_조각_p1",
+     "pos": {
+      "x": -17.6,
+      "y": 1.65,
+      "z": -14.4
+     },
+     "intensity": 1.1,
+     "range": 5
+    },
+    {
+     "name": "빛_조각_p2",
+     "pos": {
+      "x": -6.4,
+      "y": 1.65,
+      "z": -17.6
+     },
+     "intensity": 1.1,
+     "range": 5
+    },
+    {
+     "name": "빛_조각_p3",
+     "pos": {
+      "x": 4.8,
+      "y": 1.65,
+      "z": -16.0
+     },
+     "intensity": 1.1,
+     "range": 5
+    },
+    {
+     "name": "빛_조각_p4",
+     "pos": {
+      "x": 16.0,
+      "y": 1.65,
+      "z": -11.2
+     },
+     "intensity": 1.1,
+     "range": 5
+    },
+    {
+     "name": "빛_조각_p5",
+     "pos": {
+      "x": 20.8,
+      "y": 1.65,
+      "z": 1.6
+     },
+     "intensity": 1.1,
+     "range": 5
+    },
+    {
+     "name": "빛_조각_p6",
+     "pos": {
+      "x": 14.4,
+      "y": 1.65,
+      "z": 14.4
+     },
+     "intensity": 1.1,
+     "range": 5
+    },
+    {
+     "name": "빛_조각_p7",
+     "pos": {
+      "x": -19.2,
+      "y": 1.65,
+      "z": 12.8
+     },
+     "intensity": 1.1,
+     "range": 5
+    },
+    {
+     "name": "빛_출구",
+     "pos": {
+      "x": 0.0,
+      "y": 1.0,
+      "z": 13.44
+     },
+     "intensity": 1.0,
+     "range": 7
+    }
+   ]
   },
   {
    "id": "3B",
@@ -2127,10 +2738,45 @@
     ],
     "pieces": [],
     "creases": [],
-    "note": "세 조건이 서로를 무너뜨린다. 유일해는 C면을 '가로막는 벽'이 아니라 '빛을 꺾는 반사면'으로 쓰는 각도"
+    "note": "세 조건이 서로를 무너뜨린다. 유일해는 C면을 '가로막는 벽'이 아니라 '빛을 꺾는 반사면'으로 쓰는 각도",
+    "at": {
+     "x": 0.0,
+     "y": 0.0,
+     "z": 0.0
+    },
+    "hasAt": 0,
+    "assemblyRange": 0.0
    },
    "camYaw": 0,
-   "camPad": 1.18
+   "camPad": 1.18,
+   "light": {
+    "sun": 1.55,
+    "ambient": 0.38,
+    "fog": 0.006,
+    "shadowStrength": 0.82
+   },
+   "accents": [
+    {
+     "name": "빛_열쇠구멍",
+     "pos": {
+      "x": 0.0,
+      "y": 4.2,
+      "z": 14.08
+     },
+     "intensity": 1.8,
+     "range": 9
+    },
+    {
+     "name": "빛_출구",
+     "pos": {
+      "x": 0.0,
+      "y": 1.0,
+      "z": 8.64
+     },
+     "intensity": 1.0,
+     "range": 7
+    }
+   ]
   },
   {
    "id": "3C",
@@ -2202,7 +2848,25 @@
    ],
    "puzzle": null,
    "camYaw": 0,
-   "camPad": 1.18
+   "camPad": 1.18,
+   "light": {
+    "sun": 1.55,
+    "ambient": 0.38,
+    "fog": 0.006,
+    "shadowStrength": 0.82
+   },
+   "accents": [
+    {
+     "name": "빛_빛_점화대",
+     "pos": {
+      "x": 0.0,
+      "y": 2.6,
+      "z": 6.4
+     },
+     "intensity": 1.8,
+     "range": 9
+    }
+   ]
   },
   {
    "id": "HD",
@@ -2276,7 +2940,25 @@
    ],
    "puzzle": null,
    "camYaw": 0,
-   "camPad": 1.18
+   "camPad": 1.18,
+   "light": {
+    "sun": 0.9,
+    "ambient": 0.22,
+    "fog": 0.014,
+    "shadowStrength": 0.82
+   },
+   "accents": [
+    {
+     "name": "빛_랜드마크_축소된탑",
+     "pos": {
+      "x": 0.0,
+      "y": 3.2,
+      "z": 4.8
+     },
+     "intensity": 1.7,
+     "range": 6.5
+    }
+   ]
   }
  ],
  "ramps": [
@@ -2527,6 +3209,8 @@
   "foldRise": 3.5,
   "xzScale": 1.6,
   "camPitch": 30.0,
-  "camPad": 1.18
+  "camPad": 1.18,
+  "floorGap": 6.4,
+  "jumpHeight": 1.2
  }
 }

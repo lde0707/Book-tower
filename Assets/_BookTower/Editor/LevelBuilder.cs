@@ -57,6 +57,10 @@ namespace BookTower.EditorTools
         public string[] pieces;
         public string[] creases;
         public string note;
+
+        public V3 at;              // 이 퍼즐을 푸는 자리 (조립 퍼즐용)
+        public int hasAt;
+        public float assemblyRange;
     }
 
     [Serializable]
@@ -74,6 +78,27 @@ namespace BookTower.EditorTools
 
         public int camYaw;
         public float camPad;
+
+        public LightDef light;
+        public AccentDef[] accents;
+    }
+
+    [Serializable]
+    public class LightDef
+    {
+        public float sun;
+        public float ambient;
+        public float fog;
+        public float shadowStrength;
+    }
+
+    [Serializable]
+    public class AccentDef
+    {
+        public string name;
+        public V3 pos;
+        public float intensity;
+        public float range;
     }
 
     [Serializable]
@@ -89,10 +114,19 @@ namespace BookTower.EditorTools
     }
 
     [Serializable]
+    public class MetaDef
+    {
+        public float floorGap;
+        public float jumpHeight;
+        public float xzScale;
+    }
+
+    [Serializable]
     public class LevelDef
     {
         public AreaDef[] areas;
         public RampDef[] ramps;
+        public MetaDef meta;
     }
 
     /// <summary>
@@ -116,7 +150,11 @@ namespace BookTower.EditorTools
             };
         }
 
+        /// <summary>등불빛. 이 게임에서 채도가 있는 유일한 색이다</summary>
+        private static readonly Color LightWarm = new(0.949f, 0.784f, 0.474f);
+
         private static Palette pal;
+        private static float floorGap = 6.4f;
         private static Transform root;
         private static readonly Dictionary<string, BookTower.EchoSystem.EchoCrease> creaseLookup = new();
 
@@ -138,6 +176,9 @@ namespace BookTower.EditorTools
                 Debug.LogError("[LevelBuilder] 레이아웃 파싱 실패");
                 return root;
             }
+
+            if (level.meta != null && level.meta.floorGap > 0.01f)
+                floorGap = level.meta.floorGap;
 
             creaseLookup.Clear();
             var panelLookup = new Dictionary<string, FoldPanel>();
@@ -194,7 +235,39 @@ namespace BookTower.EditorTools
                 if (go != null) AttachWall(go, o.face);
             }
 
+            BuildAccents(area, a);
             ConfigureRoom(area, a);
+        }
+
+        /// <summary>
+        /// 강조광. 전부 그림자를 만들지 않는다.
+        ///
+        /// 아트 문서가 "두 번째 그림자를 만드는 광원은 금지"라고 못 박아 뒀다.
+        /// 그림자를 안 만드는 등은 그 규칙을 어기지 않으면서,
+        /// "빛이 닿는 곳만 존재한다"는 컬러 규칙을 실제 조명으로 구현해 준다.
+        /// 어디에 두는지는 level_layout.py 가 정한다 — 그쪽에 그림자 면을
+        /// 씻어내지 않는지 검사하는 규칙이 들어 있다.
+        /// </summary>
+        private static void BuildAccents(Transform area, AreaDef a)
+        {
+            if (a.accents == null || a.accents.Length == 0) return;
+
+            var group = new GameObject("조명").transform;
+            group.SetParent(area, false);
+
+            foreach (AccentDef ac in a.accents)
+            {
+                var go = new GameObject(ac.name);
+                go.transform.SetParent(group, false);
+                go.transform.localPosition = ac.pos.V;
+
+                var l = go.AddComponent<Light>();
+                l.type = LightType.Point;
+                l.color = LightWarm;
+                l.intensity = ac.intensity;
+                l.range = ac.range;
+                l.shadows = LightShadows.None;   // 두 번째 그림자 금지
+            }
         }
 
         // ─────────────────────────────────────────── 룸
@@ -254,12 +327,23 @@ namespace BookTower.EditorTools
             SetVector3(room, "boundsCenter", center);
             SetVector3(room, "boundsSize", size);
             SetFloat(room, "floorY", a.pos.y);
+
+            if (a.light != null)
+            {
+                SetFloat(room, "sunIntensity", a.light.sun);
+                SetFloat(room, "ambient", a.light.ambient);
+                SetFloat(room, "fog", a.light.fog);
+                SetFloat(room, "shadowStrength", a.light.shadowStrength);
+            }
         }
 
         /// <summary>P3 · 찢겨나간 간극 — 바닥을 앞뒤로 나눠 가운데를 비운다</summary>
         private static void BuildSplitFloor(Transform area, AreaDef a)
         {
-            float gap = 4f;
+            // 틈 너비는 데이터에서 온다. 예전엔 4 로 박아 놨는데,
+            // 방을 1.6배로 키울 때 이 숫자만 안 커져서 표식(6.4)보다 틈이 좁아져 있었다.
+            // 게다가 이 값은 점프 검증의 기준이라 코드에 박아 두면 안 된다.
+            float gap = floorGap;
             float half = (a.size.z - gap) * 0.5f;
             float off = (gap + half) * 0.5f;
 
@@ -280,6 +364,12 @@ namespace BookTower.EditorTools
 
             var go = new GameObject($"{a.puzzle.id}_퍼즐");
             go.transform.SetParent(area, false);
+
+            // 조립 퍼즐은 '푸는 자리'가 따로 있다 — 걸쇠, 발자국 그림, 복원대.
+            // 자리를 안 옮기면 퍼즐 오브젝트가 방 한가운데 있게 되고,
+            // 거리 판정이 엉뚱한 지점을 기준으로 돌아간다.
+            if (a.puzzle.hasAt != 0 && a.puzzle.at != null)
+                go.transform.localPosition = a.puzzle.at.V;
 
             string type = string.IsNullOrEmpty(a.puzzle.type) ? "fold" : a.puzzle.type;
             PuzzleBase puzzle = null;
@@ -330,6 +420,9 @@ namespace BookTower.EditorTools
 
             SetString(puzzle, "puzzleId", a.puzzle.id);
             SetFloat(puzzle, "targetSeconds", a.puzzle.targetSeconds);
+
+            if (a.puzzle.assemblyRange > 0.01f && puzzle is PieceAssemblyPuzzle)
+                SetFloat(puzzle, "assemblyRange", a.puzzle.assemblyRange);
 
             // 큰 방에서 구석에 서 있어도 켜지도록 구역 크기에 맞춘다
             float reach = Mathf.Max(a.size.x, a.size.z) * 0.5f + 6f;

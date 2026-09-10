@@ -16,6 +16,12 @@ namespace BookTower.Puzzles
         [Tooltip("이 조각들을 전부 모으면 풀린다. 가짜(decoy)는 여기 넣지 않는다")]
         [SerializeField] private List<string> requiredPieceIds = new();
 
+        [Header("맞추는 자리")]
+        [Tooltip("0보다 크면 이 오브젝트에서 그 거리 안에 있어야 완성된다. " +
+                 "이게 없으면 조각을 줍는 순간 서 있던 자리에서 그냥 풀려버려서, " +
+                 "'걸쇠로 가져가 맞춘다'(P1) · '복원대에 올린다'(P13) 가 성립하지 않는다")]
+        [SerializeField] private float assemblyRange = 0f;
+
         [Header("피드백")]
         [Tooltip("켜면 '구간(초·중·후반)'까지만 알려준다. " +
                  "정확한 위치를 알려주면 한 자리씩 시행착오로 뚫려 난이도가 무너진다")]
@@ -38,7 +44,17 @@ namespace BookTower.Puzzles
                 ReportBand(have, requiredPieceIds.Count);
             }
 
-            return have == requiredPieceIds.Count;
+            if (have != requiredPieceIds.Count) return false;
+
+            // 조각을 다 모았다. 이제 맞추는 자리로 가져가야 한다.
+            if (assemblyRange > 0f)
+            {
+                Transform pl = Player;
+                if (pl == null) return false;
+                if (Vector3.Distance(pl.position, transform.position) > assemblyRange)
+                    return false;
+            }
+            return true;
         }
 
         /// <summary>정확한 개수 대신 구간만 알려준다</summary>
