@@ -133,10 +133,10 @@
    "camYaw": 0,
    "camPad": 1.18,
    "light": {
-    "sun": 0.3,
-    "ambient": 0.1,
-    "fog": 0.02,
-    "shadowStrength": 0.82
+    "sun": 0.22,
+    "ambient": 0.18,
+    "fog": 0.016,
+    "shadowStrength": 0.62
    },
    "accents": [
     {
@@ -299,10 +299,10 @@
    "camYaw": 0,
    "camPad": 1.18,
    "light": {
-    "sun": 1.0,
-    "ambient": 0.3,
-    "fog": 0.012,
-    "shadowStrength": 0.82
+    "sun": 0.72,
+    "ambient": 0.42,
+    "fog": 0.01,
+    "shadowStrength": 0.62
    },
    "accents": [
     {
@@ -420,10 +420,10 @@
    "camYaw": 0,
    "camPad": 1.18,
    "light": {
-    "sun": 1.0,
-    "ambient": 0.3,
-    "fog": 0.012,
-    "shadowStrength": 0.82
+    "sun": 0.72,
+    "ambient": 0.42,
+    "fog": 0.01,
+    "shadowStrength": 0.62
    },
    "accents": [
     {
@@ -612,10 +612,10 @@
    "camYaw": 0,
    "camPad": 1.18,
    "light": {
-    "sun": 1.0,
-    "ambient": 0.3,
-    "fog": 0.012,
-    "shadowStrength": 0.82
+    "sun": 0.72,
+    "ambient": 0.42,
+    "fog": 0.01,
+    "shadowStrength": 0.62
    },
    "accents": [
     {
@@ -777,10 +777,10 @@
    "camYaw": 0,
    "camPad": 1.18,
    "light": {
-    "sun": 1.0,
-    "ambient": 0.3,
-    "fog": 0.012,
-    "shadowStrength": 0.82
+    "sun": 0.72,
+    "ambient": 0.42,
+    "fog": 0.01,
+    "shadowStrength": 0.62
    },
    "accents": [
     {
@@ -958,10 +958,10 @@
    "camYaw": 0,
    "camPad": 1.18,
    "light": {
-    "sun": 1.0,
-    "ambient": 0.3,
-    "fog": 0.012,
-    "shadowStrength": 0.82
+    "sun": 0.72,
+    "ambient": 0.42,
+    "fog": 0.01,
+    "shadowStrength": 0.62
    },
    "accents": [
     {
@@ -1074,10 +1074,10 @@
    "camYaw": 0,
    "camPad": 1.18,
    "light": {
-    "sun": 1.15,
-    "ambient": 0.24,
-    "fog": 0.01,
-    "shadowStrength": 0.82
+    "sun": 0.84,
+    "ambient": 0.34,
+    "fog": 0.009,
+    "shadowStrength": 0.62
    },
    "accents": [
     {
@@ -1222,10 +1222,10 @@
    "camYaw": 0,
    "camPad": 1.18,
    "light": {
-    "sun": 1.15,
-    "ambient": 0.24,
-    "fog": 0.01,
-    "shadowStrength": 0.82
+    "sun": 0.84,
+    "ambient": 0.34,
+    "fog": 0.009,
+    "shadowStrength": 0.62
    },
    "accents": [
     {
@@ -1350,10 +1350,10 @@
    "camYaw": 0,
    "camPad": 1.18,
    "light": {
-    "sun": 1.15,
-    "ambient": 0.24,
-    "fog": 0.01,
-    "shadowStrength": 0.82
+    "sun": 0.84,
+    "ambient": 0.34,
+    "fog": 0.009,
+    "shadowStrength": 0.62
    },
    "accents": [
     {
@@ -1511,10 +1511,10 @@
    "camYaw": 0,
    "camPad": 1.18,
    "light": {
-    "sun": 1.15,
-    "ambient": 0.24,
-    "fog": 0.01,
-    "shadowStrength": 0.82
+    "sun": 0.84,
+    "ambient": 0.34,
+    "fog": 0.009,
+    "shadowStrength": 0.62
    },
    "accents": [
     {
@@ -1784,10 +1784,10 @@
    "camYaw": 0,
    "camPad": 1.18,
    "light": {
-    "sun": 1.15,
-    "ambient": 0.24,
-    "fog": 0.01,
-    "shadowStrength": 0.82
+    "sun": 0.84,
+    "ambient": 0.34,
+    "fog": 0.009,
+    "shadowStrength": 0.62
    },
    "accents": [
     {
@@ -1951,10 +1951,10 @@
    "camYaw": 0,
    "camPad": 1.18,
    "light": {
-    "sun": 1.15,
-    "ambient": 0.24,
-    "fog": 0.01,
-    "shadowStrength": 0.82
+    "sun": 0.84,
+    "ambient": 0.34,
+    "fog": 0.009,
+    "shadowStrength": 0.62
    },
    "accents": [
     {
@@ -2451,10 +2451,10 @@
    "camYaw": 0,
    "camPad": 1.18,
    "light": {
-    "sun": 1.55,
-    "ambient": 0.38,
-    "fog": 0.006,
-    "shadowStrength": 0.82
+    "sun": 1.05,
+    "ambient": 0.5,
+    "fog": 0.005,
+    "shadowStrength": 0.62
    },
    "accents": [
     {
@@ -2750,10 +2750,10 @@
    "camYaw": 0,
    "camPad": 1.18,
    "light": {
-    "sun": 1.55,
-    "ambient": 0.38,
-    "fog": 0.006,
-    "shadowStrength": 0.82
+    "sun": 1.05,
+    "ambient": 0.5,
+    "fog": 0.005,
+    "shadowStrength": 0.62
    },
    "accents": [
     {
@@ -2850,10 +2850,10 @@
    "camYaw": 0,
    "camPad": 1.18,
    "light": {
-    "sun": 1.55,
-    "ambient": 0.38,
-    "fog": 0.006,
-    "shadowStrength": 0.82
+    "sun": 1.05,
+    "ambient": 0.5,
+    "fog": 0.005,
+    "shadowStrength": 0.62
    },
    "accents": [
     {
@@ -2942,10 +2942,10 @@
    "camYaw": 0,
    "camPad": 1.18,
    "light": {
-    "sun": 0.9,
-    "ambient": 0.22,
-    "fog": 0.014,
-    "shadowStrength": 0.82
+    "sun": 0.66,
+    "ambient": 0.32,
+    "fog": 0.012,
+    "shadowStrength": 0.62
    },
    "accents": [
     {

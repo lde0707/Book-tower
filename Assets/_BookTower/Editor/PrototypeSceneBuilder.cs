@@ -40,15 +40,29 @@ public static class PrototypeSceneBuilder
     };
 
     // 아트 컨셉 문서의 팔레트
-    private static readonly Color PaperLight = Hex("#EDE6D6");
-    private static readonly Color PaperMid = Hex("#D6CBB4");
-    private static readonly Color PaperShade = Hex("#A99B84");
-    private static readonly Color VoidColor = Hex("#2E2E33");
-    private static readonly Color SeaColor = Hex("#22222A");
-    private static readonly Color LightWarm = Hex("#F2C879");
-    private static readonly Color Ribbon = Hex("#A8705E");
+    // ─────────────────────────────────────────── 팔레트 (스케치북)
+    //
+    // 흰 종이가 바탕이고, 물체는 연필로 그린 뒤 크레파스로 칠한 것처럼 보여야 한다.
+    // 그래서 면은 거의 흰색이고, 형태를 읽게 하는 건 색이 아니라 '선'과 '그림자'다.
+    //
+    // 이 방향이 그림자 퍼즐에 특히 유리하다 —
+    // 화면에서 어두운 덩어리가 그림자밖에 없게 되므로 정답이 가장 잘 읽힌다.
+    private static readonly Color PaperLight = Hex("#FBFAF6");   // 빛을 정면으로 받은 면
+    private static readonly Color PaperMid = Hex("#F2EFE7");     // 기본 면
+    private static readonly Color PaperShade = Hex("#DED8CC");   // 그늘진 면
+    private static readonly Color Graphite = Hex("#3A3733");     // 연필 선 · 외곽선
+
+    // 탑 바깥은 검정 공허가 아니라 **아직 그려지지 않은 빈 종이**다.
+    // 떨어지면 어둠이 아니라 백지로 사라진다 — 스케치북 세계관에 맞고,
+    // 흰 배경 위에서는 외곽선이 형태를 잡아 주므로 물체가 오히려 또렷해진다.
+    private static readonly Color VoidColor = Hex("#FDFCFA");
+    private static readonly Color SeaColor = Hex("#F4F1EA");
+
+    private static readonly Color LightWarm = Hex("#F2C879");    // 채도가 있는 유일한 색
+    private static readonly Color Ribbon = Hex("#D9694F");       // 책갈피새 — 크레파스 빨강
     /// <summary>그림자. 완전 검정 금지 — 종이에 지는 그림자는 세피아 그레이다</summary>
-    private static readonly Color ShadowTint = Hex("#5C5648");
+    /// <summary>그림자. 연필로 문지른 회색이지 검정이 아니다</summary>
+    private static readonly Color ShadowTint = Hex("#6E6A63");
 
     [MenuItem("Book Tower/InGame 씬 구성하기", priority = 0)]
     public static void Build()
@@ -76,15 +90,16 @@ public static class PrototypeSceneBuilder
 
         Material matPaperLight = MakeMaterial("M_Paper_Light", PaperLight);
         Material matPaperMid = MakeMaterial("M_Paper_Mid", PaperMid);
-        Material matPaperShade = MakeMaterial("M_Paper_Shade", PaperShade);
-        Material matRibbon = MakeMaterial("M_Ribbon", Ribbon);
-        Material matAccent = MakeMaterial("M_Accent", LightWarm);
+        Material matPaperShade = MakeMaterial("M_Paper_Shade", PaperShade, "T_Pencil");
+        Material matRibbon = MakeMaterial("M_Ribbon", Ribbon, "T_Crayon");
+        Material matAccent = MakeMaterial("M_Accent", LightWarm, "T_Crayon");
+        Material matOutline = MakeOutlineMaterial();
 
         BuildSystems();
         BuildLighting();
         BuildBackground(matPaperLight, matPaperShade);
 
-        GameObject player = BuildPlayer(matRibbon);
+        GameObject player = BuildPlayer(matRibbon, matOutline);
 
         // 레벨 디자인 문서의 배치를 그대로 생성
         Transform map = LevelBuilder.Build(new LevelBuilder.Palette
@@ -92,7 +107,8 @@ public static class PrototypeSceneBuilder
             paperLight = matPaperLight,
             paperMid = matPaperMid,
             paperShade = matPaperShade,
-            accent = matAccent
+            accent = matAccent,
+            outline = matOutline
         });
 
         PaperCamera paperCam = BuildCamera(player.transform, map);
@@ -154,7 +170,7 @@ public static class PrototypeSceneBuilder
         // 오히려 모양이 안 읽힌다. 아트 문서의 "엣지는 항상 선명하게"는
         // '흐리지 않게'라는 뜻이지 '계단지게'가 아니다.
         sun.shadows = LightShadows.Soft;
-        sun.shadowStrength = 0.82f;
+        sun.shadowStrength = 0.62f;   // 흰 종이 위에서는 0.8이면 그림자가 먹처럼 진해진다
         sun.shadowBias = 0.02f;
         sun.shadowNormalBias = 0.2f;
         sun.shadowNearPlane = 0.1f;
@@ -174,12 +190,14 @@ public static class PrototypeSceneBuilder
         // 두 번째 그림자를 만드는 광원은 두지 않는다 (정답이 흐려짐).
         // 강조광은 전부 LightShadows.None 이라 이 규칙을 어기지 않는다.
         RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Flat;
-        RenderSettings.ambientLight = ShadowTint * 0.30f;
+        RenderSettings.ambientLight = ShadowTint * 0.42f;
 
+        // 안개도 흰색이다. 멀어질수록 백지로 흐려지면서
+        // "여기까지가 그려진 부분"이라는 느낌이 난다
         RenderSettings.fog = true;
         RenderSettings.fogMode = FogMode.Exponential;
         RenderSettings.fogColor = VoidColor;
-        RenderSettings.fogDensity = 0.012f;
+        RenderSettings.fogDensity = 0.010f;
 
         var director = group.gameObject.AddComponent<LightingDirector>();
         SetPrivate(director, "sun", sun);
@@ -282,6 +300,7 @@ public static class PrototypeSceneBuilder
         body.transform.localPosition = new Vector3(0f, 0.45f, 0f);
         body.transform.localScale = new Vector3(0.4f, 0.3f, 0.4f);
         UnityEngine.Object.DestroyImmediate(body.GetComponent<Collider>());
+        BookTower.Presentation.PencilOutline.Attach(body, matOutline, 0.03f);
         body.GetComponent<MeshRenderer>().sharedMaterial = ribbonMat;
 
         var beak = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -290,6 +309,7 @@ public static class PrototypeSceneBuilder
         beak.transform.localPosition = new Vector3(0f, 0.45f, 0.28f);
         beak.transform.localScale = new Vector3(0.08f, 0.08f, 0.22f);
         UnityEngine.Object.DestroyImmediate(beak.GetComponent<Collider>());
+        BookTower.Presentation.PencilOutline.Attach(beak, matOutline, 0.02f);
         beak.GetComponent<MeshRenderer>().sharedMaterial = ribbonMat;
 
         return player;
@@ -362,23 +382,64 @@ public static class PrototypeSceneBuilder
             AssetDatabase.CreateFolder(RootDir, "Materials");
     }
 
-    private static Material MakeMaterial(string name, Color color)
+    private const string TexDir = "Assets/_BookTower/Textures";
+
+    private static Material MakeMaterial(string name, Color color, string texture = "T_Paper")
     {
         string path = $"{MatDir}/{name}.mat";
-        var existing = AssetDatabase.LoadAssetAtPath<Material>(path);
-        if (existing != null) return existing;
-
         Shader shader = Shader.Find("Universal Render Pipeline/Lit") ?? Shader.Find("Standard");
 
-        var mat = new Material(shader) { name = name };
+        // 이미 있으면 새로 만들지 않고 값만 덮어쓴다.
+        // 예전엔 있으면 그대로 반환했는데, 그러면 팔레트를 바꿔도
+        // 씬을 다시 지을 때 옛날 색이 그대로 남는다.
+        var mat = AssetDatabase.LoadAssetAtPath<Material>(path);
+        bool isNew = mat == null;
+        if (isNew) mat = new Material(shader) { name = name };
+        else if (mat.shader != shader) mat.shader = shader;
+
         if (mat.HasProperty("_BaseColor")) mat.SetColor("_BaseColor", color);
         if (mat.HasProperty("_Color")) mat.SetColor("_Color", color);
-        if (mat.HasProperty("_Smoothness")) mat.SetFloat("_Smoothness", 0.05f);
-        if (mat.HasProperty("_Glossiness")) mat.SetFloat("_Glossiness", 0.05f);
 
-        AssetDatabase.CreateAsset(mat, path);
+        // 종이는 반사하지 않는다. 광택이 있으면 종이가 아니라 플라스틱으로 보인다
+        if (mat.HasProperty("_Smoothness")) mat.SetFloat("_Smoothness", 0f);
+        if (mat.HasProperty("_Glossiness")) mat.SetFloat("_Glossiness", 0f);
+        if (mat.HasProperty("_Metallic")) mat.SetFloat("_Metallic", 0f);
+        if (mat.HasProperty("_SpecularHighlights")) mat.SetFloat("_SpecularHighlights", 0f);
+
+        // 결이 없으면 아무리 색을 맞춰도 '3D 판때기'로 보인다.
+        // 종이 결·크레파스 자국이 손으로 만든 물건이라는 신호를 준다
+        var tex = AssetDatabase.LoadAssetAtPath<Texture2D>($"{TexDir}/{texture}.png");
+        if (tex != null && mat.HasProperty("_BaseMap")) mat.SetTexture("_BaseMap", tex);
+        if (tex != null && mat.HasProperty("_MainTex")) mat.SetTexture("_MainTex", tex);
+
+        if (isNew) AssetDatabase.CreateAsset(mat, path);
+        else EditorUtility.SetDirty(mat);
         return mat;
     }
+
+    /// <summary>외곽선용 — 빛을 안 받는 단색. 연필 선처럼 보여야 한다</summary>
+    private static Material MakeOutlineMaterial()
+    {
+        string path = $"{MatDir}/M_Outline.mat";
+        Shader shader = Shader.Find("Universal Render Pipeline/Unlit") ?? Shader.Find("Unlit/Color");
+
+        var mat = AssetDatabase.LoadAssetAtPath<Material>(path);
+        bool isNew = mat == null;
+        if (isNew) mat = new Material(shader) { name = "M_Outline" };
+        else if (mat.shader != shader) mat.shader = shader;
+
+        if (mat.HasProperty("_BaseColor")) mat.SetColor("_BaseColor", Graphite);
+        if (mat.HasProperty("_Color")) mat.SetColor("_Color", Graphite);
+
+        // 앞면을 잘라내면 뒷면만 남는다. 살짝 키운 껍질에 이걸 쓰면
+        // 물체 가장자리에만 어두운 테두리가 보인다 — 셰이더를 새로 안 써도 된다
+        if (mat.HasProperty("_Cull")) mat.SetFloat("_Cull", 1f);   // Front
+
+        if (isNew) AssetDatabase.CreateAsset(mat, path);
+        else EditorUtility.SetDirty(mat);
+        return mat;
+    }
+
 
     private static Color Hex(string hex)
     {

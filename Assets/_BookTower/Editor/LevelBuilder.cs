@@ -4,6 +4,7 @@ using BookTower.Core;
 using BookTower.Fold;
 using BookTower.Puzzles;
 using BookTower.Rooms;
+using BookTower.Presentation;
 using System;
 using System.IO;
 using System.Collections.Generic;
@@ -139,7 +140,7 @@ namespace BookTower.EditorTools
 
         public struct Palette
         {
-            public Material paperLight, paperMid, paperShade, accent;
+            public Material paperLight, paperMid, paperShade, accent, outline;
 
             public Material Get(string key) => key switch
             {
@@ -155,6 +156,16 @@ namespace BookTower.EditorTools
 
         private static Palette pal;
         private static float floorGap = 6.4f;
+
+        /// <summary>
+        /// 연필 외곽선. 흰 바탕 위에서는 이 선이 형태를 잡아 준다.
+        /// 표식(marker)에는 안 붙인다 — 눈에 안 보이는 기준점이라 선만 남으면 이상하다.
+        /// </summary>
+        private static void Outline(GameObject go, float thickness = 0.035f)
+        {
+            if (go == null || pal.outline == null) return;
+            PencilOutline.Attach(go, pal.outline, thickness);
+        }
         private static Transform root;
         private static readonly Dictionary<string, BookTower.EchoSystem.EchoCrease> creaseLookup = new();
 
@@ -209,8 +220,8 @@ namespace BookTower.EditorTools
 
             // 바닥 — 1B(끊긴 길)는 가운데를 비워야 하므로 특수 처리
             if (a.id == "1B") BuildSplitFloor(area, a);
-            else MakeBox(area, "바닥", Vector3.zero,
-                         new Vector3(a.size.x, 0.2f, a.size.z), pal.paperMid);
+            else Outline(MakeBox(area, "바닥", Vector3.zero,
+                                 new Vector3(a.size.x, 0.2f, a.size.z), pal.paperMid), 0.06f);
 
             // 그림자를 받아낼 뒷벽 — 없으면 퍼즐 검증이 불가능하다
             if (a.backWall > 0.01f)
@@ -219,6 +230,7 @@ namespace BookTower.EditorTools
                     new Vector3(0f, a.backWall * 0.5f, a.size.z * 0.5f),
                     new Vector3(a.size.x, a.backWall, 0.3f), pal.paperShade);
                 AttachWall(back, "north");
+                Outline(back);
             }
 
             foreach (ObjDef o in a.objects ?? Array.Empty<ObjDef>())
@@ -233,6 +245,7 @@ namespace BookTower.EditorTools
                 };
                 if (go != null && !string.IsNullOrEmpty(o.note)) Note(go, o.note);
                 if (go != null) AttachWall(go, o.face);
+                if (go != null && o.kind != "marker") Outline(go);
             }
 
             BuildAccents(area, a);
@@ -347,10 +360,10 @@ namespace BookTower.EditorTools
             float half = (a.size.z - gap) * 0.5f;
             float off = (gap + half) * 0.5f;
 
-            MakeBox(area, "바닥_앞", new Vector3(0f, 0f, -off),
-                    new Vector3(a.size.x, 0.2f, half), pal.paperMid);
-            MakeBox(area, "바닥_뒤", new Vector3(0f, 0f, off),
-                    new Vector3(a.size.x, 0.2f, half), pal.paperMid);
+            Outline(MakeBox(area, "바닥_앞", new Vector3(0f, 0f, -off),
+                            new Vector3(a.size.x, 0.2f, half), pal.paperMid), 0.06f);
+            Outline(MakeBox(area, "바닥_뒤", new Vector3(0f, 0f, off),
+                            new Vector3(a.size.x, 0.2f, half), pal.paperMid), 0.06f);
         }
 
         // ─────────────────────────────────────────── 퍼즐 연결
@@ -514,6 +527,7 @@ namespace BookTower.EditorTools
             go.transform.localRotation = Quaternion.LookRotation(dir.normalized, Vector3.up);
             go.transform.localScale = new Vector3(r.width, 0.2f, dir.magnitude);
             go.GetComponent<MeshRenderer>().sharedMaterial = pal.Get(r.mat);
+            Outline(go, 0.05f);
 
             // 이 경사로가 잇는 두 방을 기록해 둔다.
             // 경사로 위에서 어느 방을 보여줄지 추측하지 않기 위해서다.

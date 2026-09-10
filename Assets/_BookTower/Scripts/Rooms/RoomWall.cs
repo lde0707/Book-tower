@@ -24,6 +24,7 @@ namespace BookTower.Rooms
         [SerializeField] private WallFace face = WallFace.None;
 
         private Renderer rend;
+        private Renderer outline;      // 자식으로 붙은 연필 외곽선
         private ShadowCastingMode original = ShadowCastingMode.On;
 
         public WallFace Face => face;
@@ -32,6 +33,11 @@ namespace BookTower.Rooms
         {
             rend = GetComponent<Renderer>();
             if (rend != null) original = rend.shadowCastingMode;
+
+            // 벽을 숨기면 그 벽의 외곽선도 같이 숨겨야 한다.
+            // 안 그러면 사라진 벽 자리에 선만 떠 있다.
+            Transform o = transform.Find("외곽선");
+            if (o != null) outline = o.GetComponent<Renderer>();
         }
 
         /// <summary>카메라 스냅 단계(0~3)에 맞춰 이 면을 숨길지 결정한다.</summary>
@@ -40,6 +46,7 @@ namespace BookTower.Rooms
             if (rend == null) return;
 
             bool hide = face == WallFace.Ceiling || face == HiddenFor(yawStep);
+            if (outline != null) outline.enabled = !hide;
 
             if (!hide)
             {
