@@ -32,6 +32,14 @@ def box(name, pos, scale, mat="mid", note=""):
                 scale=dict(x=scale[0], y=scale[1], z=scale[2]), mat=mat, note=note)
 
 def fold(name, pos, size, mat="light", state=0, note=""):
+    # state 자리에 실수로 설명을 넣으면 JSON 의 int 필드에 문자열이 들어가고,
+    # 유니티의 JsonUtility 가 레벨 전체를 못 읽는다. 조용히 넘어가면 안 된다.
+    if not isinstance(state, int):
+        raise TypeError(
+            f"fold('{name}'): state 는 0~3 정수여야 한다. "
+            f"설명을 넣으려면 note= 를 쓸 것. 받은 값: {state!r}")
+    if not 0 <= state <= 3:
+        raise ValueError(f"fold('{name}'): state {state} 는 0~3 범위 밖")
     return dict(kind="fold", name=name, pos=dict(x=pos[0], y=pos[1], z=pos[2]),
                 scale=dict(x=size[0], y=0.08, z=size[1]), mat=mat, state=state, note=note)
 
@@ -187,7 +195,7 @@ AREAS.append(area("2B", "2B_따라접기", 2, P_2B, (18, 14), wall=6,
 AREAS.append(area("2C", "2C_숨겨진틈", 2, P_2C, (20, 18), wall=6,
     note="P9 · 과거의 접힘 상태 ↔ 현재 위치 공간 변환. P15의 선행 학습",
     objects=[
-        fold("P9_공간접이면", (0, 0.1, -6), (8, 8), "mid",
+        fold("P9_공간접이면", (0, 0.1, -6), (8, 8), "mid", 0,
              "이 면이 접히면 방의 기하가 바뀐다 — 같은 지점이 다른 곳에 온다"),
         box("고정표식_못자국", (-6, 0.14, 3), (0.4, 0.05, 0.4), "accent",
             "양쪽 상태에 공통으로 존재하는 참조점. 이게 없으면 불공정해진다"),
@@ -273,7 +281,7 @@ AREAS.append(area("3A", "3A_복원의방", 3, P_3A, (32, 28), wall=0,
 
         marker("◈정렬시점_허공", (0, 5.5, 2),
                "P15 · 여기서만 조각이 새의 실루엣으로 정렬된다. 허공이라 걸어갈 수 없다"),
-        fold("P15_공간접이면", (-8, 0.1, -10), (7, 7), "mid",
+        fold("P15_공간접이면", (-8, 0.1, -10), (7, 7), "mid", 0,
              "P15 · 이걸 접으면 방의 기하가 포개져 ◈가 플레이어 위치와 겹친다"),
 
         marker("히든_책속의책", (12, 0.3, -10), "엔딩 후 열림"),
@@ -298,11 +306,11 @@ AREAS.append(area("3B", "3B_삼중조건의문", 3, P_3B, (20, 18), wall=0,
         box("열쇠구멍", (0, 2.2, 8.8), (0.6, 0.6, 0.4), "accent",
             "P14 ① 채광구 빛이 여기 정확히 닿아야 한다"),
         box("채광구", (-6, 8, -6), (2, 0.2, 2), "accent"),
-        fold("P14_A면", (-6, 0.1, -4), (5, 5), "light",
+        fold("P14_A면", (-6, 0.1, -4), (5, 5), "light", 0,
              "P14 ① A면이 빛을 열쇠구멍으로 보낸다"),
-        fold("P14_B면", (6, 0.1, -4), (4, 4), "light",
+        fold("P14_B면", (6, 0.1, -4), (4, 4), "light", 0,
              "P14 ② B면이 빛을 가리면 옆 주름이 깨어나지 못한다"),
-        fold("P14_C면", (0, 0.1, 2), (5, 5), "light",
+        fold("P14_C면", (0, 0.1, 2), (5, 5), "light", 0,
              "P14 ③ C면을 접어야 아래 홈이 드러난다. 그런데 접으면 A의 빛을 가로막는다 "
              "— 유일해는 C면을 '반사면'으로 쓰는 각도"),
         box("주름_B조건", (8, 0.13, 0), (3, 0.06, 0.25), "accent"),
