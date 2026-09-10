@@ -46,7 +46,8 @@ namespace BookTower.Interaction
             if (mouse == null) return;
 
             Ray ray = cam.ScreenPointToRay(mouse.position.ReadValue());
-            if (!Physics.Raycast(ray, out RaycastHit hit, 1000f, rayMask)) return;
+            // 숨겨진 방의 콜라이더에 가로막히지 않게 보이는 것만 고른다
+            if (!InteractionRay.Cast(ray, out RaycastHit hit, 1000f, rayMask)) return;
 
             FoldPanel panel = hit.collider.GetComponentInParent<FoldPanel>();
             if (panel == null) return;
