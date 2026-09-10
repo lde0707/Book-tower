@@ -25,16 +25,18 @@ namespace BookTower.PlayerSystem
         [SerializeField] private float moveSpeed = 5.5f;   // 방을 1.6배로 키우면서 상향
         [SerializeField] private float turnSpeed = 14f;
 
-        [Header("활공 — 상승 불가, 하강만")]
+        [Header("점프 · 활공")]
         [SerializeField] private float gravity = -18f;
-        [Tooltip("활공 중 최대 하강 속도(음수). 0에 가까울수록 오래 뜬다")]
+
         [Tooltip("점프로 오르는 높이. 이 값은 마음대로 못 올린다 — " +
                  "Tools/level_layout.py 의 점프 검증이 P3(1B의 끊긴 길)를 " +
                  "뛰어넘지 않는지 확인하고 있고, C# 과 파이썬 값이 어긋나면 " +
                  "그 검증이 아무것도 보장하지 않게 된다")]
         [SerializeField] private float jumpHeight = 1.2f;
 
+        [Tooltip("활공 중 최대 하강 속도(음수). 0에 가까울수록 오래 뜬다")]
         [SerializeField] private float glideFallSpeed = -1.6f;
+
         [Tooltip("활공 중 추가되는 전진력")]
         [SerializeField] private float glideDrift = 1.4f;
 

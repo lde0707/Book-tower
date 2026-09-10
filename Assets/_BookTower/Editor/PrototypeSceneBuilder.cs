@@ -270,7 +270,7 @@ public static class PrototypeSceneBuilder
 
     // ---------------------------------------------------------------- 플레이어
 
-    private static GameObject BuildPlayer(Material ribbonMat)
+    private static GameObject BuildPlayer(Material ribbonMat, Material matOutline)
     {
         Transform group = new GameObject("Player").transform;
 
