@@ -22,7 +22,7 @@ namespace BookTower.PlayerSystem
     public class PlayerController : MonoBehaviour
     {
         [Header("이동")]
-        [SerializeField] private float moveSpeed = 4f;
+        [SerializeField] private float moveSpeed = 5.5f;   // 방을 1.6배로 키우면서 상향
         [SerializeField] private float turnSpeed = 14f;
 
         [Header("활공 — 상승 불가, 하강만")]

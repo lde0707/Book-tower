@@ -7,6 +7,7 @@ using System.Linq;
 using BookTower.Core;
 using BookTower.PlayerSystem;
 using BookTower.CameraSystem;
+using BookTower.Rooms;
 using BookTower.Interaction;
 using BookTower.Puzzles;
 using BookTower.Presentation;
@@ -89,7 +90,11 @@ public static class PrototypeSceneBuilder
             accent = matAccent
         });
 
-        BuildCamera(player.transform, map);
+        PaperCamera paperCam = BuildCamera(player.transform, map);
+
+        // 룸 매니저 — 지금 있는 방만 그리게 한다.
+        // 이게 없으면 나선형으로 쌓인 위층이 카메라와 플레이어 사이를 가로막는다.
+        BuildRoomManager(player.transform, paperCam);
 
         EditorSceneManager.MarkSceneDirty(scene);
         EditorSceneManager.SaveScene(scene);
@@ -205,7 +210,7 @@ public static class PrototypeSceneBuilder
 
         var player = new GameObject("BookmarkBird");
         player.transform.SetParent(group);
-        player.transform.position = new Vector3(0f, 1.2f, -4f);   // 표지(F0)의 시작 지점
+        player.transform.position = new Vector3(0f, 1.2f, -6.4f);  // 표지(F0)의 시작 표식 (XZ 1.6배 확대 반영)
 
         var cc = player.AddComponent<CharacterController>();
         cc.height = 0.9f;
@@ -242,7 +247,7 @@ public static class PrototypeSceneBuilder
 
     // ---------------------------------------------------------------- 카메라
 
-    private static void BuildCamera(Transform target, Transform frameTarget)
+    private static PaperCamera BuildCamera(Transform target, Transform frameTarget)
     {
         Transform group = new GameObject("Camera").transform;
 
@@ -265,6 +270,20 @@ public static class PrototypeSceneBuilder
 
         // Tab으로 전체 조망 전환할 때 이 대상을 화면에 맞춘다
         SetPrivate(paperCam, "frameTarget", frameTarget);
+
+        return paperCam;
+    }
+
+    // ---------------------------------------------------------------- 룸
+
+    private static void BuildRoomManager(Transform player, PaperCamera cam)
+    {
+        GameObject systems = GameObject.Find("[Systems]");
+        GameObject host = systems != null ? systems : new GameObject("[Systems]");
+
+        var mgr = host.AddComponent<RoomManager>();
+        SetPrivate(mgr, "player", player);
+        SetPrivate(mgr, "paperCamera", cam);
     }
 
     // ---------------------------------------------------------------- 유틸

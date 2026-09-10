@@ -57,10 +57,16 @@ def puzzle(pid, target, answer, panels, note="", ptype="fold", pieces=None, crea
 AREAS = []
 RAMPS = []
 
-def ramp(name, a, b, width=4.0, mat="mid"):
+def ramp(name, a, b, width=4.0, mat="mid", from_id="", to_id=""):
+    # fromId/toId 를 명시하는 이유
+    #   경사로 위에서는 어느 방에도 속하지 않는다. 이때 "가장 가까운 방"으로
+    #   판정하면 나선 구조에서는 엉뚱한 방(예: 2A→2B 도중에 2E)이 잡힌다.
+    #   부피가 큰 방이 옆 층에서 더 가까울 수 있기 때문이다.
+    #   어느 방과 어느 방을 잇는지는 설계 시점에 이미 알고 있으므로 그대로 적어 둔다.
     RAMPS.append(dict(name=name,
                       **{"from": dict(x=a[0], y=a[1], z=a[2])},
-                      to=dict(x=b[0], y=b[1], z=b[2]), width=width, mat=mat))
+                      to=dict(x=b[0], y=b[1], z=b[2]), width=width, mat=mat,
+                      fromId=from_id, toId=to_id))
 
 # ═══════════════════════════════════════════════ Floor 0 · 표지
 P_F0 = (0.0, 0.0, 0.0)
@@ -75,7 +81,9 @@ AREAS.append(area("F0", "F0_표지", 0, P_F0, (14, 12), wall=0,
     ]))
 
 # ═══════════════════════════════════════════════ Floor 1 · 갈라진 페이지들
-P_1A = spiral(0, -2); P_1B = spiral(1, 1); P_1C = spiral(2, 4)
+# 1C 는 앞뒤로 30 이나 되는 긴 방이라 기본 반경으로는 안쪽 끝이 F0 위에 걸친다.
+# 방이 깊은 만큼 바깥으로 밀어낸다.
+P_1A = spiral(0, -2); P_1B = spiral(1, 1); P_1C = spiral(2, 4, R1 + 8)
 P_1D = spiral(3, 7);  P_1E = spiral(0, 10)
 
 AREAS.append(area("1A", "1A_접힘방향", 1, P_1A, (16, 14), wall=5,
@@ -149,7 +157,9 @@ AREAS.append(area("1E", "1E_첫번째봉인", 1, P_1E, (18, 16), wall=8,
 
 # ═══════════════════════════════════════════════ Floor 2 · 접힌 기억
 P_2A = spiral(1, 14.0, R2); P_2B = spiral(2, 16.5, R2); P_2C = spiral(3, 19.0, R2)
-P_2D = spiral(0, 21.5, R2); P_2E = spiral(1, 24.0, R2); P_2F = spiral(2, 26.5, R2)
+# 2E 는 22x22 정사각형 큰 방이고 바로 위 3A 는 32x28 이다.
+# 높이차가 7밖에 안 되는데 XZ 가 겹치면 어느 방인지 판정이 흔들린다.
+P_2D = spiral(0, 21.5, R2); P_2E = spiral(1, 24.0, R2 + 6); P_2F = spiral(2, 26.5, R2)
 
 AREAS.append(area("2A", "2A_주름깨우기", 2, P_2A, (14, 12), wall=5,
     note="P7 · 에코 튜토리얼. 활성 주름은 미세하게 빛을 머금는다",
@@ -340,18 +350,162 @@ def connect(a_id, b_id, width=4.0):
     a, b = BY_ID[a_id], BY_ID[b_id]
     pa = (a["pos"]["x"], a["pos"]["y"], a["pos"]["z"])
     pb = (b["pos"]["x"], b["pos"]["y"], b["pos"]["z"])
-    ramp(f"연결_{a_id}→{b_id}", edge_point(a, pb), edge_point(b, pa), width)
+    ramp(f"연결_{a_id}→{b_id}", edge_point(a, pb), edge_point(b, pa), width,
+         from_id=a_id, to_id=b_id)
 
 for pair in [("F0","1A"),("1A","1B"),("1B","1C"),("1C","1D"),("1D","1E"),
              ("1E","2A"),("2A","2B"),("2B","2C"),("2C","2D"),("2D","2E"),("2E","2F"),
              ("2F","3A"),("3A","3B"),("3B","3C")]:
     connect(*pair)
 
+# ═══════════════════════════════════════════════ 방 확대 + 룸 카메라
+#
+# 왜 확대하나
+#   원래 방은 14x12 ~ 32x28 이었다. 이동 속도 4유닛/초 기준으로
+#   가장 작은 방을 가로지르는 데 3.5초밖에 안 걸린다. "방"이 아니라 "발판"이다.
+#   XZ 평면만 균일하게 키운다. y(높이)는 건드리지 않으므로
+#   경사로는 같은 높이를 더 긴 거리로 오르게 되어 오히려 완만해진다.
+#
+# 왜 XZ만 균일하게 키우나
+#   구역 위치·크기·오브젝트 위치·오브젝트 크기를 같은 배율로 곱하면
+#   "겹치지 않는다 / 도달 가능하다" 같은 성질이 그대로 보존된다.
+#   손으로 적은 300줄짜리 좌표를 다시 검토할 필요가 없다.
+
+XZ_SCALE = 1.6
+CAM_PITCH = 30.0            # PaperCamera.pitch 와 같아야 한다
+CAM_PAD   = 1.18            # 방 가장자리 여백
+CAM_DIST  = 90.0            # 직교 카메라를 뒤로 물리는 거리
+
+# 기본은 yaw 0 (카메라가 -z 쪽에서 +z 를 바라봄 → 뒷벽에 지는 그림자가 보인다).
+# 카메라 쪽 벽은 아래 면 컬링으로 숨기므로, 방마다 각도를 따로 줄 일이 거의 없다.
+CAM_YAW_OVERRIDE = {}
+
+
+def apply_xz_scale(s):
+    if abs(s - 1.0) < 1e-9:
+        return
+    for a in AREAS:
+        a["pos"]["x"] = round(a["pos"]["x"] * s, 2)
+        a["pos"]["z"] = round(a["pos"]["z"] * s, 2)
+        a["size"]["x"] = round(a["size"]["x"] * s, 2)
+        a["size"]["z"] = round(a["size"]["z"] * s, 2)
+        for o in a["objects"]:
+            o["pos"]["x"] = round(o["pos"]["x"] * s, 2)
+            o["pos"]["z"] = round(o["pos"]["z"] * s, 2)
+            o["scale"]["x"] = round(o["scale"]["x"] * s, 2)
+            o["scale"]["z"] = round(o["scale"]["z"] * s, 2)
+    for r in RAMPS:
+        for k in ("from", "to"):
+            r[k]["x"] = round(r[k]["x"] * s, 2)
+            r[k]["z"] = round(r[k]["z"] * s, 2)
+        r["width"] = round(r["width"] * s, 2)
+
+
+def apply_room_cameras():
+    for a in AREAS:
+        a["camYaw"] = CAM_YAW_OVERRIDE.get(a["id"], 0)
+        a["camPad"] = CAM_PAD
+
+
+apply_xz_scale(XZ_SCALE)
+apply_room_cameras()
+
+
+# ─────────────────────────────────────────── 벽 면 판정
+#
+# 2E, 3A 같은 방은 사방 벽 + 천장으로 완전히 닫혀 있다.
+# 카메라를 어느 각도에 두든 카메라 쪽 벽이 방 안을 가린다. 천장은 항상 가린다.
+# 심즈나 모뉴먼트 밸리가 쓰는 방식대로, 카메라를 향한 벽만 숨긴다.
+#
+# 숨긴다 = 렌더러를 끄는 게 아니라 ShadowsOnly 로 바꾼다.
+# 렌더러를 꺼버리면 그 벽이 빛도 안 막게 되어 그림자 퍼즐의 정답이 바뀐다.
+# 이 게임은 그림자가 곧 정답이므로 조명 차폐는 그대로 두어야 한다.
+#
+# 어느 면인지는 이름이 아니라 형태로 판정한다. 이름 규칙에 기대면
+# 나중에 이름 하나 바꾸는 순간 조용히 깨진다.
+
+def infer_face(a, o):
+    if o["kind"] != "box":
+        return ""
+    sx, sy, sz = o["scale"]["x"], o["scale"]["y"], o["scale"]["z"]
+    px, py, pz = o["pos"]["x"], o["pos"]["y"], o["pos"]["z"]
+
+    # 천장 — 얇고 높이 떠 있다
+    if sy <= 0.5 and py > 3.0 and sx >= a["size"]["x"] * 0.6 and sz >= a["size"]["z"] * 0.6:
+        return "ceiling"
+
+    if sy < 3.0:
+        return ""                      # 낮은 건 시야를 막지 못한다
+
+    # 외곽 벽만 대상. 방 한가운데 있는 칸막이는 퍼즐 장치이므로 건드리면 안 된다.
+    edge_x = a["size"]["x"] * 0.25
+    edge_z = a["size"]["z"] * 0.25
+
+    # 외곽 벽이라면 그 방향으로 방을 거의 가로질러야 한다.
+    # 이 조건이 없으면 2D 의 '기록' 4장(0.2 x 3 x 3)처럼
+    # 벽에 걸린 퍼즐 오브젝트까지 벽으로 오인해서 숨겨버린다.
+    SPAN = 0.6
+    if sz <= 1.2 and sx > sz and abs(pz) > edge_z and sx >= a["size"]["x"] * SPAN:
+        return "north" if pz > 0 else "south"
+    if sx <= 1.2 and sz > sx and abs(px) > edge_x and sz >= a["size"]["z"] * SPAN:
+        return "east" if px > 0 else "west"
+    return ""
+
+
+def apply_faces():
+    for a in AREAS:
+        for o in a["objects"]:
+            o["face"] = infer_face(a, o)
+
+
+apply_faces()
+
+# 카메라를 향해서 숨겨지는 면. yaw 0 이면 카메라가 -z 쪽에 있으므로 남쪽 벽이 막는다.
+HIDDEN_FACE = {0: "south", 1: "west", 2: "north", 3: "east"}
+
+# ─────────────────────────────────────────── 시야 계산 보조
+def yaw_dir(step, pitch=CAM_PITCH):
+    """Unity 의 Quaternion.Euler(pitch, yaw, 0) * Vector3.forward 와 같은 값."""
+    y = math.radians(step * 90)
+    p = math.radians(pitch)
+    return (math.sin(y) * math.cos(p), -math.sin(p), math.cos(y) * math.cos(p))
+
+
+def area_box(a):
+    """구역이 차지하는 부피. 바닥판 + 벽 높이."""
+    h = max(8.0, a["backWall"] + 2.0)
+    c = (a["pos"]["x"], a["pos"]["y"] + h * 0.5, a["pos"]["z"])
+    e = (a["size"]["x"] * 0.5, h * 0.5, a["size"]["z"] * 0.5)
+    return c, e
+
+
+def seg_hits_box(p0, p1, c, e):
+    """선분 p0→p1 이 AABB(center c, extents e)를 지나가는가 (slab 판정)."""
+    d = tuple(p1[i] - p0[i] for i in range(3))
+    tmin, tmax = 0.0, 1.0
+    for i in range(3):
+        lo, hi = c[i] - e[i], c[i] + e[i]
+        if abs(d[i]) < 1e-9:
+            if p0[i] < lo or p0[i] > hi:
+                return False
+            continue
+        t1 = (lo - p0[i]) / d[i]
+        t2 = (hi - p0[i]) / d[i]
+        if t1 > t2:
+            t1, t2 = t2, t1
+        tmin = max(tmin, t1)
+        tmax = min(tmax, t2)
+        if tmin > tmax:
+            return False
+    return True
+
+
 # ═══════════════════════════════════════════════ 출력 / 검증
 def build():
     out = dict(areas=AREAS, ramps=RAMPS,
                meta=dict(spiralRadius1=R1, spiralRadius2=R2, slopeLimit=SLOPE_LIMIT,
-                         glideDrop=GLIDE_DROP, foldRise=FOLD_RISE))
+                         glideDrop=GLIDE_DROP, foldRise=FOLD_RISE,
+                         xzScale=XZ_SCALE, camPitch=CAM_PITCH, camPad=CAM_PAD))
     d = "Assets/_BookTower/Level"
     os.makedirs(d, exist_ok=True)
     p = os.path.join(d, "level_layout.json")
@@ -378,16 +532,23 @@ def validate():
         if run > 30:
             warns.append(f"{r['name']}: 길이 {run:.1f} — 걷기만 하는 구간이 길다")
 
-    # 2) 구역 겹침 (XZ 겹치고 높이차 4 미만이면 충돌)
+    # 2) 구역 겹침
+    #
+    #    높이차 기준을 4 에서 9 로 올렸다.
+    #    4 로는 "물리적으로 안 부딪힘"만 보장될 뿐이고,
+    #    XZ 가 겹치는 두 방이 8 정도 차이로 포개져 있으면
+    #    플레이어가 어느 방에 있는지 판정이 흔들린다.
+    #    (F0 바닥 0 과 1C 바닥 4 가 z 로 5만큼 겹쳐서 실제로 오판정이 났다.)
+    OVERLAP_DY = 9.0
     for i in range(len(AREAS)):
         for j in range(i + 1, len(AREAS)):
             a, b = AREAS[i], AREAS[j]
             dy = abs(a["pos"]["y"] - b["pos"]["y"])
-            if dy >= 4: continue
+            if dy >= OVERLAP_DY: continue
             ox = abs(a["pos"]["x"] - b["pos"]["x"]) < (a["size"]["x"] + b["size"]["x"]) / 2
             oz = abs(a["pos"]["z"] - b["pos"]["z"]) < (a["size"]["z"] + b["size"]["z"]) / 2
             if ox and oz:
-                errs.append(f"구역 겹침: {a['id']} ↔ {b['id']} (높이차 {dy:.1f})")
+                errs.append(f"구역 겹침: {a['id']} ↔ {b['id']} (높이차 {dy:.1f}) — 어느 방인지 판정이 흔들린다")
 
     # 3) 도달성 (F0에서 시작해 경사로를 따라 전부 닿는가)
     adj = {}
@@ -471,6 +632,60 @@ def validate():
     if not (abs(a3["pos"]["x"] - b3["pos"]["x"]) < 0.5 and abs(b3["pos"]["x"] - c3["pos"]["x"]) < 0.5):
         errs.append("3A·3B·3C가 일직선이 아님 — 3C의 빛이 3A에 닿지 못해 P15 연출이 불가능")
 
+    # 6) 구역 간 시야 — 카메라와 방 사이에 다른 방이 끼어 있는가
+    #
+    #    이 검사가 없어서 "시작하자마자 플레이어가 안 보이는" 버그가 났다.
+    #    나선형으로 쌓아 올린 탑은 F0 바로 위 y=31 에 3A(32x28)가 덮개처럼 얹힌다.
+    #    지금은 룸 컬링(현재 방만 렌더링)으로 실제 화면에서는 가려지지 않지만,
+    #    컬링을 끄거나 탑 전체를 보여주는 연출에서는 그대로 문제가 되므로 남겨 둔다.
+    blocked = []
+    for a in AREAS:
+        d = yaw_dir(a["camYaw"])
+        focus = (a["pos"]["x"], a["pos"]["y"] + 2.0, a["pos"]["z"])
+        campos = tuple(focus[i] - d[i] * CAM_DIST for i in range(3))
+        for b in AREAS:
+            if b["id"] == a["id"]:
+                continue
+            c, e = area_box(b)
+            if seg_hits_box(campos, focus, c, e):
+                blocked.append((a["id"], b["id"]))
+    for aid, bid in blocked:
+        warns.append(f"시야 가림: {aid} 를 보는데 {bid} 가 카메라 앞을 막는다 (룸 컬링으로 실사용에선 해소)")
+
+    # 7) 구역 안 시야 — 방 안의 벽이 퍼즐 요소를 가리는가
+    #
+    #    이건 컬링으로도 못 막는다. 같은 방 안이라 항상 같이 그려지기 때문이다.
+    #    높이 h 인 벽 뒤로는 h / tan(피치) 만큼 사각지대가 생긴다.
+    tan_p = math.tan(math.radians(CAM_PITCH))
+    SEE = ("fold", "piece", "crease", "marker")
+    for a in AREAS:
+        yaw = a["camYaw"]
+        culled = {HIDDEN_FACE[yaw], "ceiling"}
+        for o in a["objects"]:
+            if o["kind"] != "box":
+                continue
+            if o.get("face") in culled:
+                continue          # 카메라를 향한 면이라 런타임에 숨겨진다
+            top = o["pos"]["y"] + o["scale"]["y"] * 0.5
+            if o["scale"]["y"] < 2.0:
+                continue
+            for t in a["objects"]:
+                if t is o or t["kind"] not in SEE:
+                    continue
+                dx = t["pos"]["x"] - o["pos"]["x"]
+                dz = t["pos"]["z"] - o["pos"]["z"]
+                if yaw == 0:   along, lateral, half = dz, dx, o["scale"]["x"] * 0.5
+                elif yaw == 1: along, lateral, half = dx, dz, o["scale"]["z"] * 0.5
+                elif yaw == 2: along, lateral, half = -dz, dx, o["scale"]["x"] * 0.5
+                else:          along, lateral, half = -dx, dz, o["scale"]["z"] * 0.5
+                depth = (top - t["pos"]["y"]) / tan_p
+                if depth <= 0:
+                    continue
+                if 0 < along < depth and abs(lateral) < half + 0.5:
+                    errs.append(
+                        f"{a['id']}: '{o['name']}'(높이 {o['scale']['y']:.1f}) 뒤 사각지대에 "
+                        f"'{t['name']}' 가 들어감 — 카메라에서 안 보인다")
+
     print(f"구역 {len(AREAS)} / 경사로 {len(RAMPS)}")
     print(f"\n오류 {len(errs)}건")
     for e in errs: print("  ✗", e)
@@ -481,7 +696,7 @@ def validate():
 
 
 # ═══════════════════════════════════════════════ 이동 시뮬레이션
-MOVE_SPEED = 4.0    # PlayerController.moveSpeed
+MOVE_SPEED = 5.5    # PlayerController.moveSpeed (방을 키우면서 상향)
 
 # 기획서(Docs/06)의 구역별 퍼즐 목표 시간(초)
 PUZZLE_BUDGET = {

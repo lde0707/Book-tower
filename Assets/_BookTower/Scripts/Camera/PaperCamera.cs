@@ -13,7 +13,8 @@ namespace BookTower.CameraSystem
     ///  - 캐릭터를 "느슨하게" 따라감 — 밀착 추적 금지, 데드존 사용
     ///
     /// 모드
-    ///  - Follow    : 평소 플레이. 플레이어를 느슨하게 따라감
+    ///  - Room      : 지금 있는 방 하나를 화면에 담는다 (기본 플레이 모드)
+    ///  - Follow    : 방 개념 없이 플레이어만 따라감
     ///  - Overview  : 맵 전체가 화면에 들어오게 자동으로 맞춤 (레벨 확인·퍼즐 배치용)
     ///  - Fixed     : 한 지점 고정 (특정 퍼즐 구도)
     ///  - Cinematic : 연출이 카메라를 직접 제어
@@ -24,7 +25,7 @@ namespace BookTower.CameraSystem
     [DisallowMultipleComponent]
     public class PaperCamera : MonoBehaviour
     {
-        public enum CameraMode { Follow, Overview, Fixed, Cinematic }
+        public enum CameraMode { Follow, Overview, Fixed, Cinematic, Room }
 
         [Header("추적 대상")]
         public Transform target;
@@ -38,6 +39,14 @@ namespace BookTower.CameraSystem
 
         [Tooltip("가장자리 여백. 1.0이면 딱 맞고, 1.15면 15% 여유")]
         [SerializeField] private float framePadding = 1.12f;
+
+        [Header("룸 모드")]
+        [Tooltip("방이 이보다 커서 한 화면에 다 안 들어오면, 방 전체를 담는 대신 " +
+                 "플레이어를 따라간다. 방 밖으로는 나가지 않는다")]
+        [SerializeField] private float maxRoomOrthoSize = 20f;
+
+        [Tooltip("큰 방에서 플레이어를 따라갈 때의 부드러움")]
+        [SerializeField] private float roomFollowSpeed = 3.5f;
 
         [Header("Follow 모드 뷰")]
         [SerializeField] private float followOrthoSize = 6f;
@@ -53,6 +62,11 @@ namespace BookTower.CameraSystem
         [SerializeField] private float followSpeed = 4f;
         [Tooltip("이 거리 안에서는 따라가지 않는다 (미세 흔들림 방지)")]
         [SerializeField] private float deadZone = 0.8f;
+
+        private Bounds roomBounds;
+        private float roomPad = 1.18f;
+        private bool hasRoom;
+        private CameraMode modeBeforeOverview = CameraMode.Room;
 
         private int yawStep;
         private Vector3 focus;
@@ -89,6 +103,7 @@ namespace BookTower.CameraSystem
             HandleInput();
 
             if (mode == CameraMode.Follow) FollowTarget();
+            else if (mode == CameraMode.Room) FitRoom();
             else if (mode == CameraMode.Overview) FitToFrameTarget();
 
             ApplyTransform();
@@ -105,7 +120,10 @@ namespace BookTower.CameraSystem
             if (kb.eKey.wasPressedThisFrame) yawStep = (yawStep + 1) % 4;  // 시계
 
             if (kb.tabKey.wasPressedThisFrame)
-                SetMode(mode == CameraMode.Overview ? CameraMode.Follow : CameraMode.Overview);
+            {
+                if (mode == CameraMode.Overview) SetMode(modeBeforeOverview);
+                else { modeBeforeOverview = mode; SetMode(CameraMode.Overview); }
+            }
         }
 
         private void FollowTarget()
@@ -138,7 +156,21 @@ namespace BookTower.CameraSystem
             for (int i = 1; i < renderers.Length; i++)
                 bounds.Encapsulate(renderers[i].bounds);
 
-            // 카메라 기준 좌표로 8개 모서리를 옮겨서 필요한 화면 크기를 구한다
+            float needed = RequiredOrthoSize(bounds) * framePadding;
+            focus = bounds.center;
+            orthoSize = Mathf.Lerp(orthoSize, needed, 1f - Mathf.Exp(-rotateSpeed * Time.deltaTime));
+
+            // 뒤쪽 오브젝트가 카메라 뒤로 넘어가지 않게 거리를 넉넉히
+            distance = Mathf.Max(40f, bounds.size.magnitude * 2f);
+        }
+
+        /// <summary>
+        /// 이 범위가 화면에 다 들어오려면 orthographicSize 가 얼마여야 하는가.
+        /// 카메라가 기울어 있으므로 8개 모서리를 카메라 기준 좌표로 옮겨서 잰다.
+        /// 각도가 바뀌면 필요한 크기도 바뀌기 때문에 매 프레임 다시 계산한다.
+        /// </summary>
+        private float RequiredOrthoSize(Bounds bounds)
+        {
             Quaternion inv = Quaternion.Inverse(Quaternion.Euler(pitch, YawDegrees, 0f));
             Vector3 e = bounds.extents;
             float maxX = 0f, maxY = 0f;
@@ -156,13 +188,62 @@ namespace BookTower.CameraSystem
             }
 
             float aspect = cam.aspect > 0.01f ? cam.aspect : 16f / 9f;
-            float needed = Mathf.Max(maxY, maxX / aspect) * framePadding;
+            return Mathf.Max(maxY, maxX / aspect);
+        }
 
-            focus = bounds.center;
-            orthoSize = Mathf.Lerp(orthoSize, needed, 1f - Mathf.Exp(-rotateSpeed * Time.deltaTime));
+        /// <summary>
+        /// 룸 모드. 방 하나를 화면에 담는다.
+        /// 방이 너무 커서 한 화면에 안 들어오면 플레이어를 따라가되,
+        /// 시선이 방 밖으로 나가지 않게 방 범위 안에 묶는다.
+        /// </summary>
+        private void FitRoom()
+        {
+            if (!hasRoom) { FollowTarget(); return; }
 
-            // 뒤쪽 오브젝트가 카메라 뒤로 넘어가지 않게 거리를 넉넉히
-            distance = Mathf.Max(40f, bounds.size.magnitude * 2f);
+            float needed = RequiredOrthoSize(roomBounds) * roomPad;
+            float wantSize = Mathf.Min(needed, maxRoomOrthoSize);
+
+            Vector3 wantFocus = roomBounds.center;
+            if (needed > maxRoomOrthoSize && target != null)
+            {
+                Vector3 p = target.position;
+                Vector3 min = roomBounds.min, max = roomBounds.max;
+                wantFocus = new Vector3(
+                    Mathf.Clamp(p.x, min.x, max.x),
+                    Mathf.Clamp(p.y, min.y, max.y),
+                    Mathf.Clamp(p.z, min.z, max.z));
+            }
+
+            float k = 1f - Mathf.Exp(-roomFollowSpeed * Time.deltaTime);
+            orthoSize = Mathf.Lerp(orthoSize, wantSize, k);
+            focus = Vector3.Lerp(focus, wantFocus, k);
+
+            // 방 뒤쪽 물체가 카메라 뒤로 넘어가지 않게 넉넉히 물린다
+            distance = Mathf.Max(60f, roomBounds.size.magnitude * 2f);
+        }
+
+        /// <summary>RoomManager 가 방이 바뀔 때 호출한다.</summary>
+        public void FrameRoom(BookTower.Rooms.Room room)
+        {
+            if (room == null) return;
+
+            bool first = !hasRoom;
+
+            roomBounds = room.WorldBounds;
+            roomPad = room.CamPad;
+            hasRoom = true;
+            yawStep = ((room.CamYaw % 4) + 4) % 4;   // 방마다 정해둔 각도로 되돌린다
+            mode = CameraMode.Room;
+
+            // 첫 방은 즉시 맞춘다. 보간을 두면 게임 시작 직후 카메라가
+            // 엉뚱한 데서 날아오는 것처럼 보인다.
+            if (first)
+            {
+                focus = roomBounds.center;
+                orthoSize = Mathf.Min(RequiredOrthoSize(roomBounds) * roomPad, maxRoomOrthoSize);
+                distance = Mathf.Max(60f, roomBounds.size.magnitude * 2f);
+                ApplyTransform();
+            }
         }
 
         private void ApplyTransform()

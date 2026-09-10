@@ -3,6 +3,7 @@ using UnityEditor;
 using BookTower.Core;
 using BookTower.Fold;
 using BookTower.Puzzles;
+using BookTower.Rooms;
 using System;
 using System.IO;
 using System.Collections.Generic;
@@ -40,6 +41,9 @@ namespace BookTower.EditorTools
         public string creaseId;
         public float wear;
         public bool active;
+
+        // 외벽 면 (north|south|east|west|ceiling). 비어 있으면 벽이 아니다
+        public string face;
     }
 
     [Serializable]
@@ -67,6 +71,9 @@ namespace BookTower.EditorTools
         public string note;
         public ObjDef[] objects;
         public PuzzleDef puzzle;
+
+        public int camYaw;
+        public float camPad;
     }
 
     [Serializable]
@@ -77,6 +84,8 @@ namespace BookTower.EditorTools
         public V3 to;
         public float width;
         public string mat;
+        public string fromId;
+        public string toId;
     }
 
     [Serializable]
@@ -164,11 +173,14 @@ namespace BookTower.EditorTools
 
             // 그림자를 받아낼 뒷벽 — 없으면 퍼즐 검증이 불가능하다
             if (a.backWall > 0.01f)
-                MakeBox(area, "뒷벽", new Vector3(0f, a.backWall * 0.5f, a.size.z * 0.5f),
-                        new Vector3(a.size.x, a.backWall, 0.3f), pal.paperShade);
+            {
+                GameObject back = MakeBox(area, "뒷벽",
+                    new Vector3(0f, a.backWall * 0.5f, a.size.z * 0.5f),
+                    new Vector3(a.size.x, a.backWall, 0.3f), pal.paperShade);
+                AttachWall(back, "north");
+            }
 
-            if (a.objects == null) return;
-            foreach (ObjDef o in a.objects)
+            foreach (ObjDef o in a.objects ?? Array.Empty<ObjDef>())
             {
                 GameObject go = o.kind switch
                 {
@@ -179,7 +191,69 @@ namespace BookTower.EditorTools
                     _ => MakeBox(area, o.name, o.pos.V, o.scale.V, pal.Get(o.mat)),
                 };
                 if (go != null && !string.IsNullOrEmpty(o.note)) Note(go, o.note);
+                if (go != null) AttachWall(go, o.face);
             }
+
+            ConfigureRoom(area, a);
+        }
+
+        // ─────────────────────────────────────────── 룸
+
+        /// <summary>face 문자열이 있으면 카메라를 향할 때 숨겨지는 벽으로 표시한다.</summary>
+        private static void AttachWall(GameObject go, string face)
+        {
+            WallFace f = face switch
+            {
+                "north" => WallFace.North,
+                "south" => WallFace.South,
+                "east" => WallFace.East,
+                "west" => WallFace.West,
+                "ceiling" => WallFace.Ceiling,
+                _ => WallFace.None,
+            };
+            if (f == WallFace.None) return;
+
+            var w = go.AddComponent<RoomWall>();
+            SetEnum(w, "face", (int)f);
+        }
+
+        /// <summary>
+        /// 구역에 Room 을 붙이고 부피를 잰다.
+        /// 부피는 JSON 의 size 가 아니라 실제로 생성된 렌더러들에서 구한다.
+        /// 벽 높이나 천장까지 포함해야 카메라가 방을 제대로 담을 수 있고,
+        /// size 만 쓰면 높이 정보가 아예 없다.
+        /// </summary>
+        private static void ConfigureRoom(Transform area, AreaDef a)
+        {
+            var room = area.gameObject.AddComponent<Room>();
+
+            SetString(room, "roomId", a.id);
+            SetInt(room, "camYaw", a.camYaw);
+            SetFloat(room, "camPad", a.camPad > 0.01f ? a.camPad : 1.18f);
+
+            var rends = area.GetComponentsInChildren<Renderer>(true);
+            Vector3 center, size;
+
+            if (rends.Length > 0)
+            {
+                Bounds b = rends[0].bounds;
+                for (int i = 1; i < rends.Length; i++) b.Encapsulate(rends[i].bounds);
+                center = b.center - area.position;   // 로컬로 환산
+                size = b.size;
+            }
+            else
+            {
+                center = new Vector3(0f, 4f, 0f);
+                size = new Vector3(a.size.x, 8f, a.size.z);
+            }
+
+            // 가장자리에 서 있어도 방 안으로 잡히게 살짝만 넉넉히.
+            // 크게 주면 옆 방과 부피가 겹쳐서 판정이 흔들린다.
+            size += new Vector3(1f, 1f, 1f);
+
+            SetVector3(room, "boundsCenter", center);
+            SetVector3(room, "boundsSize", size);
+            SetFloat(room, "floorY", a.pos.y);
         }
 
         /// <summary>P3 · 찢겨나간 간극 — 바닥을 앞뒤로 나눠 가운데를 비운다</summary>
@@ -347,6 +421,17 @@ namespace BookTower.EditorTools
             go.transform.localRotation = Quaternion.LookRotation(dir.normalized, Vector3.up);
             go.transform.localScale = new Vector3(r.width, 0.2f, dir.magnitude);
             go.GetComponent<MeshRenderer>().sharedMaterial = pal.Get(r.mat);
+
+            // 이 경사로가 잇는 두 방을 기록해 둔다.
+            // 경사로 위에서 어느 방을 보여줄지 추측하지 않기 위해서다.
+            if (!string.IsNullOrEmpty(r.fromId) && !string.IsNullOrEmpty(r.toId))
+            {
+                var link = go.AddComponent<RampLink>();
+                SetString(link, "fromRoomId", r.fromId);
+                SetString(link, "toRoomId", r.toId);
+                SetVector3(link, "fromPoint", from);
+                SetVector3(link, "toPoint", to);
+            }
         }
 
         // ─────────────────────────────────────────── 유틸
@@ -377,6 +462,12 @@ namespace BookTower.EditorTools
             for (int i = 0; i < v.Length; i++) p.GetArrayElementAtIndex(i).stringValue = v[i];
             so.ApplyModifiedPropertiesWithoutUndo();
         }
+
+        private static void SetInt(UnityEngine.Object t, string f, int v)
+        { var so = new SerializedObject(t); so.FindProperty(f).intValue = v; so.ApplyModifiedPropertiesWithoutUndo(); }
+
+        private static void SetVector3(UnityEngine.Object t, string f, Vector3 v)
+        { var so = new SerializedObject(t); so.FindProperty(f).vector3Value = v; so.ApplyModifiedPropertiesWithoutUndo(); }
 
         private static void SetEnum(UnityEngine.Object t, string f, int v)
         { var so = new SerializedObject(t); so.FindProperty(f).enumValueIndex = v; so.ApplyModifiedPropertiesWithoutUndo(); }
