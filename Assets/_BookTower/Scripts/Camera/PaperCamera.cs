@@ -43,7 +43,7 @@ namespace BookTower.CameraSystem
         [Header("룸 모드")]
         [Tooltip("방이 이보다 커서 한 화면에 다 안 들어오면, 방 전체를 담는 대신 " +
                  "플레이어를 따라간다. 방 밖으로는 나가지 않는다")]
-        [SerializeField] private float maxRoomOrthoSize = 20f;
+        [SerializeField] private float maxRoomOrthoSize = 16f;
 
         [Tooltip("큰 방에서 플레이어를 따라갈 때의 부드러움")]
         [SerializeField] private float roomFollowSpeed = 3.5f;

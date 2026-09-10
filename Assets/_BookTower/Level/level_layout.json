@@ -131,10 +131,10 @@
     "assemblyRange": 5.6
    },
    "camYaw": 0,
-   "camPad": 1.18,
+   "camPad": 0.95,
    "light": {
     "sun": 0.22,
-    "ambient": 0.18,
+    "ambient": 0.1,
     "fog": 0.016,
     "shadowStrength": 0.62
    },
@@ -146,8 +146,8 @@
       "y": 2.7,
       "z": 3.2
      },
-     "intensity": 3.2,
-     "range": 14
+     "intensity": 5.0,
+     "range": 15
     },
     {
      "name": "빛_조각_A",
@@ -156,8 +156,8 @@
       "y": 1.65,
       "z": 5.6
      },
-     "intensity": 0.35,
-     "range": 3.0
+     "intensity": 0.7,
+     "range": 3.5
     },
     {
      "name": "빛_조각_B",
@@ -166,8 +166,8 @@
       "y": 1.65,
       "z": -0.8
      },
-     "intensity": 0.35,
-     "range": 3.0
+     "intensity": 0.7,
+     "range": 3.5
     }
    ]
   },
@@ -297,10 +297,10 @@
     "assemblyRange": 0.0
    },
    "camYaw": 0,
-   "camPad": 1.18,
+   "camPad": 0.95,
    "light": {
     "sun": 0.72,
-    "ambient": 0.42,
+    "ambient": 0.24,
     "fog": 0.01,
     "shadowStrength": 0.62
    },
@@ -312,8 +312,8 @@
       "y": 4.7,
       "z": 0.0
      },
-     "intensity": 1.7,
-     "range": 6.5
+     "intensity": 2.6,
+     "range": 7.5
     },
     {
      "name": "빛_출구",
@@ -322,7 +322,7 @@
       "y": 1.0,
       "z": -6.72
      },
-     "intensity": 1.0,
+     "intensity": 1.6,
      "range": 7
     }
    ]
@@ -418,10 +418,10 @@
     "assemblyRange": 0.0
    },
    "camYaw": 0,
-   "camPad": 1.18,
+   "camPad": 0.95,
    "light": {
     "sun": 0.72,
-    "ambient": 0.42,
+    "ambient": 0.24,
     "fog": 0.01,
     "shadowStrength": 0.62
    },
@@ -433,8 +433,8 @@
       "y": 2.8,
       "z": 0.8
      },
-     "intensity": 1.7,
-     "range": 6.5
+     "intensity": 2.6,
+     "range": 7.5
     },
     {
      "name": "빛_출구",
@@ -443,7 +443,7 @@
       "y": 1.0,
       "z": -6.72
      },
-     "intensity": 1.0,
+     "intensity": 1.6,
      "range": 7
     }
    ]
@@ -610,10 +610,10 @@
     "assemblyRange": 0.0
    },
    "camYaw": 0,
-   "camPad": 1.18,
+   "camPad": 0.95,
    "light": {
     "sun": 0.72,
-    "ambient": 0.42,
+    "ambient": 0.24,
     "fog": 0.01,
     "shadowStrength": 0.62
    },
@@ -625,8 +625,8 @@
       "y": 4.2,
       "z": 0.0
      },
-     "intensity": 1.7,
-     "range": 6.5
+     "intensity": 2.6,
+     "range": 7.5
     },
     {
      "name": "빛_출구",
@@ -635,7 +635,7 @@
       "y": 1.0,
       "z": 11.1
      },
-     "intensity": 1.0,
+     "intensity": 1.6,
      "range": 7
     }
    ]
@@ -775,10 +775,10 @@
     "assemblyRange": 6.4
    },
    "camYaw": 0,
-   "camPad": 1.18,
+   "camPad": 0.95,
    "light": {
     "sun": 0.72,
-    "ambient": 0.42,
+    "ambient": 0.24,
     "fog": 0.01,
     "shadowStrength": 0.62
    },
@@ -790,8 +790,8 @@
       "y": 1.65,
       "z": -6.4
      },
-     "intensity": 1.1,
-     "range": 5
+     "intensity": 1.9,
+     "range": 5.5
     },
     {
      "name": "빛_조각_2",
@@ -800,8 +800,8 @@
       "y": 1.65,
       "z": 3.2
      },
-     "intensity": 1.1,
-     "range": 5
+     "intensity": 1.9,
+     "range": 5.5
     },
     {
      "name": "빛_조각_3_레드헤링",
@@ -810,8 +810,8 @@
       "y": 1.65,
       "z": 8.0
      },
-     "intensity": 1.1,
-     "range": 5
+     "intensity": 1.9,
+     "range": 5.5
     },
     {
      "name": "빛_출구",
@@ -820,7 +820,7 @@
       "y": 1.0,
       "z": 6.72
      },
-     "intensity": 1.0,
+     "intensity": 1.6,
      "range": 7
     }
    ]
@@ -956,10 +956,10 @@
     "assemblyRange": 0.0
    },
    "camYaw": 0,
-   "camPad": 1.18,
+   "camPad": 0.95,
    "light": {
     "sun": 0.72,
-    "ambient": 0.42,
+    "ambient": 0.24,
     "fog": 0.01,
     "shadowStrength": 0.62
    },
@@ -971,7 +971,7 @@
       "y": 1.0,
       "z": -5.98
      },
-     "intensity": 1.0,
+     "intensity": 1.6,
      "range": 7
     }
    ]
@@ -1072,10 +1072,10 @@
    ],
    "puzzle": null,
    "camYaw": 0,
-   "camPad": 1.18,
+   "camPad": 0.95,
    "light": {
     "sun": 0.84,
-    "ambient": 0.34,
+    "ambient": 0.2,
     "fog": 0.009,
     "shadowStrength": 0.62
    },
@@ -1087,8 +1087,8 @@
       "y": 1.33,
       "z": 1.6
      },
-     "intensity": 0.9,
-     "range": 5
+     "intensity": 1.5,
+     "range": 5.5
     },
     {
      "name": "빛_랜드마크_빛나는주름",
@@ -1097,8 +1097,8 @@
       "y": 2.7,
       "z": 1.6
      },
-     "intensity": 1.7,
-     "range": 6.5
+     "intensity": 2.6,
+     "range": 7.5
     },
     {
      "name": "빛_출구",
@@ -1107,7 +1107,7 @@
       "y": 1.0,
       "z": -5.76
      },
-     "intensity": 1.0,
+     "intensity": 1.6,
      "range": 7
     }
    ]
@@ -1220,10 +1220,10 @@
     "assemblyRange": 0.0
    },
    "camYaw": 0,
-   "camPad": 1.18,
+   "camPad": 0.95,
    "light": {
     "sun": 0.84,
-    "ambient": 0.34,
+    "ambient": 0.2,
     "fog": 0.009,
     "shadowStrength": 0.62
    },
@@ -1235,7 +1235,7 @@
       "y": 1.0,
       "z": 6.72
      },
-     "intensity": 1.0,
+     "intensity": 1.6,
      "range": 7
     }
    ]
@@ -1348,10 +1348,10 @@
     "assemblyRange": 0.0
    },
    "camYaw": 0,
-   "camPad": 1.18,
+   "camPad": 0.95,
    "light": {
     "sun": 0.84,
-    "ambient": 0.34,
+    "ambient": 0.2,
     "fog": 0.009,
     "shadowStrength": 0.62
    },
@@ -1363,8 +1363,8 @@
       "y": 2.14,
       "z": 4.8
      },
-     "intensity": 1.8,
-     "range": 9
+     "intensity": 2.8,
+     "range": 9.5
     },
     {
      "name": "빛_랜드마크_두겹페이지",
@@ -1373,8 +1373,8 @@
       "y": 3.7,
       "z": -9.6
      },
-     "intensity": 1.7,
-     "range": 6.5
+     "intensity": 2.6,
+     "range": 7.5
     },
     {
      "name": "빛_출구",
@@ -1383,7 +1383,7 @@
       "y": 1.0,
       "z": 8.64
      },
-     "intensity": 1.0,
+     "intensity": 1.6,
      "range": 7
     }
    ]
@@ -1509,10 +1509,10 @@
    ],
    "puzzle": null,
    "camYaw": 0,
-   "camPad": 1.18,
+   "camPad": 0.95,
    "light": {
     "sun": 0.84,
-    "ambient": 0.34,
+    "ambient": 0.2,
     "fog": 0.009,
     "shadowStrength": 0.62
    },
@@ -1524,8 +1524,8 @@
       "y": 5.2,
       "z": -3.2
      },
-     "intensity": 1.7,
-     "range": 6.5
+     "intensity": 2.6,
+     "range": 7.5
     },
     {
      "name": "빛_출구",
@@ -1534,7 +1534,7 @@
       "y": 1.0,
       "z": -6.24
      },
-     "intensity": 1.0,
+     "intensity": 1.6,
      "range": 7
     }
    ]
@@ -1782,10 +1782,10 @@
     "assemblyRange": 0.0
    },
    "camYaw": 0,
-   "camPad": 1.18,
+   "camPad": 0.95,
    "light": {
     "sun": 0.84,
-    "ambient": 0.34,
+    "ambient": 0.2,
     "fog": 0.009,
     "shadowStrength": 0.62
    },
@@ -1797,8 +1797,8 @@
       "y": 2.7,
       "z": 16.64
      },
-     "intensity": 0.9,
-     "range": 5
+     "intensity": 1.5,
+     "range": 5.5
     },
     {
      "name": "빛_주름_2",
@@ -1807,8 +1807,8 @@
       "y": 2.7,
       "z": 0.0
      },
-     "intensity": 0.9,
-     "range": 5
+     "intensity": 1.5,
+     "range": 5.5
     },
     {
      "name": "빛_주름_3",
@@ -1817,8 +1817,8 @@
       "y": 2.7,
       "z": -16.64
      },
-     "intensity": 0.9,
-     "range": 5
+     "intensity": 1.5,
+     "range": 5.5
     },
     {
      "name": "빛_주름_4",
@@ -1827,8 +1827,8 @@
       "y": 2.7,
       "z": 0.0
      },
-     "intensity": 0.9,
-     "range": 5
+     "intensity": 1.5,
+     "range": 5.5
     },
     {
      "name": "빛_주름_5_가장최근",
@@ -1837,8 +1837,8 @@
       "y": 8.0,
       "z": 0.0
      },
-     "intensity": 0.9,
-     "range": 5
+     "intensity": 1.5,
+     "range": 5.5
     },
     {
      "name": "빛_랜드마크_사방의주름",
@@ -1847,8 +1847,8 @@
       "y": 5.2,
       "z": 0.0
      },
-     "intensity": 1.7,
-     "range": 6.5
+     "intensity": 2.6,
+     "range": 7.5
     },
     {
      "name": "빛_출구",
@@ -1857,7 +1857,7 @@
       "y": 1.0,
       "z": -8.58
      },
-     "intensity": 1.0,
+     "intensity": 1.6,
      "range": 7
     }
    ]
@@ -1949,10 +1949,10 @@
    ],
    "puzzle": null,
    "camYaw": 0,
-   "camPad": 1.18,
+   "camPad": 0.95,
    "light": {
     "sun": 0.84,
-    "ambient": 0.34,
+    "ambient": 0.2,
     "fog": 0.009,
     "shadowStrength": 0.62
    },
@@ -1964,7 +1964,7 @@
       "y": 1.0,
       "z": 4.8
      },
-     "intensity": 1.0,
+     "intensity": 1.6,
      "range": 7
     }
    ]
@@ -2449,10 +2449,10 @@
     "assemblyRange": 8.0
    },
    "camYaw": 0,
-   "camPad": 1.18,
+   "camPad": 0.95,
    "light": {
     "sun": 1.05,
-    "ambient": 0.5,
+    "ambient": 0.3,
     "fog": 0.005,
     "shadowStrength": 0.62
    },
@@ -2464,8 +2464,8 @@
       "y": 2.6,
       "z": -9.6
      },
-     "intensity": 1.8,
-     "range": 9
+     "intensity": 2.8,
+     "range": 9.5
     },
     {
      "name": "빛_조각_p1",
@@ -2474,8 +2474,8 @@
       "y": 1.65,
       "z": -14.4
      },
-     "intensity": 1.1,
-     "range": 5
+     "intensity": 1.9,
+     "range": 5.5
     },
     {
      "name": "빛_조각_p2",
@@ -2484,8 +2484,8 @@
       "y": 1.65,
       "z": -17.6
      },
-     "intensity": 1.1,
-     "range": 5
+     "intensity": 1.9,
+     "range": 5.5
     },
     {
      "name": "빛_조각_p3",
@@ -2494,8 +2494,8 @@
       "y": 1.65,
       "z": -16.0
      },
-     "intensity": 1.1,
-     "range": 5
+     "intensity": 1.9,
+     "range": 5.5
     },
     {
      "name": "빛_조각_p4",
@@ -2504,8 +2504,8 @@
       "y": 1.65,
       "z": -11.2
      },
-     "intensity": 1.1,
-     "range": 5
+     "intensity": 1.9,
+     "range": 5.5
     },
     {
      "name": "빛_조각_p5",
@@ -2514,8 +2514,8 @@
       "y": 1.65,
       "z": 1.6
      },
-     "intensity": 1.1,
-     "range": 5
+     "intensity": 1.9,
+     "range": 5.5
     },
     {
      "name": "빛_조각_p6",
@@ -2524,8 +2524,8 @@
       "y": 1.65,
       "z": 14.4
      },
-     "intensity": 1.1,
-     "range": 5
+     "intensity": 1.9,
+     "range": 5.5
     },
     {
      "name": "빛_조각_p7",
@@ -2534,8 +2534,8 @@
       "y": 1.65,
       "z": 12.8
      },
-     "intensity": 1.1,
-     "range": 5
+     "intensity": 1.9,
+     "range": 5.5
     },
     {
      "name": "빛_출구",
@@ -2544,7 +2544,7 @@
       "y": 1.0,
       "z": 13.44
      },
-     "intensity": 1.0,
+     "intensity": 1.6,
      "range": 7
     }
    ]
@@ -2748,10 +2748,10 @@
     "assemblyRange": 0.0
    },
    "camYaw": 0,
-   "camPad": 1.18,
+   "camPad": 0.95,
    "light": {
     "sun": 1.05,
-    "ambient": 0.5,
+    "ambient": 0.3,
     "fog": 0.005,
     "shadowStrength": 0.62
    },
@@ -2763,8 +2763,8 @@
       "y": 4.2,
       "z": 14.08
      },
-     "intensity": 1.8,
-     "range": 9
+     "intensity": 2.8,
+     "range": 9.5
     },
     {
      "name": "빛_출구",
@@ -2773,7 +2773,7 @@
       "y": 1.0,
       "z": 8.64
      },
-     "intensity": 1.0,
+     "intensity": 1.6,
      "range": 7
     }
    ]
@@ -2848,10 +2848,10 @@
    ],
    "puzzle": null,
    "camYaw": 0,
-   "camPad": 1.18,
+   "camPad": 0.95,
    "light": {
     "sun": 1.05,
-    "ambient": 0.5,
+    "ambient": 0.3,
     "fog": 0.005,
     "shadowStrength": 0.62
    },
@@ -2863,8 +2863,8 @@
       "y": 2.6,
       "z": 6.4
      },
-     "intensity": 1.8,
-     "range": 9
+     "intensity": 2.8,
+     "range": 9.5
     }
    ]
   },
@@ -2940,10 +2940,10 @@
    ],
    "puzzle": null,
    "camYaw": 0,
-   "camPad": 1.18,
+   "camPad": 0.95,
    "light": {
     "sun": 0.66,
-    "ambient": 0.32,
+    "ambient": 0.18,
     "fog": 0.012,
     "shadowStrength": 0.62
    },
@@ -2955,8 +2955,8 @@
       "y": 3.2,
       "z": 4.8
      },
-     "intensity": 1.7,
-     "range": 6.5
+     "intensity": 2.6,
+     "range": 7.5
     }
    ]
   }
@@ -3209,7 +3209,7 @@
   "foldRise": 3.5,
   "xzScale": 1.6,
   "camPitch": 30.0,
-  "camPad": 1.18,
+  "camPad": 0.95,
   "floorGap": 6.4,
   "jumpHeight": 1.2
  }

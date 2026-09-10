@@ -56,7 +56,7 @@ public static class PrototypeSceneBuilder
     // 떨어지면 어둠이 아니라 백지로 사라진다 — 스케치북 세계관에 맞고,
     // 흰 배경 위에서는 외곽선이 형태를 잡아 주므로 물체가 오히려 또렷해진다.
     private static readonly Color VoidColor = Hex("#FDFCFA");
-    private static readonly Color SeaColor = Hex("#F4F1EA");
+    private static readonly Color SeaColor = Hex("#E8E4DA");   // 완전 백지면 탑이 배경에 묻힌다
 
     private static readonly Color LightWarm = Hex("#F2C879");    // 채도가 있는 유일한 색
     private static readonly Color Ribbon = Hex("#D9694F");       // 책갈피새 — 크레파스 빨강
@@ -238,14 +238,17 @@ public static class PrototypeSceneBuilder
         sea.transform.localPosition = new Vector3(0f, -22f, 0f);
         sea.transform.localScale = new Vector3(500f, 0.5f, 500f);
         sea.GetComponent<MeshRenderer>().sharedMaterial = seaMat;
+        // 바다도 그림자를 받지 않는다. 500x500 짜리 흰 판이 그림자를 받으면
+        // 화면 아래쪽이 통째로 얼룩진다
+        sea.GetComponent<MeshRenderer>().receiveShadows = false;
+        sea.GetComponent<MeshRenderer>().shadowCastingMode =
+            UnityEngine.Rendering.ShadowCastingMode.Off;
         UnityEngine.Object.DestroyImmediate(sea.GetComponent<Collider>());   // 떨어지면 복귀 처리로 잡는다
 
-        // 안개 — 수평선을 지워 끝이 없어 보이게. 플레이 영역은 안 가리도록 멀리서 시작
-        RenderSettings.fog = true;
-        RenderSettings.fogMode = FogMode.Linear;
-        RenderSettings.fogColor = VoidColor;
-        RenderSettings.fogStartDistance = 60f;
-        RenderSettings.fogEndDistance = 220f;
+        // 안개는 BuildLighting 에서만 설정한다.
+        // 여기서 또 건드리면 나중에 실행되는 이쪽이 이겨서
+        // LightingDirector 가 방마다 조절하는 fogDensity 가 무시된다.
+        // (Linear 모드에서는 fogDensity 자체가 안 쓰인다 — 실제로 그 상태였다)
 
         // 떠다니는 낱장 — 스케일 감을 주는 게 목적. 진행 방향으로 흘러 길잡이도 겸한다
         Transform pagesRoot = new GameObject("FloatingPages").transform;

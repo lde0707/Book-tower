@@ -412,7 +412,7 @@ GLIDE_DRIFT    = 1.4
 # "빠진 조각은 찾을 수 없다. 다른 페이지를 접어 그림자로 덮어라"
 FLOOR_GAP_BASE = 4.0
 CAM_PITCH = 30.0            # PaperCamera.pitch 와 같아야 한다
-CAM_PAD   = 1.18            # 방 가장자리 여백
+CAM_PAD   = 0.95            # 방 가장자리 여백. 1.18 은 너무 멀어서 20% 당겼다
 CAM_DIST  = 90.0            # 직교 카메라를 뒤로 물리는 거리
 
 # 기본은 yaw 0 (카메라가 -z 쪽에서 +z 를 바라봄 → 뒷벽에 지는 그림자가 보인다).
@@ -574,12 +574,15 @@ def seg_hits_box(p0, p1, c, e):
 # 날아가면 그림자만 보이는 게 아니라 그림자'도' 안 보이게 된다.
 # 대신 앰비언트는 올렸다 — 연필 그림자는 회색이지 검정이 아니다.
 FLOOR_LIGHT = {
-    0: dict(sun=0.22, ambient=0.18, fog=0.016),   # 표지 · 게임에서 가장 어둡다
-    1: dict(sun=0.72, ambient=0.42, fog=0.010),   # 정돈 · 빛이 잘 든다
-    2: dict(sun=0.84, ambient=0.34, fog=0.009),   # 혼란 · 밝지만 대비가 세다 = 조각난 빛
-    3: dict(sun=1.05, ambient=0.50, fog=0.005),   # 개방
+    # 앰비언트를 한 번 더 낮췄다.
+    # 전체가 고르게 밝으면 강조광이 켜져 있어도 "빛나 보이지" 않는다.
+    # 빛은 절대 밝기가 아니라 주변과의 차이로 읽힌다.
+    0: dict(sun=0.22, ambient=0.10, fog=0.016),   # 표지 · 게임에서 가장 어둡다
+    1: dict(sun=0.72, ambient=0.24, fog=0.010),   # 정돈 · 빛이 잘 든다
+    2: dict(sun=0.84, ambient=0.20, fog=0.009),   # 혼란 · 밝지만 대비가 세다 = 조각난 빛
+    3: dict(sun=1.05, ambient=0.30, fog=0.005),   # 개방
 }
-HIDDEN_LIGHT = dict(sun=0.66, ambient=0.32, fog=0.012)
+HIDDEN_LIGHT = dict(sun=0.66, ambient=0.18, fog=0.012)
 
 SHADOW_STRENGTH = 0.62   # 흰 종이 위에서는 0.8만 돼도 먹처럼 진해진다
 
@@ -634,11 +637,11 @@ def apply_lighting():
                     continue
                 strong = a["id"] == "F0"      # 표지에선 이것 하나만 빛난다
                 acc.append(accent("빛_" + o["name"], (px, py + 2.2, pz),
-                                  3.2 if strong else 1.7, 14 if strong else 6.5))
+                                  5.0 if strong else 2.6, 15 if strong else 7.5))
 
             # 활성 주름은 미세하게 빛을 머금는다 (2A에서 세운 시각 규칙)
             elif o["kind"] == "crease" and o.get("active"):
-                acc.append(accent("빛_" + o["name"], (px, py + 1.2, pz), 0.9, 5))
+                acc.append(accent("빛_" + o["name"], (px, py + 1.2, pz), 1.5, 5.5))
 
             # 주울 수 있는 조각. 가짜도 똑같이 빛나야 한다 —
             # 진짜만 빛나면 결을 볼 필요 없이 답이 나온다
@@ -648,10 +651,10 @@ def apply_lighting():
                 # 걸쇠를 보러 간 뒤에야 겨우 알아볼 만큼만 남긴다.
                 dim = a["id"] == "F0"
                 acc.append(accent("빛_" + o["name"], (px, py + 1.4, pz),
-                                  0.35 if dim else 1.1, 3.0 if dim else 5))
+                                  0.7 if dim else 1.9, 3.5 if dim else 5.5))
 
             elif o["name"] in FOCAL.get(a["id"], ()):
-                acc.append(accent("빛_" + o["name"], (px, py + 2.0, pz), 1.8, 9))
+                acc.append(accent("빛_" + o["name"], (px, py + 2.0, pz), 2.8, 9.5))
 
         # 다음 목적지 쪽이 항상 미세하게 더 밝다 (Docs/07 길찾기)
         # 표지만 예외 — 걸쇠를 풀기 전에는 출구가 없다
@@ -666,7 +669,7 @@ def apply_lighting():
         if e is not None and a["id"] != "F0":
             ex = (e["x"] - a["pos"]["x"]) * 0.6
             ez = (e["z"] - a["pos"]["z"]) * 0.6
-            acc.append(accent("빛_출구", (ex, 1.0, ez), 1.0, 7))
+            acc.append(accent("빛_출구", (ex, 1.0, ez), 1.6, 7))
 
         a["accents"] = acc
 
