@@ -88,6 +88,25 @@ namespace BookTower.Interaction
                 nearbyLight.intensity = Mathf.Lerp(baseIntensity, baseIntensity * lightBoost, blend);
         }
 
+        /// <summary>
+        /// 거리와 상관없이 가장 가까운 것. 개발용 표시가 "저쪽으로 가라"를
+        /// 알려줄 때 쓴다. 손 닿는 거리만 보면 멀리 있을 때 아무것도 못 가리킨다.
+        /// </summary>
+        public static Interactable NearestAny(Vector3 from, Transform room = null)
+        {
+            Interactable best = null;
+            float bd = float.MaxValue;
+            foreach (Interactable it in All)
+            {
+                if (it == null || !it.isActiveAndEnabled) continue;
+                if (room != null && !it.transform.IsChildOf(room)) continue;
+
+                float d = Vector3.Distance(from, it.transform.position);
+                if (d < bd) { bd = d; best = it; }
+            }
+            return best;
+        }
+
         /// <summary>플레이어에게 가장 가까운, 손 닿는 거리의 것. 없으면 null.</summary>
         public static Interactable Nearest(Vector3 from)
         {

@@ -83,6 +83,7 @@ namespace BookTower.EditorTools
 
         public LightDef light;
         public AccentDef[] accents;
+        public string goal;
     }
 
     [Serializable]
@@ -388,6 +389,7 @@ namespace BookTower.EditorTools
             SetVector3(room, "boundsCenter", center);
             SetVector3(room, "boundsSize", size);
             SetFloat(room, "floorY", a.pos.y);
+            SetString(room, "goal", a.goal ?? "");
 
             if (a.light != null)
             {

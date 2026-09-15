@@ -31,6 +31,13 @@ namespace BookTower.Rooms
         [SerializeField] private float fog = 0.01f;
         [SerializeField] private float shadowStrength = 0.82f;
 
+        [Header("안내")]
+        [Tooltip("이 방에서 지금 해야 할 일 한 줄. 개발용 표시(F1)가 읽는다. " +
+                 "완성된 게임은 이걸 빛과 랜드마크로 전달해야 하므로, " +
+                 "연출이 끝나면 이 줄이 필요 없어지는 게 정상이다")]
+        [TextArea(2, 3)]
+        [SerializeField] private string goal;
+
         [Header("카메라")]
         [Tooltip("이 방을 보여줄 기본 스냅 각도 (0~3)")]
         [SerializeField] private int camYaw;
@@ -51,6 +58,7 @@ namespace BookTower.Rooms
         public float Ambient => ambient;
         public float Fog => fog;
         public float ShadowStrength => shadowStrength;
+        public string Goal => goal;
 
         public Bounds WorldBounds => new(transform.position + boundsCenter, boundsSize);
 
