@@ -49,6 +49,89 @@ def strip_code(t):
     return re.sub(r'"(\\.|[^"\\])*"', '""', t)
 
 
+# MonoBehaviour · Component 에서 물려받아 선언 없이 쓰는 것들
+INHERITED = {
+    "transform", "gameObject", "name", "tag", "enabled", "isActiveAndEnabled",
+    "hideFlags", "useGUILayout", "runInEditMode", "rigidbody", "collider",
+    "renderer", "audio", "camera", "light", "animation", "hasStarted",
+    "didStart", "didAwake", "destroyCancellationToken",
+}
+
+KEYWORDS = {
+    "if","else","for","foreach","while","do","switch","case","default","break","continue",
+    "return","new","this","base","null","true","false","var","in","out","ref","is","as",
+    "using","namespace","class","struct","enum","interface","public","private","protected",
+    "internal","static","readonly","const","void","get","set","value","try","catch","finally",
+    "throw","lock","yield","where","when","params","override","virtual","abstract","sealed",
+    "partial","operator","implicit","explicit","string","int","float","bool","double","long",
+    "short","byte","char","object","decimal","uint","ulong","sizeof","typeof","nameof","goto",
+    "checked","unchecked","unsafe","fixed","stackalloc","delegate","event","add","remove",
+    "global","dynamic","async","await","from","select","let","orderby","group","into","join",
+    "on","equals","by","ascending","descending","record","init","with","and","or","not",
+}
+
+
+def declared_names(code):
+    """이 파일 안에서 선언된 이름을 전부 모은다."""
+    d = set()
+    PRIM = r'var|bool|int|float|double|long|short|byte|char|string|object|decimal|uint|ulong|sbyte'
+
+    # 필드 · 프로퍼티
+    d |= set(re.findall(r'(?:private|public|protected|internal)\s+(?:static\s+)?(?:readonly\s+)?'
+                        r'(?:const\s+)?[\w<>\[\],\.\?]+\s+(\w+)\s*(?:[;=]|=>|\{)', code))
+    # 지역 변수. 기본형은 소문자로 시작하므로 따로 적어 줘야 한다 —
+    # 이게 빠지면 bool hide = ... 같은 흔한 선언을 전부 놓친다
+    d |= set(re.findall(r'\b(?:' + PRIM + r'|[A-Z][\w<>\[\],\.\?]*)\s+(\w+)\s*=', code))
+    # for (int i = 0; ...) 와 튜플 분해 var (a, b) = ...
+    d |= set(re.findall(r'for\s*\(\s*(?:' + PRIM + r'|[A-Z][\w<>]*)\s+(\w+)', code))
+    for m in re.finditer(r'\b(?:var|\([\w\s,]+\))\s*\(([^()]*)\)\s*=', code):
+        d |= {x.strip().split()[-1] for x in m.group(1).split(",") if x.strip()}
+    # foreach · out · 패턴
+    d |= set(re.findall(r'foreach\s*\(\s*[\w<>\[\],\.\?]+\s+(\w+)\s+in', code))
+    d |= set(re.findall(r'\bout\s+(?:var\s+|[\w<>\[\],\.\?]+\s+)(\w+)', code))
+    # 메서드 · 람다 인자
+    for m in re.finditer(r'\(([^()]*)\)', code):
+        for part in split_args(m.group(1)):
+            w = part.split("=")[0].strip().split()
+            if len(w) >= 2 and re.fullmatch(r'\w+', w[-1]):
+                d.add(w[-1])
+    d |= set(re.findall(r'(\w+)\s*=>', code))
+    # (a, b) => ... 처럼 괄호로 묶인 람다 인자
+    for m in re.finditer(r'\(([\w\s,]+)\)\s*=>', code):
+        d |= {x.strip() for x in m.group(1).split(",") if x.strip()}
+
+    # 한 줄에 여러 개를 선언하는 경우.
+    #   private GUIStyle box, small, big;
+    #   Vector3 min = roomBounds.min, max = roomBounds.max;
+    # 첫 이름만 잡으면 나머지가 '선언 안 된 이름'으로 잘못 걸린다.
+    for m in re.finditer(r'\b(?:' + PRIM + r'|[A-Z][\w<>\[\],\.\?]*)\s+([^;{}()]+);', code):
+        for part in m.group(1).split(","):
+            w = part.strip().split("=")[0].strip()
+            if re.fullmatch(r'\w+', w):
+                d.add(w)
+    return d
+
+
+def undeclared_uses(code, short):
+    """선언된 적 없는 이름을 값으로 쓰는 곳을 찾는다."""
+    d = declared_names(code)
+    errs = []
+    reported = set()
+    # 대입(=) 이 아니라 **멤버 접근(.)** 만 본다.
+    #   · 대입은 객체 초기화 구문 new GUIStyle { padding = ... } 과 구분이 안 되고,
+    #     한 줄에 여러 개를 선언하는 float a = 1, b = 2; 도 놓치기 쉽다
+    #   · 반면 xxx.Foo() 는 xxx 가 반드시 존재해야 하므로 오탐이 거의 없다
+    #   · 선언이 통째로 빠진 경우엔 대개 멤버 접근도 같이 있으므로 이걸로 충분하다
+    for m in re.finditer(r'(?:^|[^.\w"])([a-z_]\w*)\s*\.', code):
+        name = m.group(1)
+        if name in d or name in KEYWORDS or name in INHERITED or name in reported:
+            continue
+        reported.add(name)
+        ln = code[:m.start()].count("\n") + 1
+        errs.append(f"{short}:{ln}: '{name}' 이 이 파일 어디에도 선언돼 있지 않다 (CS0103)")
+    return errs
+
+
 def main():
     errs = []
     for f in sorted(glob.glob(ROOT + "/**/*.cs", recursive=True)):
@@ -60,6 +143,18 @@ def main():
             errs.append(f"{short}: 중괄호 짝이 안 맞는다 ({code.count('{')} vs {code.count('}')})")
         if code.count("(") != code.count(")"):
             errs.append(f"{short}: 소괄호 짝이 안 맞는다")
+
+        # 같은 using 을 두 번 쓰면 경고가 뜬다 (CS0105)
+        usings, dup = set(), set()
+        for i, ln in enumerate(raw.split("\n")):
+            t = ln.strip()
+            if t.startswith("using ") and t.endswith(";"):
+                if t in usings and t not in dup:
+                    dup.add(t)
+                    errs.append(f"{short}:{i+1}: {t} 가 중복이다 (CS0105)")
+                usings.add(t)
+
+        errs.extend(undeclared_uses(code, short))
 
         # 한 선언에 같은 속성이 두 번 — 필드 사이에 끼워 넣다가 잘 생긴다
         lines = raw.split("\n")

@@ -157,6 +157,19 @@ namespace BookTower.EditorTools
 
         private static Palette pal;
         private static float floorGap = 6.4f;
+        private static Transform root;
+
+        /// <summary>
+        /// 히든 방(HD)만 따로 담는 뿌리.
+        ///
+        /// HD 는 탑에서 x 로 128 떨어진 곳에 있다. Map 아래에 같이 두면
+        /// 전체 조망이 그 빈 공간까지 담으려고 화면을 훨씬 멀리 물린다.
+        /// 조망은 '탑'을 보는 기능이므로 히든 방은 뺀다.
+        /// RoomManager 는 씬 전체에서 Room 을 찾으므로 동작에는 영향이 없다.
+        /// </summary>
+        private static Transform hiddenRoot;
+
+        private static readonly Dictionary<string, BookTower.EchoSystem.EchoCrease> creaseLookup = new();
 
         /// <summary>
         /// 연필 외곽선. 흰 바탕 위에서는 이 선이 형태를 잡아 준다.
@@ -167,8 +180,6 @@ namespace BookTower.EditorTools
             if (go == null || pal.outline == null) return;
             PencilOutline.Attach(go, pal.outline, thickness);
         }
-        private static Transform root;
-        private static readonly Dictionary<string, BookTower.EchoSystem.EchoCrease> creaseLookup = new();
 
         public static Transform Build(Palette palette)
         {

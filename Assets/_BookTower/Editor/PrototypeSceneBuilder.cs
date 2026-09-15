@@ -12,8 +12,6 @@ using BookTower.Presentation;
 using UnityEngine.Rendering.Universal;
 using BookTower.Interaction;
 using BookTower.Puzzles;
-using BookTower.Presentation;
-using UnityEngine.Rendering.Universal;
 using BookTower.Info;
 using BookTower.EchoSystem;
 using BookTower.EditorTools;
@@ -180,7 +178,8 @@ public static class PrototypeSceneBuilder
         sun.shadowBias = 0.02f;
         sun.shadowNormalBias = 0.2f;
         sun.shadowNearPlane = 0.1f;
-        sun.shadowResolution = UnityEngine.Rendering.LightShadowResolution.VeryHigh;
+        // Light.shadowResolution 은 빌트인 파이프라인 전용이라 URP 에서는 무시된다.
+        // 그림자 해상도는 아래 URP 애셋의 m_MainLightShadowmapResolution 으로 정한다.
 
         // 방 하나만 보이므로 그림자 거리를 짧게 잡을수록 픽셀 밀도가 올라간다
         var urp = UniversalRenderPipeline.asset;
@@ -189,6 +188,8 @@ public static class PrototypeSceneBuilder
             var so = new SerializedObject(urp);
             SetIfExists(so, "m_ShadowDistance", 120f);
             SetIfExists(so, "m_Cascade2Split", 0.25f);
+            SetIntIfExists(so, "m_MainLightShadowmapResolution", 4096);
+            SetIntIfExists(so, "m_SoftShadowsEnabled", 1);
             so.ApplyModifiedPropertiesWithoutUndo();
             EditorUtility.SetDirty(urp);
         }
@@ -223,6 +224,12 @@ public static class PrototypeSceneBuilder
     {
         SerializedProperty p = so.FindProperty(field);
         if (p != null) p.floatValue = v;
+    }
+
+    private static void SetIntIfExists(SerializedObject so, string field, int v)
+    {
+        SerializedProperty p = so.FindProperty(field);
+        if (p != null) p.intValue = v;
     }
 
     private static void SetColor(Object target, string field, Color v)
