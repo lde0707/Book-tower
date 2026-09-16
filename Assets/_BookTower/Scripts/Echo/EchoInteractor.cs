@@ -7,7 +7,7 @@ using BookTower.Interaction;
 namespace BookTower.EchoSystem
 {
     /// <summary>
-    /// 좌클릭 하나로 처리되는 상호작용 허브.
+    /// 좌클릭 하나로 처리되는 상호작용 허브 (키보드 쪽은 TargetInteractor).
     ///
     /// 접이면(FoldInteractor)과 별개로, 주름 깨우기와 조각 줍기를 담당한다.
     /// 셋 다 좌클릭이라 우선순위를 한 곳에서 정한다:
@@ -30,7 +30,7 @@ namespace BookTower.EchoSystem
 
         private void Update()
         {
-            if (!input.InteractPressed) return;
+            if (!input.PointerPressed) return;
 
             if (cam == null) cam = Camera.main;
             if (cam == null) return;

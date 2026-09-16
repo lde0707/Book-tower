@@ -38,12 +38,24 @@ namespace BookTower.Interaction
         private Light nearbyLight;
         private Vector3 restPos;
         private float baseIntensity;
-        private float blend;
+        private float rangeBlend;
+        private float targetBlend;
 
         public string Label => label;
         public string Verb => verb;
         public float Range => range;
         public bool InRange { get; private set; }
+
+        /// <summary>
+        /// 지금 F 를 누르면 반응할 것인가. TargetInteractor 가 한 번에 하나만 켠다.
+        ///
+        /// 손 닿는 것 전부가 똑같이 반응하면, 두 개가 동시에 범위에 들어오는 방
+        /// (1E · 3B · HD)에서 어느 쪽이 눌릴지 알 수가 없다. 그게 "키 조작은
+        /// 답답하다"의 실제 내용이었다. 골린 것만 세게 반응하면 그 문제가 사라진다.
+        /// </summary>
+        public bool IsTarget { get; private set; }
+
+        public void SetTarget(bool on) { IsTarget = on; }
 
         private void OnEnable() { All.Add(this); }
         private void OnDisable() { All.Remove(this); }
@@ -79,9 +91,15 @@ namespace BookTower.Interaction
             InRange = Vector3.Distance(player.position, transform.position) <= range;
 
             // 즉시 켜고 끄면 눈에 거슬린다. 부드럽게 오간다.
-            blend = Mathf.MoveTowards(blend, InRange ? 1f : 0f, Time.deltaTime * 4f);
+            rangeBlend = Mathf.MoveTowards(rangeBlend, InRange ? 1f : 0f, Time.deltaTime * 4f);
+            targetBlend = Mathf.MoveTowards(targetBlend, IsTarget ? 1f : 0f, Time.deltaTime * 6f);
 
-            float bob = InRange ? (Mathf.Sin(Time.time * bobSpeed) * 0.5f + 0.5f) : 0f;
+            // 손 닿으면 조금, 골리면 많이.
+            // 범위에 든 것이 아예 조용하면 "여기 만질 게 있다"가 사라지고,
+            // 전부 똑같이 반응하면 "어느 게 눌리는가"가 사라진다. 둘 다 있어야 한다.
+            float blend = rangeBlend * 0.35f + targetBlend * 0.65f;
+
+            float bob = blend > 0.01f ? (Mathf.Sin(Time.time * bobSpeed) * 0.5f + 0.5f) : 0f;
             transform.localPosition = restPos + Vector3.up * (lift * blend * (0.6f + 0.4f * bob));
 
             if (nearbyLight != null)

@@ -1002,6 +1002,39 @@ def validate():
         if not a.get("goal"):
             errs.append(f"{a['id']}: 지금 할 일이 비어 있다 — 들어가면 뭘 해야 할지 알 방법이 없다")
 
+    # 12) 다른 방에 서서 손이 닿는 물체가 있는가
+    #
+    #    룸 컬링은 다른 방의 **렌더러만** 끈다 (콜라이더는 살려 둬야 경사로가 유지된다).
+    #    그런데 상호작용 사거리는 거리로만 판정하므로, 방 A 의 구석에 서면
+    #    보이지도 않는 방 B 의 물체가 사거리 안에 들어올 수 있다.
+    #
+    #    실제로 F0(표지, 첫 방)의 가장자리에서 1B 의 P3 접이면이 6.4 에 있다 (사거리 7).
+    #    첫 방에서 보이지 않는 퍼즐을 건드리게 되는 최악의 경우다.
+    #    지금은 TargetInteractor·InteractionRay 가 "안 보이면 후보에서 뺀다" 로 막고 있다.
+    #    이 검사는 그 방어가 필요한 곳이 어디인지를 계속 드러내 준다 —
+    #    방어를 지우면 그날로 버그가 된다.
+    REACH = {"fold": 7.0, "piece": 3.0, "crease": 3.5}
+    for a in AREAS:
+        x0, x1 = a["pos"]["x"] - a["size"]["x"] / 2, a["pos"]["x"] + a["size"]["x"] / 2
+        z0, z1 = a["pos"]["z"] - a["size"]["z"] / 2, a["pos"]["z"] + a["size"]["z"] / 2
+        eye = a["pos"]["y"] + 0.9
+        for b in AREAS:
+            if b["id"] == a["id"]:
+                continue
+            for o in b["objects"]:
+                r = REACH.get(o["kind"])
+                if not r:
+                    continue
+                ox = b["pos"]["x"] + o["pos"]["x"]
+                oy = b["pos"]["y"] + o["pos"]["y"]
+                oz = b["pos"]["z"] + o["pos"]["z"]
+                cx = min(max(ox, x0), x1)
+                cz = min(max(oz, z0), z1)
+                d = math.dist((cx, eye, cz), (ox, oy, oz))
+                if d <= r:
+                    warns.append(f"{a['id']} 에 서서 {b['id']} 의 '{o['name']}' 에 손이 닿는다 "
+                                 f"({d:.1f} / 사거리 {r:.0f}) — 가시성 검사가 막고 있다")
+
     print(f"구역 {len(AREAS)} / 경사로 {len(RAMPS)}")
     print(f"\n오류 {len(errs)}건")
     for e in errs: print("  ✗", e)

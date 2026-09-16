@@ -103,7 +103,7 @@ namespace BookTower.Presentation
 
             Room room = rooms != null ? rooms.Current : null;
 
-            GUILayout.BeginArea(new Rect(12, 8, 340, 330), box);
+            GUILayout.BeginArea(new Rect(12, 8, 340, 352), box);
 
             // ── 지금 할 일
             GUILayout.Label("지금 할 일", big);
@@ -113,14 +113,22 @@ namespace BookTower.Presentation
             // ── 어디로
             if (player != null && room != null)
             {
-                Interactable target = Interactable.NearestAny(player.position, room.transform);
-                if (target != null)
+                // 손 닿는 것이 있으면 '지금 F 가 눌릴 것'을 그대로 말한다.
+                // 화면에서 그 물체 하나만 세게 반응하고 있으므로 둘이 같은 걸 가리킨다.
+                Interactable aimed = TargetInteractor.Current;
+                Interactable target = aimed != null
+                    ? aimed
+                    : Interactable.NearestAny(player.position, room.transform);
+
+                if (aimed != null)
+                {
+                    GUILayout.Label($"→ {aimed.Label} · F 로 {aimed.Verb}", small);
+                }
+                else if (target != null)
                 {
                     float d = Vector3.Distance(player.position, target.transform.position);
                     string where = Bearing(player.position, target.transform.position);
-                    GUILayout.Label(target.InRange
-                        ? $"→ {target.Label} · 손 닿는다. 좌클릭으로 {target.Verb}"
-                        : $"→ {target.Label} · {where} {d:F0}걸음", small);
+                    GUILayout.Label($"→ {target.Label} · {where} {d:F0}걸음", small);
                 }
                 else
                 {
@@ -147,8 +155,9 @@ namespace BookTower.Presentation
 
             // ── 조작
             GUILayout.Label("조작", big);
-            GUILayout.Label("WASD 이동 · Space 점프 · 좌클릭 상호작용", small);
-            GUILayout.Label("Q E 카메라 회전 · Tab 전체 조망 · F1 이 창", small);
+            GUILayout.Label("WASD 이동 · Space 점프 · F 상호작용 (좌클릭도 된다)", small);
+            GUILayout.Label("Shift+F 되돌려 펴기 · Q E 카메라 회전", small);
+            GUILayout.Label("Tab 전체 조망 · F1 이 창", small);
 
             GUILayout.EndArea();
         }

@@ -25,8 +25,15 @@ namespace BookTower.PlayerSystem
         /// <summary>이번 프레임에 스페이스를 눌렀는가. 땅에 있으면 점프가 된다</summary>
         public bool JumpPressed { get; private set; }
 
-        /// <summary>이번 프레임에 상호작용을 눌렀는가</summary>
+        /// <summary>이번 프레임에 상호작용 키(F)를 눌렀는가.
+        /// 몸이 향한 쪽의 대상 하나에 작용한다 — TargetInteractor 가 읽는다</summary>
         public bool InteractPressed { get; private set; }
+
+        /// <summary>이번 프레임에 좌클릭했는가.
+        /// 커서가 가리킨 것에 작용한다 — FoldInteractor·EchoInteractor 가 읽는다.
+        /// F 와 나눠 둔 이유: F 를 눌렀을 때 마우스가 놓인 자리로 광선을 쏘면
+        /// 엉뚱한 게 눌린다. 두 입력은 '무엇을 고르는가'가 서로 다르다</summary>
+        public bool PointerPressed { get; private set; }
 
         /// <summary>펴기(역방향) 보조키를 누르고 있는가</summary>
         public bool ModifierHeld { get; private set; }
@@ -58,7 +65,8 @@ namespace BookTower.PlayerSystem
             GlideHeld = kb.spaceKey.isPressed;
             JumpPressed = kb.spaceKey.wasPressedThisFrame;
             ModifierHeld = kb.leftShiftKey.isPressed;
-            InteractPressed = mouse != null && mouse.leftButton.wasPressedThisFrame;
+            InteractPressed = kb.fKey.wasPressedThisFrame;
+            PointerPressed = mouse != null && mouse.leftButton.wasPressedThisFrame;
         }
 
         private static float Axis(KeyControl a, KeyControl b)
@@ -70,6 +78,7 @@ namespace BookTower.PlayerSystem
             GlideHeld = false;
             JumpPressed = false;
             InteractPressed = false;
+            PointerPressed = false;
             ModifierHeld = false;
         }
     }

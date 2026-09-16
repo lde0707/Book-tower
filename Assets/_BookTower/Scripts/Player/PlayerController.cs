@@ -95,6 +95,12 @@ namespace BookTower.PlayerSystem
             Input = GetComponent<PlayerInputReader>();
             Camera = FindFirstObjectByType<PaperCamera>();
 
+            // F 키 상호작용은 씬 구성기가 붙여 준다. 그런데 이미 만들어 둔 씬에는
+            // 없어서, 씬을 다시 굽지 않으면 F 가 아무 반응도 안 한다.
+            // "안 되는데요" 가 또 나올 자리라 여기서 한 번 더 확인한다.
+            if (GetComponent<Interaction.TargetInteractor>() == null)
+                gameObject.AddComponent<Interaction.TargetInteractor>();
+
             GameFlow.EnsureExists();
 
             Grounded = new PlayerGroundedState();

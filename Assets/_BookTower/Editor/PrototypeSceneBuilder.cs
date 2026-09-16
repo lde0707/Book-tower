@@ -315,8 +315,9 @@ public static class PrototypeSceneBuilder
 
         player.AddComponent<PlayerInputReader>();
         player.AddComponent<PlayerController>();
-        player.AddComponent<FoldInteractor>();   // 접기
-        player.AddComponent<EchoInteractor>();   // 조각 줍기 + 주름 깨우기
+        player.AddComponent<FoldInteractor>();     // 커서 · 접기
+        player.AddComponent<EchoInteractor>();     // 커서 · 조각 줍기 + 주름 깨우기
+        player.AddComponent<TargetInteractor>();   // F 키 · 몸이 향한 것 하나
 
         // 임시 비주얼 — 실제 책갈피새 모델로 교체 예정
         var body = GameObject.CreatePrimitive(PrimitiveType.Capsule);

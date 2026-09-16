@@ -12,6 +12,9 @@ namespace BookTower.Interaction
     ///  - Shift + 좌클릭 : 이전 단계로 펴기
     ///  - 플레이어로부터 일정 거리 안의 접이면만 조작 가능
     ///
+    /// 같은 일을 F 키로도 할 수 있다 (TargetInteractor). 이쪽은 커서가 고른 것,
+    /// 저쪽은 몸이 향한 것에 작용한다. 둘 다 남겨 둔 이유는 그쪽 주석에 있다.
+    ///
     /// 입력은 PlayerInputReader를 거친다 — 연출 중 입력 차단이 한 곳에서 처리되도록.
     /// </summary>
     [RequireComponent(typeof(PlayerInputReader))]
@@ -37,7 +40,7 @@ namespace BookTower.Interaction
 
         private void Update()
         {
-            if (!input.InteractPressed) return;
+            if (!input.PointerPressed) return;
 
             if (cam == null) cam = Camera.main;
             if (cam == null) return;
