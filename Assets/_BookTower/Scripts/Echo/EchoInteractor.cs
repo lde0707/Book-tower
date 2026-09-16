@@ -11,7 +11,7 @@ namespace BookTower.EchoSystem
     ///
     /// 접이면(FoldInteractor)과 별개로, 주름 깨우기와 조각 줍기를 담당한다.
     /// 셋 다 좌클릭이라 우선순위를 한 곳에서 정한다:
-    ///   조각 줍기 > 주름 깨우기 > (접이면은 FoldInteractor가 처리)
+    ///   조각 줍기 > 주름 깨우기 > 맞추기 > (접이면은 FoldInteractor가 처리)
     /// </summary>
     [RequireComponent(typeof(PlayerInputReader))]
     [DisallowMultipleComponent]
@@ -65,6 +65,10 @@ namespace BookTower.EchoSystem
                 Debug.Log("[주름] 깨울 수 없다 — 너무 멀거나 죽은 주름이다", crease);
                 return;
             }
+
+            // ③ 맞추는 자리 — 모은 조각을 여기서 맞춘다
+            var spot = hit.collider.GetComponentInParent<AssemblyPoint>();
+            if (spot != null && spot.TryAssemble(transform.position)) return;
 
             if (logMisses) Debug.Log($"[상호작용] '{hit.collider.name}' 은 만질 수 있는 게 아니다");
         }

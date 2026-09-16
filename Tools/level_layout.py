@@ -159,8 +159,10 @@ AREAS.append(area("1D", "1D_다급한발자국", 1, P_1D, (16, 14), wall=5,
               note="P5 · 레드 헤링. 종이 결·찢긴 방향이 다른 시대의 것 (색 아닌 질감으로 구분)"),
         box("위화감_진한얼룩", (-2, 0.12, -1), (1.8, 0.02, 1.4), "shade",
             "위화감 ③ 다른 얼룩보다 진하다 = 최근이다"),
-        marker("랜드마크_발자국그림", (0, 0.2, 5),
-               "조각을 맞추면 '전임이 다급하게 향하는' 그림 → 놀람 포인트 #1"),
+        # 표식이 아니라 실제 물건이어야 한다 — 여기를 눌러서 조각을 맞추기 때문이다.
+        # 표식은 렌더러도 콜라이더도 없는 빈 오브젝트라 클릭이 닿지 않는다.
+        box("랜드마크_발자국그림", (0, 0.3, 5), (5, 0.6, 3.5), "accent",
+            "P5 · 여기에 조각을 맞춘다. 완성되면 '전임이 다급하게 향하는' 그림 → 놀람 포인트 #1"),
     ],
     puzzle=puzzle("P5", 240, None, None, ptype="assembly", pieces=["P5_a", "P5_b"],
                   at=(0, 0.2, 5), assembly_range=4.0,   # 랜드마크_발자국그림 자리
@@ -977,15 +979,20 @@ def validate():
         q = a.get("puzzle")
         if not q or not q.get("hasAt"):
             continue
+        # 표식(marker)은 렌더러도 콜라이더도 없는 빈 오브젝트라 클릭이 닿지 않는다.
+        # 맞추는 자리에는 눈에 보이고 누를 수 있는 물건이 있어야 한다.
+        CLICKABLE = ("box", "fold", "piece", "crease")
         near = None
         for o in a["objects"]:
+            if o["kind"] not in CLICKABLE:
+                continue
             d = math.hypot(o["pos"]["x"] - q["at"]["x"], o["pos"]["z"] - q["at"]["z"])
             if near is None or d < near[0]:
                 near = (d, o["name"])
         if near is None or near[0] > 2.5:
-            errs.append(f"{a['id']} {q['id']}: 맞추는 자리가 허공이다 "
+            errs.append(f"{a['id']} {q['id']}: 맞추는 자리에 누를 물건이 없다 "
                         f"(가장 가까운 것 {near[1] if near else '없음'} "
-                        f"{near[0]:.1f} 떨어짐) — 어디로 가져가야 할지 알 수 없다")
+                        f"{near[0]:.1f} 떨어짐) — 표식만 있으면 클릭이 닿지 않는다")
 
     # 11) 모든 방에 "지금 할 일"이 적혀 있는가
     #

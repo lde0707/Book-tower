@@ -332,6 +332,46 @@ namespace BookTower.EditorTools
             SetFloat(it, "range", range);
         }
 
+        /// <summary>
+        /// 맞추는 자리를 '누를 수 있는 물건'으로 만든다.
+        ///
+        /// 퍼즐 오브젝트 자체는 콜라이더도 외형도 없어서 클릭할 수가 없다.
+        /// 그래서 그 자리에 실제로 놓여 있는 물건(걸쇠·발자국 그림·복원대)을 찾아
+        /// 거기에 붙인다. 플레이어가 보고 누르는 건 그 물건이다.
+        /// </summary>
+        private static void AttachAssemblyPoint(Transform area, AreaDef a, PieceAssemblyPuzzle asm)
+        {
+            Vector3 at = a.puzzle.at.V;
+
+            Transform best = null;
+            float bd = float.MaxValue;
+            foreach (Transform child in area)
+            {
+                if (child.name.StartsWith("빛_") || child.name == "조명") continue;
+                if (child.GetComponent<Renderer>() == null) continue;
+
+                float d = Vector3.Distance(child.localPosition, at);
+                if (d < bd) { bd = d; best = child; }
+            }
+
+            if (best == null || bd > 3.0f)
+            {
+                Debug.LogWarning($"[LevelBuilder] {a.id} {a.puzzle.id}: 맞추는 자리에 놓인 물건을 " +
+                                 $"못 찾았다 (가장 가까운 것 {bd:F1} 떨어짐). 누를 대상이 없다.");
+                return;
+            }
+
+            var spot = best.gameObject.AddComponent<BookTower.Info.AssemblyPoint>();
+            SetObject(spot, "puzzle", asm);
+            SetFloat(spot, "range", a.puzzle.assemblyRange);
+
+            var it = best.gameObject.GetComponent<Interactable>();
+            if (it == null) it = best.gameObject.AddComponent<Interactable>();
+            SetString(it, "label", "맞추는 자리");
+            SetString(it, "verb", "맞춘다");
+            SetFloat(it, "range", a.puzzle.assemblyRange);
+        }
+
         // ─────────────────────────────────────────── 룸
 
         /// <summary>face 문자열이 있으면 카메라를 향할 때 숨겨지는 벽으로 표시한다.</summary>
@@ -485,8 +525,11 @@ namespace BookTower.EditorTools
             SetString(puzzle, "puzzleId", a.puzzle.id);
             SetFloat(puzzle, "targetSeconds", a.puzzle.targetSeconds);
 
-            if (a.puzzle.assemblyRange > 0.01f && puzzle is PieceAssemblyPuzzle)
+            if (a.puzzle.assemblyRange > 0.01f && puzzle is PieceAssemblyPuzzle asm)
+            {
                 SetFloat(puzzle, "assemblyRange", a.puzzle.assemblyRange);
+                AttachAssemblyPoint(area, a, asm);
+            }
 
             // 큰 방에서 구석에 서 있어도 켜지도록 구역 크기에 맞춘다
             float reach = Mathf.Max(a.size.x, a.size.z) * 0.5f + 6f;
