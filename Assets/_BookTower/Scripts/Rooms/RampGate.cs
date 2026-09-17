@@ -85,6 +85,7 @@ namespace BookTower.Rooms
             // 콜라이더는 먼저 끈다. 페이지가 눕는 도중에 플레이어를 밀면
             // 보상이 아니라 사고처럼 보인다.
             if (blocker != null) blocker.enabled = false;
+            BookTower.Core.GameEvents.RaiseGateOpened(this);
 
             Quaternion from = transform.localRotation;
             for (float t = 0f; t < openSeconds; t += Time.deltaTime)

@@ -19,9 +19,11 @@ namespace BookTower.PlayerSystem
         {
             Vector3 dir = p.GetMoveDirection();
 
-            p.MoveWith(dir * p.MoveSpeed);
+            p.ApproachHorizontalVelocity(dir * p.MoveSpeed, dt);
+            p.MoveWith(p.HorizontalVelocity);
             p.FaceDirection(dir);
             p.RecordSafePoint();
+            p.TickFootsteps();
 
             // 스페이스: 땅에서는 점프, 공중에서는 활공.
             // v = sqrt(2 * g * h) — 원하는 높이에서 필요한 초기 속도를 역산한다.
@@ -50,7 +52,8 @@ namespace BookTower.PlayerSystem
             Vector3 dir = p.GetMoveDirection();
 
             p.VerticalVelocity += p.Gravity * dt;
-            p.MoveWith(dir * p.MoveSpeed);
+            p.ApproachHorizontalVelocity(dir * p.MoveSpeed, dt);
+            p.MoveWith(p.HorizontalVelocity);
             p.FaceDirection(dir);
 
             if (p.Controller.isGrounded)
@@ -86,7 +89,8 @@ namespace BookTower.PlayerSystem
             // 상승 금지: 이미 더 빠르게 떨어지고 있으면 그 속도를 이 값까지만 늦춘다
             p.VerticalVelocity = Mathf.Max(p.VerticalVelocity, p.GlideFallSpeed);
 
-            p.MoveWith(dir * (p.MoveSpeed + p.GlideDrift));
+            p.ApproachHorizontalVelocity(dir * (p.MoveSpeed + p.GlideDrift), dt);
+            p.MoveWith(p.HorizontalVelocity);
             p.FaceDirection(dir);
 
             if (p.Controller.isGrounded)

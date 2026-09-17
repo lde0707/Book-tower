@@ -43,6 +43,19 @@ namespace BookTower.Core
         /// </summary>
         public static event Action<MonoBehaviour, int> HintEscalated;
 
+        // ---------------- 정보 ----------------
+
+        /// <summary>조각을 유품함에 넣음 (pieceId)</summary>
+        public static event Action<string> PieceCollected;
+
+        // ---------------- 이동 ----------------
+
+        /// <summary>막힌 길(RampGate)이 열림</summary>
+        public static event Action<MonoBehaviour> GateOpened;
+
+        /// <summary>땅 위에서 일정 거리마다 한 번 — 발소리 타이밍용. 위치만 넘긴다</summary>
+        public static event Action<Vector3> Footstep;
+
         // ---------------- 게임 흐름 ----------------
 
         /// <summary>게임 페이즈가 바뀜</summary>
@@ -54,6 +67,9 @@ namespace BookTower.Core
         public static void RaisePuzzleActivated(MonoBehaviour puzzle) => PuzzleActivated?.Invoke(puzzle);
         public static void RaisePuzzleSolved(MonoBehaviour puzzle) => PuzzleSolved?.Invoke(puzzle);
         public static void RaiseHintEscalated(MonoBehaviour puzzle, int level) => HintEscalated?.Invoke(puzzle, level);
+        public static void RaisePieceCollected(string pieceId) => PieceCollected?.Invoke(pieceId);
+        public static void RaiseGateOpened(MonoBehaviour gate) => GateOpened?.Invoke(gate);
+        public static void RaiseFootstep(Vector3 pos) => Footstep?.Invoke(pos);
         public static void RaisePhaseChanged(GamePhase phase) => PhaseChanged?.Invoke(phase);
 
         /// <summary>
@@ -69,6 +85,9 @@ namespace BookTower.Core
             PuzzleActivated = null;
             PuzzleSolved = null;
             HintEscalated = null;
+            PieceCollected = null;
+            GateOpened = null;
+            Footstep = null;
             PhaseChanged = null;
         }
     }

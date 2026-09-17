@@ -25,6 +25,15 @@ namespace BookTower.PlayerSystem
         [SerializeField] private float moveSpeed = 5.5f;   // 방을 1.6배로 키우면서 상향
         [SerializeField] private float turnSpeed = 14f;
 
+        [Tooltip("목표 속도까지 가속되는 데 걸리는 시간(초). 0이면 예전처럼 즉시 최고속도 — " +
+                 "책갈피새는 리본이라 급출발이 아니라 관성이 붙어 미끄러지듯 움직여야 " +
+                 "'정령 같다'는 느낌이 난다")]
+        [SerializeField] private float accelTime = 0.14f;
+
+        [Tooltip("입력을 놓았을 때 멈추는 데 걸리는 시간(초). 가속보다 살짝 길게 두면 " +
+                 "'미끄러지다 멈춘다'는 인상이 남는다")]
+        [SerializeField] private float decelTime = 0.24f;
+
         [Header("점프 · 활공")]
         [SerializeField] private float gravity = -18f;
 
@@ -73,6 +82,11 @@ namespace BookTower.PlayerSystem
         public float VerticalVelocity { get; set; }
 
         /// <summary>
+        /// 현재 수평 속도. 상태가 바뀌어도(땅→공중 등) 이어져서 관성이 끊기지 않는다.
+        /// </summary>
+        public Vector3 HorizontalVelocity { get; set; }
+
+        /// <summary>
         /// 점프로 떠 있는가.
         ///
         /// 점프 뒤에 활공을 이어 붙이면 체공이 크게 늘어나 1B 의 틈(6.4)을
@@ -86,8 +100,13 @@ namespace BookTower.PlayerSystem
         /// <summary>현재 상태 이름 (QA·디버그용)</summary>
         public string StateName => Machine?.CurrentName ?? "(none)";
 
+        [Header("발소리")]
+        [Tooltip("이 거리를 걸을 때마다 발소리 이벤트를 한 번 낸다")]
+        [SerializeField] private float footstepInterval = 1.6f;
+
         private Vector3 safePoint;
         private float safeTimer;
+        private float footstepDistance;
 
         private void Awake()
         {
@@ -102,6 +121,7 @@ namespace BookTower.PlayerSystem
                 gameObject.AddComponent<Interaction.TargetInteractor>();
 
             GameFlow.EnsureExists();
+            BookTower.Audio.SfxDirector.EnsureExists();
 
             Grounded = new PlayerGroundedState();
             Airborne = new PlayerAirborneState();
@@ -148,6 +168,25 @@ namespace BookTower.PlayerSystem
             Controller.Move((horizontal + Vector3.up * VerticalVelocity) * Time.deltaTime);
         }
 
+        /// <summary>
+        /// 목표 수평 속도로 부드럽게 다가간다. 최고 속도는 절대 넘지 않는다 —
+        /// Tools/level_layout.py 의 점프 도달거리 계산이 "즉시 최고속도"를 가정하고
+        /// 그 값으로 1B 의 틈(6.4)을 못 넘는다는 걸 검증하고 있다. 가속 구간을 넣으면
+        /// 실제 도달거리는 그 계산값보다 같거나 작아지기만 하므로(오버슈트가 없는 한)
+        /// 검증은 계속 유효하다. targetVelocity 의 크기를 moveSpeed 계열 값 이하로만
+        /// 넘겨야 이 전제가 지켜진다.
+        /// </summary>
+        public void ApproachHorizontalVelocity(Vector3 targetVelocity, float dt)
+        {
+            bool accelerating = targetVelocity.sqrMagnitude > HorizontalVelocity.sqrMagnitude;
+            float time = accelerating ? accelTime : decelTime;
+            float maxDelta = time <= 0f
+                ? float.PositiveInfinity
+                : (moveSpeed + glideDrift) / time * dt;   // 활공 속도까지 같은 리듬으로 다다르게
+
+            HorizontalVelocity = Vector3.MoveTowards(HorizontalVelocity, targetVelocity, maxDelta);
+        }
+
         /// <summary>이동 방향을 바라보게 회전</summary>
         public void FaceDirection(Vector3 dir)
         {
@@ -169,6 +208,20 @@ namespace BookTower.PlayerSystem
             safeTimer = safePointInterval;
         }
 
+        /// <summary>
+        /// 걸은 거리를 누적해 일정 간격마다 발소리 이벤트를 낸다.
+        /// 타이머가 아니라 거리 기준인 이유 — 제자리에 멈춰 있을 때는
+        /// 발소리가 나면 안 되고, 빨리 걸으면 더 자주 나야 자연스럽다.
+        /// </summary>
+        public void TickFootsteps()
+        {
+            footstepDistance += HorizontalVelocity.magnitude * Time.deltaTime;
+            if (footstepDistance < footstepInterval) return;
+
+            footstepDistance = 0f;
+            GameEvents.RaiseFootstep(transform.position);
+        }
+
         /// <summary>마지막 안전 지점으로 되돌린다 (죽음 아님)</summary>
         public void TeleportToSafePoint()
         {
@@ -176,6 +229,7 @@ namespace BookTower.PlayerSystem
             transform.position = safePoint + Vector3.up * 0.5f;
             Controller.enabled = true;
             VerticalVelocity = 0f;
+            HorizontalVelocity = Vector3.zero;
             JumpedThisAir = false;
         }
     }

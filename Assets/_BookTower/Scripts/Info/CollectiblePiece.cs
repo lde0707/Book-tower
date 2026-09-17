@@ -44,7 +44,11 @@ namespace BookTower.Info
                 isDecoy = isDecoy
             });
 
-            if (ok && hideOnPickup) gameObject.SetActive(false);
+            if (ok)
+            {
+                Core.GameEvents.RaisePieceCollected(pieceId);
+                if (hideOnPickup) gameObject.SetActive(false);
+            }
             return ok;
         }
 

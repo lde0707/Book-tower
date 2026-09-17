@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using BookTower.Info;
+using BookTower.Presentation;
 
 namespace BookTower.Puzzles
 {
@@ -102,6 +103,41 @@ namespace BookTower.Puzzles
             Keepsakes.EnsureExists();
             if (requiredPieceIds.Count == 0)
                 Debug.LogError($"[Puzzle {PuzzleId}] 필요한 조각 목록이 비어 있음", this);
+        }
+
+        /// <summary>
+        /// 접이면이 없는 퍼즐이라 3단계 "저절로 반쯤 접힘"이 그대로 안 맞는다.
+        /// 대신 "아직 안 주운 진짜 조각 중 가장 가까운 것"을 흔들고 밝힌다 —
+        /// 줍는 건 여전히 플레이어 몫이라 자동 완성은 아니다.
+        /// </summary>
+        protected override void OnHintEscalated(int level)
+        {
+            CollectiblePiece target = NearestRemainingPiece();
+            if (target == null) return;
+
+            Light light = target.GetComponentInChildren<Light>();
+            if (level == 1) StartCoroutine(HintFx.Tremble(target.transform));
+            else if (level == 2) StartCoroutine(HintFx.PulseLight(light));
+            else if (level == 3) StartCoroutine(HintFx.StrongNudge(this, target.transform, light));
+        }
+
+        private CollectiblePiece NearestRemainingPiece()
+        {
+            var box = Keepsakes.Instance;
+            Transform pl = Player;
+            CollectiblePiece nearest = null;
+            float best = float.MaxValue;
+
+            foreach (var piece in FindObjectsByType<CollectiblePiece>(FindObjectsSortMode.None))
+            {
+                if (!requiredPieceIds.Contains(piece.PieceId)) continue;
+                if (!piece.gameObject.activeInHierarchy) continue;
+                if (box != null && box.Has(piece.PieceId)) continue;
+
+                float d = pl != null ? Vector3.Distance(pl.position, piece.transform.position) : 0f;
+                if (d < best) { best = d; nearest = piece; }
+            }
+            return nearest;
         }
     }
 }

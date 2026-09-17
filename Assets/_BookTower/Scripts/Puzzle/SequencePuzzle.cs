@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using BookTower.EchoSystem;
+using BookTower.Presentation;
 
 namespace BookTower.Puzzles
 {
@@ -86,6 +87,23 @@ namespace BookTower.Puzzles
             order.RemoveAll(c => c == null);
             order.Sort((a, b) => a.Wear.CompareTo(b.Wear));
             Debug.Log($"[Puzzle {PuzzleId}] 마모가 오래된 것부터 정렬됨");
+        }
+
+        /// <summary>
+        /// 다음에 깨워야 할 주름 하나를 흔들고 밝힌다. 순서를 대신 눌러주지는 않는다 —
+        /// 그러면 P11 의 "마모 형태로 순서를 추리한다"는 전제가 사라진다.
+        /// </summary>
+        protected override void OnHintEscalated(int level)
+        {
+            if (solved || input.Count >= order.Count) return;
+
+            EchoCrease next = order[input.Count];
+            if (next == null) return;
+
+            Light light = next.GetComponentInChildren<Light>();
+            if (level == 1) StartCoroutine(HintFx.Tremble(next.transform));
+            else if (level == 2) StartCoroutine(HintFx.PulseLight(light));
+            else if (level == 3) StartCoroutine(HintFx.StrongNudge(this, next.transform, light));
         }
     }
 }

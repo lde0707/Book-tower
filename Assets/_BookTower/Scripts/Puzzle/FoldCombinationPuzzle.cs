@@ -1,5 +1,6 @@
 using UnityEngine;
 using BookTower.Fold;
+using BookTower.Presentation;
 
 namespace BookTower.Puzzles
 {
@@ -52,6 +53,40 @@ namespace BookTower.Puzzles
         {
             if (group == null) return;
             Debug.Log($"[Puzzle {PuzzleId}] 현재 {group.CombinationString()} / 정답 {string.Join("-", answer)}");
+        }
+
+        /// <summary>
+        /// 기획서 §8 힌트 3단계.
+        ///   1 — 접이면들이 미세하게 떨림
+        ///   2 — 접이면에 붙은 점 빛이 있으면 밝아졌다 가라앉음 (태양은 안 건드린다)
+        ///   3 — 아직 정답과 다른 면 하나가 한 단계 저절로 접힌다. 나머지는 플레이어 몫
+        /// </summary>
+        protected override void OnHintEscalated(int level)
+        {
+            if (group == null) return;
+
+            if (level == 1)
+            {
+                foreach (FoldPanel p in group.Panels)
+                    if (p != null) StartCoroutine(HintFx.Tremble(p.transform));
+            }
+            else if (level == 2)
+            {
+                foreach (FoldPanel p in group.Panels)
+                    if (p != null) StartCoroutine(HintFx.PulseLight(p.GetComponentInChildren<Light>()));
+            }
+            else if (level == 3)
+            {
+                for (int i = 0; i < group.Panels.Count && (answer == null || i < answer.Length); i++)
+                {
+                    FoldPanel p = group.Panels[i];
+                    if (p == null || answer == null || p.StateIndex == answer[i]) continue;
+
+                    p.SetState((FoldPanel.FoldState)((p.StateIndex + 1) % p.StateCount));
+                    StartCoroutine(HintFx.StrongNudge(this, p.transform, p.GetComponentInChildren<Light>()));
+                    break;   // 한 면만. "나머지는 플레이어 몫"이라 한 번에 다 고쳐주지 않는다
+                }
+            }
         }
     }
 }

@@ -67,6 +67,78 @@ def marker(name, pos, note=""):
     return dict(kind="marker", name=name, pos=dict(x=pos[0], y=pos[1], z=pos[2]),
                 scale=dict(x=1, y=1, z=1), mat="light", note=note)
 
+
+# ─────────────────────────────────────────── 꾸미기 — 2~3개 모티프로 통일
+#
+# Docs/06 이 방마다 랜드마크 하나씩은 이미 정해 놨고 대부분 구현돼 있다.
+# 그런데 방을 1.6배로 키운 뒤로(Docs/09) 그 하나만으로는 방이 휑하다.
+# 새 모티프를 지어내는 대신 이미 있는 세계관 요소 세 갈래로만 채운다 — 통일감이 먼저다.
+#
+#   ① 서재   — 깃펜·잉크·열쇠·책더미. "정보=열쇠" 기믹을 배경에서도 보여준다. 1장 위주
+#   ② 책갈피 — 리본 가닥. 캐릭터 세계관. 표지·2장 위주
+#   ③ 파손   — 찢긴 종잇조각·그을음. 층이 올라갈수록 짙어진다(Docs/02 §6 "층별 비주얼 진행")
+#
+# 3장은 일부러 제외에 가깝게 둔다 — "찢김이 많고 여백이 넓다"가 그 층의 정서라서
+# (Docs/02 §6), 거기를 꽉 채우면 설계된 개방감을 도리어 깬다.
+#
+# 전부 box() 조합이다. 레벨 파이프라인이 회전을 지원하지 않으므로(LevelBuilder 가
+# 읽는 필드에 rot 이 없다) 축에 맞는 형태로만 구성한다 — 이 게임 자체가 이미
+# 그런 절제된 형태로 되어 있어서 어색하지 않다.
+#
+# 이름 접두어(서재_·책갈피_·파손_)로 만든 오브젝트는 검사 18번(꾸미기 겹침)의 대상이 된다.
+
+def book_stack(name, pos, mat="mid"):
+    x, y, z = pos
+    return [
+        box(f"서재_{name}_1", (x, y + 0.08, z), (1.3, 0.16, 0.95), mat),
+        box(f"서재_{name}_2", (x + 0.08, y + 0.24, z - 0.05), (1.05, 0.16, 0.8), "light"),
+        box(f"서재_{name}_3", (x - 0.05, y + 0.38, z + 0.06), (0.85, 0.12, 0.65), mat),
+    ]
+
+
+def quill_ink(name, pos, mat="mid"):
+    x, y, z = pos
+    return [
+        box(f"서재_{name}_잉크병", (x, y + 0.22, z), (0.45, 0.44, 0.45), "shade"),
+        box(f"서재_{name}_깃대", (x + 0.1, y + 0.75, z), (0.05, 1.1, 0.05), mat),
+        box(f"서재_{name}_깃털", (x + 0.1, y + 1.28, z + 0.02), (0.32, 0.05, 0.5), "light"),
+    ]
+
+
+def key_prop(name, pos, mat="mid"):
+    x, y, z = pos
+    return [
+        box(f"서재_{name}_고리", (x, y + 0.02, z), (0.5, 0.04, 0.5), mat),
+        box(f"서재_{name}_고리구멍", (x, y + 0.05, z), (0.22, 0.06, 0.22), "shade"),
+        box(f"서재_{name}_축", (x, y + 0.02, z + 0.55), (0.09, 0.04, 0.7), mat),
+        box(f"서재_{name}_이1", (x + 0.15, y + 0.02, z + 0.92), (0.12, 0.04, 0.08), mat),
+        box(f"서재_{name}_이2", (x + 0.15, y + 0.02, z + 1.08), (0.12, 0.04, 0.08), mat),
+    ]
+
+
+def ribbon_bits(name, pos, mat="mid"):
+    x, y, z = pos
+    return [
+        box(f"책갈피_{name}_1", (x, y + 0.02, z), (0.9, 0.03, 0.16), mat),
+        box(f"책갈피_{name}_2", (x + 0.05, y + 0.05, z + 0.05), (0.16, 0.03, 0.7), mat),
+        box(f"책갈피_{name}_3", (x - 0.08, y + 0.08, z - 0.03), (0.55, 0.03, 0.14), "light"),
+    ]
+
+
+def torn_scraps(name, pos, mat="shade", spread=None):
+    """spread: [(dx,dz,w,d), ...]. 기본값은 3조각 정형 배치 — 난수를 안 쓰는 이유는
+    이 레벨 파일 전체가 손으로 잰 결정적 좌표라(파일 서두 참고), 꾸미기만 난수면
+    재현 안 되는 배치가 섞여 겹침을 매번 눈으로 다시 훑어야 한다"""
+    x, y, z = pos
+    spread = spread or [(-0.5, 0.3, 0.4, 0.3), (0.4, -0.2, 0.3, 0.45), (0.1, 0.5, 0.5, 0.25)]
+    return [box(f"파손_{name}_{i+1}", (x + dx, y + 0.015, z + dz), (w, 0.02, d), mat)
+            for i, (dx, dz, w, d) in enumerate(spread)]
+
+
+def soot_mark(name, pos, size=(0.9, 0.6), mat="shade"):
+    x, y, z = pos
+    return [box(f"파손_{name}", (x, y, z), (size[0], 0.015, size[1]), mat)]
+
 def puzzle(pid, target, answer, panels, note="", ptype="fold", pieces=None, creases=None,
            at=None, assembly_range=0.0):
     # at = 이 퍼즐을 '푸는 자리'. 조립 퍼즐은 조각을 모으는 것으로 끝나지 않고
@@ -107,6 +179,9 @@ AREAS.append(area("F0", "F0_표지", 0, P_F0, (14, 12), wall=0,
         box("위화감_긁힌자국", (0.9, 0.55, 2), (0.35, 0.25, 0.06), "shade",
             "위화감 ① 걸쇠 옆면에 최근에 긁힌 자국. 강조 연출 없이 지나가게 둔다"),
         marker("▲시작지점", (0, 0.2, -4)),
+        # 표지는 "가장 어둡다·봉인됨"이 정서라(Docs/02 §6) 꾸미기는 하나만 —
+        # 전임이 여기 머물렀다는 흔적으로 낡은 책 한 더미만 구석에 둔다
+        *book_stack("표지책더미", (-6, 0.1, -5)),
     ],
     puzzle=puzzle("P1", 90, [], [], ptype="assembly", pieces=["P1_a", "P1_b"],
                   at=(0, 0.5, 2), assembly_range=3.5,
@@ -130,6 +205,8 @@ AREAS.append(area("1A", "1A_접힘방향", 1, P_1A, (16, 14), wall=5,
              "위화감 ① 누가 접다가 중간에 그만뒀다"),
         box("위화감_깃털", (2.6, 0.15, -5), (0.25, 0.05, 0.9), "light",
             "위화감 ② 선대가 여기 있었다"),
+        *book_stack("1A책더미", (-6.5, 0.1, 5)),
+        *quill_ink("1A깃펜", (6.5, 0.1, -5.5)),
     ],
     puzzle=puzzle("P2", 120, [2], ["P2_접이면"],
                   "목표 지점에서 확인한 방향대로 접어야 한다. 접는 자리에선 목표가 안 보인다")))
@@ -148,6 +225,8 @@ AREAS.append(area("1B", "1B_끊긴길", 1, P_1B, (20, 14), wall=5, split=4.0,
         # 건너지 않으면 닿지 않았다. 즉 P3 는 풀 수도 건널 수도 없었다.
         fold("P3_대체용_접이면", (-7, 0.1, 5), (5, 5), "light"),
         marker("랜드마크_찢겨나간_간극", (0, 0.6, 0.5)),
+        *torn_scraps("1B바닥", (7, 0.02, 6)),
+        *ribbon_bits("1B리본", (8.5, 0.1, 3)),
     ],
     puzzle=puzzle("P3", 240, [1], ["P3_대체용_접이면"],
                   "빠진 조각은 찾을 수 없다. 다른 페이지를 접어 그 그림자로 간극을 덮는다")))
@@ -163,6 +242,8 @@ AREAS.append(area("1C", "1C_교차그림자", 1, P_1C, (16, 30), wall=0,
         box("분리벽_우", (5.5, 3, 0), (5, 6, 0.3), "shade"),
         box("랜드마크_반사페이지", (0, 2, 0), (3.5, 4, 0.15), "accent",
             "P4 · 여기 서면 양쪽 방의 그림자가 반사되어 함께 보인다 (→ P14 반사 해법 학습)"),
+        *book_stack("1C책더미1", (6, 0.1, -12)),
+        *book_stack("1C책더미2", (-6, 0.1, 12)),
     ],
     puzzle=puzzle("P4", 300, [2, 1], ["P4_접이면_A", "P4_접이면_B"],
                   "두 방의 그림자가 교차하는 지점에 통로가 드러난다. 반사 페이지로 왕복 없이 확인")))
@@ -180,6 +261,7 @@ AREAS.append(area("1D", "1D_다급한발자국", 1, P_1D, (16, 14), wall=5,
         # 표식은 렌더러도 콜라이더도 없는 빈 오브젝트라 클릭이 닿지 않는다.
         box("랜드마크_발자국그림", (0, 0.3, 5), (5, 0.6, 3.5), "accent",
             "P5 · 여기에 조각을 맞춘다. 완성되면 '전임이 다급하게 향하는' 그림 → 놀람 포인트 #1"),
+        *ribbon_bits("1D리본", (7, 0.1, -2)),
     ],
     puzzle=puzzle("P5", 240, None, None, ptype="assembly", pieces=["P5_a", "P5_b"],
                   at=(0, 0.2, 5), assembly_range=4.0,   # 랜드마크_발자국그림 자리
@@ -193,6 +275,8 @@ AREAS.append(area("1E", "1E_첫번째봉인", 1, P_1E, (18, 16), wall=8,
         fold("P6_접이면_3", (5, 0.1, -2), (3.5, 3.5), "light"),
         marker("랜드마크_봉인된페이지", (0, 4, 7.5)),
         marker("→2장_입구", (0, 0.2, 6)),
+        *book_stack("1E책더미", (-7.5, 0.1, 3)),
+        *key_prop("1E열쇠", (7.5, 0.1, 3)),
     ],
     puzzle=puzzle("P6", 120, [2, 1, 2],
                   ["P6_접이면_1", "P6_접이면_2", "P6_접이면_3"],
@@ -212,6 +296,8 @@ AREAS.append(area("2A", "2A_주름깨우기", 2, P_2A, (14, 12), wall=5,
         crease("주름_비활성_1", (-4, 0.12, -2), "2A_off1", 0.2, active=False, mat="shade"),
         crease("주름_비활성_2", (4, 0.12, -3), "2A_off2", 0.8, active=False, mat="shade"),
         marker("랜드마크_빛나는주름", (0, 0.5, 1)),
+        *torn_scraps("2A바닥", (-6, 0.02, 4)),
+        *ribbon_bits("2A리본", (6, 0.1, 4)),
     ]))
 
 AREAS.append(area("2B", "2B_따라접기", 2, P_2B, (18, 14), wall=6,
@@ -971,15 +1057,64 @@ def _seg_hits_box(p, q, o, pad=0.3):
             return (x, z)
     return None
 
+def _ramp_wall_span(area_pos, ramp_from, ramp_to, width, other_axis, fixed_local,
+                     wall_thickness, lo, hi, len_samples=80):
+    """
+    경사로가 이 벽과 실제로 겹치는 along_axis 구간을 대수적으로 풀지 않고
+    직접 훑어서 잰다.
+
+    처음엔 "가장자리 선을 연장해 벽 평면과 만나는 점"을 계산으로 구했는데,
+    방 모서리 근처에서 진입 각도·인접한 다른 벽까지 얽히면 그 계산이
+    번번이 다르게 틀렸다(중심점만 보면 폭이 모자라고, 가장자리를 무작정
+    연장하면 방 밖으로 나가고, 단면 선분과 평면의 교차로 풀면 정면 진입에서
+    도리어 폭이 사라졌다). 검사 18번(경사로가 벽에 걸리는지 재확인)이
+    쓰는 것과 **같은 방식** — 경사로를 길이×폭 격자로 촘촘히 채워서 이
+    벽의 두께 안에 실제로 들어오는 점들만 모아 그 along 범위를 구한다.
+    "계산이 맞다"를 증명하는 대신 "검사와 같은 잣대로 잰다"를 택한 것이다.
+    """
+    dx = ramp_to["x"] - ramp_from["x"]
+    dz = ramp_to["z"] - ramp_from["z"]
+    n = math.hypot(dx, dz)
+    if n < 1e-6:
+        return None
+
+    px, pz = -dz / n, dx / n
+    along_axis = "z" if other_axis == "x" else "x"
+    fixed_world = fixed_local + area_pos[other_axis]
+    half_t = wall_thickness / 2 + 0.05
+    hw = width / 2
+
+    WID_STEPS = 10
+    vals = []
+    for i in range(len_samples + 1):
+        t = i / len_samples
+        cx = ramp_from["x"] + dx * t
+        cz = ramp_from["z"] + dz * t
+        for j in range(WID_STEPS + 1):
+            s = -1.0 + 2.0 * j / WID_STEPS
+            wx = cx + px * hw * s
+            wz = cz + pz * hw * s
+            other_val = wx if other_axis == "x" else wz
+            if abs(other_val - fixed_world) <= half_t:
+                along_val = (wz if along_axis == "z" else wx) - area_pos[along_axis]
+                vals.append(along_val)
+
+    if not vals:
+        return None
+    c0 = min(max(min(vals), lo), hi)
+    c1 = min(max(max(vals), lo), hi)
+    return (c0, c1)
+
+
 def apply_doorways():
     for a in AREAS:
         ins = [r for r in RAMPS if r.get("toId") == a["id"]]
         outs = [r for r in RAMPS if r.get("fromId") == a["id"]]
-        if not ins or not outs:
+        if not ins and not outs:
             continue
 
-        entry = (ins[0]["to"]["x"] - a["pos"]["x"], ins[0]["to"]["z"] - a["pos"]["z"])
-        exit_ = (outs[0]["from"]["x"] - a["pos"]["x"], outs[0]["from"]["z"] - a["pos"]["z"])
+        entry = (ins[0]["to"]["x"] - a["pos"]["x"], ins[0]["to"]["z"] - a["pos"]["z"]) if ins else None
+        exit_ = (outs[0]["from"]["x"] - a["pos"]["x"], outs[0]["from"]["z"] - a["pos"]["z"]) if outs else None
 
         out = []
         for o in a["objects"]:
@@ -991,27 +1126,45 @@ def apply_doorways():
             if top <= 1.65 or bottom >= 1.1:
                 out.append(o); continue
 
-            # 이 벽을 뚫어야 하는 자리를 **전부** 모은다.
-            # 한 곳만 뚫고 끝내면 안 된다 — 2B 의 판독벽과 2E 의 서쪽 벽은
-            # 입구와 출구가 같은 벽에 붙어 있어서 문이 두 개 필요하다.
-            hits = []
-            for pt in (entry, exit_):
-                h = _seg_hits_box(pt, pt, o)
-                if h: hits.append(h)
-            h = _seg_hits_box(entry, exit_, o)
-            if h: hits.append(h)
-
-            if not hits:
-                out.append(o); continue
-
             along = "x" if o["scale"]["x"] >= o["scale"]["z"] else "z"
+            other_axis = "z" if along == "x" else "x"
             span = o["scale"][along]
             lo = o["pos"][along] - span / 2
             hi = o["pos"][along] + span / 2
 
+            # 경사로가 이 벽의 두께 안에 실제로 들어오는 구간을 직접 훑어서 잰다
+            # (_ramp_wall_span — 검사 18번과 같은 방식). 정면 진입이면 폭
+            # 전체가, 모서리를 스치는 진입이면 실제로 겹치는 만큼만 나온다.
+            wall_thickness = o["scale"][other_axis]
+            entry_span = _ramp_wall_span(a["pos"], ins[0]["from"], ins[0]["to"],
+                                          ins[0].get("width", 4.0), other_axis, o["pos"][other_axis],
+                                          wall_thickness, lo, hi) if ins else None
+            exit_span = _ramp_wall_span(a["pos"], outs[0]["from"], outs[0]["to"],
+                                         outs[0].get("width", 4.0), other_axis, o["pos"][other_axis],
+                                         wall_thickness, lo, hi) if outs else None
+
+            # 방 내부를 가로지르는 벽(예: 1C 의 분리벽)은 경계면이 아니라서
+            # 위 계산에 안 걸릴 수 있다 — 입구→출구 직선이 실제로 이 벽을
+            # 지나는지도 따로 본다.
+            hits = []
+            if entry is not None and exit_ is not None:
+                h = _seg_hits_box(entry, exit_, o)
+                if h: hits.append(h[0] if along == "x" else h[1])
+
+            if entry_span is None and exit_span is None and not hits:
+                out.append(o); continue
+
+            # 문은 경사로가 실제로 겹치는 만큼만 뚫는다. 점마다 따로 DOOR_W(8.0)의
+            # 여유를 주던 예전 방식은 통로 양옆까지 벽이 통째로 사라지는 사고가
+            # 났다 — 그래서 작은 여유(DOOR_MARGIN)만 더한다. 입구·출구가 같은
+            # 벽에 있으면(2B·2E) 각자 자기 구간만큼만 뚫려 문이 두 개로 남는다.
+            DOOR_MARGIN = 0.6
             cuts = []
-            for h in hits:
-                at = h[0] if along == "x" else h[1]
+            for span in (entry_span, exit_span):
+                if span is None:
+                    continue
+                cuts.append((span[0] - DOOR_MARGIN, span[1] + DOOR_MARGIN))
+            for at in hits:
                 at = min(max(at, lo), hi)
                 cuts.append((at - DOOR_W / 2, at + DOOR_W / 2))
             cuts.sort()
@@ -1031,7 +1184,10 @@ def apply_doorways():
                     parts.append((cursor, min(c0, hi)))
                 cursor = max(cursor, c1)
             if is_canvas(o["name"]):
-                DOOR_ON_CANVAS.append((a["id"], o["name"], len(merged)))
+                other_axis = "z" if along == "x" else "x"
+                DOOR_ON_CANVAS.append(dict(
+                    area=a["id"], wall=o["name"], along=along, other=other_axis,
+                    fixed=o["pos"][other_axis], spans=[tuple(c) for c in merged]))
 
             for a0, a1 in parts:
                 n += 1
@@ -1518,15 +1674,34 @@ def validate():
             errs.append(f"{a['id']}: 입구에서 출구까지 걸어갈 수 없다 — "
                         f"벽이 길을 완전히 막고 있다")
 
-    # 16) 문을 그림자 면에 뚫은 곳
+    # 16) 문을 그림자 면에 뚫은 곳 — 실제로 뭔가와 겹치는지까지 확인
     #
     #     경사로가 붙는 자리를 벽이 막고 있으면 문을 뚫는데, 그 벽이 동시에
-    #     그림자를 받는 면이면 그림자가 그 구멍으로 샌다. 판정은 논리값이라
-    #     퍼즐이 깨지지는 않지만 "보고 푼다"가 성립하지 않는다.
-    #     즉 방 배치가 잘못된 것이고, 사람이 결정할 문제다.
-    for aid, nm, k in DOOR_ON_CANVAS:
-        warns.append(f"{aid}: 그림자 면 '{nm}' 에 문을 {k}개 뚫었다 — "
-                     f"경사로가 붙는 자리와 그림자 면이 겹친다. 배치를 다시 볼 것")
+    #     그림자를 받는 면이면 그림자가 그 구멍으로 샐 "수도" 있다.
+    #     판정은 논리값이라 퍼즐이 깨지지는 않는다(Docs/01 §9 판정 분리).
+    #     문제는 "보고 푼다"는 픽션이 깨지느냐인데, 그건 그 구멍 자리에
+    #     실제로 벽에 붙은 퍼즐 요소(주름·조각·표식)가 있을 때만 진짜다.
+    #     막연히 "그림자 면에 문이 있다"로 경고하면 방을 재배치할 필요가
+    #     없는 곳까지 사람이 매번 눈으로 확인해야 했다 — 그래서 벽에
+    #     실제로 붙어있는(거리 1.5 이내) 오브젝트가 문 구간과 겹치는지
+    #     좌표로 직접 확인한다. 벽에 붙은 게 없으면(대부분 이 경우다)
+    #     조용히 통과시킨다.
+    CONTENT_KINDS = ("crease", "piece", "marker")
+    for rec in DOOR_ON_CANVAS:
+        a = BY_ID[rec["area"]]
+        along, other, fixed = rec["along"], rec["other"], rec["fixed"]
+        hits = []
+        for o in a["objects"]:
+            if o["kind"] not in CONTENT_KINDS:
+                continue
+            if abs(o["pos"][other] - fixed) > 1.5:
+                continue
+            v = o["pos"][along]
+            if any(c0 - 0.3 <= v <= c1 + 0.3 for c0, c1 in rec["spans"]):
+                hits.append(o["name"])
+        if hits:
+            warns.append(f"{rec['area']}: 그림자 면 '{rec['wall']}' 의 문 구간에 "
+                        f"{hits} 가 실제로 걸린다 — 배치를 다시 볼 것")
 
     # 17) 천창 빛이 그림자 퍼즐에 실제로 닿는가
     #
@@ -1560,6 +1735,69 @@ def validate():
         if hole / area > 0.35:
             warns.append(f"{a['id']}: 천창이 천장의 {hole/area*100:.0f}% 다 "
                          f"— 이 정도면 방을 닫은 의미가 옅다")
+
+    # 18) 경사로가 벽에 걸리는가 — 폭 전체를 실제로 훑어서 재확인
+    #
+    #     apply_doorways() 가 문 폭을 계산할 때 경사로 가장자리까지 보도록
+    #     고쳤다(대각선 진입에서 중심점만 보면 폭이 모자란다). 그런데
+    #     "고쳤다"와 "실제로 안 걸린다"는 다른 문장이라 직접 다시 잰다.
+    #
+    #     경사로를 폭×길이 사각형으로 보고 격자로 채워서, 그 어느 점도
+    #     양쪽 방에 남은 벽 조각(문을 뚫고 남은 부분) 안에 들어가지
+    #     않는지 확인한다. 방 로컬좌표로 바꿔서 대조하므로, 중간 지점은
+    #     어차피 두 방 모두의 벽 범위 밖이라 자연히 걸리지 않는다 —
+    #     그래서 "경계 근처만" 따로 잘라낼 필요가 없다.
+    LEN_SAMPLES = 20
+    WID_SAMPLES = 7
+
+    def _walls_of(area):
+        return [o for o in area["objects"]
+                if o["kind"] == "box" and not o.get("bridgeFor")
+                and o["pos"]["y"] + o["scale"]["y"] * 0.5 > 1.65
+                and o["pos"]["y"] - o["scale"]["y"] * 0.5 < 1.1]
+
+    for r in RAMPS:
+        a = BY_ID.get(r.get("fromId"))
+        b = BY_ID.get(r.get("toId"))
+        if a is None or b is None:
+            continue
+
+        fx, fz = r["from"]["x"], r["from"]["z"]
+        tx, tz = r["to"]["x"], r["to"]["z"]
+        dx, dz = tx - fx, tz - fz
+        n = math.hypot(dx, dz)
+        if n < 1e-6:
+            continue
+        px, pz = -dz / n, dx / n
+        hw = r.get("width", 4.0) / 2
+
+        wa, wb = _walls_of(a), _walls_of(b)
+        reported = False
+
+        for i in range(LEN_SAMPLES + 1):
+            if reported:
+                break
+            t = i / LEN_SAMPLES
+            cx, cz = fx + dx * t, fz + dz * t
+            for j in range(WID_SAMPLES + 1):
+                s = -1.0 + 2.0 * j / WID_SAMPLES
+                wx, wz = cx + px * hw * s, cz + pz * hw * s
+                for area, walls in ((a, wa), (b, wb)):
+                    lx, lz = wx - area["pos"]["x"], wz - area["pos"]["z"]
+                    for w in walls:
+                        wx0 = w["pos"]["x"] - w["scale"]["x"] * 0.5
+                        wx1 = w["pos"]["x"] + w["scale"]["x"] * 0.5
+                        wz0 = w["pos"]["z"] - w["scale"]["z"] * 0.5
+                        wz1 = w["pos"]["z"] + w["scale"]["z"] * 0.5
+                        if wx0 <= lx <= wx1 and wz0 <= lz <= wz1:
+                            errs.append(f"{r['name']}: 경사로가 {area['id']} 의 벽 "
+                                        f"'{w['name']}' 에 걸린다 (t={t:.2f}) — 문이 폭을 못 덮는다")
+                            reported = True
+                            break
+                    if reported:
+                        break
+                if reported:
+                    break
 
     print(f"구역 {len(AREAS)} / 경사로 {len(RAMPS)} / 잠긴 출구 {gated}")
     print(f"\n오류 {len(errs)}건")

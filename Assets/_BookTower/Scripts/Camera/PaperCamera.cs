@@ -41,11 +41,16 @@ namespace BookTower.CameraSystem
         [SerializeField] private float framePadding = 1.12f;
 
         [Header("룸 모드")]
-        [Tooltip("방이 이보다 커서 한 화면에 다 안 들어오면, 방 전체를 담는 대신 " +
-                 "플레이어를 따라간다. 방 밖으로는 나가지 않는다")]
-        [SerializeField] private float maxRoomOrthoSize = 16f;
+        [Tooltip("기본 플레이 화면 크기. 리틀 나이트메어처럼 '공간 안에 들어가 있는' " +
+                 "느낌을 내려면 방 전체를 담지 말고 이만큼만 가깝게 잡아야 한다. " +
+                 "예전엔 방 전체를 화면에 맞췄는데, 그러면 방이 클수록 카메라가 멀어져 " +
+                 "'상자 밖에서 안을 들여다보는' 구도가 됐다")]
+        [SerializeField] private float embeddedOrthoSize = 8f;
 
-        [Tooltip("큰 방에서 플레이어를 따라갈 때의 부드러움")]
+        [Tooltip("어떤 경우에도 이보다는 안 벌어진다 (좁은 방에서의 절대 상한)")]
+        [SerializeField] private float maxRoomOrthoSize = 10f;
+
+        [Tooltip("플레이어를 따라갈 때의 부드러움")]
         [SerializeField] private float roomFollowSpeed = 3.5f;
 
         [Tooltip("경사로를 건너는 동안의 최대 화면 크기. 방보다 크게는 안 잡는다 — " +
@@ -197,18 +202,22 @@ namespace BookTower.CameraSystem
         }
 
         /// <summary>
-        /// 룸 모드. 방 하나를 화면에 담는다.
-        /// 방이 너무 커서 한 화면에 안 들어오면 플레이어를 따라가되,
-        /// 시선이 방 밖으로 나가지 않게 방 범위 안에 묶는다.
+        /// 룸 모드. 플레이어를 가깝게 따라가되, 시선이 방 밖으로 나가지 않게
+        /// 방 범위 안에 묶는다.
+        ///
+        /// 예전엔 방 전체가 화면에 들어오도록 맞췄다("방 하나를 통째로 담는다").
+        /// 방이 클수록 카메라가 멀어져야 하고, 그 결과가 "상자 밖에서 안을
+        /// 들여다보는" 구도였다 — 방과 방 사이를 옮겨 다니는 게임인데 마치
+        /// 인형의 집을 내려다보는 느낌이 났다. 리틀 나이트메어류가 주는
+        /// "공간 안에 들어가 있는" 느낌은 반대로, 화면 크기를 방 크기와
+        /// 무관하게 고정해 두고 플레이어를 계속 가깝게 따라가는 데서 나온다.
         /// </summary>
         private void FitRoom()
         {
             if (!hasRoom) { FollowTarget(); return; }
 
-            float needed = RequiredOrthoSize(roomBounds) * roomPad;
-            float wantSize = Mathf.Min(needed, maxRoomOrthoSize);
-
-            Vector3 wantFocus = roomBounds.center;
+            float wantSize = Mathf.Min(embeddedOrthoSize, maxRoomOrthoSize);
+            Vector3 wantFocus = ClampToRoomBounds(target != null ? target.position : roomBounds.center);
 
             // 경사로를 건너는 중 — 방 구도 안에 경사로가 없으므로 플레이어를 따라간다.
             // 방 안에서는 절대 이쪽으로 오지 않는다 (RoomManager 가 방 부피 밖일 때만 켠다).
@@ -216,15 +225,6 @@ namespace BookTower.CameraSystem
             {
                 wantFocus = target.position;
                 wantSize = Mathf.Min(wantSize, transitOrthoSize);
-            }
-            else if (needed > maxRoomOrthoSize && target != null)
-            {
-                Vector3 p = target.position;
-                Vector3 min = roomBounds.min, max = roomBounds.max;
-                wantFocus = new Vector3(
-                    Mathf.Clamp(p.x, min.x, max.x),
-                    Mathf.Clamp(p.y, min.y, max.y),
-                    Mathf.Clamp(p.z, min.z, max.z));
             }
 
             float k = 1f - Mathf.Exp(-roomFollowSpeed * Time.deltaTime);
@@ -236,6 +236,16 @@ namespace BookTower.CameraSystem
             // 예전엔 대각선의 2배(60~137)를 썼는데, 거리 기반 효과를 쓸 때
             // 그게 그대로 화면 전체에 걸린다.
             distance = Mathf.Max(40f, roomBounds.size.magnitude * 0.75f + 15f);
+        }
+
+        /// <summary>플레이어 위치를 현재 방 부피 안으로 눌러 넣는다 (시선이 밖으로 안 나가게)</summary>
+        private Vector3 ClampToRoomBounds(Vector3 p)
+        {
+            Vector3 min = roomBounds.min, max = roomBounds.max;
+            return new Vector3(
+                Mathf.Clamp(p.x, min.x, max.x),
+                Mathf.Clamp(p.y, min.y, max.y),
+                Mathf.Clamp(p.z, min.z, max.z));
         }
 
         /// <summary>
@@ -266,8 +276,8 @@ namespace BookTower.CameraSystem
             // 엉뚱한 데서 날아오는 것처럼 보인다.
             if (first)
             {
-                focus = roomBounds.center;
-                orthoSize = Mathf.Min(RequiredOrthoSize(roomBounds) * roomPad, maxRoomOrthoSize);
+                focus = ClampToRoomBounds(target != null ? target.position : roomBounds.center);
+                orthoSize = Mathf.Min(embeddedOrthoSize, maxRoomOrthoSize);
                 distance = Mathf.Max(60f, roomBounds.size.magnitude * 2f);
                 ApplyTransform();
             }
