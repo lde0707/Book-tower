@@ -20,16 +20,26 @@ def spiral(step, y, radius=None):
     r = math.radians(step * 90)
     return (round(math.sin(r) * rad, 2), y, round(math.cos(r) * rad, 2))
 
-def area(id, name, floor, pos, size, wall=0.0, note="", objects=None, puzzle=None):
+def area(id, name, floor, pos, size, wall=0.0, note="", objects=None, puzzle=None,
+         split=0.0):
+    # split > 0 이면 바닥 가운데가 그만큼(원본 단위) 비어 있는 방이다.
+    # 예전엔 LevelBuilder 가 `a.id == "1B"` 로 하드코딩하고 있었는데,
+    # 그러면 여기 검증기가 "어느 방이 갈라져 있는지"를 알 수 없다.
+    # 실제로 그 탓에 P3 의 접이면이 간극 건너편에 놓인 게 오래 안 잡혔다.
     return dict(id=id, name=name, floor=floor,
                 pos=dict(x=pos[0], y=pos[1], z=pos[2]),
                 size=dict(x=size[0], z=size[1]),
-                backWall=wall, note=note,
+                backWall=wall, note=note, splitGap=split,
                 objects=objects or [], puzzle=puzzle)
 
-def box(name, pos, scale, mat="mid", note=""):
+def box(name, pos, scale, mat="mid", note="", bridge_for="", bridge_y=0.0):
+    # bridge_for 를 주면 "그 퍼즐이 풀리면 여기까지 올라와 길이 되는 판" 이 된다.
+    # 잠겨 있는 동안은 콜라이더가 꺼진다 — 안 그러면 바닥보다 조금 낮은
+    # 이 판이 얕은 구덩이가 되어, 빠지면 stepOffset(0.45)으로는 못 올라온다.
+    # 떨어지면 아래로 통과해 안전 지점으로 되돌아가는 쪽이 낫다.
     return dict(kind="box", name=name, pos=dict(x=pos[0], y=pos[1], z=pos[2]),
-                scale=dict(x=scale[0], y=scale[1], z=scale[2]), mat=mat, note=note)
+                scale=dict(x=scale[0], y=scale[1], z=scale[2]), mat=mat, note=note,
+                bridgeFor=bridge_for, bridgeY=bridge_y)
 
 def fold(name, pos, size, mat="light", state=0, note=""):
     # state 자리에 실수로 설명을 넣으면 JSON 의 int 필드에 문자열이 들어가고,
@@ -124,12 +134,19 @@ AREAS.append(area("1A", "1A_접힘방향", 1, P_1A, (16, 14), wall=5,
     puzzle=puzzle("P2", 120, [2], ["P2_접이면"],
                   "목표 지점에서 확인한 방향대로 접어야 한다. 접는 자리에선 목표가 안 보인다")))
 
-AREAS.append(area("1B", "1B_끊긴길", 1, P_1B, (20, 14), wall=5,
+AREAS.append(area("1B", "1B_끊긴길", 1, P_1B, (20, 14), wall=5, split=4.0,
     note="P3 · 바닥에 간극. 다른 페이지를 접어 그림자로 건너야 한다",
     objects=[
-        box("간극_가림막", (0, -0.6, 0.5), (20, 0.05, 4), "shade",
-            "P3 · 여기가 찢겨나간 자리 (바닥보다 아래에 표식만)"),
-        fold("P3_대체용_접이면", (-7, 0.1, -6), (5, 5), "light"),
+        # P3 를 풀면 이 판이 바닥 높이까지 올라와 간극을 잇는다.
+        # "접은 페이지의 그림자가 간극을 덮는다" 의 실제 구현부다.
+        # 폭은 간극(4)보다 넓게 잡아 양쪽 바닥에 걸치게 한다.
+        box("간극_가림막", (0, -0.6, 0), (20, 0.05, 4.5), "shade",
+            "P3 · 찢겨나간 자리. 풀면 여기까지 올라와 길이 된다",
+            bridge_for="P3", bridge_y=0.05),
+        # 접이면은 반드시 **입구 쪽**에 있어야 한다.
+        # 예전엔 간극 건너편(z -6)에 있었는데, 입구가 z +7 이라
+        # 건너지 않으면 닿지 않았다. 즉 P3 는 풀 수도 건널 수도 없었다.
+        fold("P3_대체용_접이면", (-7, 0.1, 5), (5, 5), "light"),
         marker("랜드마크_찢겨나간_간극", (0, 0.6, 0.5)),
     ],
     puzzle=puzzle("P3", 240, [1], ["P3_대체용_접이면"],
@@ -722,6 +739,146 @@ def apply_goals():
 apply_goals()
 
 
+# ═══════════════════════════════════════════════ 출구 잠금
+#
+# 퍼즐을 풀어도 세계가 아무것도 바뀌지 않으면 플레이어는 "이걸 왜 풀지"를
+# 느낄 수가 없다. 실제로 그렇게 만들어 놓고 플레이테스트에서 "재미 요소를
+# 모르겠다"는 반응이 나왔다. 로그와 조명 연출만 있었고 진행은 처음부터 열려 있었다.
+#
+# 그래서 퍼즐이 있는 방은 **출구를 닫아 둔다.**
+# 형태는 벽이 아니라 **접혀 선 페이지**다 — 접기가 이 게임의 언어이므로
+# 잠금도 그 언어로 말해야 한다. 풀면 그 페이지가 펴져 바닥이 되고 빛이 든다.
+#
+# 이게 동시에 "여기서 뭘 해야 하나"의 답도 된다. 길이 막혀 있는 걸 보면
+# 뒤를 돌아 방을 살피게 된다. 안 보이는 표식보다 이쪽이 훨씬 확실하다.
+#
+# 퍼즐이 없는 방(2A·2D·2F)의 출구는 열어 둔다. 풀 것이 없는데 막으면
+# 그냥 소프트락이다.
+GATE_HEIGHT = 3.0          # 점프(1.2)로는 절대 못 넘는 높이여야 한다
+
+def apply_gates():
+    by_id = {a["id"]: a for a in AREAS}
+    for r in RAMPS:
+        a = by_id.get(r.get("fromId"))
+        q = (a or {}).get("puzzle")
+        r["gatePuzzle"] = q["id"] if q else ""
+        r["gateHeight"] = GATE_HEIGHT if q else 0.0
+
+apply_gates()
+
+
+# ═══════════════════════════════════════════════ 출입구
+#
+# 방의 외벽·통로벽이 경사로가 붙는 자리를 그대로 막고 있었다.
+# 지금까지는 아무 데서나 되돌아갈 수 있어서 티가 안 났는데, 출구를 퍼즐로
+# 잠그는 순간 "지나갈 수 있다"가 진행의 전제가 된다. 한 방이라도 막히면
+# 그 뒤를 통째로 못 본다.
+#
+# 그래서 벽을 손으로 하나씩 고치는 대신, 길을 막는 벽에 문을 뚫는다.
+# 대상은 두 가지다.
+#   · 경사로 끝점이 벽 안에 박혀 있는 경우 (2B·2E·3A·3B)
+#   · 입구에서 출구로 가는 직선을 벽이 가로지르는 경우 (2F 의 좁은 통로)
+#
+# 벽 하나를 문 양옆 두 조각으로 쪼갠다. 이름 앞머리를 지키는 게 중요한데,
+# 그림자 면 판정(SHADOW_CANVAS_HINT)이 이름으로 걸러내고 있기 때문이다.
+# 주의: 이 단계는 apply_xz_scale 뒤에 돈다. 즉 값이 **이미 1.6배 된 뒤**다.
+# 경사로 폭은 그 시점에 6.4 이므로 문은 그보다 조금 넓게 잡는다.
+DOOR_W = 8.0
+
+# 문을 그림자 면에 내야 했던 자리. 퍼즐의 픽션이 깨지는 곳이라 따로 보고한다.
+DOOR_ON_CANVAS = []
+
+def _seg_hits_box(p, q, o, pad=0.3):
+    """선분 p→q 가 상자 o 의 XZ 발자국을 지나는가 (거친 표본)."""
+    x0 = o["pos"]["x"] - o["scale"]["x"] * 0.5 - pad
+    x1 = o["pos"]["x"] + o["scale"]["x"] * 0.5 + pad
+    z0 = o["pos"]["z"] - o["scale"]["z"] * 0.5 - pad
+    z1 = o["pos"]["z"] + o["scale"]["z"] * 0.5 + pad
+    for i in range(61):
+        t = i / 60
+        x = p[0] + (q[0] - p[0]) * t
+        z = p[1] + (q[1] - p[1]) * t
+        if x0 <= x <= x1 and z0 <= z <= z1:
+            return (x, z)
+    return None
+
+def apply_doorways():
+    for a in AREAS:
+        ins = [r for r in RAMPS if r.get("toId") == a["id"]]
+        outs = [r for r in RAMPS if r.get("fromId") == a["id"]]
+        if not ins or not outs:
+            continue
+
+        entry = (ins[0]["to"]["x"] - a["pos"]["x"], ins[0]["to"]["z"] - a["pos"]["z"])
+        exit_ = (outs[0]["from"]["x"] - a["pos"]["x"], outs[0]["from"]["z"] - a["pos"]["z"])
+
+        out = []
+        for o in a["objects"]:
+            if o["kind"] != "box" or o.get("bridgeFor"):
+                out.append(o); continue
+
+            top = o["pos"]["y"] + o["scale"]["y"] * 0.5
+            bottom = o["pos"]["y"] - o["scale"]["y"] * 0.5
+            if top <= 1.65 or bottom >= 1.1:
+                out.append(o); continue
+
+            # 이 벽을 뚫어야 하는 자리를 **전부** 모은다.
+            # 한 곳만 뚫고 끝내면 안 된다 — 2B 의 판독벽과 2E 의 서쪽 벽은
+            # 입구와 출구가 같은 벽에 붙어 있어서 문이 두 개 필요하다.
+            hits = []
+            for pt in (entry, exit_):
+                h = _seg_hits_box(pt, pt, o)
+                if h: hits.append(h)
+            h = _seg_hits_box(entry, exit_, o)
+            if h: hits.append(h)
+
+            if not hits:
+                out.append(o); continue
+
+            along = "x" if o["scale"]["x"] >= o["scale"]["z"] else "z"
+            span = o["scale"][along]
+            lo = o["pos"][along] - span / 2
+            hi = o["pos"][along] + span / 2
+
+            cuts = []
+            for h in hits:
+                at = h[0] if along == "x" else h[1]
+                at = min(max(at, lo), hi)
+                cuts.append((at - DOOR_W / 2, at + DOOR_W / 2))
+            cuts.sort()
+
+            # 겹치는 문은 하나로 합친다
+            merged = [list(cuts[0])]
+            for c0, c1 in cuts[1:]:
+                if c0 <= merged[-1][1]:
+                    merged[-1][1] = max(merged[-1][1], c1)
+                else:
+                    merged.append([c0, c1])
+
+            # 문 사이에 남는 조각만 벽으로 남긴다
+            parts, cursor, n = [], lo, 0
+            for c0, c1 in merged + [[hi, hi]]:
+                if c0 - cursor > 0.4:
+                    parts.append((cursor, min(c0, hi)))
+                cursor = max(cursor, c1)
+            if any(h in o["name"] for h in SHADOW_CANVAS_HINT):
+                DOOR_ON_CANVAS.append((a["id"], o["name"], len(merged)))
+
+            for a0, a1 in parts:
+                n += 1
+                part = json.loads(json.dumps(o))
+                part["name"] = f"{o['name']}_{n}"
+                part["scale"][along] = round(a1 - a0, 2)
+                part["pos"][along] = round((a0 + a1) / 2, 2)
+                out.append(part)
+
+        a["objects"] = out
+
+apply_doorways()
+
+
+
+
 # ═══════════════════════════════════════════════ 출력 / 검증
 def build():
     out = dict(areas=AREAS, ramps=RAMPS,
@@ -1035,7 +1192,174 @@ def validate():
                     warns.append(f"{a['id']} 에 서서 {b['id']} 의 '{o['name']}' 에 손이 닿는다 "
                                  f"({d:.1f} / 사거리 {r:.0f}) — 가시성 검사가 막고 있다")
 
-    print(f"구역 {len(AREAS)} / 경사로 {len(RAMPS)}")
+    # 13) 출구 잠금이 말이 되는가
+    #
+    #     · 퍼즐이 있는 방은 출구가 잠겨 있어야 한다 — 안 그러면 풀 이유가 없다
+    #     · 퍼즐이 없는 방은 잠기면 안 된다 — 그건 소프트락이다
+    #     · 잠금 페이지는 점프로 넘어지면 안 된다
+    #     · 마지막 방에서 나가는 길은 없어도 된다
+    by_id = {a["id"]: a for a in AREAS}
+    gated = 0
+    for r in RAMPS:
+        a = by_id.get(r.get("fromId"))
+        if a is None:
+            errs.append(f"{r['name']}: fromId '{r.get('fromId')}' 가 어느 구역도 아니다")
+            continue
+        has_puzzle = bool(a.get("puzzle"))
+        h = r.get("gateHeight", 0.0)
+        if has_puzzle and h <= 0.01:
+            errs.append(f"{r['name']}: {a['id']} 에 퍼즐({a['puzzle']['id']})이 있는데 "
+                        f"출구가 안 잠긴다 — 풀 이유가 없어진다")
+        if not has_puzzle and h > 0.01:
+            errs.append(f"{r['name']}: {a['id']} 에 퍼즐이 없는데 출구가 잠긴다 — 소프트락")
+        if h > 0.01:
+            gated += 1
+            if JUMP_HEIGHT >= h * 0.8:
+                errs.append(f"{r['name']}: 잠금 페이지 높이 {h:.1f} 를 점프 {JUMP_HEIGHT} 로 넘는다")
+
+    # 퍼즐이 있는 방이 전부 잠겨 있는지 뒤집어서도 확인한다.
+    # 마지막 방(나가는 경사로가 없는 방)은 예외다.
+    out_ids = {r.get("fromId") for r in RAMPS}
+    for a in AREAS:
+        if a.get("puzzle") and a["id"] not in out_ids and a["id"] != "HD":
+            warns.append(f"{a['id']}: 퍼즐 {a['puzzle']['id']} 이 있는데 나가는 경사로가 없다 "
+                         f"— 풀어도 열릴 길이 없다")
+
+    # 14) 바닥이 갈라진 방을 실제로 지날 수 있는가
+    #
+    #     1B 는 바닥 가운데가 비어 있고, 입구와 출구가 그 간극의 반대편에 있다.
+    #     점프 도달 거리는 4.0, 간극은 6.4 라 절대 못 뛴다 — 설계상 맞다.
+    #     그런데 그러려면 두 가지가 반드시 성립해야 한다.
+    #
+    #       · 퍼즐을 **입구 쪽에서** 풀 수 있어야 한다.
+    #         실제로 P3 의 접이면이 간극 **건너편**에 놓여 있었다.
+    #         풀 수도, 건널 수도 없는 방이었는데 아무도 못 잡고 있었다.
+    #       · 풀면 간극을 잇는 판이 올라와야 한다. 없으면 풀어도 못 지난다.
+    for a in AREAS:
+        g = a.get("splitGap", 0.0) * XZ_SCALE
+        if g <= 0.01:
+            continue
+
+        ins = [r for r in RAMPS if r.get("toId") == a["id"]]
+        outs = [r for r in RAMPS if r.get("fromId") == a["id"]]
+        if not ins or not outs:
+            continue
+
+        entry_z = ins[0]["to"]["z"] - a["pos"]["z"]
+        exit_z = outs[0]["from"]["z"] - a["pos"]["z"]
+        if (entry_z > 0) == (exit_z > 0):
+            warns.append(f"{a['id']}: 입구와 출구가 간극의 같은 쪽이다 — 간극을 건널 이유가 없다")
+            continue
+
+        near = 1.0 if entry_z > 0 else -1.0     # 입구가 있는 쪽
+
+        q = a.get("puzzle") or {}
+        need = set(q.get("panels", [])) | set(q.get("pieces", []))
+        for o in a["objects"]:
+            if o["name"] not in need and o.get("pieceId", "") not in need:
+                continue
+            side = 1.0 if o["pos"]["z"] > 0 else -1.0
+            if side != near or abs(o["pos"]["z"]) < g * 0.5:
+                errs.append(f"{a['id']} {q.get('id')}: '{o['name']}' 이 간극 건너편(z {o['pos']['z']:.1f})에 있다 "
+                            f"— 건너야 풀 수 있는데 풀어야 건널 수 있다")
+
+        bridges = [o for o in a["objects"] if o.get("bridgeFor")]
+        if not bridges:
+            errs.append(f"{a['id']}: 간극 {g:.1f} 을 잇는 판이 없다 — 풀어도 못 지난다")
+        for b in bridges:
+            if q and b["bridgeFor"] != q.get("id"):
+                errs.append(f"{a['id']}: 다리 '{b['name']}' 가 '{b['bridgeFor']}' 를 보는데 "
+                            f"이 방 퍼즐은 {q.get('id')} 다")
+            if b["scale"]["z"] < g:
+                errs.append(f"{a['id']}: 다리 '{b['name']}' 깊이 {b['scale']['z']:.1f} < 간극 {g:.1f} "
+                            f"— 덮이지 않는 틈이 남는다")
+            lo = b["pos"]["z"] - b["scale"]["z"] * 0.5
+            hi = b["pos"]["z"] + b["scale"]["z"] * 0.5
+            if lo > -g * 0.5 or hi < g * 0.5:
+                errs.append(f"{a['id']}: 다리 '{b['name']}' 가 간극을 다 못 덮는다 "
+                            f"(다리 z {lo:.1f}~{hi:.1f}, 간극 {-g/2:.1f}~{g/2:.1f})")
+
+    # 15) 입구에서 출구까지 실제로 걸어갈 수 있는가
+    #
+    #     출구를 퍼즐로 잠그면서 "지나갈 수 있다"가 진행의 전제가 됐다.
+    #     예전엔 아무 데서나 되돌아갈 수 있어서 길이 막혀도 티가 안 났는데,
+    #     이제는 한 방이라도 못 지나가면 그 뒤를 통째로 못 본다.
+    #
+    #     그래서 방마다 바닥을 격자로 깔고 입구에서 출구까지 채워 본다.
+    #     막는 것으로 치는 것: 점프(1.2)+턱(0.45)보다 높은 상자, 그리고 간극.
+    #     (간극은 퍼즐을 풀면 다리가 올라오므로 '지나갈 수 있음'으로 본다 —
+    #      풀기 전에 닿아야 하는 것은 검사 14번이 따로 본다.)
+    #     접이면·조각·주름은 납작하거나 밟고 지나갈 수 있으니 안 친다.
+    CELL = 0.5
+    R_PLAYER = 0.25
+    CLIMB = JUMP_HEIGHT + 0.45
+    PLAYER_H = 1.1
+
+    for a in AREAS:
+        ins = [r for r in RAMPS if r.get("toId") == a["id"]]
+        outs = [r for r in RAMPS if r.get("fromId") == a["id"]]
+        if not ins or not outs:
+            continue
+
+        sx, sz = a["size"]["x"], a["size"]["z"]
+        nx, nz = int(sx / CELL) + 1, int(sz / CELL) + 1
+
+        def cell(px, pz):
+            return (min(max(int((px + sx / 2) / CELL), 0), nx - 1),
+                    min(max(int((pz + sz / 2) / CELL), 0), nz - 1))
+
+        blocked = [[False] * nz for _ in range(nx)]
+        for o in a["objects"]:
+            if o["kind"] != "box":
+                continue
+            top = o["pos"]["y"] + o["scale"]["y"] * 0.5
+            bottom = o["pos"]["y"] - o["scale"]["y"] * 0.5
+            # 넘어갈 수 있으면(낮으면) 안 막고, 밑으로 지나갈 수 있으면(천장) 안 막는다
+            if top <= CLIMB or bottom >= PLAYER_H or o.get("bridgeFor"):
+                continue
+            x0 = o["pos"]["x"] - o["scale"]["x"] * 0.5 - R_PLAYER
+            x1 = o["pos"]["x"] + o["scale"]["x"] * 0.5 + R_PLAYER
+            z0 = o["pos"]["z"] - o["scale"]["z"] * 0.5 - R_PLAYER
+            z1 = o["pos"]["z"] + o["scale"]["z"] * 0.5 + R_PLAYER
+            i0, j0 = cell(x0, z0)
+            i1, j1 = cell(x1, z1)
+            for i in range(i0, i1 + 1):
+                for j in range(j0, j1 + 1):
+                    blocked[i][j] = True
+
+        si, sj = cell(ins[0]["to"]["x"] - a["pos"]["x"], ins[0]["to"]["z"] - a["pos"]["z"])
+        ti, tj = cell(outs[0]["from"]["x"] - a["pos"]["x"], outs[0]["from"]["z"] - a["pos"]["z"])
+
+        if blocked[si][sj] or blocked[ti][tj]:
+            errs.append(f"{a['id']}: 입구나 출구 자리가 막혀 있다")
+            continue
+
+        seen = [[False] * nz for _ in range(nx)]
+        stack = [(si, sj)]
+        seen[si][sj] = True
+        while stack:
+            i, j = stack.pop()
+            for di, dj in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                p, q2 = i + di, j + dj
+                if 0 <= p < nx and 0 <= q2 < nz and not seen[p][q2] and not blocked[p][q2]:
+                    seen[p][q2] = True
+                    stack.append((p, q2))
+
+        if not seen[ti][tj]:
+            errs.append(f"{a['id']}: 입구에서 출구까지 걸어갈 수 없다 — "
+                        f"벽이 길을 완전히 막고 있다")
+
+    # 16) 문을 그림자 면에 뚫은 곳
+    #
+    #     경사로가 붙는 자리를 벽이 막고 있으면 문을 뚫는데, 그 벽이 동시에
+    #     그림자를 받는 면이면 그림자가 그 구멍으로 샌다. 판정은 논리값이라
+    #     퍼즐이 깨지지는 않지만 "보고 푼다"가 성립하지 않는다.
+    #     즉 방 배치가 잘못된 것이고, 사람이 결정할 문제다.
+    for aid, nm, k in DOOR_ON_CANVAS:
+        warns.append(f"{aid}: 그림자 면 '{nm}' 에 문을 {k}개 뚫었다 — "
+                     f"경사로가 붙는 자리와 그림자 면이 겹친다. 배치를 다시 볼 것")
+
+    print(f"구역 {len(AREAS)} / 경사로 {len(RAMPS)} / 잠긴 출구 {gated}")
     print(f"\n오류 {len(errs)}건")
     for e in errs: print("  ✗", e)
     print(f"\n경고 {len(warns)}건")

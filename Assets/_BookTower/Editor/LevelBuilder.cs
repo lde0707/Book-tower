@@ -46,6 +46,10 @@ namespace BookTower.EditorTools
 
         // 외벽 면 (north|south|east|west|ceiling). 비어 있으면 벽이 아니다
         public string face;
+
+        // 다리 전용 — 이 퍼즐이 풀리면 bridgeY 까지 올라와 길이 된다
+        public string bridgeFor;
+        public float bridgeY;
     }
 
     [Serializable]
@@ -74,6 +78,7 @@ namespace BookTower.EditorTools
         public V3 pos;
         public V2 size;
         public float backWall;
+        public float splitGap;   // >0 이면 바닥 가운데가 비어 있는 방 (1B)
         public string note;
         public ObjDef[] objects;
         public PuzzleDef puzzle;
@@ -114,6 +119,8 @@ namespace BookTower.EditorTools
         public string mat;
         public string fromId;
         public string toId;
+        public string gatePuzzle;   // 이 퍼즐이 풀려야 열린다. 빈 문자열이면 처음부터 열린 길
+        public float gateHeight;    // 0 이면 잠금 없음
     }
 
     [Serializable]
@@ -172,6 +179,13 @@ namespace BookTower.EditorTools
 
         private static readonly Dictionary<string, BookTower.EchoSystem.EchoCrease> creaseLookup = new();
 
+        /// <summary>구역 id → 그 방의 퍼즐. 경사로 잠금이 이걸 보고 연결된다.</summary>
+        private static readonly Dictionary<string, PuzzleBase> puzzleLookup = new();
+
+        /// <summary>풀면 올라오는 판. 퍼즐보다 먼저 만들어지므로 모아 뒀다가 나중에 잇는다.</summary>
+        private static readonly List<(string areaId, string puzzleId, GameObject go, float openY)>
+            bridges = new();
+
         /// <summary>
         /// 연필 외곽선. 흰 바탕 위에서는 이 선이 형태를 잡아 준다.
         /// 표식(marker)에는 안 붙인다 — 눈에 안 보이는 기준점이라 선만 남으면 이상하다.
@@ -206,6 +220,8 @@ namespace BookTower.EditorTools
                 floorGap = level.meta.floorGap;
 
             creaseLookup.Clear();
+            puzzleLookup.Clear();
+            bridges.Clear();
             var panelLookup = new Dictionary<string, FoldPanel>();
 
             foreach (AreaDef a in level.areas)
@@ -233,7 +249,10 @@ namespace BookTower.EditorTools
             if (!string.IsNullOrEmpty(a.note)) Note(area.gameObject, a.note);
 
             // 바닥 — 1B(끊긴 길)는 가운데를 비워야 하므로 특수 처리
-            if (a.id == "1B") BuildSplitFloor(area, a);
+            // 예전엔 `a.id == "1B"` 였다. 그러면 검증기 쪽에서 "어느 방이 갈라져
+            // 있는지"를 알 수가 없고, 실제로 그 탓에 P3 의 접이면이 간극 건너편에
+            // 놓인 걸 오래 못 잡았다. 판단 근거는 데이터에 둔다.
+            if (a.splitGap > 0.01f) BuildSplitFloor(area, a);
             else Outline(MakeBox(area, "바닥", Vector3.zero,
                                  new Vector3(a.size.x, 0.2f, a.size.z), pal.paperMid), 0.06f);
 
@@ -261,6 +280,8 @@ namespace BookTower.EditorTools
                 if (go != null) AttachWall(go, o.face);
                 if (go != null && o.kind != "marker") Outline(go);
                 if (go != null) MakeInteractable(go, o);
+                if (go != null && !string.IsNullOrEmpty(o.bridgeFor))
+                    bridges.Add((a.id, o.bridgeFor, go, o.bridgeY));
             }
 
             BuildAccents(area, a);
@@ -525,6 +546,19 @@ namespace BookTower.EditorTools
             SetString(puzzle, "puzzleId", a.puzzle.id);
             SetFloat(puzzle, "targetSeconds", a.puzzle.targetSeconds);
 
+            // 경사로 잠금이 나중에(경사로를 만들 때) 이걸 찾는다
+            puzzleLookup[a.id] = puzzle;
+
+            // 풀면 올라오는 판 (P3 의 간극). 데이터가 가리키는 퍼즐과 일치할 때만 잇는다 —
+            // level_layout.py 가 그 일치를 검사하고 있으므로 여기서 조건을 다시 쓰지 않는다.
+            foreach (var b in bridges)
+            {
+                if (b.areaId != a.id || b.puzzleId != a.puzzle.id || b.go == null) continue;
+                var br = b.go.AddComponent<SolveBridge>();
+                SetObject(br, "puzzle", puzzle);
+                SetFloat(br, "openY", b.openY);
+            }
+
             if (a.puzzle.assemblyRange > 0.01f && puzzle is PieceAssemblyPuzzle asm)
             {
                 SetFloat(puzzle, "assemblyRange", a.puzzle.assemblyRange);
@@ -633,6 +667,61 @@ namespace BookTower.EditorTools
                 SetVector3(link, "fromPoint", from);
                 SetVector3(link, "toPoint", to);
             }
+
+            MakeGate(r, from, dir);
+        }
+
+        /// <summary>
+        /// 출구를 막고 선 페이지. 그 방의 퍼즐이 풀리면 펴져서 길이 된다.
+        ///
+        /// 형태를 벽이 아니라 접이면과 똑같이 잡는 이유는 접기가 이 게임의
+        /// 언어이기 때문이다. 그래서 MakeFold 와 같은 관례를 쓴다 —
+        /// 경첩은 경사로 입구에 두고 판은 로컬 +z 로 뻗는다.
+        /// 회전 0 이면 경사로 위에 납작하게 눕고(열림),
+        /// Vector3.left 축으로 90도 돌리면 길을 가로막고 선다(잠김).
+        ///
+        /// 잠금 여부는 데이터가 정한다. level_layout.py 가 "퍼즐이 있는 방은
+        /// 반드시 잠기고, 없는 방은 절대 안 잠긴다"를 검사하므로
+        /// 여기서 조건을 다시 쓰면 두 곳이 어긋날 수 있다.
+        /// </summary>
+        private static void MakeGate(RampDef r, Vector3 from, Vector3 dir)
+        {
+            if (r.gateHeight <= 0.01f) return;
+
+            if (!puzzleLookup.TryGetValue(r.fromId ?? "", out PuzzleBase puzzle))
+            {
+                Debug.LogWarning($"[LevelBuilder] {r.name}: 잠금이 지정됐는데 " +
+                                 $"'{r.fromId}' 의 퍼즐을 못 찾았다. 열어 둔다.");
+                return;
+            }
+
+            var hinge = new GameObject($"잠금_{r.fromId}").transform;
+            hinge.SetParent(root, false);
+            hinge.localPosition = from;
+            hinge.localRotation = Quaternion.LookRotation(dir.normalized, Vector3.up);
+
+            var plate = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            plate.name = "페이지";
+            plate.transform.SetParent(hinge, false);
+            plate.transform.localPosition = new Vector3(0f, 0f, r.gateHeight * 0.5f);
+            plate.transform.localScale = new Vector3(r.width, 0.2f, r.gateHeight);
+            plate.GetComponent<MeshRenderer>().sharedMaterial = pal.paperShade;
+            Outline(plate);
+
+            // 열렸을 때 켜지는 빛. 그림자는 만들지 않는다(두 번째 그림자 금지).
+            // 퍼즐이 풀린 뒤에만 켜지므로 그 방의 그림자 퍼즐을 씻어낼 수 없다.
+            var lightGo = new GameObject("빛_출구");
+            lightGo.transform.SetParent(hinge, false);
+            lightGo.transform.localPosition = new Vector3(0f, 1.0f, r.gateHeight * 0.5f);
+            var l = lightGo.AddComponent<Light>();
+            l.type = LightType.Point;
+            l.color = LightWarm;
+            l.range = 8f;
+            l.intensity = 0f;
+            l.shadows = LightShadows.None;
+
+            var gate = hinge.gameObject.AddComponent<RampGate>();
+            SetObject(gate, "puzzle", puzzle);
         }
 
         // ─────────────────────────────────────────── 유틸

@@ -33,7 +33,31 @@ namespace BookTower.Presentation
         private void Update()
         {
             var kb = UnityEngine.InputSystem.Keyboard.current;
-            if (kb != null && kb.f1Key.wasPressedThisFrame) visible = !visible;
+            if (kb == null) return;
+
+            if (kb.f1Key.wasPressedThisFrame) visible = !visible;
+
+            // F2 — 지금 방 퍼즐 강제 해결.
+            //
+            // 출구가 퍼즐로 잠기면서 "퍼즐 하나가 고장나면 그 뒤를 아예 못 본다"가
+            // 생겼다. 플레이테스트에서 그건 치명적이다 — 버그 하나가 나머지
+            // 검수를 통째로 막는다. 그래서 탈출구를 하나 둔다.
+            // 완성된 게임에는 없어야 하고, 이 창과 함께 사라진다.
+            if (kb.f2Key.wasPressedThisFrame) ForceSolveCurrentRoom();
+        }
+
+        private void ForceSolveCurrentRoom()
+        {
+            if (rooms == null) rooms = FindFirstObjectByType<RoomManager>();
+            Room r = rooms != null ? rooms.Current : null;
+            if (r == null) return;
+
+            var pz = r.GetComponentInChildren<PuzzleBase>();
+            if (pz == null) { Debug.Log("[F2] 이 방엔 퍼즐이 없다"); return; }
+
+            pz.Activate();
+            pz.Solve();
+            Debug.Log($"[F2] {pz.PuzzleId} 강제 해결 — 출구가 열린다", pz);
         }
 
         private void EnsureStyles()
@@ -103,7 +127,7 @@ namespace BookTower.Presentation
 
             Room room = rooms != null ? rooms.Current : null;
 
-            GUILayout.BeginArea(new Rect(12, 8, 340, 352), box);
+            GUILayout.BeginArea(new Rect(12, 8, 340, 400), box);
 
             // ── 지금 할 일
             GUILayout.Label("지금 할 일", big);
@@ -151,13 +175,33 @@ namespace BookTower.Presentation
             GUILayout.Label($"방 · {(room != null ? room.RoomId : "—")}", small);
             GUILayout.Label($"모은 조각 · {(Keepsakes.Instance != null ? Keepsakes.Instance.Count : 0)}개", small);
 
+            // 출구가 왜 막혀 있는지는 화면만 봐선 알 수 없다.
+            // 퍼즐 상태와 출구 상태를 나란히 두면 그 인과가 바로 보인다.
+            var cur = room != null ? room.GetComponentInChildren<PuzzleBase>() : null;
+            if (cur == null)
+            {
+                GUILayout.Label("퍼즐 · 없음 · 출구 열림", small);
+            }
+            else
+            {
+                bool done = cur.State == PuzzleBase.PuzzleState.Solved;
+                string st = cur.State switch
+                {
+                    PuzzleBase.PuzzleState.Locked => "아직 안 켜짐",
+                    PuzzleBase.PuzzleState.Active => "푸는 중",
+                    _ => "해결",
+                };
+                GUILayout.Label($"퍼즐 · {cur.PuzzleId} ({st})", small);
+                GUILayout.Label(done ? "출구 · 열림" : "출구 · 잠김 — 이 방을 풀어야 열린다", small);
+            }
+
             GUILayout.Space(10);
 
             // ── 조작
             GUILayout.Label("조작", big);
             GUILayout.Label("WASD 이동 · Space 점프 · F 상호작용 (좌클릭도 된다)", small);
             GUILayout.Label("Shift+F 되돌려 펴기 · Q E 카메라 회전", small);
-            GUILayout.Label("Tab 전체 조망 · F1 이 창", small);
+            GUILayout.Label("Tab 전체 조망 · F1 이 창 · F2 이 방 강제 해결", small);
 
             GUILayout.EndArea();
         }

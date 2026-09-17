@@ -15,6 +15,7 @@
    },
    "backWall": 0,
    "note": "가장 좁고 어둡다. 유일하게 빛을 받는 건 걸쇠 하나",
+   "splitGap": 0.0,
    "objects": [
     {
      "kind": "box",
@@ -31,6 +32,8 @@
      },
      "mat": "accent",
      "note": "P1 · 조각 2개를 맞추면 표지가 열린다",
+     "bridgeFor": "",
+     "bridgeY": 0.0,
      "face": ""
     },
     {
@@ -90,6 +93,8 @@
      },
      "mat": "shade",
      "note": "위화감 ① 걸쇠 옆면에 최근에 긁힌 자국. 강조 연출 없이 지나가게 둔다",
+     "bridgeFor": "",
+     "bridgeY": 0.0,
      "face": ""
     },
     {
@@ -187,6 +192,7 @@
    },
    "backWall": 5,
    "note": "P2 · 접는 자리에서 목표가 안 보이게 시야를 끊는다",
+   "splitGap": 0.0,
    "objects": [
     {
      "kind": "box",
@@ -203,6 +209,8 @@
      },
      "mat": "shade",
      "note": "접는 자리에서 목표가 안 보이게 시선을 끊는 벽",
+     "bridgeFor": "",
+     "bridgeY": 0.0,
      "face": ""
     },
     {
@@ -273,6 +281,8 @@
      },
      "mat": "light",
      "note": "위화감 ② 선대가 여기 있었다",
+     "bridgeFor": "",
+     "bridgeY": 0.0,
      "face": ""
     }
    ],
@@ -344,6 +354,7 @@
    },
    "backWall": 5,
    "note": "P3 · 바닥에 간극. 다른 페이지를 접어 그림자로 건너야 한다",
+   "splitGap": 4.0,
    "objects": [
     {
      "kind": "box",
@@ -351,15 +362,17 @@
      "pos": {
       "x": 0.0,
       "y": -0.6,
-      "z": 0.8
+      "z": 0.0
      },
      "scale": {
       "x": 32.0,
       "y": 0.05,
-      "z": 6.4
+      "z": 7.2
      },
      "mat": "shade",
-     "note": "P3 · 여기가 찢겨나간 자리 (바닥보다 아래에 표식만)",
+     "note": "P3 · 찢겨나간 자리. 풀면 여기까지 올라와 길이 된다",
+     "bridgeFor": "P3",
+     "bridgeY": 0.05,
      "face": ""
     },
     {
@@ -368,7 +381,7 @@
      "pos": {
       "x": -11.2,
       "y": 0.1,
-      "z": -9.6
+      "z": 8.0
      },
      "scale": {
       "x": 8.0,
@@ -466,6 +479,7 @@
    },
    "backWall": 0,
    "note": "P4 · 두 방 + 가운데 반사 페이지. P14 반사 해법의 학습 장치",
+   "splitGap": 0.0,
    "objects": [
     {
      "kind": "box",
@@ -482,6 +496,8 @@
      },
      "mat": "shade",
      "note": "",
+     "bridgeFor": "",
+     "bridgeY": 0.0,
      "face": "south"
     },
     {
@@ -517,6 +533,8 @@
      },
      "mat": "shade",
      "note": "",
+     "bridgeFor": "",
+     "bridgeY": 0.0,
      "face": "north"
     },
     {
@@ -552,6 +570,8 @@
      },
      "mat": "shade",
      "note": "",
+     "bridgeFor": "",
+     "bridgeY": 0.0,
      "face": ""
     },
     {
@@ -569,6 +589,8 @@
      },
      "mat": "shade",
      "note": "",
+     "bridgeFor": "",
+     "bridgeY": 0.0,
      "face": ""
     },
     {
@@ -586,6 +608,8 @@
      },
      "mat": "accent",
      "note": "P4 · 여기 서면 양쪽 방의 그림자가 반사되어 함께 보인다 (→ P14 반사 해법 학습)",
+     "bridgeFor": "",
+     "bridgeY": 0.0,
      "face": ""
     }
    ],
@@ -659,6 +683,7 @@
    },
    "backWall": 5,
    "note": "P5 · 조각 3개 중 하나는 레드 헤링. 한 화면에 모으지 않는다",
+   "splitGap": 0.0,
    "objects": [
     {
      "kind": "piece",
@@ -738,6 +763,8 @@
      },
      "mat": "shade",
      "note": "위화감 ③ 다른 얼룩보다 진하다 = 최근이다",
+     "bridgeFor": "",
+     "bridgeY": 0.0,
      "face": ""
     },
     {
@@ -755,6 +782,8 @@
      },
      "mat": "accent",
      "note": "P5 · 여기에 조각을 맞춘다. 완성되면 '전임이 다급하게 향하는' 그림 → 놀람 포인트 #1",
+     "bridgeFor": "",
+     "bridgeY": 0.0,
      "face": ""
     }
    ],
@@ -845,6 +874,7 @@
    },
    "backWall": 8,
    "note": "P6 · 접이면 3개의 그림자로 P1의 문양을 만든다. 열릴 때 네 번째 조각이 비친다(→P13)",
+   "splitGap": 0.0,
    "objects": [
     {
      "kind": "fold",
@@ -997,6 +1027,7 @@
    },
    "backWall": 5,
    "note": "P7 · 에코 튜토리얼. 활성 주름은 미세하게 빛을 머금는다",
+   "splitGap": 0.0,
    "objects": [
     {
      "kind": "crease",
@@ -1134,6 +1165,7 @@
    },
    "backWall": 6,
    "note": "P8 · 재생에서 손동작은 몸에 가려 안 보이고 결과 그림자만 보인다 → 각도 역산",
+   "splitGap": 0.0,
    "objects": [
     {
      "kind": "marker",
@@ -1167,6 +1199,8 @@
      },
      "mat": "shade",
      "note": "P8 · 접는 손동작을 가리는 실루엣. 그림자만 보고 역산해야 함",
+     "bridgeFor": "",
+     "bridgeY": 0.0,
      "face": ""
     },
     {
@@ -1189,19 +1223,21 @@
     },
     {
      "kind": "box",
-     "name": "그림자판독벽",
+     "name": "그림자판독벽_1",
      "pos": {
       "x": 0.0,
       "y": 3,
       "z": 11.2
      },
      "scale": {
-      "x": 28.8,
+      "x": 14.4,
       "y": 6,
       "z": 0.48
      },
      "mat": "shade",
      "note": "비대칭 요소를 넣어 해가 유일하게 (모서리 하나가 잘린 형태)",
+     "bridgeFor": "",
+     "bridgeY": 0.0,
      "face": "north"
     }
    ],
@@ -1263,6 +1299,7 @@
    },
    "backWall": 6,
    "note": "P9 · 과거의 접힘 상태 ↔ 현재 위치 공간 변환. P15의 선행 학습",
+   "splitGap": 0.0,
    "objects": [
     {
      "kind": "fold",
@@ -1297,6 +1334,8 @@
      },
      "mat": "accent",
      "note": "양쪽 상태에 공통으로 존재하는 참조점. 이게 없으면 불공정해진다",
+     "bridgeFor": "",
+     "bridgeY": 0.0,
      "face": ""
     },
     {
@@ -1412,6 +1451,7 @@
    },
    "backWall": 0,
    "note": "P10 · 긴 방. 기록 4장을 마주보게 걸어 한 화면에 비교 가능하게",
+   "splitGap": 0.0,
    "objects": [
     {
      "kind": "box",
@@ -1428,6 +1468,8 @@
      },
      "mat": "light",
      "note": "",
+     "bridgeFor": "",
+     "bridgeY": 0.0,
      "face": ""
     },
     {
@@ -1445,23 +1487,8 @@
      },
      "mat": "light",
      "note": "",
-     "face": ""
-    },
-    {
-     "kind": "box",
-     "name": "기록_3_어긋남",
-     "pos": {
-      "x": 12.0,
-      "y": 2.5,
-      "z": -9.6
-     },
-     "scale": {
-      "x": 0.32,
-      "y": 3,
-      "z": 4.8
-     },
-     "mat": "accent",
-     "note": "P10 · 넷 중 이것만 주름의 기억과 어긋난다",
+     "bridgeFor": "",
+     "bridgeY": 0.0,
      "face": ""
     },
     {
@@ -1479,6 +1506,8 @@
      },
      "mat": "light",
      "note": "",
+     "bridgeFor": "",
+     "bridgeY": 0.0,
      "face": ""
     },
     {
@@ -1496,6 +1525,8 @@
      },
      "mat": "accent",
      "note": "P10 · 주름 기억 쪽의 물리 증거. 찢긴 결이 맞물려 진위 판단 근거가 된다",
+     "bridgeFor": "",
+     "bridgeY": 0.0,
      "face": ""
     },
     {
@@ -1564,6 +1595,7 @@
    },
    "backWall": 0,
    "note": "P11 · 주름 5개가 사방+천장에. 한 각도로는 2개만 보여 회전이 강제된다",
+   "splitGap": 0.0,
    "objects": [
     {
      "kind": "box",
@@ -1580,6 +1612,8 @@
      },
      "mat": "shade",
      "note": "",
+     "bridgeFor": "",
+     "bridgeY": 0.0,
      "face": "north"
     },
     {
@@ -1597,6 +1631,8 @@
      },
      "mat": "shade",
      "note": "",
+     "bridgeFor": "",
+     "bridgeY": 0.0,
      "face": "south"
     },
     {
@@ -1614,11 +1650,13 @@
      },
      "mat": "shade",
      "note": "",
+     "bridgeFor": "",
+     "bridgeY": 0.0,
      "face": "east"
     },
     {
      "kind": "box",
-     "name": "벽_서",
+     "name": "벽_서_1",
      "pos": {
       "x": -17.6,
       "y": 3.5,
@@ -1627,10 +1665,12 @@
      "scale": {
       "x": 0.48,
       "y": 7,
-      "z": 35.2
+      "z": 20.6
      },
      "mat": "shade",
      "note": "",
+     "bridgeFor": "",
+     "bridgeY": 0.0,
      "face": "west"
     },
     {
@@ -1648,6 +1688,8 @@
      },
      "mat": "shade",
      "note": "",
+     "bridgeFor": "",
+     "bridgeY": 0.0,
      "face": "ceiling"
     },
     {
@@ -1888,6 +1930,7 @@
    },
    "backWall": 4,
    "note": "P12 · 좁고 어둡게. 퍼즐이 아니라 서사 비트 — 단일 인터랙션으로 명확하게",
+   "splitGap": 0.0,
    "objects": [
     {
      "kind": "box",
@@ -1904,23 +1947,27 @@
      },
      "mat": "shade",
      "note": "",
+     "bridgeFor": "",
+     "bridgeY": 0.0,
      "face": "west"
     },
     {
      "kind": "box",
-     "name": "좁은통로_우",
+     "name": "좁은통로_우_1",
      "pos": {
       "x": 8.0,
       "y": 2,
-      "z": 0.0
+      "z": -2.08
      },
      "scale": {
       "x": 0.48,
       "y": 4,
-      "z": 16.0
+      "z": 11.83
      },
      "mat": "shade",
      "note": "",
+     "bridgeFor": "",
+     "bridgeY": 0.0,
      "face": "east"
     },
     {
@@ -1996,39 +2043,82 @@
    },
    "backWall": 0,
    "note": "P13(메타퍼즐) → P15(왜상) → 엔딩. 이 게임에서 가장 중요한 방. 조각이 바닥·사방벽·천장에 흩어져 있고, 그게 곧 전임이다",
+   "splitGap": 0.0,
    "objects": [
     {
      "kind": "box",
-     "name": "벽_북",
+     "name": "벽_북_1",
      "pos": {
-      "x": 0.0,
+      "x": -14.8,
       "y": 5,
       "z": 22.4
      },
      "scale": {
-      "x": 51.2,
+      "x": 21.6,
       "y": 10,
       "z": 0.48
      },
      "mat": "shade",
      "note": "",
+     "bridgeFor": "",
+     "bridgeY": 0.0,
      "face": "north"
     },
     {
      "kind": "box",
-     "name": "벽_남",
+     "name": "벽_북_2",
      "pos": {
-      "x": 0.0,
+      "x": 14.8,
       "y": 5,
-      "z": -22.4
+      "z": 22.4
      },
      "scale": {
-      "x": 51.2,
+      "x": 21.6,
       "y": 10,
       "z": 0.48
      },
      "mat": "shade",
      "note": "",
+     "bridgeFor": "",
+     "bridgeY": 0.0,
+     "face": "north"
+    },
+    {
+     "kind": "box",
+     "name": "벽_남_1",
+     "pos": {
+      "x": -14.8,
+      "y": 5,
+      "z": -22.4
+     },
+     "scale": {
+      "x": 21.6,
+      "y": 10,
+      "z": 0.48
+     },
+     "mat": "shade",
+     "note": "",
+     "bridgeFor": "",
+     "bridgeY": 0.0,
+     "face": "south"
+    },
+    {
+     "kind": "box",
+     "name": "벽_남_2",
+     "pos": {
+      "x": 14.8,
+      "y": 5,
+      "z": -22.4
+     },
+     "scale": {
+      "x": 21.6,
+      "y": 10,
+      "z": 0.48
+     },
+     "mat": "shade",
+     "note": "",
+     "bridgeFor": "",
+     "bridgeY": 0.0,
      "face": "south"
     },
     {
@@ -2046,6 +2136,8 @@
      },
      "mat": "shade",
      "note": "",
+     "bridgeFor": "",
+     "bridgeY": 0.0,
      "face": "east"
     },
     {
@@ -2063,6 +2155,8 @@
      },
      "mat": "shade",
      "note": "",
+     "bridgeFor": "",
+     "bridgeY": 0.0,
      "face": "west"
     },
     {
@@ -2080,6 +2174,8 @@
      },
      "mat": "shade",
      "note": "천장 = 위층 페이지의 뒷면. 책이라는 설정과 자연스럽게 맞는다",
+     "bridgeFor": "",
+     "bridgeY": 0.0,
      "face": "ceiling"
     },
     {
@@ -2097,6 +2193,8 @@
      },
      "mat": "accent",
      "note": "P13 · 조각 7개를 그을음 각도 순서로 복원. 기준점은 P6의 네 번째 조각",
+     "bridgeFor": "",
+     "bridgeY": 0.0,
      "face": ""
     },
     {
@@ -2114,6 +2212,8 @@
      },
      "mat": "shade",
      "note": "",
+     "bridgeFor": "",
+     "bridgeY": 0.0,
      "face": ""
     },
     {
@@ -2131,6 +2231,8 @@
      },
      "mat": "shade",
      "note": "",
+     "bridgeFor": "",
+     "bridgeY": 0.0,
      "face": ""
     },
     {
@@ -2148,6 +2250,8 @@
      },
      "mat": "shade",
      "note": "",
+     "bridgeFor": "",
+     "bridgeY": 0.0,
      "face": ""
     },
     {
@@ -2165,6 +2269,8 @@
      },
      "mat": "shade",
      "note": "",
+     "bridgeFor": "",
+     "bridgeY": 0.0,
      "face": ""
     },
     {
@@ -2182,6 +2288,8 @@
      },
      "mat": "shade",
      "note": "",
+     "bridgeFor": "",
+     "bridgeY": 0.0,
      "face": ""
     },
     {
@@ -2199,6 +2307,8 @@
      },
      "mat": "shade",
      "note": "",
+     "bridgeFor": "",
+     "bridgeY": 0.0,
      "face": ""
     },
     {
@@ -2216,6 +2326,8 @@
      },
      "mat": "shade",
      "note": "",
+     "bridgeFor": "",
+     "bridgeY": 0.0,
      "face": ""
     },
     {
@@ -2233,6 +2345,8 @@
      },
      "mat": "shade",
      "note": "",
+     "bridgeFor": "",
+     "bridgeY": 0.0,
      "face": ""
     },
     {
@@ -2577,6 +2691,7 @@
    },
    "backWall": 0,
    "note": "P14 · A·B·C 세 접이면이 서로를 방해한다. 셋이 한 화면에 보여야 하므로 회전은 안 쓴다",
+   "splitGap": 0.0,
    "objects": [
     {
      "kind": "box",
@@ -2593,6 +2708,8 @@
      },
      "mat": "shade",
      "note": "",
+     "bridgeFor": "",
+     "bridgeY": 0.0,
      "face": ""
     },
     {
@@ -2610,6 +2727,8 @@
      },
      "mat": "shade",
      "note": "",
+     "bridgeFor": "",
+     "bridgeY": 0.0,
      "face": ""
     },
     {
@@ -2627,6 +2746,8 @@
      },
      "mat": "accent",
      "note": "P14 ① 채광구 빛이 여기 정확히 닿아야 한다",
+     "bridgeFor": "",
+     "bridgeY": 0.0,
      "face": ""
     },
     {
@@ -2644,6 +2765,8 @@
      },
      "mat": "accent",
      "note": "",
+     "bridgeFor": "",
+     "bridgeY": 0.0,
      "face": ""
     },
     {
@@ -2715,6 +2838,8 @@
      },
      "mat": "accent",
      "note": "",
+     "bridgeFor": "",
+     "bridgeY": 0.0,
      "face": ""
     },
     {
@@ -2807,6 +2932,7 @@
    },
    "backWall": 0,
    "note": "문을 나선 곳. 여기서 빛을 켜면 그 빛이 뒤쪽(3A)을 비추며 새 모양 그림자가 생긴다",
+   "splitGap": 0.0,
    "objects": [
     {
      "kind": "box",
@@ -2823,6 +2949,8 @@
      },
      "mat": "accent",
      "note": "여기서 빛을 켜면 -Z 방향(3B의 열린 문 너머 3A)을 비춘다",
+     "bridgeFor": "",
+     "bridgeY": 0.0,
      "face": ""
     },
     {
@@ -2898,6 +3026,7 @@
    },
    "backWall": 6,
    "note": "엔딩 후 열리는 중첩공간. 어느 엔딩을 골랐든 열린다",
+   "splitGap": 0.0,
    "objects": [
     {
      "kind": "fold",
@@ -2993,7 +3122,9 @@
    "width": 6.4,
    "mat": "mid",
    "fromId": "F0",
-   "toId": "1A"
+   "toId": "1A",
+   "gatePuzzle": "P1",
+   "gateHeight": 3.0
   },
   {
    "name": "연결_1A→1B",
@@ -3010,7 +3141,9 @@
    "width": 6.4,
    "mat": "mid",
    "fromId": "1A",
-   "toId": "1B"
+   "toId": "1B",
+   "gatePuzzle": "P2",
+   "gateHeight": 3.0
   },
   {
    "name": "연결_1B→1C",
@@ -3027,7 +3160,9 @@
    "width": 6.4,
    "mat": "mid",
    "fromId": "1B",
-   "toId": "1C"
+   "toId": "1C",
+   "gatePuzzle": "P3",
+   "gateHeight": 3.0
   },
   {
    "name": "연결_1C→1D",
@@ -3044,7 +3179,9 @@
    "width": 6.4,
    "mat": "mid",
    "fromId": "1C",
-   "toId": "1D"
+   "toId": "1D",
+   "gatePuzzle": "P4",
+   "gateHeight": 3.0
   },
   {
    "name": "연결_1D→1E",
@@ -3061,7 +3198,9 @@
    "width": 6.4,
    "mat": "mid",
    "fromId": "1D",
-   "toId": "1E"
+   "toId": "1E",
+   "gatePuzzle": "P5",
+   "gateHeight": 3.0
   },
   {
    "name": "연결_1E→2A",
@@ -3078,7 +3217,9 @@
    "width": 6.4,
    "mat": "mid",
    "fromId": "1E",
-   "toId": "2A"
+   "toId": "2A",
+   "gatePuzzle": "P6",
+   "gateHeight": 3.0
   },
   {
    "name": "연결_2A→2B",
@@ -3095,7 +3236,9 @@
    "width": 6.4,
    "mat": "mid",
    "fromId": "2A",
-   "toId": "2B"
+   "toId": "2B",
+   "gatePuzzle": "",
+   "gateHeight": 0.0
   },
   {
    "name": "연결_2B→2C",
@@ -3112,7 +3255,9 @@
    "width": 6.4,
    "mat": "mid",
    "fromId": "2B",
-   "toId": "2C"
+   "toId": "2C",
+   "gatePuzzle": "P8",
+   "gateHeight": 3.0
   },
   {
    "name": "연결_2C→2D",
@@ -3129,7 +3274,9 @@
    "width": 6.4,
    "mat": "mid",
    "fromId": "2C",
-   "toId": "2D"
+   "toId": "2D",
+   "gatePuzzle": "P9",
+   "gateHeight": 3.0
   },
   {
    "name": "연결_2D→2E",
@@ -3146,7 +3293,9 @@
    "width": 6.4,
    "mat": "mid",
    "fromId": "2D",
-   "toId": "2E"
+   "toId": "2E",
+   "gatePuzzle": "",
+   "gateHeight": 0.0
   },
   {
    "name": "연결_2E→2F",
@@ -3163,7 +3312,9 @@
    "width": 6.4,
    "mat": "mid",
    "fromId": "2E",
-   "toId": "2F"
+   "toId": "2F",
+   "gatePuzzle": "P11",
+   "gateHeight": 3.0
   },
   {
    "name": "연결_2F→3A",
@@ -3180,7 +3331,9 @@
    "width": 6.4,
    "mat": "mid",
    "fromId": "2F",
-   "toId": "3A"
+   "toId": "3A",
+   "gatePuzzle": "",
+   "gateHeight": 0.0
   },
   {
    "name": "연결_3A→3B",
@@ -3197,7 +3350,9 @@
    "width": 6.4,
    "mat": "mid",
    "fromId": "3A",
-   "toId": "3B"
+   "toId": "3B",
+   "gatePuzzle": "P13",
+   "gateHeight": 3.0
   },
   {
    "name": "연결_3B→3C",
@@ -3214,7 +3369,9 @@
    "width": 6.4,
    "mat": "mid",
    "fromId": "3B",
-   "toId": "3C"
+   "toId": "3C",
+   "gatePuzzle": "P14",
+   "gateHeight": 3.0
   }
  ],
  "meta": {
