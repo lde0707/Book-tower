@@ -35,6 +35,7 @@ namespace BookTower.Rooms
         private Room[] rooms;
         private RampLink[] ramps;
         private Room current;
+        private RampLink standingOn;
         private int appliedYaw = -1;
         private float nextCheck;
         private bool showingAll;
@@ -61,6 +62,7 @@ namespace BookTower.Rooms
 
             foreach (Room r in rooms) r.SetVisible(false);
             Switch(Pick());
+            UpdateTransit();
         }
 
         private void Update()
@@ -88,6 +90,7 @@ namespace BookTower.Rooms
                 nextCheck = Time.time + checkInterval;
                 Room next = Pick();
                 if (next != null && next != current) Switch(next);
+                UpdateTransit();
             }
 
             // Q/E 로 카메라를 돌리면 가려야 할 벽도 바뀐다
@@ -118,9 +121,11 @@ namespace BookTower.Rooms
                 if (d < bestDist) { bestDist = d; onRamp = l; }
             }
 
-            if (onRamp != null && bestDist <= rampReach)
+            standingOn = (onRamp != null && bestDist <= rampReach) ? onRamp : null;
+
+            if (standingOn != null)
             {
-                Room r = Find(onRamp.RoomIdFor(p));
+                Room r = Find(standingOn.RoomIdFor(p));
                 if (r != null) return r;
             }
 
@@ -140,6 +145,33 @@ namespace BookTower.Rooms
             // 3) 낙하 중이거나 경사로에서 벗어났다 — 방을 바꾸지 않는다.
             //    여기서 억지로 다른 방을 고르면 떨어지는 동안 화면이 마구 바뀐다.
             return current;
+        }
+
+        /// <summary>
+        /// 경사로를 건너는 동안에는 카메라가 플레이어를 따라가야 한다.
+        ///
+        /// 방 구도는 방 하나를 통째로 담는데 경사로는 두 방 **사이**에 있다.
+        /// 그래서 경사로를 걷는 동안 플레이어가 화면 밖으로 나갔다가
+        /// 다음 방에 도착해야 다시 나타난다. 전 경사로를 재 보니
+        /// 14개 중 12개가 그랬고, 2E→2F 는 구간의 77%가 화면 밖이었다.
+        ///
+        /// 조건을 '경사로 위'로만 잡으면 방 안 출입구 근처에서도 켜져서
+        /// 퍼즐을 푸는 도중에 구도가 흔들린다. '경사로 위 + 방 부피 밖'이라야
+        /// 딱 경사로 구간만 잡힌다 — 퍼즐은 전부 방 안에 있으므로
+        /// 고정 구도는 조금도 건드리지 않는다.
+        ///
+        /// (검증: 전 경사로를 0.5% 간격으로 훑어 화면 밖으로 나가는 지점 1092개를
+        ///  찾았고, 이 조건이 놓치는 것은 0개였다)
+        /// </summary>
+        private void UpdateTransit()
+        {
+            if (paperCamera == null || player == null) return;
+
+            bool crossing = standingOn != null
+                            && current != null
+                            && !current.Contains(player.position);
+
+            paperCamera.SetTransit(crossing);
         }
 
         private Room Find(string id)

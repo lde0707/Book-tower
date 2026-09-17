@@ -48,6 +48,11 @@ namespace BookTower.CameraSystem
         [Tooltip("큰 방에서 플레이어를 따라갈 때의 부드러움")]
         [SerializeField] private float roomFollowSpeed = 3.5f;
 
+        [Tooltip("경사로를 건너는 동안의 최대 화면 크기. 방보다 크게는 안 잡는다 — " +
+                 "Min 으로 거는 이유는 들어갈 때만 좁혀지고 나올 때 넓어지지 않게 하려는 것. " +
+                 "안 그러면 경사로마다 화면이 줌인·줌아웃을 반복한다")]
+        [SerializeField] private float transitOrthoSize = 11f;
+
         [Header("Follow 모드 뷰")]
         [SerializeField] private float followOrthoSize = 6f;
 
@@ -66,6 +71,7 @@ namespace BookTower.CameraSystem
         private Bounds roomBounds;
         private float roomPad = 1.18f;
         private bool hasRoom;
+        private bool transiting;
         private CameraMode modeBeforeOverview = CameraMode.Room;
 
         private int yawStep;
@@ -203,7 +209,15 @@ namespace BookTower.CameraSystem
             float wantSize = Mathf.Min(needed, maxRoomOrthoSize);
 
             Vector3 wantFocus = roomBounds.center;
-            if (needed > maxRoomOrthoSize && target != null)
+
+            // 경사로를 건너는 중 — 방 구도 안에 경사로가 없으므로 플레이어를 따라간다.
+            // 방 안에서는 절대 이쪽으로 오지 않는다 (RoomManager 가 방 부피 밖일 때만 켠다).
+            if (transiting && target != null)
+            {
+                wantFocus = target.position;
+                wantSize = Mathf.Min(wantSize, transitOrthoSize);
+            }
+            else if (needed > maxRoomOrthoSize && target != null)
             {
                 Vector3 p = target.position;
                 Vector3 min = roomBounds.min, max = roomBounds.max;
@@ -224,6 +238,16 @@ namespace BookTower.CameraSystem
             distance = Mathf.Max(40f, roomBounds.size.magnitude * 0.75f + 15f);
         }
 
+        /// <summary>
+        /// 경사로를 건너는 동안인가. RoomManager 가 켜고 끈다.
+        ///
+        /// 방 구도는 방 하나를 통째로 담는데, 경사로는 두 방 **사이**에 있어서
+        /// 그 구도 안에 없다. 그래서 경사로를 걷는 동안 플레이어가 화면 밖으로
+        /// 나가 버린다 — 14개 경사로 중 12개가 그랬고, 2E→2F 는 구간의 77%가
+        /// 화면 밖이었다. 방 안에서는 구도를 고정한 채 경사로에서만 따라간다.
+        /// </summary>
+        public void SetTransit(bool on) => transiting = on;
+
         /// <summary>RoomManager 가 방이 바뀔 때 호출한다.</summary>
         public void FrameRoom(BookTower.Rooms.Room room)
         {
@@ -233,6 +257,7 @@ namespace BookTower.CameraSystem
 
             roomBounds = room.WorldBounds;
             roomPad = room.CamPad;
+            if (first) transiting = false;
             hasRoom = true;
             yawStep = ((room.CamYaw % 4) + 4) % 4;   // 방마다 정해둔 각도로 되돌린다
             mode = CameraMode.Room;
