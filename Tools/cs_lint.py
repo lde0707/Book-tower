@@ -25,15 +25,18 @@ def split_args(text):
 
     Dictionary<string, FoldPanel> 처럼 타입 안에 쉼표가 있는 경우가 있어서
     그냥 split(",") 하면 인자 수를 잘못 센다.
+
+    배열 초기화(new[] { a, b })의 중괄호도 마찬가지다. 이걸 안 세면
+    인자 2개짜리 호출을 3개로 읽고 없는 오류를 만들어 낸다.
     """
     text = text.strip()
     if not text:
         return []
     out, depth, cur = [], 0, ""
     for ch in text:
-        if ch in "<([":
+        if ch in "<([{":
             depth += 1
-        elif ch in ">)]":
+        elif ch in ">)]}":
             depth -= 1
         if ch == "," and depth == 0:
             out.append(cur); cur = ""

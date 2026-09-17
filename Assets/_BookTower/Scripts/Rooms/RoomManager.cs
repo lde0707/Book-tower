@@ -82,6 +82,7 @@ namespace BookTower.Rooms
                     // 천장과 앞쪽 벽을 안 걷으면 조망이 상자 더미로만 보인다
                     if (wantAll) r.ApplyYaw(paperCamera.YawStep);
                 }
+                ApplyBounds(wantAll);
             }
             if (showingAll) return;
 
@@ -98,6 +99,7 @@ namespace BookTower.Rooms
             {
                 appliedYaw = paperCamera.YawStep;
                 current.ApplyYaw(appliedYaw);
+            ApplyBounds(false);
             }
         }
 
@@ -172,6 +174,21 @@ namespace BookTower.Rooms
                             && !current.Contains(player.position);
 
             paperCamera.SetTransit(crossing);
+        }
+
+        /// <summary>
+        /// 경사로·출구 잠금을 지금 방에 맞춰 보였다 감춘다.
+        ///
+        /// 이것들은 Room 의 자식이 아니라 Map 밑에 그대로 붙어 있어서
+        /// 룸 컬링이 못 건드렸다. 경사로 14개 + 잠금 11개 = 25개가
+        /// **항상 그려지고 있었고**, 나선형 탑이라 화면에서 전부 겹쳤다.
+        /// 발자국이 겹치는 방 쌍이 19개다 — "다른 맵이 보인다"의 정체다.
+        /// </summary>
+        private void ApplyBounds(bool showAll)
+        {
+            string id = current != null ? current.RoomId : null;
+            foreach (RoomBound b in RoomBound.All)
+                if (b != null) b.SetVisible(showAll || b.Belongs(id));
         }
 
         private Room Find(string id)

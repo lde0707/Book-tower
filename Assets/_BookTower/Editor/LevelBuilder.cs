@@ -668,6 +668,12 @@ namespace BookTower.EditorTools
                 SetVector3(link, "toPoint", to);
             }
 
+            // 경사로도 방과 함께 사라져야 한다. 안 그러면 탑의 모든 경사로가
+            // 항상 그려져서, 나선 구조상 화면에서 전부 겹친다.
+            string[] linked = { r.fromId, r.toId };
+            var rb = go.AddComponent<RoomBound>();
+            SetStringList(rb, "roomIds", linked);
+
             MakeGate(r, from, dir);
         }
 
@@ -722,6 +728,10 @@ namespace BookTower.EditorTools
 
             var gate = hinge.gameObject.AddComponent<RampGate>();
             SetObject(gate, "puzzle", puzzle);
+
+            string[] linked = { r.fromId, r.toId };
+            var gb = hinge.gameObject.AddComponent<RoomBound>();
+            SetStringList(gb, "roomIds", linked);
         }
 
         // ─────────────────────────────────────────── 유틸

@@ -627,6 +627,16 @@ FOCAL = {
 # 강조광을 이 근처에 두지 않는다.
 SHADOW_CANVAS_HINT = ("뒷벽", "판독벽", "벽_", "천장", "분리벽")
 
+# 이름으로만 거르면 방을 닫는 단순 외벽까지 '퍼즐을 읽는 면'으로 오인된다.
+# 그림자는 물리적으로 다 받지만, 검사가 지키려는 건 **퍼즐을 읽는 면**이다.
+# 그걸 안 나누면 방 하나 닫을 때마다 없는 오류가 스물몇 개씩 나온다.
+NOT_CANVAS_PREFIX = ("외벽_", "천창테_")
+
+def is_canvas(name):
+    if any(name.startswith(p) for p in NOT_CANVAS_PREFIX):
+        return False
+    return any(h in name for h in SHADOW_CANVAS_HINT)
+
 
 def accent(name, pos, intensity, rng):
     return dict(name=name,
@@ -737,6 +747,165 @@ def apply_goals():
 
 
 apply_goals()
+
+
+# ═══════════════════════════════════════════════ 닫힌 방
+#
+# "오픈된 공중 정원 같다 / 다른 맵이 보여서 시야를 가린다."
+#
+# 원인이 둘이었다.
+#   ① 경사로 14개 + 잠금 11개가 룸 컬링 밖에 있어 항상 그려졌다 (RoomBound 로 해결)
+#   ② 방 16개 중 **닫혀 있는 게 2개뿐**이었다. 나머지는 뒷벽 하나짜리 열린 상자다.
+#
+# 여기서 ②를 고친다 — 사방 벽과 천장을 덮는다.
+#
+# 천장을 덮으면 햇빛이 막혀서 그림자 퍼즐이 통째로 죽는다.
+# 그래서 천장에 **천창(빛구멍)**을 뚫는다. 광원 각도(Euler 55,-30,0)를 역산해
+# 퍼즐에 필요한 것들 위로 정확히 빛이 떨어지는 자리에 낸다.
+#
+# 이게 오히려 컨셉에 더 맞는다. 아트 문서의 "빛이 닿는 곳만 존재한다" 가
+# 비유가 아니라 실제 조명이 되고, 광원 방향이 한 줄기로 명확해져서
+# "접힘 → 그림자" 인과를 플레이어가 예측할 수 있게 된다.
+LIGHT_DIR = (-0.287, -0.819, 0.497)     # PrototypeSceneBuilder 의 Euler(55,-30,0)
+ROOM_H = 7.0                            # 벽·천장 높이
+WALL_T = 0.5
+CEIL_T = 0.3
+SKY_MARGIN = 3.5                        # 천창을 대상보다 이만큼 넉넉히
+CEIL_LIP = 2.0                          # 천장 테두리로 최소한 남길 폭
+
+def sky_offset(h=ROOM_H):
+    """바닥의 한 점을 비추려면 천창이 그 점에서 얼마나 떨어져 있어야 하는가."""
+    t = h / (-LIGHT_DIR[1])
+    return (-LIGHT_DIR[0] * t, -LIGHT_DIR[2] * t)
+
+def room_height(a):
+    """이 방의 벽·천장 높이. 뒷벽(최대 8)이 천장을 뚫으면 안 된다."""
+    return max(a["backWall"] + 1.0, 6.0)
+
+def lit_targets(a):
+    """천창 빛이 **반드시** 닿아야 하는 바닥 점들.
+
+    조각과 주름은 여기 안 넣는다. 그것들은 자기 등(`빛_<이름>`)을 하나씩
+    달고 있고(20개 중 18개, 나머지 2개는 의도적으로 꺼 둔 죽은 주름이다),
+    그 등이 "만질 수 있다"는 신호다.
+
+    전부 천창으로 비추려 하면 천창이 천장의 60~80% 가 되어 버린다.
+    그러면 방을 닫은 의미가 없다. 역할을 나눈다 —
+      · 천창 = 그림자 퍼즐을 위한 **방향이 있는** 빛
+      · 등   = 주울 것·만질 것을 가리키는 **점** 빛
+    이게 아트 문서의 "빛이 닿는 곳만 존재한다" 를 더 정확히 옮긴 것이기도 하다.
+    """
+    pts = []
+    for o in a["objects"]:
+        if o["kind"] == "fold":
+            pts.append((o["pos"]["x"], o["pos"]["z"]))
+        elif o["kind"] == "box" and o.get("mat") == "accent":
+            pts.append((o["pos"]["x"], o["pos"]["z"]))
+    q = a.get("puzzle")
+    if q and q.get("hasAt"):
+        pts.append((q["at"]["x"], q["at"]["z"]))
+    return pts
+
+def cluster(pts, radius=9.0):
+    """가까운 대상끼리 묶는다. 무리마다 천창을 따로 낸다.
+
+    하나로 덮으면 1C(접이면 39 떨어짐)·3B 는 천창이 천장의 60~67% 가 된다.
+    그러면 방을 닫은 의미가 없다. 무리별로 내면 천장은 거의 막히고
+    빛줄기가 여러 개 떨어지는 그림이 된다 — 컨셉에도 이쪽이 맞는다.
+    """
+    groups = []
+    for x, z in sorted(pts):
+        for g in groups:
+            if (min(abs(x - g["x0"]), abs(x - g["x1"])) <= radius and
+                    min(abs(z - g["z0"]), abs(z - g["z1"])) <= radius):
+                g["x0"] = min(g["x0"], x); g["x1"] = max(g["x1"], x)
+                g["z0"] = min(g["z0"], z); g["z1"] = max(g["z1"], z)
+                break
+        else:
+            groups.append(dict(x0=x, x1=x, z0=z, z1=z))
+    return groups
+
+
+def ceiling_pieces(holes, hx, hz):
+    """구멍 뚫린 천장을 최소 개수의 상자로 쪼갠다.
+
+    z 를 띠로 나누고, 띠마다 x 방향으로 구멍 사이 조각만 남긴다.
+    격자 타일로 깔면 방 하나에 수백 개가 생겨서 못 쓴다.
+    """
+    zs = sorted({-hz, hz} | {v for h in holes for v in (h["z0"], h["z1"])})
+    out = []
+    for i in range(len(zs) - 1):
+        z0, z1 = zs[i], zs[i + 1]
+        if z1 - z0 < 0.05:
+            continue
+        zc = (z0 + z1) / 2
+        cuts = sorted((h["x0"], h["x1"]) for h in holes if h["z0"] <= zc <= h["z1"])
+        x = -hx
+        for cx0, cx1 in cuts:
+            if cx0 - x > 0.05:
+                out.append((x, cx0, z0, z1))
+            x = max(x, cx1)
+        if hx - x > 0.05:
+            out.append((x, hx, z0, z1))
+    return out
+
+
+def apply_rooms_closed():
+    for a in AREAS:
+        H = room_height(a)
+        ox, oz = sky_offset(H)
+        hx, hz = a["size"]["x"] / 2, a["size"]["z"] / 2
+
+        # ── 사방 벽. 이미 그 면을 맡은 벽이 있으면 안 세운다
+        have = {o.get("face") for o in a["objects"] if o.get("face")}
+        if a["backWall"] > 0.01:
+            have.add("north")          # 뒷벽은 LevelBuilder 가 north 로 만든다
+
+        edges = dict(
+            north=((0.0, hz), (a["size"]["x"], WALL_T)),
+            south=((0.0, -hz), (a["size"]["x"], WALL_T)),
+            east=((hx, 0.0), (WALL_T, a["size"]["z"])),
+            west=((-hx, 0.0), (WALL_T, a["size"]["z"])),
+        )
+        for face, ((px, pz), (sx, sz)) in edges.items():
+            if face in have:
+                continue
+            w = box(f"외벽_{face}", (px, H / 2, pz), (sx, H, sz), "shade",
+                    "방을 닫는 외벽. 카메라 쪽 면은 RoomWall 이 숨긴다. "
+                    "이름을 '벽_' 과 분리한 이유는 이게 퍼즐을 읽는 면이 아니기 때문이다")
+            w["face"] = face
+            a["objects"].append(w)
+
+        # ── 천창: 비춰야 할 것들을 빛 방향으로 천장까지 역투영하고, 무리별로 낸다
+        pts = lit_targets(a)
+        groups = cluster([(x + ox, z + oz) for x, z in pts]) if pts else \
+                 [dict(x0=0.0, x1=0.0, z0=0.0, z1=0.0)]
+
+        holes = []
+        for g in groups:
+            h = dict(x0=g["x0"] - SKY_MARGIN, x1=g["x1"] + SKY_MARGIN,
+                     z0=g["z0"] - SKY_MARGIN, z1=g["z1"] + SKY_MARGIN)
+            # 방 밖으로는 못 나간다. 다만 대상이 벽에 붙어 있으면 테두리를 포기한다 —
+            # 빛이 안 닿는 접이면을 만드는 것보다 테두리가 얇은 게 낫다.
+            h["x0"] = max(h["x0"], -hx + 0.5); h["x1"] = min(h["x1"], hx - 0.5)
+            h["z0"] = max(h["z0"], -hz + 0.5); h["z1"] = min(h["z1"], hz - 0.5)
+            if h["x1"] - h["x0"] > 0.5 and h["z1"] - h["z0"] > 0.5:
+                holes.append({k: round(v, 2) for k, v in h.items()})
+
+        a["skylights"] = holes
+        a["roomHeight"] = round(H, 2)
+
+        # ── 천장
+        if "ceiling" in have:
+            continue
+        for n, (x0, x1, z0, z1) in enumerate(ceiling_pieces(holes, hx, hz), 1):
+            c = box(f"천창테_{n}", ((x0 + x1) / 2, H, (z0 + z1) / 2),
+                    (x1 - x0, CEIL_T, z1 - z0), "shade",
+                    "천장. 빛은 천창으로만 들어온다")
+            c["face"] = "ceiling"
+            a["objects"].append(c)
+
+apply_rooms_closed()
 
 
 # ═══════════════════════════════════════════════ 출구 잠금
@@ -861,7 +1030,7 @@ def apply_doorways():
                 if c0 - cursor > 0.4:
                     parts.append((cursor, min(c0, hi)))
                 cursor = max(cursor, c1)
-            if any(h in o["name"] for h in SHADOW_CANVAS_HINT):
+            if is_canvas(o["name"]):
                 DOOR_ON_CANVAS.append((a["id"], o["name"], len(merged)))
 
             for a0, a1 in parts:
@@ -1082,7 +1251,7 @@ def validate():
 
         canvases = [o for o in a["objects"]
                     if o["kind"] == "box" and o["scale"]["y"] >= 2.0
-                    and any(h in o["name"] for h in SHADOW_CANVAS_HINT)
+                    and is_canvas(o["name"])
                     and "천장" not in o["name"]]
         if a["backWall"] > 0.01:
             canvases.append(dict(name="뒷벽(자동)",
@@ -1358,6 +1527,39 @@ def validate():
     for aid, nm, k in DOOR_ON_CANVAS:
         warns.append(f"{aid}: 그림자 면 '{nm}' 에 문을 {k}개 뚫었다 — "
                      f"경사로가 붙는 자리와 그림자 면이 겹친다. 배치를 다시 볼 것")
+
+    # 17) 천창 빛이 그림자 퍼즐에 실제로 닿는가
+    #
+    #     방을 천장으로 덮었으므로 햇빛은 천창으로만 들어온다.
+    #     접이면에 빛이 안 닿으면 그림자가 안 생기고, 그림자 퍼즐이 통째로 죽는다.
+    #     천창을 빛 방향으로 바닥까지 내려 '빛 웅덩이'를 만들고 그 안에 있는지 본다.
+    #     (조각·주름은 자기 등이 따로 있으므로 여기 대상이 아니다 — lit_targets 참고)
+    for a in AREAS:
+        holes = a.get("skylights") or []
+        H = a.get("roomHeight", ROOM_H)
+        ox, oz = sky_offset(H)
+
+        if not holes:
+            errs.append(f"{a['id']}: 천창이 하나도 없다 — 천장 아래가 통째로 어둡다")
+            continue
+
+        def lit(x, z):
+            return any(h["x0"] - ox <= x <= h["x1"] - ox and
+                       h["z0"] - oz <= z <= h["z1"] - oz for h in holes)
+
+        for o in a["objects"]:
+            if o["kind"] == "fold" and not lit(o["pos"]["x"], o["pos"]["z"]):
+                errs.append(f"{a['id']}: 접이면 '{o['name']}' 에 천창 빛이 안 닿는다 "
+                            f"— 그림자가 안 생긴다")
+        q = a.get("puzzle")
+        if q and q.get("hasAt") and not lit(q["at"]["x"], q["at"]["z"]):
+            errs.append(f"{a['id']} {q['id']}: 맞추는 자리에 빛이 안 닿는다 — 찾을 수가 없다")
+
+        area = a["size"]["x"] * a["size"]["z"]
+        hole = sum((h["x1"] - h["x0"]) * (h["z1"] - h["z0"]) for h in holes)
+        if hole / area > 0.35:
+            warns.append(f"{a['id']}: 천창이 천장의 {hole/area*100:.0f}% 다 "
+                         f"— 이 정도면 방을 닫은 의미가 옅다")
 
     print(f"구역 {len(AREAS)} / 경사로 {len(RAMPS)} / 잠긴 출구 {gated}")
     print(f"\n오류 {len(errs)}건")
