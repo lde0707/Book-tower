@@ -1106,15 +1106,71 @@ def _ramp_wall_span(area_pos, ramp_from, ramp_to, width, other_axis, fixed_local
     return (c0, c1)
 
 
+def ramp_cut(r, a, wall, along, perp, margin=0.6):
+    """경사로 발자국이 이 벽면과 겹치는 구간 (벽의 along 축 기준).
+
+    경사로를 길이·폭 방향으로 훑어, 벽 두께 안에 들어오는 점들의
+    along 좌표 범위를 돌려준다. 겹치는 게 없으면 None.
+    """
+    fx = r["from"]["x"] - a["pos"]["x"]; fz = r["from"]["z"] - a["pos"]["z"]
+    tx = r["to"]["x"] - a["pos"]["x"];   tz = r["to"]["z"] - a["pos"]["z"]
+    dx, dz = tx - fx, tz - fz
+    ln = math.hypot(dx, dz)
+    if ln < 1e-6:
+        return None
+    ux, uz = dx / ln, dz / ln
+    nx, nz = -uz, ux                      # 폭 방향
+    hw = r.get("width", 4.0) / 2
+
+    band = wall["scale"][perp] * 0.5 + margin
+    fixed = wall["pos"][perp]
+    lo, hi = None, None
+
+    for i in range(81):
+        t = i / 80
+        cx, cz = fx + dx * t, fz + dz * t
+        for j in range(17):
+            sgn = -1.0 + 2.0 * j / 16
+            wx, wz = cx + nx * hw * sgn, cz + nz * hw * sgn
+            v = wz if perp == "z" else wx
+            if abs(v - fixed) > band:
+                continue
+            u = wx if along == "x" else wz
+            lo = u if lo is None else min(lo, u)
+            hi = u if hi is None else max(hi, u)
+
+    if lo is None:
+        return None
+    return (lo - margin, hi + margin)
+
+
 def apply_doorways():
+    """길을 막는 벽에 문을 뚫는다.
+
+    외벽과 방 안의 장애물을 **다르게** 다뤄야 한다. 예전엔 둘 다
+    "입구→출구 직선이 스치면 뚫는다" 로 처리했는데, 그러면 모서리에서
+    직선이 스친 외벽까지 뚫려서 방에 구멍이 숭숭 났다.
+    실제로 1A 는 남·동 양쪽이, 1B·2D 는 경사로도 없는 자리가 뚫려 있었고,
+    플레이 중에 그 틈으로 방을 걸어 나갈 수 있었다.
+
+      · 외벽   — **경사로가 실제로 붙은 자리만**, **경사로 폭 그대로** 뚫는다.
+                 넓게 뚫으면 경사로 옆으로 허공에 나가는 틈이 남는다.
+      · 장애물 — 입구에서 출구로 가는 길을 막으면 뚫는다 (2F 의 좁은 통로).
+    """
     for a in AREAS:
         ins = [r for r in RAMPS if r.get("toId") == a["id"]]
         outs = [r for r in RAMPS if r.get("fromId") == a["id"]]
-        if not ins and not outs:
+        mouths = ins + outs        # 이 방에 붙은 경사로들
+        if not mouths:
             continue
 
-        entry = (ins[0]["to"]["x"] - a["pos"]["x"], ins[0]["to"]["z"] - a["pos"]["z"]) if ins else None
-        exit_ = (outs[0]["from"]["x"] - a["pos"]["x"], outs[0]["from"]["z"] - a["pos"]["z"]) if outs else None
+        # 첫 방(F0)은 들어오는 경사로가, 마지막 방(3C)은 나가는 경사로가 없다.
+        # 예전엔 둘 다 있어야 처리했는데, 그래서 그 두 방은 문이 아예 안 뚫렸다.
+        hx, hz = a["size"]["x"] / 2, a["size"]["z"] / 2
+        entry = ((ins[0]["to"]["x"] - a["pos"]["x"], ins[0]["to"]["z"] - a["pos"]["z"])
+                 if ins else None)
+        exit_ = ((outs[0]["from"]["x"] - a["pos"]["x"], outs[0]["from"]["z"] - a["pos"]["z"])
+                 if outs else None)
 
         out = []
         for o in a["objects"]:
@@ -1127,49 +1183,45 @@ def apply_doorways():
                 out.append(o); continue
 
             along = "x" if o["scale"]["x"] >= o["scale"]["z"] else "z"
-            other_axis = "z" if along == "x" else "x"
+            perp = "z" if along == "x" else "x"
+            half = hz if perp == "z" else hx
+
+            # 방 가장자리에 놓인 벽인가 (외벽)
+            is_shell = abs(abs(o["pos"][perp]) - half) < 1.2
+
+            cuts = []
+
+            # ① 이 벽을 실제로 지나는 경사로 — **발자국이 벽면과 만나는 구간 그대로**.
+            #
+            #    폭을 경사로 폭으로 고정하면 안 된다. 경사로가 벽을 비스듬히
+            #    지나면 벽면에서의 단면이 폭보다 넓어지고, 검사 19번이
+            #    "경사로가 벽에 걸린다"로 잡는다.
+            #    반대로 넉넉하게 8.0 으로 뚫으면 경사로 옆에 허공으로 나가는
+            #    틈이 남아 방을 걸어 나갈 수 있게 된다 — 실제로 그랬다.
+            for c in (ramp_cut(r, a, o, along, perp) for r in mouths):
+                if c:
+                    cuts.append(c)
+
+            # ② 외벽이 아닌 장애물이 걷는 길을 막으면 사람 지나갈 만큼 뚫는다
+            #    (2F 의 좁은 통로). 외벽에는 절대 이걸 적용하지 않는다 —
+            #    모서리를 스치는 직선까지 뚫려서 방에 구멍이 숭숭 났었다.
+            if not is_shell and entry and exit_:
+                h = _seg_hits_box(entry, exit_, o)
+                if h:
+                    at = h[0] if along == "x" else h[1]
+                    cuts.append((at - DOOR_W / 2, at + DOOR_W / 2))
+
+            if not cuts:
+                out.append(o); continue
+
             span = o["scale"][along]
             lo = o["pos"][along] - span / 2
             hi = o["pos"][along] + span / 2
-
-            # 경사로가 이 벽의 두께 안에 실제로 들어오는 구간을 직접 훑어서 잰다
-            # (_ramp_wall_span — 검사 18번과 같은 방식). 정면 진입이면 폭
-            # 전체가, 모서리를 스치는 진입이면 실제로 겹치는 만큼만 나온다.
-            wall_thickness = o["scale"][other_axis]
-            entry_span = _ramp_wall_span(a["pos"], ins[0]["from"], ins[0]["to"],
-                                          ins[0].get("width", 4.0), other_axis, o["pos"][other_axis],
-                                          wall_thickness, lo, hi) if ins else None
-            exit_span = _ramp_wall_span(a["pos"], outs[0]["from"], outs[0]["to"],
-                                         outs[0].get("width", 4.0), other_axis, o["pos"][other_axis],
-                                         wall_thickness, lo, hi) if outs else None
-
-            # 방 내부를 가로지르는 벽(예: 1C 의 분리벽)은 경계면이 아니라서
-            # 위 계산에 안 걸릴 수 있다 — 입구→출구 직선이 실제로 이 벽을
-            # 지나는지도 따로 본다.
-            hits = []
-            if entry is not None and exit_ is not None:
-                h = _seg_hits_box(entry, exit_, o)
-                if h: hits.append(h[0] if along == "x" else h[1])
-
-            if entry_span is None and exit_span is None and not hits:
+            cuts = [(max(c0, lo), min(c1, hi)) for c0, c1 in cuts]
+            cuts = sorted(c for c in cuts if c[1] - c[0] > 0.1)
+            if not cuts:
                 out.append(o); continue
 
-            # 문은 경사로가 실제로 겹치는 만큼만 뚫는다. 점마다 따로 DOOR_W(8.0)의
-            # 여유를 주던 예전 방식은 통로 양옆까지 벽이 통째로 사라지는 사고가
-            # 났다 — 그래서 작은 여유(DOOR_MARGIN)만 더한다. 입구·출구가 같은
-            # 벽에 있으면(2B·2E) 각자 자기 구간만큼만 뚫려 문이 두 개로 남는다.
-            DOOR_MARGIN = 0.6
-            cuts = []
-            for span in (entry_span, exit_span):
-                if span is None:
-                    continue
-                cuts.append((span[0] - DOOR_MARGIN, span[1] + DOOR_MARGIN))
-            for at in hits:
-                at = min(max(at, lo), hi)
-                cuts.append((at - DOOR_W / 2, at + DOOR_W / 2))
-            cuts.sort()
-
-            # 겹치는 문은 하나로 합친다
             merged = [list(cuts[0])]
             for c0, c1 in cuts[1:]:
                 if c0 <= merged[-1][1]:
@@ -1177,18 +1229,16 @@ def apply_doorways():
                 else:
                     merged.append([c0, c1])
 
-            # 문 사이에 남는 조각만 벽으로 남긴다
+            if is_canvas(o["name"]):
+                DOOR_ON_CANVAS.append(dict(
+                    area=a["id"], wall=o["name"], along=along, other=perp,
+                    fixed=o["pos"][perp], spans=[tuple(c) for c in merged]))
+
             parts, cursor, n = [], lo, 0
             for c0, c1 in merged + [[hi, hi]]:
                 if c0 - cursor > 0.4:
                     parts.append((cursor, min(c0, hi)))
                 cursor = max(cursor, c1)
-            if is_canvas(o["name"]):
-                other_axis = "z" if along == "x" else "x"
-                DOOR_ON_CANVAS.append(dict(
-                    area=a["id"], wall=o["name"], along=along, other=other_axis,
-                    fixed=o["pos"][other_axis], spans=[tuple(c) for c in merged]))
-
             for a0, a1 in parts:
                 n += 1
                 part = json.loads(json.dumps(o))
