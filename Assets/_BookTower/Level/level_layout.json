@@ -366,8 +366,8 @@
    "camYaw": 0,
    "camPad": 0.95,
    "light": {
-    "sun": 0.22,
-    "ambient": 0.1,
+    "sun": 0.6,
+    "ambient": 0.62,
     "fog": 0.0,
     "shadowStrength": 0.62
    },
@@ -870,8 +870,8 @@
    "camYaw": 0,
    "camPad": 0.95,
    "light": {
-    "sun": 0.72,
-    "ambient": 0.24,
+    "sun": 0.85,
+    "ambient": 0.72,
     "fog": 0.0,
     "shadowStrength": 0.62
    },
@@ -1276,8 +1276,8 @@
    "camYaw": 0,
    "camPad": 0.95,
    "light": {
-    "sun": 0.72,
-    "ambient": 0.24,
+    "sun": 0.85,
+    "ambient": 0.72,
     "fog": 0.0,
     "shadowStrength": 0.62
    },
@@ -1831,8 +1831,8 @@
    "camYaw": 0,
    "camPad": 0.95,
    "light": {
-    "sun": 0.72,
-    "ambient": 0.24,
+    "sun": 0.85,
+    "ambient": 0.72,
     "fog": 0.0,
     "shadowStrength": 0.62
    },
@@ -2213,8 +2213,8 @@
    "camYaw": 0,
    "camPad": 0.95,
    "light": {
-    "sun": 0.72,
-    "ambient": 0.24,
+    "sun": 0.85,
+    "ambient": 0.72,
     "fog": 0.0,
     "shadowStrength": 0.62
    },
@@ -2690,8 +2690,8 @@
    "camYaw": 0,
    "camPad": 0.95,
    "light": {
-    "sun": 0.72,
-    "ambient": 0.24,
+    "sun": 0.85,
+    "ambient": 0.72,
     "fog": 0.0,
     "shadowStrength": 0.62
    },
@@ -3064,8 +3064,8 @@
    "camYaw": 0,
    "camPad": 0.95,
    "light": {
-    "sun": 0.84,
-    "ambient": 0.2,
+    "sun": 1.1,
+    "ambient": 0.82,
     "fog": 0.0,
     "shadowStrength": 0.62
    },
@@ -3360,8 +3360,8 @@
    "camYaw": 0,
    "camPad": 0.95,
    "light": {
-    "sun": 0.84,
-    "ambient": 0.2,
+    "sun": 1.1,
+    "ambient": 0.82,
     "fog": 0.0,
     "shadowStrength": 0.62
    },
@@ -3691,8 +3691,8 @@
    "camYaw": 0,
    "camPad": 0.95,
    "light": {
-    "sun": 0.84,
-    "ambient": 0.2,
+    "sun": 1.1,
+    "ambient": 0.82,
     "fog": 0.0,
     "shadowStrength": 0.62
    },
@@ -4107,8 +4107,8 @@
    "camYaw": 0,
    "camPad": 0.95,
    "light": {
-    "sun": 0.84,
-    "ambient": 0.2,
+    "sun": 1.1,
+    "ambient": 0.82,
     "fog": 0.0,
     "shadowStrength": 0.62
    },
@@ -4407,8 +4407,8 @@
    "camYaw": 0,
    "camPad": 0.95,
    "light": {
-    "sun": 0.84,
-    "ambient": 0.2,
+    "sun": 1.1,
+    "ambient": 0.82,
     "fog": 0.0,
     "shadowStrength": 0.62
    },
@@ -4684,8 +4684,8 @@
    "camYaw": 0,
    "camPad": 0.95,
    "light": {
-    "sun": 0.84,
-    "ambient": 0.2,
+    "sun": 1.1,
+    "ambient": 0.82,
     "fog": 0.0,
     "shadowStrength": 0.62
    },
@@ -5261,8 +5261,8 @@
    "camYaw": 0,
    "camPad": 0.95,
    "light": {
-    "sun": 1.05,
-    "ambient": 0.3,
+    "sun": 1.35,
+    "ambient": 0.92,
     "fog": 0.0,
     "shadowStrength": 0.62
    },
@@ -6024,8 +6024,8 @@
    "camYaw": 0,
    "camPad": 0.95,
    "light": {
-    "sun": 1.05,
-    "ambient": 0.3,
+    "sun": 1.35,
+    "ambient": 0.92,
     "fog": 0.0,
     "shadowStrength": 0.62
    },
@@ -6326,8 +6326,8 @@
    "camYaw": 0,
    "camPad": 0.95,
    "light": {
-    "sun": 1.05,
-    "ambient": 0.3,
+    "sun": 1.35,
+    "ambient": 0.92,
     "fog": 0.0,
     "shadowStrength": 0.62
    },
@@ -6581,8 +6581,8 @@
    "camYaw": 0,
    "camPad": 0.95,
    "light": {
-    "sun": 0.66,
-    "ambient": 0.18,
+    "sun": 0.95,
+    "ambient": 0.78,
     "fog": 0.0,
     "shadowStrength": 0.62
    },

@@ -44,6 +44,15 @@ namespace BookTower.Presentation
             // 검수를 통째로 막는다. 그래서 탈출구를 하나 둔다.
             // 완성된 게임에는 없어야 하고, 이 창과 함께 사라진다.
             if (kb.f2Key.wasPressedThisFrame) ForceSolveCurrentRoom();
+
+            // 조명 튜닝 — 값은 데이터에 있고 고치려면 씬을 다시 구워야 해서
+            // 왕복이 너무 느리다. 여기서 돌려 보고 좋은 배수를 데이터에 굽는다.
+            if (kb.leftBracketKey.wasPressedThisFrame)  LightingDirector.AmbientTrim -= 0.05f;
+            if (kb.rightBracketKey.wasPressedThisFrame) LightingDirector.AmbientTrim += 0.05f;
+            if (kb.minusKey.wasPressedThisFrame)        LightingDirector.SunTrim -= 0.05f;
+            if (kb.equalsKey.wasPressedThisFrame)       LightingDirector.SunTrim += 0.05f;
+            LightingDirector.AmbientTrim = Mathf.Clamp(LightingDirector.AmbientTrim, 0f, 3f);
+            LightingDirector.SunTrim = Mathf.Clamp(LightingDirector.SunTrim, 0f, 3f);
         }
 
         private void ForceSolveCurrentRoom()
@@ -127,7 +136,7 @@ namespace BookTower.Presentation
 
             Room room = rooms != null ? rooms.Current : null;
 
-            GUILayout.BeginArea(new Rect(12, 8, 340, 400), box);
+            GUILayout.BeginArea(new Rect(12, 8, 340, 440), box);
 
             // ── 지금 할 일
             GUILayout.Label("지금 할 일", big);
@@ -202,6 +211,13 @@ namespace BookTower.Presentation
             GUILayout.Label("WASD 이동 · Space 점프 · F 상호작용 (좌클릭도 된다)", small);
             GUILayout.Label("Shift+F 되돌려 펴기 · Q E 카메라 회전", small);
             GUILayout.Label("Tab 전체 조망 · F1 이 창 · F2 이 방 강제 해결", small);
+
+            var ld = LightingDirector.Instance;
+            if (ld != null)
+            {
+                GUILayout.Label($"[ ] 앰비언트 ×{LightingDirector.AmbientTrim:F2} → {ld.LiveAmbient:F2}", small);
+                GUILayout.Label($"- = 햇빛 ×{LightingDirector.SunTrim:F2} → {ld.LiveSun:F2}", small);
+            }
 
             GUILayout.EndArea();
         }

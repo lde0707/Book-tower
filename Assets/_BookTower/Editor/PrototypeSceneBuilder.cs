@@ -31,11 +31,26 @@ public static class PrototypeSceneBuilder
     private const string RootDir = "Assets/_BookTower";
     private const string MatDir = RootDir + "/Materials";
 
+    /// <summary>
+    /// 예전 씬에 남아 있는 루트를 지우기 위한 이름 목록.
+    ///
+    /// 새로 만드는 루트에는 GeneratedRoot 표식을 붙이므로 이 목록은
+    /// **표식이 없던 시절에 만들어진 것들**을 거두기 위한 보조 수단이다.
+    /// 이름으로만 고르다가 "Map (히든)" 이 빠져서 10개가 쌓인 적이 있다.
+    /// </summary>
     private static readonly string[] GeneratedRoots =
     {
         "[Systems]", "Lighting", "Camera", "Player", "Map", "Background",
         "Main Camera", "Directional Light"
     };
+
+    private static bool IsGenerated(GameObject go)
+    {
+        if (go.GetComponent<BookTower.Core.GeneratedRoot>() != null) return true;
+        if (GeneratedRoots.Contains(go.name)) return true;
+        // "Map", "Map (히든)", 그리고 앞으로 생길 변형까지
+        return go.name.StartsWith("Map");
+    }
 
     // 아트 컨셉 문서의 팔레트
     // ─────────────────────────────────────────── 팔레트 (스케치북)
@@ -86,6 +101,10 @@ public static class PrototypeSceneBuilder
 
         ClearGenerated(scene);
 
+        // 청소 뒤에 남아 있는 건 사람이 직접 넣은 것이다. 표식을 달면 안 된다 —
+        // 달면 다음 빌드가 그걸 지운다.
+        var preexisting = new HashSet<GameObject>(scene.GetRootGameObjects());
+
         Material matPaperLight = MakeMaterial("M_Paper_Light", PaperLight);
         Material matPaperMid = MakeMaterial("M_Paper_Mid", PaperMid);
         Material matPaperShade = MakeMaterial("M_Paper_Shade", PaperShade, "T_Pencil");
@@ -115,6 +134,11 @@ public static class PrototypeSceneBuilder
         // 이게 없으면 나선형으로 쌓인 위층이 카메라와 플레이어 사이를 가로막는다.
         BuildRoomManager(player.transform, paperCam);
 
+        // 이번에 만든 루트에 표식을 남긴다. 다음 번 청소는 이름이 아니라
+        // 이 표식을 보고 지운다 — 이름 목록에서 "Map (히든)" 이 빠져서
+        // 히든 루트가 10개까지 쌓인 적이 있다.
+        TagGeneratedRoots(scene, preexisting);
+
         EditorSceneManager.MarkSceneDirty(scene);
         EditorSceneManager.SaveScene(scene);
         RegisterInBuildSettings();
@@ -126,11 +150,27 @@ public static class PrototypeSceneBuilder
                   "WASD 이동 / Space 활공 / Q·E 카메라 회전 / Tab 전체조망 / 좌클릭 접기");
     }
 
+    /// <summary>이번 빌드가 **새로 만든** 루트에만 GeneratedRoot 표식을 붙인다.</summary>
+    private static void TagGeneratedRoots(Scene scene, HashSet<GameObject> preexisting)
+    {
+        foreach (GameObject go in scene.GetRootGameObjects())
+        {
+            if (preexisting.Contains(go)) continue;
+            if (go.GetComponent<BookTower.Core.GeneratedRoot>() == null)
+                go.AddComponent<BookTower.Core.GeneratedRoot>();
+        }
+    }
+
     private static void ClearGenerated(Scene scene)
     {
+        int n = 0;
         foreach (GameObject go in scene.GetRootGameObjects().ToList())
-            if (GeneratedRoots.Contains(go.name))
-                UnityEngine.Object.DestroyImmediate(go);
+        {
+            if (!IsGenerated(go)) continue;
+            UnityEngine.Object.DestroyImmediate(go);
+            n++;
+        }
+        if (n > 0) Debug.Log($"[씬 구성] 이전 루트 {n}개 정리");
     }
 
     // ---------------------------------------------------------------- 시스템
