@@ -85,9 +85,28 @@ def normalize(sig, peak=0.9):
     return sig / m * peak
 
 
+def fadeout(sig, seconds=0.12, sr=SR):
+    """끝을 0 으로 내린다.
+
+    안 하면 파형이 진폭을 가진 채로 뚝 끊기고, 그건 '딸깍' 으로 들린다.
+    실제로 gate_open 이 그랬다 — 엔벨로프가 expdecay(tau=0.75) 인데 길이가
+    1.3초라 끝에서도 exp(-1.3/0.75) = 0.18 이 남아 있었다.
+    개별 소리마다 tau 를 맞추는 것보다 출력 직전에 한 번 거는 게 확실하다.
+    """
+    k = min(int(seconds * sr), len(sig))
+    if k < 2:
+        return sig
+    ramp = np.linspace(1.0, 0.0, k)
+    ramp = ramp * ramp * (3 - 2 * ramp)     # 스무스스텝으로 내려야 꺾인 자국이 안 남는다
+    out = sig.copy()
+    out[-k:] *= ramp
+    return out
+
+
 def save_wav(name, sig, sr=SR):
     os.makedirs(OUT, exist_ok=True)
     path = os.path.join(OUT, f"{name}.wav")
+    sig = fadeout(sig)
     sig = np.clip(sig, -1.0, 1.0)
     data = (sig * 32767).astype(np.int16)
     with wave.open(path, "w") as w:
@@ -241,6 +260,39 @@ def plot_all():
     print(f"파형 미리보기: {out_path}")
 
 
+def verify():
+    """만든 소리를 다시 읽어 귀로 확인할 수 없는 결함을 잡는다.
+
+    소리는 들어봐야 아는 게 대부분이지만, 이 셋은 파형만 봐도 확실히 결함이다.
+      · 끝이 0 이 아님 → '딸깍'
+      · 클리핑        → 지직거림
+      · 완전 무음      → 레시피가 망가진 것
+    """
+    import wave as _w, struct
+    bad = 0
+    print(f"\n{'파일':<16}{'초':>6}{'피크':>7}{'클립':>6}{'끝':>7}  판정")
+    for name in RECIPES:
+        path = os.path.join(OUT, f"{name}.wav")
+        with _w.open(path) as f:
+            n, sr = f.getnframes(), f.getframerate()
+            raw = f.readframes(n)
+        v = np.array(struct.unpack("<%dh" % (len(raw) // 2), raw), dtype=np.float64) / 32768.0
+        peak = float(np.max(np.abs(v)))
+        clip = int(np.sum(np.abs(v) >= 32700 / 32768))
+        edge = max(int(sr * 0.003), 1)
+        tail = float(np.mean(np.abs(v[-edge:])))
+
+        why = []
+        if tail > 0.02: why.append("끝에서 딸깍")
+        if clip > 0: why.append(f"클리핑 {clip}")
+        if peak < 0.05: why.append("거의 무음")
+        if why: bad += 1
+        print(f"{name:<16}{n/sr:>6.2f}{peak:>7.2f}{clip:>6}{tail:>7.3f}  {', '.join(why) or 'OK'}")
+
+    print(f"\n문제 {bad}건")
+    return bad
+
+
 def main():
     for name, fn in RECIPES.items():
         sig = fn()
@@ -249,6 +301,9 @@ def main():
 
     if "--plot" in sys.argv:
         plot_all()
+
+    if verify() > 0:
+        sys.exit(1)
 
 
 if __name__ == "__main__":
