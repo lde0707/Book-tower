@@ -65,8 +65,12 @@ public static class PrototypeSceneBuilder
     // 책갈피새 전용. 배경이 #FDFCFA 라 캐릭터에 밝은 종이색을 쓰면 그 면이 사라진다.
     // 스프라이트 시안에서 앞쪽 절반이 통째로 안 보였던 게 이것 때문이었다.
     // 문서의 "종이보다 한 톤 어둡게" 는 비유가 아니라 수치 지시로 받아들인다.
-    private static readonly Color BirdPaper = Hex("#C6BDAC");
-    private static readonly Color BirdShade = Hex("#A89E8B");
+    // 판때기에서 닫힌 껍질로 바꾸면서 한 톤 올렸다. 면이 여러 개로 갈려
+    // 위를 향한 면은 햇빛을 받아 더 밝아지는데, 예전 값이면 덩어리 전체가
+    // 어두워 보였다. 그래도 순백 근처까지는 못 올린다 — 배경이 #FDFCFA 다.
+    private static readonly Color BirdPaper = Hex("#D0C7B6");   // 몸통·날개 바탕
+    private static readonly Color BirdHead = Hex("#DCD4C4");    // 고개 — 한 단계 밝게
+    private static readonly Color BirdShade = Hex("#B4AA97");   // 날개
 
     [MenuItem("Book Tower/InGame 씬 구성하기", priority = 0)]
     public static void Build()
@@ -339,6 +343,7 @@ public static class PrototypeSceneBuilder
         PaperBirdBuilder.Build(
             player.transform,
             MakeMaterial("M_Bird_Paper", BirdPaper, "T_Crayon"),
+            MakeMaterial("M_Bird_Head", BirdHead, "T_Crayon"),
             MakeMaterial("M_Bird_Shade", BirdShade, "T_Crayon"),
             ribbonMat,
             matOutline);
