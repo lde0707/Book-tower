@@ -99,6 +99,9 @@ public static class PrototypeSceneBuilder
 
         ClearGenerated(scene);
 
+        // 여기 남아 있는 것들은 사람이 직접 넣은 것이다. 건드리지 않는다.
+        var preexisting = new HashSet<GameObject>(scene.GetRootGameObjects());
+
         Material matPaperLight = MakeMaterial("M_Paper_Light", PaperLight);
         Material matPaperMid = MakeMaterial("M_Paper_Mid", PaperMid);
         Material matPaperShade = MakeMaterial("M_Paper_Shade", PaperShade, "T_Pencil");
@@ -128,6 +131,8 @@ public static class PrototypeSceneBuilder
         // 이게 없으면 나선형으로 쌓인 위층이 카메라와 플레이어 사이를 가로막는다.
         BuildRoomManager(player.transform, paperCam);
 
+        TagGeneratedRoots(scene, preexisting);
+
         EditorSceneManager.MarkSceneDirty(scene);
         EditorSceneManager.SaveScene(scene);
         RegisterInBuildSettings();
@@ -139,11 +144,32 @@ public static class PrototypeSceneBuilder
                   "WASD 이동 / Space 활공 / Q·E 카메라 회전 / Tab 전체조망 / 좌클릭 접기");
     }
 
+    private static bool IsGenerated(GameObject go)
+        => go.GetComponent<BookTower.Core.GeneratedRoot>() != null
+           || GeneratedRoots.Contains(go.name);
+
     private static void ClearGenerated(Scene scene)
     {
         foreach (GameObject go in scene.GetRootGameObjects().ToList())
-            if (GeneratedRoots.Contains(go.name))
+            if (IsGenerated(go))
                 UnityEngine.Object.DestroyImmediate(go);
+    }
+
+    /// <summary>
+    /// 이번에 새로 생긴 루트에 표식을 붙인다. 다음에 다시 지을 때 이것만 보고 지운다.
+    ///
+    /// 이름 목록만 쓰던 때는 목록에 없는 "Map (히든)" 이 매번 살아남아
+    /// 열 개까지 쌓였다. 히든 구역이 Room 을 갖고 있어 화면엔 안 보였지만,
+    /// 콜라이더와 조명은 그대로 열 벌이었다.
+    /// </summary>
+    private static void TagGeneratedRoots(Scene scene, HashSet<GameObject> preexisting)
+    {
+        foreach (GameObject go in scene.GetRootGameObjects())
+        {
+            if (preexisting.Contains(go)) continue;
+            if (go.GetComponent<BookTower.Core.GeneratedRoot>() == null)
+                go.AddComponent<BookTower.Core.GeneratedRoot>();
+        }
     }
 
     // ---------------------------------------------------------------- 시스템

@@ -63,6 +63,43 @@ namespace BookTower.Rooms
             foreach (Room r in rooms) r.SetVisible(false);
             Switch(Pick());
             UpdateTransit();
+            WarnUncovered();
+        }
+
+        /// <summary>
+        /// 룸 컬링이 못 건드리는 렌더러가 남아 있으면 알려 준다.
+        ///
+        /// "다른 구조물이 보인다" 는 지적을 두 번 받았고, 두 번 다 원인이
+        /// **컬링 대상이 아닌 오브젝트**였다. 한 번은 경사로에 RoomBound 가 없었고,
+        /// 한 번은 RoomBound 는 붙었는데 그걸 켜고 끄는 줄이 없었다.
+        ///
+        /// 사람 눈으로 찾으면 또 놓친다. 씬을 켤 때 기계가 한 번 세게 한다.
+        /// 배경과 플레이어는 원래 방에 안 속하므로 빼고 센다.
+        /// </summary>
+        [System.Diagnostics.Conditional("UNITY_EDITOR")]
+        [System.Diagnostics.Conditional("DEVELOPMENT_BUILD")]
+        private void WarnUncovered()
+        {
+            var loose = new System.Text.StringBuilder();
+            int n = 0;
+
+            foreach (Renderer r in FindObjectsByType<Renderer>(FindObjectsSortMode.None))
+            {
+                if (r == null) continue;
+                if (r.GetComponentInParent<Room>() != null) continue;
+                if (r.GetComponentInParent<RoomBound>() != null) continue;
+
+                Transform top = r.transform;
+                while (top.parent != null) top = top.parent;
+                if (top.name == "Background" || top.name == "Player") continue;
+
+                n++;
+                if (n <= 8) loose.Append("\n  · ").Append(top.name).Append(" / ").Append(r.name);
+            }
+
+            if (n > 0)
+                Debug.LogWarning($"[RoomManager] 방에도 RoomBound 에도 안 걸린 렌더러 {n}개 — " +
+                                 $"이건 어느 방에 있든 항상 그려집니다.{loose}");
         }
 
         private void Update()
@@ -218,6 +255,18 @@ namespace BookTower.Rooms
             }
 
             current.ApplyYaw(appliedYaw);
+
+            // 경사로와 출구 잠금도 같이 바꿔 준다.
+            //
+            // 예전엔 이 줄이 없었다. ApplyBounds 는 Tab(전체 조망)을 켜고 끌 때만
+            // 불렸고, 그래서 **게임을 켜자마자도, 방을 옮겨도 한 번도 안 불렸다.**
+            // 경사로 14개 + 잠금 11개가 처음부터 끝까지 전부 그려지고 있었고,
+            // 나선형 탑이라 그것들이 화면에서 전부 겹쳤다 —
+            // "다른 구조물이 보인다" 는 지적의 정체다.
+            //
+            // 컬링을 켜는 지점은 여기 하나여야 한다. 방이 바뀌는 곳이 여기뿐이니
+            // 여기에 붙여 두면 다시 빠질 일이 없다.
+            ApplyBounds(false);
 
             // 층이 올라갈수록 밝아진다. 첫 방은 보간 없이 즉시 맞춘다 —
             // 안 그러면 게임 시작 직후 화면이 밝았다가 어두워진다.
