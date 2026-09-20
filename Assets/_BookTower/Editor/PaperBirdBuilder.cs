@@ -115,6 +115,23 @@ namespace BookTower.EditorTools
         private static readonly float[] WingInsets = { 0.022f, 0.048f, 0.072f };
         private static readonly float[] Curve = { 0.52f, 0.84f, 1.00f };
 
+        // ── 표면
+        //
+        // 지적: "너무 돌같은 딱딱한 텍스처다".
+        // 원인이 둘이었다.
+        //   · 삼각형마다 법선을 따로 둬서(플랫 셰이딩) 음영이 면마다 뚝뚝 끊겼다
+        //     — 깎아 놓은 돌이 정확히 그 모습이다
+        //   · **UV 가 없었다.** 유니티는 UV 없는 메시를 전부 (0,0) 으로 읽는다.
+        //     텍스처를 물려 놔도 텍셀 하나만 샘플링해서 그냥 단색이었다
+        //
+        // 그래서 이웃 면끼리 법선을 평균 내되, 각이 이 값보다 크게 꺾이면 뺀다.
+        // 완만한 곡면은 이어지고 실루엣 테두리와 접힘선은 날카롭게 남는다.
+        // 전부 평균 내면 접힌 자국까지 뭉개져 물렁한 덩어리가 된다.
+        private const float CreaseAngle = 40f;
+
+        /// <summary>1유닛당 종이결 타일 수. 5장을 넘기면 사포처럼 보인다(렌더로 확인).</summary>
+        private const float UvPerUnit = 2.0f;
+
         public static GameObject Build(Transform parent, Material paper, Material head,
                                        Material shade, Material ribbon, Material outline)
         {
@@ -269,6 +286,67 @@ namespace BookTower.EditorTools
             else { t.Add(c); t.Add(b); t.Add(a); }
         }
 
+        /// <summary>
+        /// UV. 물체 좌표의 (z, y) 를 그대로 쓴다.
+        ///
+        /// 껍질의 두 쪽이 거의 ±x 를 보므로 그 평면에 투영하는 게 맞다.
+        /// UV 를 안 넣으면 유니티가 전부 (0,0) 으로 읽어 텍스처가 단색이 된다 —
+        /// "돌 같다" 의 절반이 이것이었다.
+        /// </summary>
+        private static Vector2[] PlanarUv(Vector3[] verts)
+        {
+            var uv = new Vector2[verts.Length];
+            for (int i = 0; i < verts.Length; i++)
+                uv[i] = new Vector2(verts[i].z, verts[i].y) * UvPerUnit;
+            return uv;
+        }
+
+        /// <summary>
+        /// 이웃 면끼리 법선을 평균 내되, 각이 CreaseAngle 보다 크게 꺾이면 뺀다.
+        /// 완만한 곡면은 음영이 이어지고, 접힘선과 실루엣 테두리는 남는다.
+        /// </summary>
+        private static Vector3[] SoftNormals(Vector3[] verts)
+        {
+            int faces = verts.Length / 3;
+            var faceN = new Vector3[faces];
+            for (int f = 0; f < faces; f++)
+            {
+                Vector3 a = verts[f * 3], b = verts[f * 3 + 1], c = verts[f * 3 + 2];
+                Vector3 n = Vector3.Cross(b - a, c - a);
+                faceN[f] = n.sqrMagnitude > 1e-12f ? n.normalized : Vector3.up;
+            }
+
+            var at = new Dictionary<Vector3Int, List<int>>();
+            for (int i = 0; i < verts.Length; i++)
+            {
+                Vector3Int k = Key(verts[i]);
+                if (!at.TryGetValue(k, out List<int> lst))
+                {
+                    lst = new List<int>(6);
+                    at[k] = lst;
+                }
+                int f = i / 3;
+                if (!lst.Contains(f)) lst.Add(f);
+            }
+
+            float lim = Mathf.Cos(CreaseAngle * Mathf.Deg2Rad);
+            var res = new Vector3[verts.Length];
+            for (int i = 0; i < verts.Length; i++)
+            {
+                Vector3 own = faceN[i / 3];
+                Vector3 sum = Vector3.zero;
+                foreach (int f in at[Key(verts[i])])
+                    if (Vector3.Dot(faceN[f], own) > lim) sum += faceN[f];
+                res[i] = sum.sqrMagnitude > 1e-12f ? sum.normalized : own;
+            }
+            return res;
+        }
+
+        private static Vector3Int Key(Vector3 p) => new(
+            Mathf.RoundToInt(p.x * 2048f),
+            Mathf.RoundToInt(p.y * 2048f),
+            Mathf.RoundToInt(p.z * 2048f));
+
         /// <summary>닫힌 2D 외곽선 → 접힌 종이 같은 입체 한 덩어리.</summary>
         private static GameObject Loft(string name, Transform parent, Vector2[] rawProf,
                                        float[] rawW, float bulge, Vector2 origin,
@@ -331,8 +409,6 @@ namespace BookTower.EditorTools
                 }
             }
 
-            // 꼭짓점을 삼각형마다 따로 둔다 — 그래야 면마다 법선이 갈려
-            // 매끈한 곡면이 아니라 '접힌 면' 으로 보인다.
             var verts = new Vector3[t.Count];
             var idx = new int[t.Count];
             for (int i = 0; i < t.Count; i++) { verts[i] = t[i]; idx[i] = i; }
@@ -343,7 +419,8 @@ namespace BookTower.EditorTools
             var mesh = new Mesh { name = name };
             mesh.vertices = verts;
             mesh.triangles = idx;
-            mesh.RecalculateNormals();
+            mesh.normals = SoftNormals(verts);
+            mesh.uv = PlanarUv(verts);
             mesh.RecalculateBounds();
 
             go.AddComponent<MeshFilter>().sharedMesh = mesh;
@@ -386,6 +463,7 @@ namespace BookTower.EditorTools
             mesh.vertices = verts;
             mesh.triangles = tris.ToArray();
             mesh.RecalculateNormals();
+            mesh.uv = PlanarUv(verts);
             mesh.RecalculateBounds();
 
             go.AddComponent<MeshFilter>().sharedMesh = mesh;

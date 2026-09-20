@@ -68,9 +68,12 @@ public static class PrototypeSceneBuilder
     // 판때기에서 닫힌 껍질로 바꾸면서 한 톤 올렸다. 면이 여러 개로 갈려
     // 위를 향한 면은 햇빛을 받아 더 밝아지는데, 예전 값이면 덩어리 전체가
     // 어두워 보였다. 그래도 순백 근처까지는 못 올린다 — 배경이 #FDFCFA 다.
-    private static readonly Color BirdPaper = Hex("#D0C7B6");   // 몸통·날개 바탕
-    private static readonly Color BirdHead = Hex("#DCD4C4");    // 고개 — 한 단계 밝게
-    private static readonly Color BirdShade = Hex("#B4AA97");   // 날개
+    // 값은 종이 텍스처 팔레트(ihatecolors "Paper Texture": #F5F0E8 / #E0D8C8 /
+    // #C0B8A8 / #4A4038)에서 가져왔다. 내가 눈대중으로 찍던 회갈색보다
+    // 노란기가 있어 종이로 읽힌다.
+    private static readonly Color BirdPaper = Hex("#E0D8C8");   // 몸통
+    private static readonly Color BirdHead = Hex("#E8E0D0");    // 고개 — 한 단계 밝게
+    private static readonly Color BirdShade = Hex("#C9C0AE");   // 날개
 
     [MenuItem("Book Tower/InGame 씬 구성하기", priority = 0)]
     public static void Build()
@@ -342,9 +345,12 @@ public static class PrototypeSceneBuilder
         // "뼈대 없이 종이 접힘 단위로 회전".
         PaperBirdBuilder.Build(
             player.transform,
-            MakeMaterial("M_Bird_Paper", BirdPaper, "T_Crayon"),
-            MakeMaterial("M_Bird_Head", BirdHead, "T_Crayon"),
-            MakeMaterial("M_Bird_Shade", BirdShade, "T_Crayon"),
+            // 결은 T_Crayon 이 아니라 T_Paper_Soft 를 쓴다. 크레파스 결은
+            // 안료가 안 얹힌 점을 흩뿌려 놓는데, 95px 짜리 캐릭터에서는
+            // 그 점이 모래알로 읽혀 "돌 같다" 는 인상의 나머지 절반이었다.
+            MakeMaterial("M_Bird_Paper", BirdPaper, "T_Paper_Soft"),
+            MakeMaterial("M_Bird_Head", BirdHead, "T_Paper_Soft"),
+            MakeMaterial("M_Bird_Shade", BirdShade, "T_Paper_Soft"),
             ribbonMat,
             matOutline);
 

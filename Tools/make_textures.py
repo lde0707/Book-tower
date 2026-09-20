@@ -12,6 +12,7 @@
   T_Paper   종이 결 — 미세한 섬유와 얼룩. 모든 면의 바탕
   T_Crayon  크레파스 칠 — 결을 따라 안 칠해진 자국이 남는다
   T_Pencil  연필 해칭 — 그림자 쪽 면에 겹쳐 쓴다
+  T_Paper_Soft  캐릭터용 부드러운 종이결 — 고주파 없이 얼룩과 섬유만
 """
 import numpy as np
 from PIL import Image
@@ -39,6 +40,40 @@ def tileable_noise(size, scale, octaves=4):
         total += amp
         amp *= 0.5
     return acc / total
+
+
+def band(size, center, width, stretch=1.0):
+    """주파수 대역만 남긴 노이즈.
+
+    sin/cos 곱(tileable_noise)으로 만들면 바둑판 격자가 그대로 보인다.
+    작은 물체에 깔면 그 격자가 '자갈' 로 읽힌다 — 캐릭터에서 실제로 그랬다.
+    백색잡음을 FFT 로 걸러 내면 격자 없이 유기적이고, FFT 자체가 주기적이라
+    타일 이음매도 안 생긴다.
+
+    stretch > 1 이면 가로로 늘어난 결이 된다 — 종이 섬유 방향."""
+    w = rng.normal(0, 1, (size, size))
+    F = np.fft.fft2(w)
+    f = np.fft.fftfreq(size) * size
+    FX, FY = np.meshgrid(f, f)
+    rad = np.sqrt((FX / stretch) ** 2 + FY ** 2)
+    mask = np.exp(-((rad - center) / width) ** 2)
+    out = np.real(np.fft.ifft2(F * mask))
+    return out / (out.std() + 1e-9)
+
+
+def soft_paper():
+    """캐릭터용. 면 위에서 결이 '잡티' 가 아니라 '바탕' 으로 읽혀야 한다.
+
+    규칙이 벽면용과 다르다.
+      · 고주파 금지 — 95px 짜리 물체에서 1px 이하 결은 지글거리는 모래가 된다
+      · 대비 낮게 — 형태(음영)가 주인공이고 결은 바탕이다
+      · 저주파 얼룩 위주 — 손으로 뜬 종이의 두께 얼룩처럼 보인다
+    타일은 1유닛당 2장으로 깐다. 5장을 넘기면 사포처럼 보인다(렌더로 확인).
+    """
+    blotch = band(SIZE, 3.5, 2.0)
+    mottle = band(SIZE, 9.0, 4.0)
+    fibre = band(SIZE, 26.0, 10.0, stretch=3.5)
+    return 1.0 + blotch * 0.034 + mottle * 0.020 + fibre * 0.012
 
 
 def paper():
@@ -92,3 +127,4 @@ if __name__ == "__main__":
     save("T_Paper", paper())
     save("T_Crayon", crayon())
     save("T_Pencil", pencil())
+    save("T_Paper_Soft", soft_paper(), target_mean=0.955)
