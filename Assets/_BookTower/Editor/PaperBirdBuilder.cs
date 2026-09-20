@@ -50,21 +50,35 @@ namespace BookTower.EditorTools
 
         private static readonly Vector2[] Wing =
         {
-            new(-0.12f,  0.34f),   // 어깨 = 경첩
-            new(-0.34f, -0.14f),
-            new( 0.10f, -0.06f),
+            new(-0.12f,  0.32f),   // 어깨 = 경첩
+            new(-0.26f,  0.10f),
+            new(-0.22f, -0.04f),
+            new( 0.04f, -0.06f),   // 끝을 뭉툭하게 — 뾰족하면 그림자가 가시처럼 선다
         };
 
         private static readonly Vector2 HeadHinge = new(0.04f, 0.40f);
-        private static readonly Vector2 WingHinge = new(-0.12f, 0.34f);
+        private static readonly Vector2 WingHinge = new(-0.12f, 0.32f);
 
-        // 접힘각은 파이썬 검증기(qa_bird3d)로 4방향을 렌더해 보며 맞췄다.
-        //   몸통 21° → 정면(yaw 0/180)에서 판이 거의 안 보이는 얇은 조각이 됐다. 39° 로 키움
-        //   고개 27° → 두 판이 위로 벌어져 '토끼귀' 가 됐다. 11° 로 낮춰 앞으로 뻗는 쐐기로
+        // ── 접는 방식
+        //
+        // 처음엔 판 전체를 세로축으로 회전시켰다. 두 가지가 잘못됐다.
+        //   · **부리가 두 갈래로 벌어졌다.** 축이 머리 뒤에 있어 앞쪽이 벌어진다
+        //   · **그림자가 가시처럼 삐죽했다.** 배가 활짝 열려 아래가 두 갈래로 갈라지고,
+        //     모든 끝점이 둘씩 생겼다
+        //
+        // 그래서 회전 대신 **꼭짓점마다 벌어지는 정도를 달리** 준다.
+        // 0 인 곳에서 두 판이 만나 하나의 모서리가 되고, 1 인 곳이 가장 벌어진다.
+        // 종이로 치면 곡선 접기다 — 실제 종이접기에서 부리가 만들어지는 방식이기도 하다.
+        //
+        // 수치는 카메라 4방향 + 햇빛 그림자를 렌더해 보며 맞췄다.
         private const float BodyFold = 39f;
         private const float HeadFold = 11f;
-        private const float RidgeZ = -0.30f;        // 접힘선(등) 위치
-        private const float HeadRidgeZ = -0.14f;
+
+        //                              발치  등   어깨  턱   가슴  앞발치
+        private static readonly float[] BodyW = { 0.10f, 0f, 0.40f, 0.62f, 1.00f, 0.18f };
+        //                              목뒤  정수리 부리  턱
+        private static readonly float[] HeadW = { 0.55f, 0f, 0f, 0.42f };
+        // 정수리와 부리를 0 으로 닫아야 정면에서 V 자 틈이 안 남는다
 
         public static GameObject Build(Transform parent, Material paper,
                                        Material shade, Material ribbon,
@@ -78,40 +92,31 @@ namespace BookTower.EditorTools
             root.SetParent(parent, false);
             root.localPosition = new Vector3(0f, footY, 0f);
 
-            // ── 몸통: 한 장을 등에서 접어 두 면으로 세운다
+            // ── 몸통: 등과 발치에서 닫히고 가슴에서 가장 벌어진다
+            float spread = Mathf.Sin(BodyFold * Mathf.Deg2Rad) * 0.66f * s;
             var bodyRoot = Pivot("몸통", root, Vector3.zero);
             foreach (float sgn in new[] { 1f, -1f })
-            {
-                var g = Panel($"몸통_{(sgn > 0 ? "좌" : "우")}", bodyRoot, Body,
-                              Vector2.zero, s, paper, outline, 0.012f);
-                g.transform.localPosition = new Vector3(0f, 0f, RidgeZ * s);
-                g.transform.localRotation = Quaternion.Euler(0f, sgn * BodyFold, 0f);
-                // 접힘선이 회전축이므로 판을 축 기준으로 다시 밀어 준다
-                Recenter(g, new Vector3(0f, 0f, -RidgeZ * s));
-            }
+                Panel($"몸통_{(sgn > 0 ? "좌" : "우")}", bodyRoot, Body, Vector2.zero,
+                      s, paper, outline, 0.012f, BodyW, sgn * spread);
 
-            // ── 고개: 목 경첩에서 따로 접힌다. PaperBirdRig 이 각도만 바꾼다
-            var headPivot = Pivot("고개", root, new Vector3(0f, HeadHinge.y * s, HeadHinge.x * s));
+            // ── 고개: 부리 끝에서 두 판이 만난다. 목에서만 벌어진다
+            float hspread = Mathf.Sin(HeadFold * Mathf.Deg2Rad) * 1.5f * s;
+            var headPivot = Pivot("고개", root,
+                new Vector3(0f, HeadHinge.y * s, HeadHinge.x * s));
             foreach (float sgn in new[] { 1f, -1f })
-            {
-                var g = Panel($"고개_{(sgn > 0 ? "좌" : "우")}", headPivot, Head,
-                              HeadHinge, s, paper, outline, 0.010f);
-                g.transform.localPosition = new Vector3(
-                    0f, 0f, (HeadRidgeZ - HeadHinge.x) * s);
-                g.transform.localRotation = Quaternion.Euler(0f, sgn * HeadFold, 0f);
-                Recenter(g, new Vector3(0f, 0f, -(HeadRidgeZ - HeadHinge.x) * s));
-            }
+                Panel($"고개_{(sgn > 0 ? "좌" : "우")}", headPivot, Head, HeadHinge,
+                      s, paper, outline, 0.010f, HeadW, sgn * hspread);
 
             // ── 날개: 어깨 경첩. 접히면 몸에 붙고 들리면 옆으로 벌어진다
             var wings = new Transform[2];
             for (int i = 0; i < 2; i++)
             {
                 float sgn = i == 0 ? 1f : -1f;
-                var p = Pivot($"날개_{(sgn > 0 ? "좌" : "우")}", root,
-                              new Vector3(sgn * 0.02f * s, WingHinge.y * s, WingHinge.x * s));
-                var g = Panel("면", p, Wing, WingHinge, s, shade, outline, 0.010f);
-                g.transform.localRotation = Quaternion.Euler(0f, sgn * 8f, 0f);
-                wings[i] = p;
+                var pv = Pivot($"날개_{(sgn > 0 ? "좌" : "우")}", root,
+                    new Vector3(sgn * 0.02f * s, WingHinge.y * s, WingHinge.x * s));
+                var g = Panel("면", pv, Wing, WingHinge, s, shade, outline, 0.010f);
+                g.transform.localRotation = Quaternion.Euler(0f, sgn * 4f, 0f);
+                wings[i] = pv;
             }
 
             // ── 꼬리 리본: 납작한 띠 그대로가 맞다. 접지 않는다.
@@ -121,24 +126,24 @@ namespace BookTower.EditorTools
             for (int i = 0; i < 2; i++)
             {
                 float sgn = i == 0 ? 1f : -1f;
-                var strip = new System.Collections.Generic.List<Vector2>();
-                var back = new System.Collections.Generic.List<Vector2>();
+                var top = new System.Collections.Generic.List<Vector2>();
+                var bot = new System.Collections.Generic.List<Vector2>();
                 for (int t = 0; t <= 6; t++)
                 {
                     float u = t / 6f;
                     float z = -0.52f * u;
                     float y = -0.34f * u * u - 0.02f;
-                    float half = 0.075f * (1f - 0.55f * u);
-                    strip.Add(new Vector2(z, y + half));
-                    back.Add(new Vector2(z, y - half));
+                    float half = 0.095f * (1f - 0.45f * u);
+                    top.Add(new Vector2(z, y + half));
+                    bot.Add(new Vector2(z, y - half));
                 }
-                back.Reverse();
-                strip.AddRange(back);
+                bot.Reverse();
+                top.AddRange(bot);
 
-                var g = Panel($"가닥_{i + 1}", tail, strip.ToArray(), Vector2.zero, s,
+                var g = Panel($"가닥_{i + 1}", tail, top.ToArray(), Vector2.zero, s,
                               ribbon, outline, 0.008f);
                 g.transform.localPosition = new Vector3(sgn * 0.045f * s, 0f, 0f);
-                g.transform.localRotation = Quaternion.Euler(0f, sgn * (i == 0 ? 14f : 11f), 0f);
+                g.transform.localRotation = Quaternion.Euler(0f, sgn * (i == 0 ? 15f : 11f), 0f);
             }
 
             var rig = root.gameObject.AddComponent<PaperBirdRig>();
@@ -154,23 +159,14 @@ namespace BookTower.EditorTools
             return t;
         }
 
-        private static void Recenter(GameObject g, Vector3 delta)
-        {
-            var mf = g.GetComponent<MeshFilter>();
-            Mesh m = mf.sharedMesh;
-            Vector3[] v = m.vertices;
-            for (int i = 0; i < v.Length; i++) v[i] += delta;
-            m.vertices = v;
-            m.RecalculateBounds();
-        }
-
         /// <summary>
         /// 평면 한 장. 종이는 뒷면도 보여야 하므로 삼각형을 양쪽으로 넣는다 —
         /// 단면 메시로 두면 한쪽에서 볼 때 통째로 사라진다.
         /// </summary>
         private static GameObject Panel(string name, Transform parent, Vector2[] prof,
                                         Vector2 origin, float s, Material mat,
-                                        Material outline, float thickness)
+                                        Material outline, float thickness,
+                                        float[] weights = null, float spread = 0f)
         {
             var go = new GameObject(name);
             go.transform.SetParent(parent, false);
@@ -180,7 +176,8 @@ namespace BookTower.EditorTools
             for (int i = 0; i < n; i++)
             {
                 Vector2 p = prof[i] - origin;
-                verts[i] = new Vector3(0f, p.y * s, p.x * s);
+                float w = (weights != null && i < weights.Length) ? weights[i] : 0f;
+                verts[i] = new Vector3(spread * w, p.y * s, p.x * s);
                 verts[i + n] = verts[i];
             }
 
