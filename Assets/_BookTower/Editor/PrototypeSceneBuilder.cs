@@ -62,6 +62,12 @@ public static class PrototypeSceneBuilder
     /// <summary>그림자. 연필로 문지른 회색이지 검정이 아니다</summary>
     private static readonly Color ShadowTint = Hex("#6B6B73");   // 살짝 차갑게 — 연필 흑연색
 
+    // 책갈피새 전용. 배경이 #FDFCFA 라 캐릭터에 밝은 종이색을 쓰면 그 면이 사라진다.
+    // 스프라이트 시안에서 앞쪽 절반이 통째로 안 보였던 게 이것 때문이었다.
+    // 문서의 "종이보다 한 톤 어둡게" 는 비유가 아니라 수치 지시로 받아들인다.
+    private static readonly Color BirdPaper = Hex("#C6BDAC");
+    private static readonly Color BirdShade = Hex("#A89E8B");
+
     [MenuItem("Book Tower/InGame 씬 구성하기", priority = 0)]
     public static void Build()
     {
@@ -303,10 +309,14 @@ public static class PrototypeSceneBuilder
         player.transform.SetParent(group);
         player.transform.position = new Vector3(0f, 1.2f, -6.4f);  // 표지(F0)의 시작 표식 (XZ 1.6배 확대 반영)
 
+        // 키를 모델(1.4)에 맞춘다. 0.9 는 방을 1.6배로 키우기 전의 값이라
+        // 화면에서 61px 밖에 안 됐다 — 1유닛 = 67.5px(1080p) 기준.
+        // 퍼즐 수치는 하나도 안 바뀐다: 점프 1.2, 틈 6.4, 잠금 높이 3.0 그대로다.
+        // 머리 위를 지나가야 하는 구조물도 없다(천장은 6 이상).
         var cc = player.AddComponent<CharacterController>();
-        cc.height = 0.9f;
-        cc.radius = 0.25f;
-        cc.center = new Vector3(0f, 0.45f, 0f);
+        cc.height = PaperBirdBuilder.Height;
+        cc.radius = 0.30f;
+        cc.center = new Vector3(0f, PaperBirdBuilder.Height * 0.5f, 0f);
         cc.slopeLimit = 50f;
         // 작은 턱에 걸려 멈추는 게 조작 불만의 대부분이다.
         // 점프보다 이쪽이 먼저 할 일이고, 퍼즐에는 아무 영향이 없다.
@@ -319,24 +329,19 @@ public static class PrototypeSceneBuilder
         player.AddComponent<EchoInteractor>();     // 커서 · 조각 줍기 + 주름 깨우기
         player.AddComponent<TargetInteractor>();   // F 키 · 몸이 향한 것 하나
 
-        // 임시 비주얼 — 실제 책갈피새 모델로 교체 예정
-        var body = GameObject.CreatePrimitive(PrimitiveType.Capsule);
-        body.name = "TEMP_Body";
-        body.transform.SetParent(player.transform, false);
-        body.transform.localPosition = new Vector3(0f, 0.45f, 0f);
-        body.transform.localScale = new Vector3(0.4f, 0.3f, 0.4f);
-        UnityEngine.Object.DestroyImmediate(body.GetComponent<Collider>());
-        BookTower.Presentation.PencilOutline.Attach(body, matOutline, 0.03f);
-        body.GetComponent<MeshRenderer>().sharedMaterial = ribbonMat;
-
-        var beak = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        beak.name = "TEMP_Beak";
-        beak.transform.SetParent(player.transform, false);
-        beak.transform.localPosition = new Vector3(0f, 0.45f, 0.28f);
-        beak.transform.localScale = new Vector3(0.08f, 0.08f, 0.22f);
-        UnityEngine.Object.DestroyImmediate(beak.GetComponent<Collider>());
-        BookTower.Presentation.PencilOutline.Attach(beak, matOutline, 0.02f);
-        beak.GetComponent<MeshRenderer>().sharedMaterial = ribbonMat;
+        // 접힌 종이로 만든 책갈피새.
+        //
+        // 스프라이트로 만들다 버렸다 — 카메라가 90° 4방향으로 도는데 옆모습 한 장은
+        // 한 각도에서만 맞고, 납작한 판때기는 그림자가 선이 된다.
+        // 이 게임은 그림자가 곧 정답이라 그 타협을 할 수 없다.
+        // 아트 문서도 원래 3D 를 말하고 있었다 — "몸통은 접힌 종이",
+        // "뼈대 없이 종이 접힘 단위로 회전".
+        PaperBirdBuilder.Build(
+            player.transform,
+            MakeMaterial("M_Bird_Paper", BirdPaper, "T_Crayon"),
+            MakeMaterial("M_Bird_Shade", BirdShade, "T_Crayon"),
+            ribbonMat,
+            matOutline);
 
         return player;
     }
