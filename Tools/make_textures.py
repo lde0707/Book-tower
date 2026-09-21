@@ -13,6 +13,7 @@
   T_Crayon  크레파스 칠 — 결을 따라 안 칠해진 자국이 남는다
   T_Pencil  연필 해칭 — 그림자 쪽 면에 겹쳐 쓴다
   T_Paper_Soft  캐릭터용 부드러운 종이결 — 고주파 없이 얼룩과 섬유만
+  T_Ghost_Ramp  정령 몸통 명암 — 아래(꼬리)는 차갑게 가라앉고 위(정수리)는 따뜻하게
 """
 import numpy as np
 from PIL import Image
@@ -76,6 +77,41 @@ def soft_paper():
     return 1.0 + blotch * 0.034 + mottle * 0.020 + fibre * 0.012
 
 
+def ghost_ramp(w=256, h=512):
+    """정령 몸통의 명암을 **색으로** 굽는다. v=0 꼬리 끝, v=1 정수리.
+
+    방 조명이 밝아(ambient 0.62~0.92) 실시간 음영만으로는 덩어리가 안 선다.
+    그래서 명암을 텍스처에 미리 넣고, 실시간 조명은 그 위에 곱해지게 한다.
+
+    밝기만이 아니라 **온도**로도 가른다 — 빛 받는 위는 따뜻한 종이,
+    가라앉는 아래는 살짝 차가운 회색. 채도를 거의 안 올리고도 입체가 선다.
+    아래로 갈수록 옅어지는 모양이 유령의 인상과도 맞는다.
+
+    결은 T_Paper_Soft 와 같은 방식(FFT 대역)을 아주 약하게 얹는다.
+    """
+    light = np.array([0xF2, 0xEA, 0xDB], np.float32) / 255.0
+    dark = np.array([0xB9, 0xB8, 0xB2], np.float32) / 255.0
+    v = np.linspace(1.0, 0.0, h, dtype=np.float32)[:, None]      # 이미지 위가 v=1
+    s = np.clip((v - 0.05) / 0.75, 0, 1)
+    s = s * s * (3 - 2 * s)
+    col = dark[None, None, :] * (1 - s[..., None]) + light[None, None, :] * s[..., None]
+    col = np.repeat(col, w, axis=1)
+
+    g = band(512, 3.5, 2.0) * 0.020 + band(512, 9.0, 4.0) * 0.012
+    gi = np.array(Image.fromarray(((g - g.min()) / (np.ptp(g) + 1e-9) * 255).astype(np.uint8))
+                  .resize((w, h), Image.BILINEAR), np.float32) / 255.0
+    grain = 1.0 + (gi - 0.5) * 0.06
+    return np.clip(col * grain[..., None], 0, 1)
+
+
+def save_rgb(name, arr):
+    img = (np.clip(arr, 0, 1) * 255).astype(np.uint8)
+    os.makedirs(OUT, exist_ok=True)
+    p = os.path.join(OUT, name + ".png")
+    Image.fromarray(img).save(p)
+    print("%-12s %s  위 %s  아래 %s" % (name, p, img[2, 2].tolist(), img[-3, 2].tolist()))
+
+
 def paper():
     """종이 결. 가로 섬유가 살짝 우세하고, 아주 옅은 얼룩이 있다."""
     fibre = tileable_noise(SIZE, 24, 3) * 0.5 + tileable_noise(SIZE, 60, 2) * 0.5
@@ -128,3 +164,4 @@ if __name__ == "__main__":
     save("T_Crayon", crayon())
     save("T_Pencil", pencil())
     save("T_Paper_Soft", soft_paper(), target_mean=0.955)
+    save_rgb("T_Ghost_Ramp", ghost_ramp())

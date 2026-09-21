@@ -75,6 +75,10 @@ public static class PrototypeSceneBuilder
     private static readonly Color BirdHead = Hex("#E8E0D0");    // 고개 — 한 단계 밝게
     private static readonly Color BirdShade = Hex("#C9C0AE");   // 날개
 
+    // 정령. 몸통은 T_Ghost_Ramp 가 색까지 맡는다(위 #F2EADB → 아래 #B9B8B2).
+    private static readonly Color GhostEyeWhite = Hex("#F5F0E8");   // 눈알 — 몸보다 한 단계 밝게
+    private static readonly Color GhostInk = Hex("#4A4038");        // 눈동자·입 — 같은 팔레트의 잉크색
+
     /// <summary>
     /// 플레이어를 정령(Quaternius Ghost, CC0)으로 쓸지, 접힌 종이 새로 쓸지.
     ///
@@ -384,11 +388,15 @@ public static class PrototypeSceneBuilder
         // 둘을 다 살려 두고 이 값 하나로 고른다 — 한쪽을 지우면 되돌릴 수가 없다.
         if (UseGhostPlayer)
         {
+            // 역할별로 색을 가른다. 몸통 명암은 텍스처가 맡으므로 바탕색은 흰색.
+            // 리본은 월드 전체의 포인트 색(크레파스 빨강)을 그대로 쓴다 —
+            // 새에서 정령으로 바뀌어도 "책갈피" 는 이어져야 한다.
             GhostPlayerBuilder.Build(
                 player.transform,
-                MakeMaterial("M_Bird_Paper", BirdPaper, "T_Paper_Soft"),
-                MakeMaterial("M_Bird_Head", BirdHead, "T_Paper_Soft"),
-                MakeMaterial("M_Bird_Shade", BirdShade, "T_Paper_Soft"));
+                MakeMaterial("M_Ghost_Body", Color.white, "T_Ghost_Ramp"),
+                MakeMaterial("M_Ghost_EyeWhite", GhostEyeWhite, "T_Paper_Soft"),
+                MakeMaterial("M_Ghost_Ink", GhostInk, "T_Paper_Soft"),
+                ribbonMat);
         }
         else
         {

@@ -26,6 +26,13 @@ namespace BookTower.Presentation
         [Tooltip("이 본들을 매 프레임 크기 0 으로 접는다. 비우면 팔이 돌아온다")]
         [SerializeField] private Transform[] foldedBones = new Transform[0];
 
+        [Header("리본 — 공기의 일이라 부드럽다")]
+        [SerializeField] private Transform[] ribbons = new Transform[0];
+        [Tooltip("리본이 옆으로 흔들리는 각도")]
+        [SerializeField] private float ribbonSway = 9f;
+        [Tooltip("움직일 때 리본이 뒤로 들리는 각도")]
+        [SerializeField] private float ribbonLift = 16f;
+
         [Header("떠 있는 느낌 — 물리가 아니라 연출이다")]
         [Tooltip("발끝을 바닥에서 이만큼 띄운다")]
         [SerializeField] private float hover = 0.16f;
@@ -42,11 +49,13 @@ namespace BookTower.Presentation
         private PlayerController player;
         private Vector3 restPos;
         private float lean;
+        private Quaternion[] ribbonRest;
 
-        public void Wire(Animator a, Transform[] fold)
+        public void Wire(Animator a, Transform[] fold, Transform[] ribbonTails = null)
         {
             animator = a;
             foldedBones = fold ?? new Transform[0];
+            ribbons = ribbonTails ?? new Transform[0];
         }
 
         private void Awake()
@@ -54,6 +63,10 @@ namespace BookTower.Presentation
             restPos = transform.localPosition;
             player = GetComponentInParent<PlayerController>();
             if (animator == null) animator = GetComponentInChildren<Animator>();
+
+            ribbonRest = new Quaternion[ribbons.Length];
+            for (int i = 0; i < ribbons.Length; i++)
+                if (ribbons[i] != null) ribbonRest[i] = ribbons[i].localRotation;
         }
 
         private void Update()
@@ -98,6 +111,30 @@ namespace BookTower.Presentation
             for (int i = 0; i < foldedBones.Length; i++)
                 if (foldedBones[i] != null)
                     foldedBones[i].localScale = new Vector3(1e-4f, 1e-4f, 1e-4f);
+
+            SwayRibbons();
+        }
+
+        /// <summary>
+        /// 리본은 목 본의 자식이라 고개를 따라간다. 거기에 바람만 얹는다.
+        /// 두 가닥의 위상을 어긋나게 해서 같이 까딱이지 않게 한다.
+        /// 움직일수록 뒤로 들려 속도가 눈에 보인다.
+        /// </summary>
+        private void SwayRibbons()
+        {
+            if (ribbonRest == null) return;
+            float speed = player != null ? player.HorizontalVelocity.magnitude : 0f;
+            float lift = Mathf.Clamp01(speed / 4f) * ribbonLift;
+            float freq = speed > 0.35f ? 5.0f : 1.3f;
+
+            for (int i = 0; i < ribbons.Length; i++)
+            {
+                if (ribbons[i] == null) continue;
+                float ph = i * 1.7f;
+                float side = Mathf.Sin(Time.time * freq + ph) * ribbonSway;
+                float flap = Mathf.Sin(Time.time * freq * 1.3f + ph) * ribbonSway * 0.4f;
+                ribbons[i].localRotation = ribbonRest[i] * Quaternion.Euler(-lift + flap, side, 0f);
+            }
         }
     }
 }
