@@ -22,6 +22,10 @@ namespace BookTower.Presentation
     {
         [SerializeField] private Animator animator;
 
+        [Header("팔 없애기")]
+        [Tooltip("이 본들을 매 프레임 크기 0 으로 접는다. 비우면 팔이 돌아온다")]
+        [SerializeField] private Transform[] foldedBones = new Transform[0];
+
         [Header("떠 있는 느낌 — 물리가 아니라 연출이다")]
         [Tooltip("발끝을 바닥에서 이만큼 띄운다")]
         [SerializeField] private float hover = 0.16f;
@@ -39,7 +43,11 @@ namespace BookTower.Presentation
         private Vector3 restPos;
         private float lean;
 
-        public void Wire(Animator a) { animator = a; }
+        public void Wire(Animator a, Transform[] fold)
+        {
+            animator = a;
+            foldedBones = fold ?? new Transform[0];
+        }
 
         private void Awake()
         {
@@ -66,6 +74,30 @@ namespace BookTower.Presentation
             float bob = Mathf.Sin(Time.time * bobSpeed) * bobHeight;
             transform.localPosition = restPos + Vector3.up * (hover + bob);
             transform.localRotation = Quaternion.Euler(lean, 0f, 0f);
+        }
+
+        /// <summary>
+        /// 팔을 없앤다 — 메시를 자르지 않고 **위팔 본을 크기 0 으로 접는다.**
+        ///
+        /// 세 가지 방법을 실제로 렌더해 비교했다.
+        ///   · 팔 면을 지우기 — 어깨에 구멍이 남아 속이 들여다보였다
+        ///   · 어깨 본을 접기 — 어깨 쪽 몸통 정점까지 끌려 들어가 옆구리가 움푹 팼다
+        ///   · **위팔 본을 접기** — 팔 정점이 어깨 관절 한 점으로 빨려 들어가
+        ///     몸통 안에 묻힌다. 구멍도 찌그러짐도 없었다. 애니메이션 두 클립
+        ///     전 구간을 6프레임씩 찍어 확인했다
+        ///
+        /// LateUpdate 인 이유: 애니메이터가 Update 뒤에 본을 덮어쓴다.
+        /// 그보다 늦게 접어야 이긴다. 0 이 아니라 1e-4 인 이유는 행렬이
+        /// 특이해지면 스키닝 경계 계산에서 NaN 이 날 수 있어서다.
+        ///
+        /// 덤으로 폭이 1.22 → 0.58 로 줄어 CharacterController(지름 0.60)
+        /// 안에 들어온다. 팔이 벽을 뚫고 나가 보이던 문제도 같이 사라진다.
+        /// </summary>
+        private void LateUpdate()
+        {
+            for (int i = 0; i < foldedBones.Length; i++)
+                if (foldedBones[i] != null)
+                    foldedBones[i].localScale = new Vector3(1e-4f, 1e-4f, 1e-4f);
         }
     }
 }

@@ -44,6 +44,13 @@ namespace BookTower.EditorTools
         private const string IdleClip = "Flying_Idle";
         private const string MoveClip = "Fast_Flying";
 
+        /// <summary>
+        /// 팔을 없앨지. 요청: "팔이 없는 정령이면 좋겠어".
+        /// 위팔 본을 접는 방식이라 메시는 그대로다 — false 로 두면 팔이 돌아온다.
+        /// </summary>
+        private const bool RemoveArms = true;
+        private static readonly string[] ArmBones = { "UpperArm.L", "UpperArm.R" };
+
         /// <summary>움직이기 시작했다고 볼 속도. PlayerController 의 걷기 속도보다 한참 아래</summary>
         private const float MoveThreshold = 0.9f;
 
@@ -78,8 +85,28 @@ namespace BookTower.EditorTools
             anim.applyRootMotion = false;
 
             var rig = root.gameObject.AddComponent<GhostRig>();
-            rig.Wire(anim);
+            rig.Wire(anim, RemoveArms ? FindBones(model.transform, ArmBones) : null);
             return root.gameObject;
+        }
+
+        /// <summary>
+        /// 이름으로 본을 찾는다. 임포터가 "UpperArm.L" 을 "UpperArm_L" 로
+        /// 바꾸는 경우가 있어 '.' 과 '_' 를 같은 것으로 본다. 못 찾으면 경고한다 —
+        /// 조용히 넘어가면 팔이 그대로 남아 있는데도 된 줄 안다.
+        /// </summary>
+        private static Transform[] FindBones(Transform root, string[] names)
+        {
+            string Norm(string n) => n.Replace('_', '.').Replace(' ', '.');
+            var all = root.GetComponentsInChildren<Transform>(true);
+            var found = new List<Transform>();
+            foreach (string want in names)
+            {
+                Transform t = all.FirstOrDefault(x => Norm(x.name) == Norm(want))
+                              ?? all.FirstOrDefault(x => Norm(x.name).EndsWith(Norm(want)));
+                if (t != null) found.Add(t);
+                else Debug.LogWarning($"[GhostPlayerBuilder] 본 '{want}' 을 못 찾았습니다. 팔이 남습니다.");
+            }
+            return found.ToArray();
         }
 
         /// <summary>
