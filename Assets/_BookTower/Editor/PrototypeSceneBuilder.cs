@@ -75,6 +75,14 @@ public static class PrototypeSceneBuilder
     private static readonly Color BirdHead = Hex("#E8E0D0");    // 고개 — 한 단계 밝게
     private static readonly Color BirdShade = Hex("#C9C0AE");   // 날개
 
+    /// <summary>
+    /// 플레이어를 정령(Quaternius Ghost, CC0)으로 쓸지, 접힌 종이 새로 쓸지.
+    ///
+    /// false 로 되돌리면 새가 그대로 돌아온다 — 새 코드는 지우지 않았다.
+    /// 정령 쪽은 아직 외곽선이 없다(스킨드 메시라 껍질 방식이 안 먹는다).
+    /// </summary>
+    private const bool UseGhostPlayer = true;
+
     [MenuItem("Book Tower/InGame 씬 구성하기", priority = 0)]
     public static void Build()
     {
@@ -369,16 +377,29 @@ public static class PrototypeSceneBuilder
         // 이 게임은 그림자가 곧 정답이라 그 타협을 할 수 없다.
         // 아트 문서도 원래 3D 를 말하고 있었다 — "몸통은 접힌 종이",
         // "뼈대 없이 종이 접힘 단위로 회전".
-        PaperBirdBuilder.Build(
-            player.transform,
-            // 결은 T_Crayon 이 아니라 T_Paper_Soft 를 쓴다. 크레파스 결은
-            // 안료가 안 얹힌 점을 흩뿌려 놓는데, 95px 짜리 캐릭터에서는
-            // 그 점이 모래알로 읽혀 "돌 같다" 는 인상의 나머지 절반이었다.
-            MakeMaterial("M_Bird_Paper", BirdPaper, "T_Paper_Soft"),
-            MakeMaterial("M_Bird_Head", BirdHead, "T_Paper_Soft"),
-            MakeMaterial("M_Bird_Shade", BirdShade, "T_Paper_Soft"),
-            ribbonMat,
-            matOutline);
+        // 플레이어 모습 — 접힌 종이 새냐, 정령이냐.
+        //
+        // 새는 전부 코드로 만든 것이라 팔레트·그림자·라이선스가 전부 맞춰져 있고,
+        // 정령은 기성 CC0 에셋이라 본 애니메이션이 딸려 온다.
+        // 둘을 다 살려 두고 이 값 하나로 고른다 — 한쪽을 지우면 되돌릴 수가 없다.
+        if (UseGhostPlayer)
+        {
+            GhostPlayerBuilder.Build(
+                player.transform,
+                MakeMaterial("M_Bird_Paper", BirdPaper, "T_Paper_Soft"),
+                MakeMaterial("M_Bird_Head", BirdHead, "T_Paper_Soft"),
+                MakeMaterial("M_Bird_Shade", BirdShade, "T_Paper_Soft"));
+        }
+        else
+        {
+            PaperBirdBuilder.Build(
+                player.transform,
+                MakeMaterial("M_Bird_Paper", BirdPaper, "T_Paper_Soft"),
+                MakeMaterial("M_Bird_Head", BirdHead, "T_Paper_Soft"),
+                MakeMaterial("M_Bird_Shade", BirdShade, "T_Paper_Soft"),
+                ribbonMat,
+                matOutline);
+        }
 
         return player;
     }
