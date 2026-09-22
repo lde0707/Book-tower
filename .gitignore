@@ -125,3 +125,6 @@ __pycache__/
 # Unity 세이프 모드가 남기는 복구용 씬 사본. 작업물이 아니다
 /[Aa]ssets/_Recovery/
 /[Aa]ssets/_Recovery.meta
+
+# MCP 패키지 추가 전 백업 (되돌릴 때 쓴다)
+Packages/manifest.json.bak
