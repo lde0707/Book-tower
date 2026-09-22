@@ -144,7 +144,9 @@ public static class PrototypeSceneBuilder
             paperMid = matPaperMid,
             paperShade = matPaperShade,
             accent = matAccent,
-            outline = matOutline
+            outline = matOutline,
+            // 꾸미기 색 — 종이 결을 그대로 입힌다
+            makeExtra = (n, c) => MakeMaterial(n, c, "T_Paper_Soft")
         });
 
         PaperCamera paperCam = BuildCamera(player.transform, map);

@@ -1268,11 +1268,22 @@ def apply_doorways():
 apply_doorways()
 
 
+# ═══════════════════════════════════════════════ 꾸미기
+#
+# "너무 허전하다" — 방마다 바닥 300~2,300㎡ 에 꾸밈 0~8개였다.
+# 무엇을 어디에 두는지는 Tools/dressing.py 에 있다. 여기서는 부르기만 한다.
+# 반드시 문을 뚫은 **뒤에** 부른다 — 문 자리를 알아야 앞을 비워 둔다.
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import dressing as _dressing
+DRESSED = _dressing.apply_dressing(AREAS, RAMPS, LIGHT_DIR, room_height, lit_targets)
+
+
 
 
 # ═══════════════════════════════════════════════ 출력 / 검증
 def build():
     out = dict(areas=AREAS, ramps=RAMPS,
+               palette=[dict(key=k, hex=v) for k, v in _dressing.PALETTE.items()],
                meta=dict(spiralRadius1=R1, spiralRadius2=R2, slopeLimit=SLOPE_LIMIT,
                          glideDrop=GLIDE_DROP, foldRise=FOLD_RISE,
                          xzScale=XZ_SCALE, camPitch=CAM_PITCH, camPad=CAM_PAD,
@@ -1888,7 +1899,11 @@ def validate():
                             f"— '층이 올라갈수록 밝아진다'가 깨진다")
         prev = v
 
-    print(f"구역 {len(AREAS)} / 경사로 {len(RAMPS)} / 잠긴 출구 {gated}")
+    # 꾸미기 — 빛 경로·문·퍼즐 자리·시야·금지색
+    _dressing.check(AREAS, RAMPS, LIGHT_DIR, room_height, lit_targets,
+                    errs.append, warns.append)
+
+    print(f"구역 {len(AREAS)} / 경사로 {len(RAMPS)} / 잠긴 출구 {gated} / 꾸미기 {DRESSED}")
     print(f"\n오류 {len(errs)}건")
     for e in errs: print("  ✗", e)
     print(f"\n경고 {len(warns)}건")
