@@ -31,11 +31,26 @@ public static class PrototypeSceneBuilder
     private const string RootDir = "Assets/_BookTower";
     private const string MatDir = RootDir + "/Materials";
 
+    /// <summary>
+    /// 예전 씬에 남아 있는 루트를 지우기 위한 이름 목록.
+    ///
+    /// 새로 만드는 루트에는 GeneratedRoot 표식을 붙이므로 이 목록은
+    /// **표식이 없던 시절에 만들어진 것들**을 거두기 위한 보조 수단이다.
+    /// 이름으로만 고르다가 "Map (히든)" 이 빠져서 10개가 쌓인 적이 있다.
+    /// </summary>
     private static readonly string[] GeneratedRoots =
     {
         "[Systems]", "Lighting", "Camera", "Player", "Map", "Background",
         "Main Camera", "Directional Light"
     };
+
+    private static bool IsGenerated(GameObject go)
+    {
+        if (go.GetComponent<BookTower.Core.GeneratedRoot>() != null) return true;
+        if (GeneratedRoots.Contains(go.name)) return true;
+        // "Map", "Map (히든)", 그리고 앞으로 생길 변형까지
+        return go.name.StartsWith("Map");
+    }
 
     // 아트 컨셉 문서의 팔레트
     // ─────────────────────────────────────────── 팔레트 (스케치북)
@@ -62,14 +77,8 @@ public static class PrototypeSceneBuilder
     /// <summary>그림자. 연필로 문지른 회색이지 검정이 아니다</summary>
     private static readonly Color ShadowTint = Hex("#6B6B73");   // 살짝 차갑게 — 연필 흑연색
 
-    // 책갈피새 전용. 배경이 #FDFCFA 라 캐릭터에 밝은 종이색을 쓰면 그 면이 사라진다.
-    // 스프라이트 시안에서 앞쪽 절반이 통째로 안 보였던 게 이것 때문이었다.
-    // 문서의 "종이보다 한 톤 어둡게" 는 비유가 아니라 수치 지시로 받아들인다.
-    // 판때기에서 닫힌 껍질로 바꾸면서 한 톤 올렸다. 면이 여러 개로 갈려
-    // 위를 향한 면은 햇빛을 받아 더 밝아지는데, 예전 값이면 덩어리 전체가
-    // 어두워 보였다. 그래도 순백 근처까지는 못 올린다 — 배경이 #FDFCFA 다.
     // 값은 종이 텍스처 팔레트(ihatecolors "Paper Texture": #F5F0E8 / #E0D8C8 /
-    // #C0B8A8 / #4A4038)에서 가져왔다. 내가 눈대중으로 찍던 회갈색보다
+    // #C0B8A8 / #4A4038)에서 가져왔다. 눈대중으로 찍던 회갈색보다
     // 노란기가 있어 종이로 읽힌다.
     private static readonly Color BirdPaper = Hex("#E0D8C8");   // 몸통
     private static readonly Color BirdHead = Hex("#E8E0D0");    // 고개 — 한 단계 밝게
@@ -111,7 +120,8 @@ public static class PrototypeSceneBuilder
 
         ClearGenerated(scene);
 
-        // 여기 남아 있는 것들은 사람이 직접 넣은 것이다. 건드리지 않는다.
+        // 청소 뒤에 남아 있는 건 사람이 직접 넣은 것이다. 표식을 달면 안 된다 —
+        // 달면 다음 빌드가 그걸 지운다.
         var preexisting = new HashSet<GameObject>(scene.GetRootGameObjects());
 
         Material matPaperLight = MakeMaterial("M_Paper_Light", PaperLight);
@@ -134,7 +144,9 @@ public static class PrototypeSceneBuilder
             paperMid = matPaperMid,
             paperShade = matPaperShade,
             accent = matAccent,
-            outline = matOutline
+            outline = matOutline,
+            // 꾸미기 색 — 종이 결을 그대로 입힌다
+            makeExtra = (n, c) => MakeMaterial(n, c, "T_Paper_Soft")
         });
 
         PaperCamera paperCam = BuildCamera(player.transform, map);
@@ -143,6 +155,9 @@ public static class PrototypeSceneBuilder
         // 이게 없으면 나선형으로 쌓인 위층이 카메라와 플레이어 사이를 가로막는다.
         BuildRoomManager(player.transform, paperCam);
 
+        // 이번에 만든 루트에 표식을 남긴다. 다음 번 청소는 이름이 아니라
+        // 이 표식을 보고 지운다 — 이름 목록에서 "Map (히든)" 이 빠져서
+        // 히든 루트가 10개까지 쌓인 적이 있다.
         TagGeneratedRoots(scene, preexisting);
 
         EditorSceneManager.MarkSceneDirty(scene);
@@ -156,24 +171,7 @@ public static class PrototypeSceneBuilder
                   "WASD 이동 / Space 활공 / Q·E 카메라 회전 / Tab 전체조망 / 좌클릭 접기");
     }
 
-    private static bool IsGenerated(GameObject go)
-        => go.GetComponent<BookTower.Core.GeneratedRoot>() != null
-           || GeneratedRoots.Contains(go.name);
-
-    private static void ClearGenerated(Scene scene)
-    {
-        foreach (GameObject go in scene.GetRootGameObjects().ToList())
-            if (IsGenerated(go))
-                UnityEngine.Object.DestroyImmediate(go);
-    }
-
-    /// <summary>
-    /// 이번에 새로 생긴 루트에 표식을 붙인다. 다음에 다시 지을 때 이것만 보고 지운다.
-    ///
-    /// 이름 목록만 쓰던 때는 목록에 없는 "Map (히든)" 이 매번 살아남아
-    /// 열 개까지 쌓였다. 히든 구역이 Room 을 갖고 있어 화면엔 안 보였지만,
-    /// 콜라이더와 조명은 그대로 열 벌이었다.
-    /// </summary>
+    /// <summary>이번 빌드가 **새로 만든** 루트에만 GeneratedRoot 표식을 붙인다.</summary>
     private static void TagGeneratedRoots(Scene scene, HashSet<GameObject> preexisting)
     {
         foreach (GameObject go in scene.GetRootGameObjects())
@@ -182,6 +180,18 @@ public static class PrototypeSceneBuilder
             if (go.GetComponent<BookTower.Core.GeneratedRoot>() == null)
                 go.AddComponent<BookTower.Core.GeneratedRoot>();
         }
+    }
+
+    private static void ClearGenerated(Scene scene)
+    {
+        int n = 0;
+        foreach (GameObject go in scene.GetRootGameObjects().ToList())
+        {
+            if (!IsGenerated(go)) continue;
+            UnityEngine.Object.DestroyImmediate(go);
+            n++;
+        }
+        if (n > 0) Debug.Log($"[씬 구성] 이전 루트 {n}개 정리");
     }
 
     // ---------------------------------------------------------------- 시스템
@@ -354,14 +364,11 @@ public static class PrototypeSceneBuilder
         player.transform.SetParent(group);
         player.transform.position = new Vector3(0f, 1.2f, -6.4f);  // 표지(F0)의 시작 표식 (XZ 1.6배 확대 반영)
 
-        // 키를 모델(1.4)에 맞춘다. 0.9 는 방을 1.6배로 키우기 전의 값이라
-        // 화면에서 61px 밖에 안 됐다 — 1유닛 = 67.5px(1080p) 기준.
-        // 퍼즐 수치는 하나도 안 바뀐다: 점프 1.2, 틈 6.4, 잠금 높이 3.0 그대로다.
-        // 머리 위를 지나가야 하는 구조물도 없다(천장은 6 이상).
         var cc = player.AddComponent<CharacterController>();
-        cc.height = PaperBirdBuilder.Height;
+        // 모델 키(1.40)에 맞춘다. 0.9 로 두면 머리가 천장·문틀을 뚫고 지나간다.
+        cc.height = GhostPlayerBuilder.Height;
         cc.radius = 0.30f;
-        cc.center = new Vector3(0f, PaperBirdBuilder.Height * 0.5f, 0f);
+        cc.center = new Vector3(0f, GhostPlayerBuilder.Height * 0.5f, 0f);
         cc.slopeLimit = 50f;
         // 작은 턱에 걸려 멈추는 게 조작 불만의 대부분이다.
         // 점프보다 이쪽이 먼저 할 일이고, 퍼즐에는 아무 영향이 없다.
@@ -374,13 +381,6 @@ public static class PrototypeSceneBuilder
         player.AddComponent<EchoInteractor>();     // 커서 · 조각 줍기 + 주름 깨우기
         player.AddComponent<TargetInteractor>();   // F 키 · 몸이 향한 것 하나
 
-        // 접힌 종이로 만든 책갈피새.
-        //
-        // 스프라이트로 만들다 버렸다 — 카메라가 90° 4방향으로 도는데 옆모습 한 장은
-        // 한 각도에서만 맞고, 납작한 판때기는 그림자가 선이 된다.
-        // 이 게임은 그림자가 곧 정답이라 그 타협을 할 수 없다.
-        // 아트 문서도 원래 3D 를 말하고 있었다 — "몸통은 접힌 종이",
-        // "뼈대 없이 종이 접힘 단위로 회전".
         // 플레이어 모습 — 접힌 종이 새냐, 정령이냐.
         //
         // 새는 전부 코드로 만든 것이라 팔레트·그림자·라이선스가 전부 맞춰져 있고,

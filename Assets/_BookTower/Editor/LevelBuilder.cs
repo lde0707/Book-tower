@@ -9,6 +9,7 @@ using BookTower.Interaction;
 using System;
 using System.IO;
 using System.Collections.Generic;
+using MatMap = System.Collections.Generic.Dictionary<string, UnityEngine.Material>;
 
 namespace BookTower.EditorTools
 {
@@ -50,6 +51,19 @@ namespace BookTower.EditorTools
         // 다리 전용 — 이 퍼즐이 풀리면 bridgeY 까지 올라와 길이 된다
         public string bridgeFor;
         public float bridgeY;
+
+        // 꾸미기(Tools/dressing.py) 전용
+        public V3 rot;           // 유니티 Euler. 비어 있으면(0,0,0) 회전 없음
+        public bool noOutline;   // 연필 외곽선 생략 — 납작한 러그·이음선 등
+        public bool noCollider;  // 콜라이더 제거 — 발목 아래 흩뿌림 등
+    }
+
+    /// <summary>꾸미기 전용 색. mat 키 → 색</summary>
+    [Serializable]
+    public class PalEntry
+    {
+        public string key;
+        public string hex;
     }
 
     [Serializable]
@@ -137,6 +151,7 @@ namespace BookTower.EditorTools
         public AreaDef[] areas;
         public RampDef[] ramps;
         public MetaDef meta;
+        public PalEntry[] palette;
     }
 
     /// <summary>
@@ -151,13 +166,21 @@ namespace BookTower.EditorTools
         {
             public Material paperLight, paperMid, paperShade, accent, outline;
 
-            public Material Get(string key) => key switch
+            /// <summary>꾸미기 색 → 재질. PrototypeSceneBuilder 가 MakeMaterial 을 넘긴다</summary>
+            public Func<string, Color, Material> makeExtra;
+            public MatMap extra;
+
+            public Material Get(string key)
             {
-                "light" => paperLight,
-                "shade" => paperShade,
-                "accent" => accent,
-                _ => paperMid,
-            };
+                if (key != null && extra != null && extra.TryGetValue(key, out Material m)) return m;
+                return key switch
+                {
+                    "light" => paperLight,
+                    "shade" => paperShade,
+                    "accent" => accent,
+                    _ => paperMid,
+                };
+            }
         }
 
         /// <summary>등불빛. 이 게임에서 채도가 있는 유일한 색이다</summary>
@@ -215,6 +238,12 @@ namespace BookTower.EditorTools
                 Debug.LogError("[LevelBuilder] 레이아웃 파싱 실패");
                 return root;
             }
+
+            pal.extra = new MatMap();
+            if (level.palette != null && pal.makeExtra != null)
+                foreach (PalEntry e in level.palette)
+                    if (ColorUtility.TryParseHtmlString(e.hex, out Color c))
+                        pal.extra[e.key] = pal.makeExtra("M_Dress_" + e.key, c);
 
             if (level.meta != null && level.meta.floorGap > 0.01f)
                 floorGap = level.meta.floorGap;
@@ -277,8 +306,18 @@ namespace BookTower.EditorTools
                     _ => MakeBox(area, o.name, o.pos.V, o.scale.V, pal.Get(o.mat)),
                 };
                 if (go != null && !string.IsNullOrEmpty(o.note)) Note(go, o.note);
+                if (go != null && o.rot != null && o.rot.V != Vector3.zero && o.kind != "fold")
+                    go.transform.localRotation = Quaternion.Euler(o.rot.V);
+                if (go != null && o.noCollider)
+                {
+                    var col = go.GetComponent<Collider>();
+                    if (col != null) UnityEngine.Object.DestroyImmediate(col);
+                }
+                if (go != null && o.name != null && o.name.StartsWith("장식_"))
+                    GameObjectUtility.SetStaticEditorFlags(go, StaticEditorFlags.BatchingStatic);
                 if (go != null) AttachWall(go, o.face);
-                if (go != null && o.kind != "marker") Outline(go);
+                if (go != null && o.kind != "marker" && !o.noOutline)
+                    Outline(go, o.name != null && o.name.StartsWith("장식_") ? 0.02f : 0.035f);
                 if (go != null) MakeInteractable(go, o);
                 if (go != null && !string.IsNullOrEmpty(o.bridgeFor))
                     bridges.Add((a.id, o.bridgeFor, go, o.bridgeY));

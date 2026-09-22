@@ -678,20 +678,36 @@ def seg_hits_box(p0, p1, c, e):
 # 흰 면은 반사율이 높아서 예전 값을 그대로 쓰면 하얗게 날아가고,
 # 날아가면 그림자만 보이는 게 아니라 그림자'도' 안 보이게 된다.
 # 대신 앰비언트는 올렸다 — 연필 그림자는 회색이지 검정이 아니다.
+# 방을 천장으로 덮으면서 전부 다시 잡았다.
+#
+# 예전 값(sun 0.22 / ambient 0.10)은 **방이 열려 있던 시절**의 것이다.
+# 하늘이 트여 있으니 햇빛이 방 전체에 들어왔고, 앰비언트를 바닥까지 낮춰도
+# 종이가 하얗게 보였다. 앰비언트를 낮춘 건 "전체가 고르게 밝으면 강조광이
+# 빛나 보이지 않는다"는 이유였고, 그 판단 자체는 지금도 맞다.
+#
+# 그런데 천장을 덮은 뒤로는 햇빛이 천창으로만 들어온다. 앰비언트가 0.10 이면
+# 천창 바깥은 사실상 무광이고, 방을 밝히는 게 **따뜻한 강조등(#F2C879)뿐**이
+# 된다. 그래서 흰 종이 게임인데 화면 전체가 누렇게 떴다.
+#
+# 목표치를 정하고 역산했다.
+#   · 그늘진 종이가 밝은 회색으로 읽혀야 한다 (휘도 0.25~0.37)
+#     ambientLight = ShadowTint(#6B6B73 ≈ 0.42) × ambient, 종이 알베도 ≈ 0.94
+#     → ambient 0.62~0.92
+#   · 천창 아래는 확실히 더 밝아야 한다
+#     추가분 = 알베도 × sun × sin(55°) → F0 기준 +0.46 (총 ~0.7)
+#
+# 대비는 '앰비언트를 0 에 붙이는 것'이 아니라 '천창 안과 밖의 차이'로 만든다.
+# 그게 천장을 덮은 이유이기도 하다.
 FLOOR_LIGHT = {
     # fog 는 전부 0 이다. 직교 카메라를 뒤로 물려 쓰는 구조에서는
     # 거리 안개가 원근이 아니라 화면 전체 균일 백화로 나타난다.
     # 배선은 남겨 둔다 — 나중에 원근 카메라를 쓸 일이 생기면 그대로 쓸 수 있다.
-    #
-    # 앰비언트를 한 번 더 낮췄다.
-    # 전체가 고르게 밝으면 강조광이 켜져 있어도 "빛나 보이지" 않는다.
-    # 빛은 절대 밝기가 아니라 주변과의 차이로 읽힌다.
-    0: dict(sun=0.22, ambient=0.10, fog=0.0),   # 표지 · 게임에서 가장 어둡다
-    1: dict(sun=0.72, ambient=0.24, fog=0.0),   # 정돈 · 빛이 잘 든다
-    2: dict(sun=0.84, ambient=0.20, fog=0.0),   # 혼란 · 밝지만 대비가 세다 = 조각난 빛
-    3: dict(sun=1.05, ambient=0.30, fog=0.0),   # 개방
+    0: dict(sun=0.60, ambient=0.62, fog=0.0),   # 표지 · 게임에서 가장 어둡다
+    1: dict(sun=0.85, ambient=0.72, fog=0.0),   # 정돈 · 빛이 잘 든다
+    2: dict(sun=1.10, ambient=0.82, fog=0.0),   # 혼란 · 밝지만 대비가 세다 = 조각난 빛
+    3: dict(sun=1.35, ambient=0.92, fog=0.0),   # 개방
 }
-HIDDEN_LIGHT = dict(sun=0.66, ambient=0.18, fog=0.0)
+HIDDEN_LIGHT = dict(sun=0.95, ambient=0.78, fog=0.0)
 
 SHADOW_STRENGTH = 0.62   # 흰 종이 위에서는 0.8만 돼도 먹처럼 진해진다
 
@@ -1106,15 +1122,71 @@ def _ramp_wall_span(area_pos, ramp_from, ramp_to, width, other_axis, fixed_local
     return (c0, c1)
 
 
+def ramp_cut(r, a, wall, along, perp, margin=0.6):
+    """경사로 발자국이 이 벽면과 겹치는 구간 (벽의 along 축 기준).
+
+    경사로를 길이·폭 방향으로 훑어, 벽 두께 안에 들어오는 점들의
+    along 좌표 범위를 돌려준다. 겹치는 게 없으면 None.
+    """
+    fx = r["from"]["x"] - a["pos"]["x"]; fz = r["from"]["z"] - a["pos"]["z"]
+    tx = r["to"]["x"] - a["pos"]["x"];   tz = r["to"]["z"] - a["pos"]["z"]
+    dx, dz = tx - fx, tz - fz
+    ln = math.hypot(dx, dz)
+    if ln < 1e-6:
+        return None
+    ux, uz = dx / ln, dz / ln
+    nx, nz = -uz, ux                      # 폭 방향
+    hw = r.get("width", 4.0) / 2
+
+    band = wall["scale"][perp] * 0.5 + margin
+    fixed = wall["pos"][perp]
+    lo, hi = None, None
+
+    for i in range(81):
+        t = i / 80
+        cx, cz = fx + dx * t, fz + dz * t
+        for j in range(17):
+            sgn = -1.0 + 2.0 * j / 16
+            wx, wz = cx + nx * hw * sgn, cz + nz * hw * sgn
+            v = wz if perp == "z" else wx
+            if abs(v - fixed) > band:
+                continue
+            u = wx if along == "x" else wz
+            lo = u if lo is None else min(lo, u)
+            hi = u if hi is None else max(hi, u)
+
+    if lo is None:
+        return None
+    return (lo - margin, hi + margin)
+
+
 def apply_doorways():
+    """길을 막는 벽에 문을 뚫는다.
+
+    외벽과 방 안의 장애물을 **다르게** 다뤄야 한다. 예전엔 둘 다
+    "입구→출구 직선이 스치면 뚫는다" 로 처리했는데, 그러면 모서리에서
+    직선이 스친 외벽까지 뚫려서 방에 구멍이 숭숭 났다.
+    실제로 1A 는 남·동 양쪽이, 1B·2D 는 경사로도 없는 자리가 뚫려 있었고,
+    플레이 중에 그 틈으로 방을 걸어 나갈 수 있었다.
+
+      · 외벽   — **경사로가 실제로 붙은 자리만**, **경사로 폭 그대로** 뚫는다.
+                 넓게 뚫으면 경사로 옆으로 허공에 나가는 틈이 남는다.
+      · 장애물 — 입구에서 출구로 가는 길을 막으면 뚫는다 (2F 의 좁은 통로).
+    """
     for a in AREAS:
         ins = [r for r in RAMPS if r.get("toId") == a["id"]]
         outs = [r for r in RAMPS if r.get("fromId") == a["id"]]
-        if not ins and not outs:
+        mouths = ins + outs        # 이 방에 붙은 경사로들
+        if not mouths:
             continue
 
-        entry = (ins[0]["to"]["x"] - a["pos"]["x"], ins[0]["to"]["z"] - a["pos"]["z"]) if ins else None
-        exit_ = (outs[0]["from"]["x"] - a["pos"]["x"], outs[0]["from"]["z"] - a["pos"]["z"]) if outs else None
+        # 첫 방(F0)은 들어오는 경사로가, 마지막 방(3C)은 나가는 경사로가 없다.
+        # 예전엔 둘 다 있어야 처리했는데, 그래서 그 두 방은 문이 아예 안 뚫렸다.
+        hx, hz = a["size"]["x"] / 2, a["size"]["z"] / 2
+        entry = ((ins[0]["to"]["x"] - a["pos"]["x"], ins[0]["to"]["z"] - a["pos"]["z"])
+                 if ins else None)
+        exit_ = ((outs[0]["from"]["x"] - a["pos"]["x"], outs[0]["from"]["z"] - a["pos"]["z"])
+                 if outs else None)
 
         out = []
         for o in a["objects"]:
@@ -1127,49 +1199,45 @@ def apply_doorways():
                 out.append(o); continue
 
             along = "x" if o["scale"]["x"] >= o["scale"]["z"] else "z"
-            other_axis = "z" if along == "x" else "x"
+            perp = "z" if along == "x" else "x"
+            half = hz if perp == "z" else hx
+
+            # 방 가장자리에 놓인 벽인가 (외벽)
+            is_shell = abs(abs(o["pos"][perp]) - half) < 1.2
+
+            cuts = []
+
+            # ① 이 벽을 실제로 지나는 경사로 — **발자국이 벽면과 만나는 구간 그대로**.
+            #
+            #    폭을 경사로 폭으로 고정하면 안 된다. 경사로가 벽을 비스듬히
+            #    지나면 벽면에서의 단면이 폭보다 넓어지고, 검사 19번이
+            #    "경사로가 벽에 걸린다"로 잡는다.
+            #    반대로 넉넉하게 8.0 으로 뚫으면 경사로 옆에 허공으로 나가는
+            #    틈이 남아 방을 걸어 나갈 수 있게 된다 — 실제로 그랬다.
+            for c in (ramp_cut(r, a, o, along, perp) for r in mouths):
+                if c:
+                    cuts.append(c)
+
+            # ② 외벽이 아닌 장애물이 걷는 길을 막으면 사람 지나갈 만큼 뚫는다
+            #    (2F 의 좁은 통로). 외벽에는 절대 이걸 적용하지 않는다 —
+            #    모서리를 스치는 직선까지 뚫려서 방에 구멍이 숭숭 났었다.
+            if not is_shell and entry and exit_:
+                h = _seg_hits_box(entry, exit_, o)
+                if h:
+                    at = h[0] if along == "x" else h[1]
+                    cuts.append((at - DOOR_W / 2, at + DOOR_W / 2))
+
+            if not cuts:
+                out.append(o); continue
+
             span = o["scale"][along]
             lo = o["pos"][along] - span / 2
             hi = o["pos"][along] + span / 2
-
-            # 경사로가 이 벽의 두께 안에 실제로 들어오는 구간을 직접 훑어서 잰다
-            # (_ramp_wall_span — 검사 18번과 같은 방식). 정면 진입이면 폭
-            # 전체가, 모서리를 스치는 진입이면 실제로 겹치는 만큼만 나온다.
-            wall_thickness = o["scale"][other_axis]
-            entry_span = _ramp_wall_span(a["pos"], ins[0]["from"], ins[0]["to"],
-                                          ins[0].get("width", 4.0), other_axis, o["pos"][other_axis],
-                                          wall_thickness, lo, hi) if ins else None
-            exit_span = _ramp_wall_span(a["pos"], outs[0]["from"], outs[0]["to"],
-                                         outs[0].get("width", 4.0), other_axis, o["pos"][other_axis],
-                                         wall_thickness, lo, hi) if outs else None
-
-            # 방 내부를 가로지르는 벽(예: 1C 의 분리벽)은 경계면이 아니라서
-            # 위 계산에 안 걸릴 수 있다 — 입구→출구 직선이 실제로 이 벽을
-            # 지나는지도 따로 본다.
-            hits = []
-            if entry is not None and exit_ is not None:
-                h = _seg_hits_box(entry, exit_, o)
-                if h: hits.append(h[0] if along == "x" else h[1])
-
-            if entry_span is None and exit_span is None and not hits:
+            cuts = [(max(c0, lo), min(c1, hi)) for c0, c1 in cuts]
+            cuts = sorted(c for c in cuts if c[1] - c[0] > 0.1)
+            if not cuts:
                 out.append(o); continue
 
-            # 문은 경사로가 실제로 겹치는 만큼만 뚫는다. 점마다 따로 DOOR_W(8.0)의
-            # 여유를 주던 예전 방식은 통로 양옆까지 벽이 통째로 사라지는 사고가
-            # 났다 — 그래서 작은 여유(DOOR_MARGIN)만 더한다. 입구·출구가 같은
-            # 벽에 있으면(2B·2E) 각자 자기 구간만큼만 뚫려 문이 두 개로 남는다.
-            DOOR_MARGIN = 0.6
-            cuts = []
-            for span in (entry_span, exit_span):
-                if span is None:
-                    continue
-                cuts.append((span[0] - DOOR_MARGIN, span[1] + DOOR_MARGIN))
-            for at in hits:
-                at = min(max(at, lo), hi)
-                cuts.append((at - DOOR_W / 2, at + DOOR_W / 2))
-            cuts.sort()
-
-            # 겹치는 문은 하나로 합친다
             merged = [list(cuts[0])]
             for c0, c1 in cuts[1:]:
                 if c0 <= merged[-1][1]:
@@ -1177,18 +1245,16 @@ def apply_doorways():
                 else:
                     merged.append([c0, c1])
 
-            # 문 사이에 남는 조각만 벽으로 남긴다
+            if is_canvas(o["name"]):
+                DOOR_ON_CANVAS.append(dict(
+                    area=a["id"], wall=o["name"], along=along, other=perp,
+                    fixed=o["pos"][perp], spans=[tuple(c) for c in merged]))
+
             parts, cursor, n = [], lo, 0
             for c0, c1 in merged + [[hi, hi]]:
                 if c0 - cursor > 0.4:
                     parts.append((cursor, min(c0, hi)))
                 cursor = max(cursor, c1)
-            if is_canvas(o["name"]):
-                other_axis = "z" if along == "x" else "x"
-                DOOR_ON_CANVAS.append(dict(
-                    area=a["id"], wall=o["name"], along=along, other=other_axis,
-                    fixed=o["pos"][other_axis], spans=[tuple(c) for c in merged]))
-
             for a0, a1 in parts:
                 n += 1
                 part = json.loads(json.dumps(o))
@@ -1202,11 +1268,22 @@ def apply_doorways():
 apply_doorways()
 
 
+# ═══════════════════════════════════════════════ 꾸미기
+#
+# "너무 허전하다" — 방마다 바닥 300~2,300㎡ 에 꾸밈 0~8개였다.
+# 무엇을 어디에 두는지는 Tools/dressing.py 에 있다. 여기서는 부르기만 한다.
+# 반드시 문을 뚫은 **뒤에** 부른다 — 문 자리를 알아야 앞을 비워 둔다.
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import dressing as _dressing
+DRESSED = _dressing.apply_dressing(AREAS, RAMPS, LIGHT_DIR, room_height, lit_targets)
+
+
 
 
 # ═══════════════════════════════════════════════ 출력 / 검증
 def build():
     out = dict(areas=AREAS, ramps=RAMPS,
+               palette=[dict(key=k, hex=v) for k, v in _dressing.PALETTE.items()],
                meta=dict(spiralRadius1=R1, spiralRadius2=R2, slopeLimit=SLOPE_LIMIT,
                          glideDrop=GLIDE_DROP, foldRise=FOLD_RISE,
                          xzScale=XZ_SCALE, camPitch=CAM_PITCH, camPad=CAM_PAD,
@@ -1799,7 +1876,34 @@ def validate():
                 if reported:
                     break
 
-    print(f"구역 {len(AREAS)} / 경사로 {len(RAMPS)} / 잠긴 출구 {gated}")
+    # 20) 층이 올라갈수록 밝아지는가 + 방이 무광이 아닌가
+    #
+    #     Docs/02 §6 의 "층별 비주얼 진행" 이 설계 규칙이다. 숫자를 손으로
+    #     고치다 보면 쉽게 깨진다 — 실제로 2층 앰비언트(0.20)가 1층(0.24)보다
+    #     낮았던 적이 있다.
+    #
+    #     그리고 천장을 덮은 뒤로는 앰비언트가 너무 낮으면 방을 밝히는 게
+    #     따뜻한 강조등뿐이 되어 흰 종이 게임이 누렇게 뜬다. 하한을 건다.
+    AMB_FLOOR = 0.45
+    prev = None
+    for f in sorted(FLOOR_LIGHT):
+        v = FLOOR_LIGHT[f]
+        if v["ambient"] < AMB_FLOOR:
+            errs.append(f"{f}층 앰비언트 {v['ambient']:.2f} < {AMB_FLOOR} — "
+                        f"천창 밖이 무광이 되어 강조등 색이 방 전체를 물들인다")
+        if prev is not None:
+            if v["sun"] < prev["sun"] or v["ambient"] < prev["ambient"]:
+                errs.append(f"{f}층이 아래층보다 어둡다 "
+                            f"(sun {prev['sun']:.2f}→{v['sun']:.2f}, "
+                            f"ambient {prev['ambient']:.2f}→{v['ambient']:.2f}) "
+                            f"— '층이 올라갈수록 밝아진다'가 깨진다")
+        prev = v
+
+    # 꾸미기 — 빛 경로·문·퍼즐 자리·시야·금지색
+    _dressing.check(AREAS, RAMPS, LIGHT_DIR, room_height, lit_targets,
+                    errs.append, warns.append)
+
+    print(f"구역 {len(AREAS)} / 경사로 {len(RAMPS)} / 잠긴 출구 {gated} / 꾸미기 {DRESSED}")
     print(f"\n오류 {len(errs)}건")
     for e in errs: print("  ✗", e)
     print(f"\n경고 {len(warns)}건")

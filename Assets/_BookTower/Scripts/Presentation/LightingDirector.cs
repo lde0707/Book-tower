@@ -51,7 +51,7 @@ namespace BookTower.Presentation
             curSun = Mathf.Lerp(curSun, targetSun, k);
             curAmbient = Mathf.Lerp(curAmbient, targetAmbient, k);
             curFog = Mathf.Lerp(curFog, targetFog, k);
-            Push();
+            Push();   // 매 프레임 — 트림을 돌리면 바로 보여야 한다
         }
 
         /// <summary>방의 조명 프로필을 목표로 삼는다. RoomManager 가 호출한다.</summary>
@@ -71,12 +71,27 @@ namespace BookTower.Presentation
             }
         }
 
+        /// <summary>
+        /// 플레이 중에 밝기를 곱해 보는 값 (개발용).
+        ///
+        /// 조명은 화면을 봐야 판단이 되는데, 값은 Tools/level_layout.py 에 있고
+        /// 고치려면 씬을 다시 구워야 한다. 그 왕복이 너무 느려서 튜닝이 안 된다.
+        /// 여기서 실시간으로 돌려 보고, 좋은 배수를 찾으면 그걸 데이터에 굽는다.
+        /// 완성된 게임에는 1.0 으로 남고 개발용 표시(F1)와 함께 사라진다.
+        /// </summary>
+        public static float AmbientTrim = 1f;
+        public static float SunTrim = 1f;
+
+        /// <summary>지금 실제로 적용 중인 값 — 개발용 표시가 읽는다.</summary>
+        public float LiveAmbient => curAmbient * AmbientTrim;
+        public float LiveSun => curSun * SunTrim;
+
         private void Push()
         {
-            if (sun != null) sun.intensity = curSun;
+            if (sun != null) sun.intensity = curSun * SunTrim;
 
             RenderSettings.ambientMode = AmbientMode.Flat;
-            RenderSettings.ambientLight = shadowTint * curAmbient;
+            RenderSettings.ambientLight = shadowTint * (curAmbient * AmbientTrim);
 
             RenderSettings.fog = curFog > 0.0001f;
             RenderSettings.fogDensity = curFog;
