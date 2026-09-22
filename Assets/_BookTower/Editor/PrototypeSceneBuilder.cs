@@ -77,6 +77,25 @@ public static class PrototypeSceneBuilder
     /// <summary>그림자. 연필로 문지른 회색이지 검정이 아니다</summary>
     private static readonly Color ShadowTint = Hex("#6B6B73");   // 살짝 차갑게 — 연필 흑연색
 
+    // 값은 종이 텍스처 팔레트(ihatecolors "Paper Texture": #F5F0E8 / #E0D8C8 /
+    // #C0B8A8 / #4A4038)에서 가져왔다. 눈대중으로 찍던 회갈색보다
+    // 노란기가 있어 종이로 읽힌다.
+    private static readonly Color BirdPaper = Hex("#E0D8C8");   // 몸통
+    private static readonly Color BirdHead = Hex("#E8E0D0");    // 고개 — 한 단계 밝게
+    private static readonly Color BirdShade = Hex("#C9C0AE");   // 날개
+
+    // 정령. 몸통은 T_Ghost_Ramp 가 색까지 맡는다(위 #F2EADB → 아래 #B9B8B2).
+    private static readonly Color GhostEyeWhite = Hex("#F5F0E8");   // 눈알 — 몸보다 한 단계 밝게
+    private static readonly Color GhostInk = Hex("#4A4038");        // 눈동자·입 — 같은 팔레트의 잉크색
+
+    /// <summary>
+    /// 플레이어를 정령(Quaternius Ghost, CC0)으로 쓸지, 접힌 종이 새로 쓸지.
+    ///
+    /// false 로 되돌리면 새가 그대로 돌아온다 — 새 코드는 지우지 않았다.
+    /// 정령 쪽은 아직 외곽선이 없다(스킨드 메시라 껍질 방식이 안 먹는다).
+    /// </summary>
+    private const bool UseGhostPlayer = true;
+
     [MenuItem("Book Tower/InGame 씬 구성하기", priority = 0)]
     public static void Build()
     {
@@ -344,9 +363,10 @@ public static class PrototypeSceneBuilder
         player.transform.position = new Vector3(0f, 1.2f, -6.4f);  // 표지(F0)의 시작 표식 (XZ 1.6배 확대 반영)
 
         var cc = player.AddComponent<CharacterController>();
-        cc.height = 0.9f;
-        cc.radius = 0.25f;
-        cc.center = new Vector3(0f, 0.45f, 0f);
+        // 모델 키(1.40)에 맞춘다. 0.9 로 두면 머리가 천장·문틀을 뚫고 지나간다.
+        cc.height = GhostPlayerBuilder.Height;
+        cc.radius = 0.30f;
+        cc.center = new Vector3(0f, GhostPlayerBuilder.Height * 0.5f, 0f);
         cc.slopeLimit = 50f;
         // 작은 턱에 걸려 멈추는 게 조작 불만의 대부분이다.
         // 점프보다 이쪽이 먼저 할 일이고, 퍼즐에는 아무 영향이 없다.
@@ -359,24 +379,33 @@ public static class PrototypeSceneBuilder
         player.AddComponent<EchoInteractor>();     // 커서 · 조각 줍기 + 주름 깨우기
         player.AddComponent<TargetInteractor>();   // F 키 · 몸이 향한 것 하나
 
-        // 임시 비주얼 — 실제 책갈피새 모델로 교체 예정
-        var body = GameObject.CreatePrimitive(PrimitiveType.Capsule);
-        body.name = "TEMP_Body";
-        body.transform.SetParent(player.transform, false);
-        body.transform.localPosition = new Vector3(0f, 0.45f, 0f);
-        body.transform.localScale = new Vector3(0.4f, 0.3f, 0.4f);
-        UnityEngine.Object.DestroyImmediate(body.GetComponent<Collider>());
-        BookTower.Presentation.PencilOutline.Attach(body, matOutline, 0.03f);
-        body.GetComponent<MeshRenderer>().sharedMaterial = ribbonMat;
-
-        var beak = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        beak.name = "TEMP_Beak";
-        beak.transform.SetParent(player.transform, false);
-        beak.transform.localPosition = new Vector3(0f, 0.45f, 0.28f);
-        beak.transform.localScale = new Vector3(0.08f, 0.08f, 0.22f);
-        UnityEngine.Object.DestroyImmediate(beak.GetComponent<Collider>());
-        BookTower.Presentation.PencilOutline.Attach(beak, matOutline, 0.02f);
-        beak.GetComponent<MeshRenderer>().sharedMaterial = ribbonMat;
+        // 플레이어 모습 — 접힌 종이 새냐, 정령이냐.
+        //
+        // 새는 전부 코드로 만든 것이라 팔레트·그림자·라이선스가 전부 맞춰져 있고,
+        // 정령은 기성 CC0 에셋이라 본 애니메이션이 딸려 온다.
+        // 둘을 다 살려 두고 이 값 하나로 고른다 — 한쪽을 지우면 되돌릴 수가 없다.
+        if (UseGhostPlayer)
+        {
+            // 역할별로 색을 가른다. 몸통 명암은 텍스처가 맡으므로 바탕색은 흰색.
+            // 리본은 월드 전체의 포인트 색(크레파스 빨강)을 그대로 쓴다 —
+            // 새에서 정령으로 바뀌어도 "책갈피" 는 이어져야 한다.
+            GhostPlayerBuilder.Build(
+                player.transform,
+                MakeMaterial("M_Ghost_Body", Color.white, "T_Ghost_Ramp"),
+                MakeMaterial("M_Ghost_EyeWhite", GhostEyeWhite, "T_Paper_Soft"),
+                MakeMaterial("M_Ghost_Ink", GhostInk, "T_Paper_Soft"),
+                ribbonMat);
+        }
+        else
+        {
+            PaperBirdBuilder.Build(
+                player.transform,
+                MakeMaterial("M_Bird_Paper", BirdPaper, "T_Paper_Soft"),
+                MakeMaterial("M_Bird_Head", BirdHead, "T_Paper_Soft"),
+                MakeMaterial("M_Bird_Shade", BirdShade, "T_Paper_Soft"),
+                ribbonMat,
+                matOutline);
+        }
 
         return player;
     }
