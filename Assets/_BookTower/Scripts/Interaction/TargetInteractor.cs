@@ -70,28 +70,13 @@ namespace BookTower.Interaction
         /// </summary>
         private void Retarget()
         {
-            Vector3 p = transform.position;
-            Vector3 fwd = transform.forward;
-
-            Interactable best = null;
-            float bestScore = float.MaxValue;
-
-            foreach (Interactable it in Interactable.All)
+            Interactable best=null;
+            var camera=UnityEngine.Camera.main;
+            if(BookTower.CameraSystem.PaperCamera.AimActive && camera!=null &&
+                InteractionRay.Cast(BookTower.CameraSystem.PaperCamera.AimRay(camera),out var hit,100f))
             {
-                if (it == null || !it.isActiveAndEnabled || !it.InRange) continue;
-                if (!Visible(it)) continue;
-
-                Vector3 d = it.transform.position - p;
-                d.y = 0f;
-                float dist = d.magnitude;
-
-                float dot = dist > 0.01f ? Vector3.Dot(fwd, d / dist) : 1f;
-                float score = dist * Mathf.Lerp(1f, backPenalty, (1f - dot) * 0.5f);
-
-                // 지금 고른 것은 조금 유리하게 — 안 그러면 걸을 때마다 깜빡인다
-                if (it == Current) score /= stickiness;
-
-                if (score < bestScore) { bestScore = score; best = it; }
+                var candidate=hit.collider.GetComponentInParent<Interactable>();
+                if(candidate!=null && candidate.isActiveAndEnabled && candidate.InRange && Visible(candidate)) best=candidate;
             }
 
             if (best == Current) return;
@@ -150,6 +135,8 @@ namespace BookTower.Interaction
             if (spot != null) { spot.TryAssemble(transform.position); return; }
 
             var panel = go.GetComponentInParent<FoldPanel>();
+            var beacon = go.GetComponentInParent<BookTower.Puzzles.MemoryBeacon>();
+            if (beacon != null) { beacon.TryIgnite(transform.position); return; }
             if (panel != null)
             {
                 if (input.ModifierHeld) panel.CycleBackward();

@@ -1,26 +1,12 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using BookTower.Core;
+using BookTower.PlayerSystem;
 
 namespace BookTower.CameraSystem
 {
-    /// <summary>
-    /// 디오라마형 3인칭 카메라.
-    ///
-    /// 규칙 (플레이어 스펙 문서 5-1):
-    ///  - 직교(Orthographic) 투영 — 평면감 유지 + 정렬 판정 정확도
-    ///  - 회전은 90도 스냅 4방향만 (Q / E). 자유 회전 금지
-    ///  - 캐릭터를 "느슨하게" 따라감 — 밀착 추적 금지, 데드존 사용
-    ///
-    /// 모드
-    ///  - Room      : 지금 있는 방 하나를 화면에 담는다 (기본 플레이 모드)
-    ///  - Follow    : 방 개념 없이 플레이어만 따라감
-    ///  - Overview  : 맵 전체가 화면에 들어오게 자동으로 맞춤 (레벨 확인·퍼즐 배치용)
-    ///  - Fixed     : 한 지점 고정 (특정 퍼즐 구도)
-    ///  - Cinematic : 연출이 카메라를 직접 제어
-    ///
-    /// Tab 키로 Follow ↔ Overview 전환.
-    /// </summary>
+    /// <summary>마우스 근접 3인칭. Q/E는 월드 90도 축으로 관찰 고정하며 이동하면 해제한다.</summary>
+    [DefaultExecutionOrder(-80)]
     [RequireComponent(typeof(Camera))]
     [DisallowMultipleComponent]
     public class PaperCamera : MonoBehaviour
@@ -29,6 +15,13 @@ namespace BookTower.CameraSystem
 
         [Header("추적 대상")]
         public Transform target;
+
+        [Header("근접 3인칭 원근 카메라")]
+        [SerializeField] private float perspectiveFov = 55f;
+        [SerializeField] private float closeDistance = 5.8f;
+        [SerializeField] private float closeFocusHeight = 0.85f;
+        [SerializeField] private float cameraCollisionRadius = 0.28f;
+        [SerializeField] private float cameraWallClearance = 0.18f;
 
         [Header("모드")]
         [SerializeField] private CameraMode mode = CameraMode.Follow;
@@ -63,7 +56,7 @@ namespace BookTower.CameraSystem
 
         [Tooltip("내려다보는 각도. 0에 가까울수록 완전한 2D처럼, 클수록 디오라마처럼 보인다. " +
                  "그림자가 바닥에 지는 걸 봐야 하므로 25~35도 권장")]
-        [Range(0f, 60f)][SerializeField] private float pitch = 30f;
+        [Range(0f, 60f)][SerializeField] private float pitch = 12f;
 
         [Header("스냅 회전")]
         [SerializeField] private float rotateSpeed = 8f;
@@ -75,6 +68,7 @@ namespace BookTower.CameraSystem
 
         private Bounds roomBounds;
         private float roomPad = 1.18f;
+        private float roomFocusHeight;
         private bool hasRoom;
         private bool transiting;
         private CameraMode modeBeforeOverview = CameraMode.Room;
@@ -84,34 +78,99 @@ namespace BookTower.CameraSystem
         private float orthoSize;
         private float distance = 40f;
         private Camera cam;
+        private PlayerInputReader playerInput;
+        private bool observationLocked;
+        private float lockedYaw;
+        private float currentYaw;
+        private float aimYaw;
+        [SerializeField] private float mouseSensitivity = .12f;
+        [SerializeField] private float shoulderOffset = .55f;
+        public float AimYaw => observationLocked ? lockedYaw : aimYaw;
+        public static bool AimActive => Cursor.lockState == CursorLockMode.Locked;
+
+        public static Ray AimRay(Camera camera) => camera.ViewportPointToRay(new Vector3(.5f,.5f,0));
+
+        public void SetAim(float yaw, float vertical)
+        {
+            aimYaw = Mathf.Repeat(yaw,360f);
+            pitch = Mathf.Clamp(vertical,-65f,70f);
+            observationLocked = false;
+        }
+
+        public void ApplyLookDelta(Vector2 delta)
+        {
+            if(observationLocked || mode == CameraMode.Overview) return;
+            SetAim(aimYaw + delta.x * mouseSensitivity, pitch - delta.y * mouseSensitivity);
+        }
+
+        public static float CardinalYaw(float yaw, int side)
+        {
+            float turns = Mathf.Repeat(yaw,360f)/90f;
+            return Mathf.Repeat((side>0 ? Mathf.Floor(turns+.0001f)+1f : Mathf.Ceil(turns-.0001f)-1f)*90f,360f);
+        }
+
+        private void OnDisable() { Cursor.lockState=CursorLockMode.None; Cursor.visible=true; }
+        private void OnApplicationFocus(bool focused)
+        { if(!focused) { Cursor.lockState=CursorLockMode.None; Cursor.visible=true; } }
+
+        private void Update() => HandleInput();
+
+        private void OnGUI()
+        {
+            if(!AimActive || mode==CameraMode.Overview || mode==CameraMode.Cinematic) return;
+            if(GameFlow.Instance!=null && !GameFlow.Instance.AcceptsPlayerInput) return;
+            Color old=GUI.color;
+            GUI.color=new Color(.16f,.09f,.04f,.7f);
+            GUI.DrawTexture(new Rect(Screen.width*.5f-3,Screen.height*.5f-3,6,6),Texture2D.whiteTexture);
+            GUI.color=new Color(1f,.9f,.67f,.9f);
+            GUI.DrawTexture(new Rect(Screen.width*.5f-1,Screen.height*.5f-1,2,2),Texture2D.whiteTexture);
+            GUI.color=old;
+        }
 
         /// <summary>현재 스냅 단계 (0~3)</summary>
         public int YawStep => yawStep;
 
         /// <summary>현재 방위각. 플레이어 입력 재매핑에 쓴다</summary>
-        public float YawDegrees => yawStep * 90f;
+        public float YawDegrees => currentYaw;
+
+        public bool IsObservationLocked => observationLocked;
+
+        /// <summary>이동이 시작되는 프레임에 관찰 고정을 풀고 플레이어 전방 기준을 돌려준다.</summary>
+        public float ConsumeMovementYaw()
+        {
+            if(observationLocked) aimYaw=lockedYaw;
+            observationLocked=false;
+            return aimYaw;
+        }
 
         public CameraMode Mode => mode;
 
         private void Awake()
         {
             cam = GetComponent<Camera>();
-            cam.orthographic = true;
+            cam.orthographic = false;
+            cam.fieldOfView = perspectiveFov;
 
             orthoSize = followOrthoSize;
-            if (target != null) focus = target.position;
+            if (target != null)
+            {
+                focus = target.position + Vector3.up * closeFocusHeight;
+                currentYaw = aimYaw = target.eulerAngles.y;
+                playerInput = target.GetComponent<PlayerInputReader>();
+            }
         }
 
         private void Start()
         {
             if (mode == CameraMode.Overview) FitToFrameTarget();
+            Cursor.lockState=CursorLockMode.Locked; Cursor.visible=false;
+            distance=closeDistance;
         }
 
         private void LateUpdate()
         {
             if (mode == CameraMode.Cinematic) return;
 
-            HandleInput();
 
             if (mode == CameraMode.Follow) FollowTarget();
             else if (mode == CameraMode.Room) FitRoom();
@@ -122,13 +181,30 @@ namespace BookTower.CameraSystem
 
         private void HandleInput()
         {
-            if (GameFlow.Instance != null && !GameFlow.Instance.AcceptsPlayerInput) return;
+            if (GameFlow.Instance != null && !GameFlow.Instance.AcceptsPlayerInput)
+            { Cursor.lockState=CursorLockMode.None; Cursor.visible=true; return; }
 
             Keyboard kb = Keyboard.current;
             if (kb == null) return;
+            if(kb.escapeKey.wasPressedThisFrame)
+            { Cursor.lockState=CursorLockMode.None; Cursor.visible=true; return; }
+            var mouse=Mouse.current;
+            if(!AimActive)
+            {
+                if(mouse!=null && mouse.leftButton.wasPressedThisFrame)
+                { Cursor.lockState=CursorLockMode.Locked; Cursor.visible=false; }
+                return;
+            }
+            if(mouse!=null) ApplyLookDelta(mouse.delta.ReadValue());
 
-            if (kb.qKey.wasPressedThisFrame) yawStep = (yawStep + 3) % 4;  // 반시계
-            if (kb.eKey.wasPressedThisFrame) yawStep = (yawStep + 1) % 4;  // 시계
+            if (kb.qKey.wasPressedThisFrame) LockObservation(-1);
+            if (kb.eKey.wasPressedThisFrame) LockObservation(1);
+
+            // 관찰 방향은 이동을 시작하는 순간 해제한다. 플레이어 입력보다 늦게
+            // 해제하면 첫 한 걸음만 옆 방향으로 튀므로 LateUpdate에서도 입력 원본을
+            // 확인하고 즉시 추적 각도로 돌아간다.
+            if (observationLocked && playerInput != null && playerInput.Move.sqrMagnitude > .01f)
+                ConsumeMovementYaw();
 
             if (kb.tabKey.wasPressedThisFrame)
             {
@@ -139,17 +215,10 @@ namespace BookTower.CameraSystem
 
         private void FollowTarget()
         {
-            orthoSize = Mathf.Lerp(orthoSize, followOrthoSize, 1f - Mathf.Exp(-rotateSpeed * Time.deltaTime));
-
             if (target == null) return;
-
-            if (Vector3.Distance(focus, target.position) > deadZone)
-            {
-                focus = Vector3.Lerp(
-                    focus,
-                    target.position,
-                    1f - Mathf.Exp(-followSpeed * Time.deltaTime));
-            }
+            Vector3 wanted = target.position + Vector3.up * closeFocusHeight;
+            focus = Vector3.Lerp(focus, wanted, 1f - Mathf.Exp(-followSpeed * Time.deltaTime));
+            distance = Mathf.Lerp(distance, closeDistance, 1f - Mathf.Exp(-followSpeed * Time.deltaTime));
         }
 
         /// <summary>
@@ -214,28 +283,7 @@ namespace BookTower.CameraSystem
         /// </summary>
         private void FitRoom()
         {
-            if (!hasRoom) { FollowTarget(); return; }
-
-            float wantSize = Mathf.Min(embeddedOrthoSize, maxRoomOrthoSize);
-            Vector3 wantFocus = ClampToRoomBounds(target != null ? target.position : roomBounds.center);
-
-            // 경사로를 건너는 중 — 방 구도 안에 경사로가 없으므로 플레이어를 따라간다.
-            // 방 안에서는 절대 이쪽으로 오지 않는다 (RoomManager 가 방 부피 밖일 때만 켠다).
-            if (transiting && target != null)
-            {
-                wantFocus = target.position;
-                wantSize = Mathf.Min(wantSize, transitOrthoSize);
-            }
-
-            float k = 1f - Mathf.Exp(-roomFollowSpeed * Time.deltaTime);
-            orthoSize = Mathf.Lerp(orthoSize, wantSize, k);
-            focus = Vector3.Lerp(focus, wantFocus, k);
-
-            // 직교 카메라에서 거리는 원근에 영향을 주지 않는다.
-            // 방이 카메라 뒤로 넘어가지만 않으면 되므로 딱 그만큼만 물린다.
-            // 예전엔 대각선의 2배(60~137)를 썼는데, 거리 기반 효과를 쓸 때
-            // 그게 그대로 화면 전체에 걸린다.
-            distance = Mathf.Max(40f, roomBounds.size.magnitude * 0.75f + 15f);
+            FollowTarget();
         }
 
         /// <summary>플레이어 위치를 현재 방 부피 안으로 눌러 넣는다 (시선이 밖으로 안 나가게)</summary>
@@ -267,35 +315,64 @@ namespace BookTower.CameraSystem
 
             roomBounds = room.WorldBounds;
             roomPad = room.CamPad;
+            roomFocusHeight = room.RoomId == "3A" ? 2f : 0.7f;
             if (first) transiting = false;
             hasRoom = true;
-            yawStep = ((room.CamYaw % 4) + 4) % 4;   // 방마다 정해둔 각도로 되돌린다
             mode = CameraMode.Room;
 
             // 첫 방은 즉시 맞춘다. 보간을 두면 게임 시작 직후 카메라가
             // 엉뚱한 데서 날아오는 것처럼 보인다.
             if (first)
             {
-                focus = ClampToRoomBounds(target != null ? target.position : roomBounds.center);
-                orthoSize = Mathf.Min(embeddedOrthoSize, maxRoomOrthoSize);
-                distance = Mathf.Max(60f, roomBounds.size.magnitude * 2f);
+                focus = (target != null ? target.position : roomBounds.center) + Vector3.up * closeFocusHeight;
+                currentYaw = aimYaw = target != null ? target.eulerAngles.y : room.CamYaw * 90f;
+                distance = closeDistance;
                 ApplyTransform();
             }
         }
 
         private void ApplyTransform()
         {
-            Quaternion targetRot = Quaternion.Euler(pitch, YawDegrees, 0f);
+            float wantedYaw = observationLocked
+                ? lockedYaw
+                : aimYaw;
+            currentYaw = observationLocked ? Mathf.LerpAngle(currentYaw,wantedYaw,1f-Mathf.Exp(-rotateSpeed*Time.deltaTime)) : wantedYaw;
+            if(Mathf.Abs(Mathf.DeltaAngle(currentYaw,wantedYaw))<.03f) currentYaw=wantedYaw;
+            yawStep = ((Mathf.RoundToInt(currentYaw/90f)%4)+4)%4;
+            Quaternion targetRot = Quaternion.Euler(pitch, currentYaw, 0f);
 
-            transform.rotation = Quaternion.Slerp(
-                transform.rotation,
-                targetRot,
-                1f - Mathf.Exp(-rotateSpeed * Time.deltaTime));
+            transform.rotation = targetRot;
 
-            transform.position = focus - transform.rotation * Vector3.forward * distance;
+            Vector3 wantedPosition = focus - transform.rotation * Vector3.forward * distance + transform.right*shoulderOffset;
+            transform.position = ResolveCameraCollision(focus,wantedPosition);
 
-            cam.orthographicSize = orthoSize;
-            cam.farClipPlane = Mathf.Max(200f, distance * 3f);
+            cam.orthographic = mode == CameraMode.Overview;
+            if(cam.orthographic) cam.orthographicSize = orthoSize;
+            else cam.fieldOfView = perspectiveFov;
+            cam.nearClipPlane = .08f;
+            cam.farClipPlane = Mathf.Max(250f, distance * 4f);
+        }
+
+        public void LockObservation(int side)
+        {
+            lockedYaw = CardinalYaw(observationLocked ? lockedYaw : aimYaw, side);
+            observationLocked = true;
+        }
+
+        private Vector3 ResolveCameraCollision(Vector3 origin,Vector3 wanted)
+        {
+            Vector3 delta=wanted-origin;
+            float length=delta.magnitude;
+            if(length<.01f)return wanted;
+            RaycastHit[] hits=Physics.SphereCastAll(origin,cameraCollisionRadius,delta/length,length);
+            float nearest=length;
+            foreach(var hit in hits)
+            {
+                if(hit.collider==null || hit.collider.isTrigger)continue;
+                if(target!=null && hit.collider.transform.IsChildOf(target))continue;
+                nearest=Mathf.Min(nearest,Mathf.Max(.35f,hit.distance-cameraWallClearance));
+            }
+            return origin+delta.normalized*nearest;
         }
 
         // ---------------- 외부 제어 ----------------
@@ -313,9 +390,14 @@ namespace BookTower.CameraSystem
             mode = CameraMode.Fixed;
         }
 
-        public void ReturnToFollow() => SetMode(CameraMode.Follow);
+        public void ReturnToFollow() { observationLocked=false; SetMode(CameraMode.Follow); }
 
         /// <summary>스냅 각도를 코드로 지정 (연출에서 특정 각도를 보여줄 때)</summary>
-        public void SetYawStep(int step) => yawStep = ((step % 4) + 4) % 4;
+        public void SetYawStep(int step)
+        {
+            yawStep=((step%4)+4)%4;
+            currentYaw=yawStep*90f;
+            lockedYaw=aimYaw=currentYaw;
+        }
     }
 }

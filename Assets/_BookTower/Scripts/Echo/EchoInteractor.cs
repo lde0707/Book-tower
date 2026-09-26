@@ -38,7 +38,7 @@ namespace BookTower.EchoSystem
             Mouse mouse = Mouse.current;
             if (mouse == null) return;
 
-            Ray ray = cam.ScreenPointToRay(mouse.position.ReadValue());
+            Ray ray = BookTower.CameraSystem.PaperCamera.AimRay(cam);
             // 숨겨진 방의 콜라이더에 가로막히지 않게 보이는 것만 고른다
             if (!InteractionRay.Cast(ray, out RaycastHit hit, 1000f, rayMask)) return;
 
@@ -69,6 +69,8 @@ namespace BookTower.EchoSystem
             // ③ 맞추는 자리 — 모은 조각을 여기서 맞춘다
             var spot = hit.collider.GetComponentInParent<AssemblyPoint>();
             if (spot != null && spot.TryAssemble(transform.position)) return;
+            var beacon = hit.collider.GetComponentInParent<BookTower.Puzzles.MemoryBeacon>();
+            if (beacon != null) { beacon.TryIgnite(transform.position); return; }
 
             if (logMisses) Debug.Log($"[상호작용] '{hit.collider.name}' 은 만질 수 있는 게 아니다");
         }

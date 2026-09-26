@@ -1,0 +1,153 @@
+PASS: 연결_3B→3C closed gate preserves horizontal doorway orientation
+PASS: 연결_3B→3C has an enabled solid gate collider (잠금_3B:True:Center: (-10.00, 76.35, 25.69), Extents: (4.75, 4.25, 0.60), 문틀_좌:True:Center: (-15.75, 72.18, 21.50), Extents: (1.00, 0.12, 4.25), 문틀_우:True:Center: (-4.25, 72.18, 21.50), Extents: (1.00, 0.12, 4.25))
+PASS: 연결_3B→3C gate collision is not ignored by player
+PASS: 연결_3B→3C test starts inside source room
+PASS: 연결_3B→3C locked mouth blocks offset 0 (progress 15.97, position (-10.00, 67.05, 42.97))
+PASS: 연결_3B→3C test starts inside source room
+PASS: 연결_3B→3C locked mouth blocks offset -2.4 (progress 8.24, position (-15.50, 66.57, 35.24))
+PASS: 연결_3B→3C test starts inside source room
+PASS: 연결_3B→3C locked mouth blocks offset 2.4 (progress 8.24, position (-4.50, 66.57, 35.24))
+PASS: 연결_3B→3C test starts inside source room
+PASS: 연결_3B→3C locked mouth blocks offset -3.25 (progress 8.12, position (-16.14, 66.61, 35.12))
+PASS: 연결_3B→3C test starts inside source room
+PASS: 연결_3B→3C locked mouth blocks offset 3.25 (progress 8.12, position (-3.86, 66.61, 35.12))
+PASS: 연결_3A→3B closed gate preserves horizontal doorway orientation
+PASS: 연결_3A→3B has an enabled solid gate collider (잠금_3A:True:Center: (-10.00, 70.35, -69.31), Extents: (4.75, 4.25, 0.60), 문틀_좌:True:Center: (-15.75, 66.18, -73.50), Extents: (1.00, 0.12, 4.25), 문틀_우:True:Center: (-4.25, 66.18, -73.50), Extents: (1.00, 0.12, 4.25))
+PASS: 연결_3A→3B gate collision is not ignored by player
+PASS: 연결_3A→3B test starts inside source room
+PASS: 연결_3A→3B locked mouth blocks offset 0 (progress 15.51, position (-10.00, 60.14, -52.49))
+PASS: 연결_3A→3B test starts inside source room
+PASS: 연결_3A→3B locked mouth blocks offset -2.4 (progress -2.23, position (-14.51, 66.20, -70.23))
+PASS: 연결_3A→3B test starts inside source room
+PASS: 연결_3A→3B locked mouth blocks offset 2.4 (progress -2.23, position (-5.49, 66.20, -70.23))
+PASS: 연결_3A→3B test starts inside source room
+PASS: 연결_3A→3B locked mouth blocks offset -3.25 (progress 8.31, position (-15.32, 60.54, -59.69))
+PASS: 연결_3A→3B test starts inside source room
+PASS: 연결_3A→3B locked mouth blocks offset 3.25 (progress 8.31, position (-4.68, 60.54, -59.69))
+PASS: 연결_F0→1A closed gate preserves horizontal doorway orientation
+PASS: 연결_F0→1A has an enabled solid gate collider (잠금_F0:True:Center: (26.78, 4.35, -209.29), Extents: (2.32, 4.25, 4.63), 문틀_좌:True:Center: (20.76, 0.18, -205.50), Extents: (4.32, 0.12, 2.51), 문틀_우:True:Center: (25.03, 0.18, -216.18), Extents: (4.32, 0.12, 2.51))
+PASS: 연결_F0→1A gate collision is not ignored by player
+PASS: 연결_F0→1A test starts inside source room
+PASS: 연결_F0→1A locked mouth blocks offset 0 (progress -2.23, position (25.93, 0.20, -209.63))
+PASS: 연결_F0→1A test starts inside source room
+PASS: 연결_F0→1A locked mouth blocks offset -2.4 (progress -2.23, position (25.04, 0.20, -207.40))
+PASS: 연결_F0→1A test starts inside source room
+PASS: 연결_F0→1A locked mouth blocks offset 2.4 (progress -2.23, position (26.82, 0.20, -211.86))
+PASS: 연결_F0→1A test starts inside source room
+PASS: 연결_F0→1A locked mouth blocks offset -3.25 (progress 9.17, position (35.31, -6.25, -202.38))
+PASS: 연결_F0→1A test starts inside source room
+PASS: 연결_F0→1A locked mouth blocks offset 3.25 (progress 9.11, position (37.66, -6.31, -208.41))
+PASS: 연결_1A→1B closed gate preserves horizontal doorway orientation
+PASS: 연결_1A→1B has an enabled solid gate collider (잠금_1A:True:Center: (123.64, 8.35, -152.99), Extents: (3.97, 4.25, 3.58), 문틀_좌:True:Center: (116.55, 4.18, -152.35), Extents: (3.55, 0.12, 3.86), 문틀_우:True:Center: (125.21, 4.18, -159.93), Extents: (3.55, 0.12, 3.86))
+PASS: 연결_1A→1B gate collision is not ignored by player
+PASS: 연결_1A→1B test starts inside source room
+PASS: 연결_1A→1B locked mouth blocks offset 0 (progress -2.23, position (123.03, 4.20, -153.68))
+PASS: 연결_1A→1B test starts inside source room
+PASS: 연결_1A→1B locked mouth blocks offset -2.4 (progress -2.23, position (121.23, 4.20, -152.10))
+PASS: 연결_1A→1B test starts inside source room
+PASS: 연결_1A→1B locked mouth blocks offset 2.4 (progress -2.23, position (124.84, 4.20, -155.26))
+PASS: 연결_1A→1B test starts inside source room
+PASS: 연결_1A→1B locked mouth blocks offset -3.25 (progress 7.64, position (127.28, -2.29, -144.28))
+PASS: 연결_1A→1B test starts inside source room
+PASS: 연결_1A→1B locked mouth blocks offset 3.25 (progress 9.17, position (132.98, -2.25, -147.24))
+PASS: 연결_1B→1C closed gate preserves horizontal doorway orientation
+PASS: 연결_1B→1C has an enabled solid gate collider (잠금_1B:True:Center: (170.00, 12.35, -69.31), Extents: (4.75, 4.25, 0.60), 문틀_좌:True:Center: (164.25, 8.18, -73.50), Extents: (1.00, 0.12, 4.25), 문틀_우:True:Center: (175.75, 8.18, -73.50), Extents: (1.00, 0.12, 4.25))
+PASS: 연결_1B→1C gate collision is not ignored by player
+PASS: 연결_1B→1C test starts inside source room
+PASS: 연결_1B→1C locked mouth blocks offset 0 (progress -2.23, position (170.00, 14.36, -70.23))
+PASS: 연결_1B→1C test starts inside source room
+PASS: 연결_1B→1C locked mouth blocks offset -2.4 (progress -0.56, position (162.94, 8.12, -68.56))
+PASS: 연결_1B→1C test starts inside source room
+PASS: 연결_1B→1C locked mouth blocks offset 2.4 (progress -0.56, position (177.06, 8.12, -68.56))
+PASS: 연결_1B→1C test starts inside source room
+PASS: 연결_1B→1C locked mouth blocks offset -3.25 (progress -0.56, position (162.83, 8.12, -68.56))
+PASS: 연결_1B→1C test starts inside source room
+PASS: 연결_1B→1C locked mouth blocks offset 3.25 (progress -0.56, position (177.17, 8.12, -68.56))
+PASS: 연결_1C→1D closed gate preserves horizontal doorway orientation
+PASS: 연결_1C→1D has an enabled solid gate collider (잠금_1C:True:Center: (160.41, 16.35, 28.76), Extents: (4.70, 4.25, 2.07), 문틀_좌:True:Center: (156.28, 12.18, 22.96), Extents: (2.29, 0.12, 4.35), 문틀_우:True:Center: (167.19, 12.18, 26.60), Extents: (2.29, 0.12, 4.35))
+PASS: 연결_1C→1D gate collision is not ignored by player
+PASS: 연결_1C→1D test starts inside source room
+PASS: 연결_1C→1D locked mouth blocks offset 0 (progress -2.23, position (160.71, 12.20, 27.88))
+PASS: 연결_1C→1D test starts inside source room
+PASS: 연결_1C→1D locked mouth blocks offset -2.4 (progress -2.23, position (158.43, 12.20, 27.13))
+PASS: 연결_1C→1D test starts inside source room
+PASS: 연결_1C→1D locked mouth blocks offset 2.4 (progress -2.23, position (162.36, 12.20, 28.44))
+PASS: 연결_1C→1D test starts inside source room
+PASS: 연결_1C→1D locked mouth blocks offset -3.25 (progress 9.17, position (154.02, 5.75, 37.67))
+PASS: 연결_1C→1D test starts inside source room
+PASS: 연결_1C→1D locked mouth blocks offset 3.25 (progress -2.23, position (162.75, 12.20, 28.56))
+PASS: 연결_1D→1E closed gate preserves horizontal doorway orientation
+PASS: 연결_1D→1E has an enabled solid gate collider (잠금_1D:True:Center: (111.93, 21.35, 118.07), Extents: (3.78, 4.25, 3.78), 문틀_좌:True:Center: (110.82, 17.18, 111.05), Extents: (3.71, 0.12, 3.71), 문틀_우:True:Center: (118.95, 17.18, 119.18), Extents: (3.71, 0.12, 3.71))
+PASS: 연결_1D→1E gate collision is not ignored by player
+PASS: 연결_1D→1E test starts inside source room
+PASS: 연결_1D→1E locked mouth blocks offset 0 (progress -2.23, position (112.58, 17.20, 117.42))
+PASS: 연결_1D→1E test starts inside source room
+PASS: 연결_1D→1E locked mouth blocks offset -2.4 (progress -2.23, position (110.88, 17.20, 115.73))
+PASS: 연결_1D→1E test starts inside source room
+PASS: 연결_1D→1E locked mouth blocks offset 2.4 (progress -2.23, position (114.27, 17.20, 119.12))
+PASS: 연결_1D→1E test starts inside source room
+PASS: 연결_1D→1E locked mouth blocks offset -3.25 (progress 9.17, position (102.22, 10.75, 123.19))
+PASS: 연결_1D→1E test starts inside source room
+PASS: 연결_1D→1E locked mouth blocks offset 3.25 (progress 7.23, position (108.00, 10.71, 126.23))
+PASS: 연결_1E→2A closed gate preserves horizontal doorway orientation
+PASS: 연결_1E→2A has an enabled solid gate collider (잠금_1E:True:Center: (38.28, 26.35, 166.34), Extents: (1.52, 4.25, 4.78), 문틀_좌:True:Center: (41.27, 22.18, 159.88), Extents: (4.36, 0.12, 1.81), 문틀_우:True:Center: (43.52, 22.18, 171.16), Extents: (4.36, 0.12, 1.81))
+PASS: 연결_1E→2A gate collision is not ignored by player
+PASS: 연결_1E→2A test starts inside source room
+PASS: 연결_1E→2A locked mouth blocks offset 0 (progress -2.23, position (39.19, 22.20, 166.18))
+PASS: 연결_1E→2A test starts inside source room
+PASS: 연결_1E→2A locked mouth blocks offset -2.4 (progress -2.23, position (38.77, 22.20, 164.06))
+PASS: 연결_1E→2A test starts inside source room
+PASS: 연결_1E→2A locked mouth blocks offset 2.4 (progress -2.23, position (39.66, 22.20, 168.52))
+PASS: 연결_1E→2A test starts inside source room
+PASS: 연결_1E→2A locked mouth blocks offset -3.25 (progress 9.17, position (27.37, 15.75, 165.23))
+PASS: 연결_1E→2A test starts inside source room
+PASS: 연결_1E→2A locked mouth blocks offset 3.25 (progress 9.17, position (28.65, 15.75, 171.59))
+PASS: 연결_2B→2C closed gate preserves horizontal doorway orientation
+PASS: 연결_2B→2C has an enabled solid gate collider (잠금_2B:True:Center: (-142.46, 38.35, 110.05), Extents: (4.16, 4.25, 3.33), 문틀_좌:True:Center: (-135.35, 34.18, 109.95), Extents: (3.35, 0.12, 4.00), 문틀_우:True:Center: (-144.55, 34.18, 116.85), Extents: (3.35, 0.12, 4.00))
+PASS: 연결_2B→2C gate collision is not ignored by player
+PASS: 연결_2B→2C test starts inside source room
+PASS: 연결_2B→2C locked mouth blocks offset 0 (progress -2.23, position (-141.91, 34.20, 110.78))
+PASS: 연결_2B→2C test starts inside source room
+PASS: 연결_2B→2C locked mouth blocks offset -2.4 (progress -2.23, position (-139.99, 34.20, 109.34))
+PASS: 연결_2B→2C test starts inside source room
+PASS: 연결_2B→2C locked mouth blocks offset 2.4 (progress -2.23, position (-143.83, 34.20, 112.22))
+PASS: 연결_2B→2C test starts inside source room
+PASS: 연결_2B→2C locked mouth blocks offset -3.25 (progress 8.06, position (-145.69, 27.71, 100.76))
+PASS: 연결_2B→2C test starts inside source room
+PASS: 연결_2B→2C locked mouth blocks offset 3.25 (progress 9.17, position (-151.35, 27.75, 103.61))
+PASS: 연결_2C→2D closed gate preserves horizontal doorway orientation
+PASS: 연결_2C→2D has an enabled solid gate collider (잠금_2C:True:Center: (-180.00, 44.35, 20.31), Extents: (4.75, 4.25, 0.60), 문틀_좌:True:Center: (-174.25, 40.18, 24.50), Extents: (1.00, 0.12, 4.25), 문틀_우:True:Center: (-185.75, 40.18, 24.50), Extents: (1.00, 0.12, 4.25))
+PASS: 연결_2C→2D gate collision is not ignored by player
+PASS: 연결_2C→2D test starts inside source room
+PASS: 연결_2C→2D locked mouth blocks offset 0 (progress -2.23, position (-180.00, 42.33, 21.23))
+PASS: 연결_2C→2D test starts inside source room
+PASS: 연결_2C→2D locked mouth blocks offset -2.4 (progress 9.17, position (-176.27, 33.75, 9.83))
+PASS: 연결_2C→2D test starts inside source room
+PASS: 연결_2C→2D locked mouth blocks offset 2.4 (progress 9.17, position (-183.73, 33.75, 9.83))
+PASS: 연결_2C→2D test starts inside source room
+PASS: 연결_2C→2D locked mouth blocks offset -3.25 (progress -2.23, position (-175.42, 40.27, 21.23))
+PASS: 연결_2C→2D test starts inside source room
+PASS: 연결_2C→2D locked mouth blocks offset 3.25 (progress -2.23, position (-184.58, 40.27, 21.23))
+PASS: 연결_2E→2F closed gate preserves horizontal doorway orientation
+PASS: 연결_2E→2F has an enabled solid gate collider (잠금_2E:True:Center: (-106.95, 56.35, -151.21), Extents: (3.70, 4.25, 3.87), 문틀_좌:True:Center: (-106.05, 52.18, -144.15), Extents: (3.78, 0.12, 3.65), 문틀_우:True:Center: (-113.95, 52.18, -152.51), Extents: (3.78, 0.12, 3.65))
+PASS: 연결_2E→2F gate collision is not ignored by player
+PASS: 연결_2E→2F test starts inside source room
+PASS: 연결_2E→2F locked mouth blocks offset 0 (progress -2.23, position (-107.62, 52.20, -150.58))
+PASS: 연결_2E→2F test starts inside source room
+PASS: 연결_2E→2F locked mouth blocks offset -2.4 (progress -2.23, position (-105.97, 52.20, -148.83))
+PASS: 연결_2E→2F test starts inside source room
+PASS: 연결_2E→2F locked mouth blocks offset 2.4 (progress -2.23, position (-109.27, 52.20, -152.32))
+PASS: 연결_2E→2F test starts inside source room
+PASS: 연결_2E→2F locked mouth blocks offset -3.25 (progress 7.29, position (-98.58, 45.73, -154.87))
+PASS: 연결_2E→2F test starts inside source room
+PASS: 연결_2E→2F locked mouth blocks offset 3.25 (progress 9.17, position (-101.56, 45.75, -160.77))
+PASS: 연결_F0→1A both endpoint rooms visible during crossing
+PASS: 연결_F0→1A opened bridge and both landings traversed forward
+PASS: 연결_F0→1A opened bridge and both landings traversed reverse
+PASS: 연결_1A→1B both endpoint rooms visible during crossing
+PASS: 연결_1A→1B opened bridge and both landings traversed forward
+PASS: 연결_1A→1B opened bridge and both landings traversed reverse
+PASS: 연결_1B→1C both endpoint rooms visible during crossing
+FAIL: System.Exception: 연결_1B→1C crossing blocked at (170.00, 12.19, -30.30)
+  at BookTower.EditorTools.DoorwayPlayVerifier+<Verify>d__21.MoveNext () [0x00959] in C:\Users\doun0\Desktop\File\GitHub\Book-tower\Assets\_BookTower\Editor\DoorwayPlayVerifier.cs:164 
+  at BookTower.EditorTools.DoorwayPlayVerifier.Tick () [0x00045] in C:\Users\doun0\Desktop\File\GitHub\Book-tower\Assets\_BookTower\Editor\DoorwayPlayVerifier.cs:65 

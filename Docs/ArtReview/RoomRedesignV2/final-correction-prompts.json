@@ -1,0 +1,13 @@
+[
+  {
+    "id": "3C",
+    "file": "15-3C-v3.png",
+    "source": "15-3C-v2.png",
+    "prompt": "Precise edit of the supplied 3C lighthouse board. KEEP all paper architecture. The main picture currently shows a vertical downward beam; remove this vertical beam entirely. Emit ONE STRAIGHT HORIZONTAL ray from the lantern at its own height, traveling diagonally toward the viewer and right (screen lower-right) ABOVE the entry walkway. It must keep constant world elevation, never hit floor, never turn, never go down tower shaft. Add one freestanding tall paper aperture frame ABOVE the south entry, its circular opening at the SAME HEIGHT as the lantern, beam passes through it toward offscreen neighboring room. Draw beam in perspective foreshortening so it visually goes from lantern toward foreground-right opening. TOP PLAN already correct straight SOUTH beam: preserve it. Paper light and material unchanged. No vertical beam anywhere."
+  },
+  {
+    "id": "3A-RETURN",
+    "file": "16-3A-RETURN-v3.png",
+    "prompt": "Create a replacement modeling reference board for Book Tower ROOM 3A-RETURN. Main image uses exact frontal orthographic camera pitched 30 degrees downward, a monumental white handmade paper sanctuary with seven side memory basins, curled overhead sheets, a flat central floor and far wall. IMPORTANT: show ONE giant black graphite ghost silhouette, its round head located ONLY on an OVERHEAD HORIZONTAL PAPER SHELF extending from back wall toward viewer; its scarf and belly located ONLY on VERTICAL BACK WALL; its curled tail located ONLY on HORIZONTAL FLOOR extending from back wall toward viewer. From this frontal camera these three different-plane parts ALIGN edge to edge to read as ONE complete ghost, no gaps and no duplicated heads, no complete drawing on back wall. No other graphite figures anywhere. Round head big black oval with two ivory eyeholes, scarf wings, body tapering to curled tail. Twelve separate patch pieces across those three surfaces. Tiny 1.2m ivory paper ghost player with terracotta scarf stands at lower left for scale. Main board 75%, bottom-right SIDE EXPLODED DETAIL shows the head-only overhead shelf, belly-only vertical panel, tail-only floor pulled apart, demonstrating physical planes. A small top plan marks C0 south entry C1 center C2 inspection; ROOM 3A-RETURN text only. Warm white fibers, amber light and delicate pencil outlines, no stonework, no sepia fog. The reference is visual environment style only, do not copy its incorrect full ghost wall painting."
+  }
+]

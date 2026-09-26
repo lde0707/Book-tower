@@ -1,0 +1,13 @@
+newmtl Paper
+Kd 0.94 0.90 0.81
+map_Kd PaperFiber.png
+Ns 0
+
+newmtl Ribbon
+Kd 0.63 0.25 0.16
+map_Kd PaperFiber.png
+Ns 0
+
+newmtl Ink
+Kd 0.12 0.10 0.075
+Ns 0

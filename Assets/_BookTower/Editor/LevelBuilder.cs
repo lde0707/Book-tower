@@ -32,6 +32,9 @@ namespace BookTower.EditorTools
         public V3 scale;
         public string mat;       // light | mid | shade | accent
         public int state;        // fold 전용 시작 단계
+        public float[] angles;
+        public float interactionRange;
+        public bool noStanding;
         public string note;
 
         // piece 전용
@@ -92,6 +95,7 @@ namespace BookTower.EditorTools
         public V3 pos;
         public V2 size;
         public float backWall;
+        public bool backWallInObjects;
         public float splitGap;   // >0 이면 바닥 가운데가 비어 있는 방 (1B)
         public string note;
         public ObjDef[] objects;
@@ -286,7 +290,7 @@ namespace BookTower.EditorTools
                                  new Vector3(a.size.x, 0.2f, a.size.z), pal.paperMid), 0.06f);
 
             // 그림자를 받아낼 뒷벽 — 없으면 퍼즐 검증이 불가능하다
-            if (a.backWall > 0.01f)
+            if (a.backWall > 0.01f && !a.backWallInObjects)
             {
                 GameObject back = MakeBox(area, "뒷벽",
                     new Vector3(0f, a.backWall * 0.5f, a.size.z * 0.5f),
@@ -315,6 +319,7 @@ namespace BookTower.EditorTools
                 }
                 if (go != null && o.name != null && o.name.StartsWith("장식_"))
                     GameObjectUtility.SetStaticEditorFlags(go, StaticEditorFlags.BatchingStatic);
+                if (go != null) PaperAssetBuilder.DressBook(go, o, pal.paperMid);
                 if (go != null) AttachWall(go, o.face);
                 if (go != null && o.kind != "marker" && !o.noOutline)
                     Outline(go, o.name != null && o.name.StartsWith("장식_") ? 0.02f : 0.035f);
@@ -373,7 +378,7 @@ namespace BookTower.EditorTools
             switch (o.kind)
             {
                 case "fold":
-                    label = "접이면"; verb = "접는다"; range = 7f;       // FoldInteractor.maxDistance
+                    label = "접이면"; verb = "접는다"; range = o.interactionRange > 0 ? o.interactionRange : 7f;
                     break;
                 case "piece":
                     label = "조각"; verb = "줍는다"; range = 3f;         // CollectiblePiece.pickupRange
@@ -506,7 +511,7 @@ namespace BookTower.EditorTools
             // 틈 너비는 데이터에서 온다. 예전엔 4 로 박아 놨는데,
             // 방을 1.6배로 키울 때 이 숫자만 안 커져서 표식(6.4)보다 틈이 좁아져 있었다.
             // 게다가 이 값은 점프 검증의 기준이라 코드에 박아 두면 안 된다.
-            float gap = floorGap;
+            float gap = a.splitGap;
             float half = (a.size.z - gap) * 0.5f;
             float off = (gap + half) * 0.5f;
 
@@ -631,6 +636,14 @@ namespace BookTower.EditorTools
             hinge.transform.localPosition = o.pos.V;
 
             var fold = hinge.AddComponent<FoldPanel>();
+            if (o.angles != null && o.angles.Length == 4)
+            {
+                var so = new SerializedObject(fold);
+                var angles = so.FindProperty("foldAngles"); angles.arraySize = 4;
+                for (int i = 0; i < 4; i++) angles.GetArrayElementAtIndex(i).floatValue = o.angles[i];
+                so.FindProperty("noStanding").boolValue = o.noStanding;
+                so.ApplyModifiedPropertiesWithoutUndo();
+            }
             if (o.state != 0) SetEnum(fold, "state", o.state);
 
             var panel = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -692,9 +705,9 @@ namespace BookTower.EditorTools
             go.transform.SetParent(root, false);
             go.transform.localPosition = (from + to) * 0.5f;
             go.transform.localRotation = Quaternion.LookRotation(dir.normalized, Vector3.up);
-            go.transform.localScale = new Vector3(r.width, 0.2f, dir.magnitude);
+            go.transform.localScale = new Vector3(r.width, 0.2f, dir.magnitude + .3f);
             go.GetComponent<MeshRenderer>().sharedMaterial = pal.Get(r.mat);
-            Outline(go, 0.05f);
+            Outline(go, 0.012f);
 
             // 이 경사로가 잇는 두 방을 기록해 둔다.
             // 경사로 위에서 어느 방을 보여줄지 추측하지 않기 위해서다.
@@ -713,7 +726,56 @@ namespace BookTower.EditorTools
             var rb = go.AddComponent<RoomBound>();
             SetStringList(rb, "roomIds", linked);
 
-            MakeGate(r, from, dir);
+            MakeRampTransitions(r, from, to);
+
+            MakeGate(r, from, dir, go.GetComponent<Collider>());
+        }
+
+        // Folded paper rims close the excess doorway clearance and continue onto the bridge.
+        // Flat end leaves overlap the room floor; all parts share the ramp's visibility binding.
+        private static void MakeRampTransitions(RampDef r, Vector3 from, Vector3 to)
+        {
+            var group=new GameObject(r.name+"_접합부").transform;
+            group.SetParent(root,false);
+            var binding=group.gameObject.AddComponent<RoomBound>();
+            SetStringList(binding,"roomIds",new[]{r.fromId,r.toId});
+            Vector3 direction=(to-from).normalized;
+            Vector3 horizontal=Vector3.ProjectOnPlane(direction,Vector3.up).normalized;
+            Vector3 right=Vector3.Cross(Vector3.up,horizontal);
+            const float inset=6f, rimHeight=2.4f, thickness=.16f;
+            var points=new[]{from-horizontal*inset,from,to,to+horizontal*inset};
+            for(int end=0;end<2;end++)
+            {
+                Vector3 point=end==0?from:to;
+                Vector3 inward=end==0?-horizontal:horizontal;
+                var leaf=MakeBox(group,end==0?"시작_겹친페이지":"도착_겹친페이지",point+inward*(inset*.5f-.15f),new Vector3(r.width,.16f,inset+.3f),pal.paperLight);
+                leaf.transform.localRotation=Quaternion.LookRotation(horizontal);
+                Outline(leaf,.018f);
+            }
+            for(int side=-1;side<=1;side+=2)
+                for(int segment=0;segment<3;segment++)
+                {
+                    Vector3 a=points[segment]+right*side*(r.width*.5f+thickness*.5f);
+                    Vector3 b=points[segment+1]+right*side*(r.width*.5f+thickness*.5f);
+                    Vector3 span=b-a;
+                    // Upright mesh follows the slope without leaning its end face away from the gate.
+                    var wall=new GameObject($"접힌측벽_{side}_{segment}");wall.transform.SetParent(group,false);
+                    var mesh=new Mesh();mesh.name=wall.name;
+                    Vector3 offset=right*(thickness*.5f), up=Vector3.up*rimHeight;
+                    mesh.vertices=new[]{a-offset,b-offset,b-offset+up,a-offset+up,a+offset,b+offset,b+offset+up,a+offset+up};
+                    mesh.triangles=new[]{0,2,1,0,3,2,4,5,6,4,6,7,0,1,5,0,5,4,3,7,6,3,6,2,0,4,7,0,7,3,1,2,6,1,6,5};
+                    var triangles=mesh.triangles;
+                    for(int i=0;i<triangles.Length;i+=3){int swap=triangles[i];triangles[i]=triangles[i+2];triangles[i+2]=swap;}
+                    mesh.triangles=triangles;
+                    mesh.uv=new[]{Vector2.zero,Vector2.right,Vector2.one,Vector2.up,Vector2.zero,Vector2.right,Vector2.one,Vector2.up};
+                    mesh.RecalculateNormals();mesh.RecalculateBounds();
+                    string path=$"Assets/_BookTower/Generated/Direction/Rim_{r.fromId}_{r.toId}_{side}_{segment}.asset";
+                    var saved=AssetDatabase.LoadAssetAtPath<Mesh>(path);
+                    if(saved==null){AssetDatabase.CreateAsset(mesh,path);saved=mesh;}else{EditorUtility.CopySerialized(mesh,saved);UnityEngine.Object.DestroyImmediate(mesh);}
+                    wall.AddComponent<MeshFilter>().sharedMesh=saved;
+                    wall.AddComponent<MeshRenderer>().sharedMaterial=pal.paperMid;
+                    wall.AddComponent<MeshCollider>().sharedMesh=saved;
+                }
         }
 
         /// <summary>
@@ -729,7 +791,7 @@ namespace BookTower.EditorTools
         /// 반드시 잠기고, 없는 방은 절대 안 잠긴다"를 검사하므로
         /// 여기서 조건을 다시 쓰면 두 곳이 어긋날 수 있다.
         /// </summary>
-        private static void MakeGate(RampDef r, Vector3 from, Vector3 dir)
+        private static void MakeGate(RampDef r, Vector3 from, Vector3 dir, Collider bridgeCollider)
         {
             if (r.gateHeight <= 0.01f) return;
 
@@ -742,16 +804,45 @@ namespace BookTower.EditorTools
 
             var hinge = new GameObject($"잠금_{r.fromId}").transform;
             hinge.SetParent(root, false);
-            hinge.localPosition = from;
-            hinge.localRotation = Quaternion.LookRotation(dir.normalized, Vector3.up);
+            // 경첩 축은 월드 수평이어야 닫힌 페이지가 정확히 수직이 된다.
+            // 경사 벡터까지 LookRotation에 넣으면 긴/가파른 연결에서 판이 기울어져
+            // CharacterController가 위로 타고 넘어갈 수 있다.
+            Vector3 flatDir = Vector3.ProjectOnPlane(dir, Vector3.up).normalized;
+            // 경사 콜라이더와 정확히 같은 모서리에 세우면 CharacterController가
+            // 오르막 접촉면을 따라 잠금판 너머로 밀리는 경우가 있다. 방 안쪽의
+            // 평평한 종이 위에 경첩을 두어 충돌면을 분리한다.
+            hinge.localPosition = from - flatDir * 1.25f;
+            hinge.localRotation = Quaternion.LookRotation(flatDir, Vector3.up);
 
             var plate = GameObject.CreatePrimitive(PrimitiveType.Cube);
             plate.name = "페이지";
             plate.transform.SetParent(hinge, false);
-            plate.transform.localPosition = new Vector3(0f, 0f, r.gateHeight * 0.5f);
-            plate.transform.localScale = new Vector3(r.width, 0.2f, r.gateHeight);
+            plate.transform.localPosition = new Vector3(0f, 0.06f, r.gateHeight * 0.5f);
+            float gateWidth = r.width + 4f; // 중앙 + 좌우 바깥 접근까지 한 장으로 연속 차단
+            plate.transform.localScale = new Vector3(gateWidth, 0.2f, r.gateHeight);
             plate.GetComponent<MeshRenderer>().sharedMaterial = pal.paperShade;
-            Outline(plate);
+            // 실제 진행 차단은 경첩 루트의 단일 BoxCollider가 담당한다.
+            // 렌더 메시 자식의 콜라이더에만 의존하면 긴 경사에서 Transform 갱신 순서에
+            // 따라 CharacterController가 페이지를 통과하는 경우가 있었다.
+            UnityEngine.Object.DestroyImmediate(plate.GetComponent<Collider>());
+            var blocker = hinge.gameObject.AddComponent<BoxCollider>();
+            blocker.center = new Vector3(0f, 0.06f, r.gateHeight * 0.5f);
+            // CharacterController.skinWidth(0.02)와 경사 접촉을 함께 고려한 물리 두께.
+            // 보이는 종이는 얇게 유지하되 잠금 충돌면은 1.2u로 잡아 터널링을 막는다.
+            blocker.size = new Vector3(gateWidth, 1.2f, r.gateHeight);
+            Outline(plate, .012f);
+
+            // 문 판보다 살짝 바깥으로 비켜 지나가는 우회 경로를 막는 접힌 문틀.
+            // CharacterController 지름 0.6u를 고려해 판 가장자리에서 양쪽 2u를 연속해 막는다.
+            // 길 방향 두께를 크게 잡으면 열린 판과 겹치므로 0.24u만 사용한다.
+            const float jambWidth = 2f;
+            for (int side = -1; side <= 1; side += 2)
+            {
+                var jamb = MakeBox(hinge, side < 0 ? "문틀_좌" : "문틀_우",
+                    new Vector3(side * (gateWidth * .5f + jambWidth * .5f), r.gateHeight * .5f, .08f),
+                    new Vector3(jambWidth, r.gateHeight, .24f), pal.paperMid);
+                Outline(jamb, .012f);
+            }
 
             // 열렸을 때 켜지는 빛. 그림자는 만들지 않는다(두 번째 그림자 금지).
             // 퍼즐이 풀린 뒤에만 켜지므로 그 방의 그림자 퍼즐을 씻어낼 수 없다.
@@ -767,6 +858,7 @@ namespace BookTower.EditorTools
 
             var gate = hinge.gameObject.AddComponent<RampGate>();
             SetObject(gate, "puzzle", puzzle);
+            SetObject(gate, "lockedBridge", bridgeCollider);
 
             string[] linked = { r.fromId, r.toId };
             var gb = hinge.gameObject.AddComponent<RoomBound>();

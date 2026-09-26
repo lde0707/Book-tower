@@ -135,7 +135,8 @@ namespace BookTower.Rooms
             if (paperCamera != null && current != null && paperCamera.YawStep != appliedYaw)
             {
                 appliedYaw = paperCamera.YawStep;
-                current.ApplyYaw(appliedYaw);
+                foreach (Room room in rooms)
+                    if (room != null && room.IsVisible) room.ApplyYaw(appliedYaw);
             ApplyBounds(false);
             }
         }
@@ -211,6 +212,19 @@ namespace BookTower.Rooms
                             && !current.Contains(player.position);
 
             paperCamera.SetTransit(crossing);
+
+            // While on the bridge, retain both endpoints so its destination never floats in blank space.
+            float progress=0;
+            if (standingOn != null) standingOn.DistanceTo(player.position,out progress);
+            bool showEndpoints=standingOn != null && progress>.02f && progress<.98f;
+            foreach (Room room in rooms)
+            {
+                if (room==null) continue;
+                bool show=room==current || (showEndpoints &&
+                    (room.RoomId==standingOn.FromRoomId || room.RoomId==standingOn.ToRoomId));
+                if (room.IsVisible!=show) room.SetVisible(show);
+                if (show) room.ApplyYaw(paperCamera.YawStep);
+            }
         }
 
         /// <summary>

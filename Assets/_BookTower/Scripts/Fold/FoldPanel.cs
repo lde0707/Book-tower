@@ -41,6 +41,9 @@ namespace BookTower.Fold
 
         [Tooltip("시각적 전환 속도. 판정에는 영향 없음")]
         [SerializeField] private float tweenSpeed = 9f;
+        [SerializeField] private bool noStanding;
+
+        public float AngleAt(int index) => foldAngles[Mathf.Clamp(index, 0, foldAngles.Length - 1)];
 
         /// <summary>현재 접힘 상태(논리)</summary>
         public FoldState State => state;
@@ -63,6 +66,13 @@ namespace BookTower.Fold
         {
             baseRot = transform.localRotation;
             transform.localRotation = TargetRotation();   // 시작 상태 즉시 반영
+            if (noStanding)
+            {
+                var player = FindFirstObjectByType<BookTower.PlayerSystem.PlayerController>();
+                if (player != null)
+                    foreach (var collider in GetComponentsInChildren<Collider>())
+                        Physics.IgnoreCollision(collider, player.GetComponent<CharacterController>());
+            }
         }
 
         public void SetState(FoldState next)

@@ -36,45 +36,45 @@ import zlib
 # 상자" 에서 벗어나는 가장 싼 방법이다. 대신 밝기를 종이보다 한두 단계 낮춰서
 # 퍼즐(밝은 종이)이 여전히 제일 먼저 눈에 들어오게 한다.
 PALETTE = {
-    "frame": "#CFC5B6",      # 책장 틀 — 바랜 종이 상자
-    "frameDk": "#B6AB9B",
-    "spine1": "#C9B8A3",     # 세피아
-    "spine2": "#A9B4B8",     # 먼지 낀 파랑
-    "spine3": "#BDAA98",     # 따뜻한 회갈
-    "spine4": "#B3B79E",     # 세이지
-    "spine5": "#C6A69C",     # 바랜 장미
-    "spine6": "#9A958D",     # 먹 회색 — 가끔 끼워 리듬을 준다
-    "page": "#EEE8DC",       # 낱장 — 퍼즐 조각(light #FBFAF6)보다 확실히 누렇게
-    "pageOld": "#E0D6C3",
-    "cover1": "#B39C88",     # 거인 책 표지
-    "cover2": "#9DA8AE",
-    "cover3": "#A6AC93",
-    "ribbon": "#C8705A",     # 책갈피 끈 — 정령의 리본과 같은 계열
-    "rug": "#E2D8C8",
-    "rugEdge": "#C9BBA6",
-    "soot": "#C2BBB0",
-    "ink": "#5A534B",
-    "candle": "#EDE3CF",
-    "flame": "#F0CE8A",
-    "wainscot": "#D9D0C1",   # 벽 아랫단 — 윗단(벽 본색)보다 한 단계 가라앉게
-    "trim": "#C8BCAA",       # 몰딩·기둥
-    "seam": "#E3DCCF",       # 바닥 이음선 — 바닥이 '깔아 놓은 거인 페이지' 로 읽히게
+    "frame": "#F2EFE7",      # 책장 틀 — 바랜 종이 상자
+    "frameDk": "#DED8CC",
+    "spine1": "#E9E2D6",     # 세피아
+    "spine2": "#D8E2E3",     # 먼지 낀 파랑
+    "spine3": "#EDE5DB",     # 따뜻한 회갈
+    "spine4": "#DFE4D7",     # 세이지
+    "spine5": "#EBDAD4",     # 바랜 장미
+    "spine6": "#C7C3BA",     # 먹 회색 — 가끔 끼워 리듬을 준다
+    "page": "#FBFAF6",       # 낱장 — 퍼즐 조각(light #FBFAF6)보다 확실히 누렇게
+    "pageOld": "#F2EFE7",
+    "cover1": "#E7DFD1",     # 거인 책 표지
+    "cover2": "#D9E2E4",
+    "cover3": "#DEE4D5",
+    "ribbon": "#D9694F",     # 책갈피 끈 — 정령의 리본과 같은 계열
+    "rug": "#F2EFE7",
+    "rugEdge": "#DED8CC",
+    "soot": "#C9C5BD",
+    "ink": "#3A3733",
+    "candle": "#FBFAF6",
+    "flame": "#F2C879",
+    "wainscot": "#F2EFE7",   # 벽 아랫단 — 윗단(벽 본색)보다 한 단계 가라앉게
+    "trim": "#E7E2D8",       # 몰딩·기둥
+    "seam": "#DED8CC",       # 바닥 이음선 — 바닥이 '깔아 놓은 거인 페이지' 로 읽히게
 }
 SPINES = ["spine1", "spine2", "spine3", "spine4", "spine5", "spine1", "spine3", "spine6"]
 COVERS = ["cover1", "cover2", "cover3"]
 
 # 방 층(floor)별 성격. 숫자는 "얼마나" 이지 "무엇" 이 아니다 — 무엇은 모티프가 정한다
 STYLE = {
-    0: dict(shelf=0.55, lean=0.20, pinned=0.25, corner=0.6, desk=1, openbook=0, rug=1,
-            scatter=0.030, ribbon=0.45, fallen=0.20, scrap=0.05, ruin=0.0),
-    1: dict(shelf=0.80, lean=0.12, pinned=0.08, corner=0.9, desk=2, openbook=1, rug=1,
-            scatter=0.034, ribbon=0.15, fallen=0.40, scrap=0.10, ruin=0.0),
-    2: dict(shelf=0.45, lean=0.18, pinned=0.37, corner=0.7, desk=2, openbook=1, rug=1,
-            scatter=0.036, ribbon=0.35, fallen=0.25, scrap=0.25, ruin=0.10),
-    3: dict(shelf=0.25, lean=0.20, pinned=0.15, corner=0.5, desk=0, openbook=1, rug=0,
-            scatter=0.016, ribbon=0.10, fallen=0.20, scrap=0.50, ruin=0.40),
-    4: dict(shelf=0.85, lean=0.10, pinned=0.05, corner=0.9, desk=1, openbook=1, rug=1,
-            scatter=0.030, ribbon=0.20, fallen=0.40, scrap=0.10, ruin=0.0),
+    0: dict(shelf=0.08, lean=0.24, pinned=0.56, corner=0.6, desk=1, openbook=0, rug=1,
+            scatter=0.010, ribbon=0.45, fallen=0.20, scrap=0.05, ruin=0.0),
+    1: dict(shelf=0.20, lean=0.25, pinned=0.43, corner=0.9, desk=2, openbook=1, rug=1,
+            scatter=0.012, ribbon=0.15, fallen=0.40, scrap=0.10, ruin=0.0),
+    2: dict(shelf=0.10, lean=0.20, pinned=0.58, corner=0.7, desk=2, openbook=1, rug=1,
+            scatter=0.012, ribbon=0.35, fallen=0.25, scrap=0.25, ruin=0.10),
+    3: dict(shelf=0.04, lean=0.16, pinned=0.40, corner=0.5, desk=0, openbook=1, rug=0,
+            scatter=0.006, ribbon=0.10, fallen=0.20, scrap=0.50, ruin=0.40),
+    4: dict(shelf=0.18, lean=0.26, pinned=0.44, corner=0.9, desk=1, openbook=1, rug=1,
+            scatter=0.010, ribbon=0.20, fallen=0.40, scrap=0.10, ruin=0.0),
 }
 
 CELL = 0.25
@@ -410,12 +410,12 @@ def giant_lean_book(fr, s, h, rng, tag):
 def pinned_pages(fr, s, w, y_lo, y_hi, rng, tag, ribbon=True):
     """벽에 핀으로 꽂은 페이지 — 필사실. 바닥 발자국이 거의 없다."""
     out = []
-    n = rng.randint(3, 6)
+    n = rng.randint(2, 3)
     for k in range(n):
-        pw, ph = rng.uniform(0.5, 0.8), rng.uniform(0.65, 1.0)
+        pw, ph = rng.uniform(0.9, 1.4), rng.uniform(1.2, 1.8)
         ss = s + rng.uniform(-w / 2 + pw / 2, w / 2 - pw / 2)
         yy = rng.uniform(y_lo + ph / 2, y_hi - ph / 2)
-        out.append(_o(f"{tag}_{k}", fr.p(ss, 0.03, yy), fr.size(pw, ph, 0.02),
+        out.append(_o(f"{tag}_{k}", fr.p(ss, 0.03 + k * 0.035, yy), fr.size(pw, ph, 0.02),
                       rng.choice(("page", "page", "pageOld")),
                       rot=(0, fr.yaw, rng.uniform(-9, 9)), face=fr.face, collide=False))
         if ribbon and rng.random() < 0.35:
@@ -584,7 +584,7 @@ def book_pile(x, z, rng, tag):
     if rng.random() < 0.7:
         out.append(_o(f"{tag}_펼침", (x + rng.uniform(-.9, .9), 0.03, z + rng.uniform(-.9, .9)),
                       (0.95, 0.05, 0.7), "page", rot=(0, rng.uniform(0, 180), 0), collide=False))
-    return out
+    return [o for o in out if not o["name"].startswith(PREFIX + tag + "_1_")]
 
 
 def floor_seams(a, step=3.2):
@@ -730,9 +730,9 @@ def wall_trim(a, grid, room_h, rng, commit):
             parts = [
                 _o(f"{tag}_아랫단", P(mid, 0.03, 0.85), S(L, 1.2, 0.05), "wainscot",
                    face=f, outline=False, collide=False),
-                _o(f"{tag}_걸레받이", P(mid, 0.07, 0.17), S(L, 0.34, 0.13), "trim",
+                _o(f"{tag}_걸레받이", P(mid, 0.07, 0.17), S(L - .04, 0.34, 0.13), "trim",
                    face=f, outline=True, collide=False),
-                _o(f"{tag}_허리", P(mid, 0.06, 1.47), S(L, 0.1, 0.11), "trim",
+                _o(f"{tag}_허리", P(mid, 0.06, 1.47), S(L - .08, 0.1, 0.11), "trim",
                    face=f, outline=True, collide=False),
             ]
             if h_wall > 3.5:
@@ -751,7 +751,7 @@ def wall_trim(a, grid, room_h, rng, commit):
 
 def dress_area(a, ramps, sun, room_h_fn, lit_targets):
     rng = random.Random(zlib.crc32(a["id"].encode("utf-8")))
-    st = STYLE.get(a["floor"], STYLE[1])
+    st = dict(STYLE.get(a["floor"], STYLE[1]))
     hx, hz = a["size"]["x"] / 2, a["size"]["z"] / 2
     H = room_h_fn(a)
     grid = Grid(hx, hz)
@@ -875,7 +875,11 @@ def dress_area(a, ramps, sun, room_h_fn, lit_targets):
         half_len = fr.length / 2 - 0.4
         s = -half_len
         # 카메라 기본 방향 쪽 벽은 덜 채운다 — 대부분의 시간 숨어 있다
-        density = 0.55 if face == "south" else 1.0
+        density = 0.28 if face == "south" else 0.62
+        # V2 방은 이전 면적의 여러 배다. 같은 선형 밀도를 유지하면 장식 오브젝트가
+        # 1만 개를 넘어 블록아웃 성능을 망친다. 거대함은 여백과 랜드마크로 읽힌다.
+        if hx * hz * 4 > 1500:
+            density *= 0.28
         while s < half_len - 0.6:
             roll = rng.random()
             if roll > density:
@@ -1014,7 +1018,7 @@ def dress_area(a, ramps, sun, room_h_fn, lit_targets):
                 ])
 
     # ── 4-b) 낮은 책 더미 — 넓은 바닥 가운데의 섬
-    n_pile = int(area_m2 / 160 * (0.5 if a["floor"] == 3 else 1.0))
+    n_pile = min(8, int(area_m2 / 160 * (0.5 if a["floor"] == 3 else 1.0)))
     for k in range(n_pile):
         try_place((1.8, 1.8), lambda x, z, k=k: book_pile(x, z, rng, f"책더미{k}"), tries=40, margin_wall=2.0)
 
@@ -1034,7 +1038,7 @@ def dress_area(a, ramps, sun, room_h_fn, lit_targets):
         def near(c):
             return min((c[0] - ax) ** 2 + (c[1] - az) ** 2 for ax, az in anchors)
         cells.sort(key=lambda c: near(c) + rng.uniform(0, 9.0))
-    n_scatter = int(area_m2 * st["scatter"] * 0.55)
+    n_scatter = min(70, int(area_m2 * st["scatter"] * 0.55))
     used = []
     for x, z in cells:
         if n_scatter <= 0:

@@ -58,7 +58,7 @@ namespace BookTower.Interaction
         /// </summary>
         private static bool IsVisible(Collider col)
         {
-            if (col == null) return false;
+            if (col == null || col.isTrigger || col.GetComponentInParent<BookTower.PlayerSystem.PlayerController>() != null) return false;
 
             var r = col.GetComponent<Renderer>();
             if (r == null) return true;

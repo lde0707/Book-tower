@@ -48,14 +48,15 @@ namespace BookTower.Interaction
             Mouse mouse = Mouse.current;
             if (mouse == null) return;
 
-            Ray ray = cam.ScreenPointToRay(mouse.position.ReadValue());
+            Ray ray = BookTower.CameraSystem.PaperCamera.AimRay(cam);
             // 숨겨진 방의 콜라이더에 가로막히지 않게 보이는 것만 고른다
             if (!InteractionRay.Cast(ray, out RaycastHit hit, 1000f, rayMask)) return;
 
             FoldPanel panel = hit.collider.GetComponentInParent<FoldPanel>();
             if (panel == null) return;
 
-            if (Vector3.Distance(transform.position, hit.point) > maxDistance)
+            float range = panel.GetComponent<Interactable>()?.Range ?? maxDistance;
+            if (Vector3.Distance(transform.position, panel.transform.position) > range)
             {
                 if (logToConsole) Debug.Log("[Fold] 너무 멀다 — 가까이 가서 조작할 것");
                 return;

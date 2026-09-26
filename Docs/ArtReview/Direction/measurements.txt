@@ -1,0 +1,6 @@
+Generated evidence. Editor renders, not a novice playtest. No HUD or forced puzzle solve in the captures.
+P3: expected shadow at state 1 spans local z [-4.012, 5.075]. Gap is [-3.200, +3.200]. Coverage=PASS. Existing rising bridge is not the projected silhouette.
+1A/after: panel enabled=True, forceRenderingOff=False, shadowMode=On, mesh=Cube, bounds=Center: (-8.00, -1.90, 27.20), Extents: (3.20, 0.04, 3.20), material=CuePaper
+1B/after: panel enabled=True, forceRenderingOff=False, shadowMode=On, mesh=Cube, bounds=Center: (17.60, 1.10, 0.00), Extents: (4.00, 0.04, 4.00), material=CuePaper
+P15 geometric study RMS projection offsets (world screen-plane units): aligned=0.000000; translated camera=0.000000; wrong yaw=1.660; unfolded=1.691.
+P15 production: FAIL / incomplete. Study proves geometry folding, NOT a unique positional viewpoint, room-surface unfolding, light backtracking, or ending integration.

@@ -69,13 +69,13 @@ public static class PrototypeSceneBuilder
     // 떨어지면 어둠이 아니라 백지로 사라진다 — 스케치북 세계관에 맞고,
     // 흰 배경 위에서는 외곽선이 형태를 잡아 주므로 물체가 오히려 또렷해진다.
     private static readonly Color VoidColor = Hex("#FDFCFA");
-    private static readonly Color SeaColor = Hex("#E8E4DA");   // 완전 백지면 탑이 배경에 묻힌다
+    private static readonly Color SeaColor = Hex("#FDFCFA");   // 완전 백지면 탑이 배경에 묻힌다
 
     private static readonly Color LightWarm = Hex("#F2C879");    // 채도가 있는 유일한 색
     private static readonly Color Ribbon = Hex("#D9694F");       // 책갈피새 — 크레파스 빨강
     /// <summary>그림자. 완전 검정 금지 — 종이에 지는 그림자는 세피아 그레이다</summary>
     /// <summary>그림자. 연필로 문지른 회색이지 검정이 아니다</summary>
-    private static readonly Color ShadowTint = Hex("#6B6B73");   // 살짝 차갑게 — 연필 흑연색
+    private static readonly Color ShadowTint = Hex("#AAA59B");   // 살짝 차갑게 — 연필 흑연색
 
     // 값은 종이 텍스처 팔레트(ihatecolors "Paper Texture": #F5F0E8 / #E0D8C8 /
     // #C0B8A8 / #4A4038)에서 가져왔다. 눈대중으로 찍던 회갈색보다
@@ -99,7 +99,18 @@ public static class PrototypeSceneBuilder
     [MenuItem("Book Tower/InGame 씬 구성하기", priority = 0)]
     public static void Build()
     {
-        if (!EditorUtility.DisplayDialog(
+        BuildInternal(false);
+    }
+
+    /// <summary>설계도 변경 뒤 열린 Editor가 한 번 자동 재구성할 때 사용.</summary>
+    public static void BuildFromBlueprintAutomation()
+    {
+        BuildInternal(true);
+    }
+
+    private static void BuildInternal(bool skipBuildConfirmation)
+    {
+        if (!skipBuildConfirmation && !Application.isBatchMode && !EditorUtility.DisplayDialog(
                 "InGame 씬 구성",
                 $"{TargetScene} 을 열고 레벨 전체를 다시 구성합니다.\n" +
                 "(표지 F0 + 1장 1-A~1-E)\n\n" +
@@ -107,7 +118,7 @@ public static class PrototypeSceneBuilder
                 "구성하기", "취소"))
             return;
 
-        if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) return;
+        if (!Application.isBatchMode && !EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) return;
 
         EnsureFolders();
 
@@ -154,6 +165,14 @@ public static class PrototypeSceneBuilder
         // 룸 매니저 — 지금 있는 방만 그리게 한다.
         // 이게 없으면 나선형으로 쌓인 위층이 카메라와 플레이어 사이를 가로막는다.
         BuildRoomManager(player.transform, paperCam);
+        DirectionReviewBuilder.Apply();
+        ShadowBridgeBuilder.Apply();
+        SurfaceAnamorphosisBuilder.Apply();
+        SketchbookArtBuilder.Apply();
+        PerimeterSealBuilder.Apply();
+        BlueprintMapBuilder.Apply();
+        InteriorF0Builder.Apply();
+        PlacePlayerAtV2Start(player);
 
         // 이번에 만든 루트에 표식을 남긴다. 다음 번 청소는 이름이 아니라
         // 이 표식을 보고 지운다 — 이름 목록에서 "Map (히든)" 이 빠져서
@@ -168,7 +187,7 @@ public static class PrototypeSceneBuilder
         AssetDatabase.Refresh();
 
         Debug.Log("[Book Tower] InGame 씬 구성 완료 — 표지(F0) + 1장(1-A~1-E)\n" +
-                  "WASD 이동 / Space 활공 / Q·E 카메라 회전 / Tab 전체조망 / 좌클릭 접기");
+                  "WASD 이동 / Space 활공 / Q·E 좌우 관찰(이동 시 복귀) / Tab 개발 조망 / 좌클릭 접기");
     }
 
     /// <summary>이번 빌드가 **새로 만든** 루트에만 GeneratedRoot 표식을 붙인다.</summary>
@@ -362,7 +381,8 @@ public static class PrototypeSceneBuilder
 
         var player = new GameObject("BookmarkBird");
         player.transform.SetParent(group);
-        player.transform.position = new Vector3(0f, 1.2f, -6.4f);  // 표지(F0)의 시작 표식 (XZ 1.6배 확대 반영)
+        // V2 블록아웃 생성 뒤 PlacePlayerAtV2Start가 실제 F0 입구로 옮긴다.
+        player.transform.position = new Vector3(0f, 1.2f, -6.4f);
 
         var cc = player.AddComponent<CharacterController>();
         // 모델 키(1.40)에 맞춘다. 0.9 로 두면 머리가 천장·문틀을 뚫고 지나간다.
@@ -391,10 +411,9 @@ public static class PrototypeSceneBuilder
             // 역할별로 색을 가른다. 몸통 명암은 텍스처가 맡으므로 바탕색은 흰색.
             // 리본은 월드 전체의 포인트 색(크레파스 빨강)을 그대로 쓴다 —
             // 새에서 정령으로 바뀌어도 "책갈피" 는 이어져야 한다.
-            GhostPlayerBuilder.Build(
+            PaperAssetBuilder.Fairy(
                 player.transform,
                 MakeMaterial("M_Ghost_Body", Color.white, "T_Ghost_Ramp"),
-                MakeMaterial("M_Ghost_EyeWhite", GhostEyeWhite, "T_Paper_Soft"),
                 MakeMaterial("M_Ghost_Ink", GhostInk, "T_Paper_Soft"),
                 ribbonMat);
         }
@@ -410,6 +429,29 @@ public static class PrototypeSceneBuilder
         }
 
         return player;
+    }
+
+    private static void PlacePlayerAtV2Start(GameObject player)
+    {
+        var rooms = UnityEngine.Object.FindObjectsByType<BookTower.Rooms.Room>(
+            FindObjectsInactive.Include, FindObjectsSortMode.None);
+        foreach (var room in rooms)
+        {
+            if (room.RoomId != "F0") continue;
+            Transform zone = room.transform.Find("V3_제본현관/시작점");
+            if (zone == null) zone = room.transform.Find("V2_블록아웃/구역_Z1");
+            Vector3 floor = room.transform.position;
+            if (zone != null)
+            {
+                Collider surface = zone.GetComponent<Collider>();
+                floor = surface != null ? new Vector3(zone.position.x, surface.bounds.max.y, zone.position.z) : zone.position;
+            }
+            player.transform.position = floor + Vector3.up * 0.05f;
+            player.transform.rotation = room.transform.rotation;
+            Debug.Log($"[Book Tower] 플레이어 시작점: {player.transform.position} (F0 실내 입구)");
+            return;
+        }
+        Debug.LogError("[Book Tower] F0 시작 구역을 찾지 못해 플레이어 시작점을 배치하지 못했습니다.");
     }
 
     // ---------------------------------------------------------------- 카메라
@@ -515,6 +557,13 @@ public static class PrototypeSceneBuilder
         if (tex != null && mat.HasProperty("_BaseMap")) mat.SetTexture("_BaseMap", tex);
         if (tex != null && mat.HasProperty("_MainTex")) mat.SetTexture("_MainTex", tex);
 
+        var normal = AssetDatabase.LoadAssetAtPath<Texture2D>($"{TexDir}/T_Paper_Normal.png");
+        if (normal != null && mat.HasProperty("_BumpMap"))
+        {
+            mat.SetTexture("_BumpMap", normal);
+            mat.SetFloat("_BumpScale", 0.28f);
+            mat.EnableKeyword("_NORMALMAP");
+        }
         if (isNew) AssetDatabase.CreateAsset(mat, path);
         else EditorUtility.SetDirty(mat);
         return mat;

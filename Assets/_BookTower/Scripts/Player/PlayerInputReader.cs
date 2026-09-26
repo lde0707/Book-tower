@@ -13,6 +13,7 @@ namespace BookTower.PlayerSystem
     ///  - 게임패드를 나중에 붙일 때 이 파일만 고치면 됨
     ///  - 연출 중(Cutscene) 입력 차단을 한 곳에서 처리할 수 있음
     /// </summary>
+    [DefaultExecutionOrder(-100)]
     [DisallowMultipleComponent]
     public class PlayerInputReader : MonoBehaviour
     {
@@ -41,7 +42,7 @@ namespace BookTower.PlayerSystem
         private void Update()
         {
             // 연출·일시정지 중에는 입력을 통째로 막는다
-            if (GameFlow.Instance != null && !GameFlow.Instance.AcceptsPlayerInput)
+            if ((GameFlow.Instance != null && !GameFlow.Instance.AcceptsPlayerInput) || !BookTower.CameraSystem.PaperCamera.AimActive)
             {
                 Clear();
                 return;

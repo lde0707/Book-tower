@@ -1,0 +1,1821 @@
+[
+  {
+    "id": "F0",
+    "status": "proposed_not_playtested",
+    "coordinateSystem": "local +Z north; +Y up; units=Unity units",
+    "envelopeXYZ": [
+      56,
+      18,
+      44
+    ],
+    "entry": [
+      0,
+      0,
+      -19.36
+    ],
+    "exit": [
+      0,
+      2.6999999999999997,
+      19.36
+    ],
+    "C0": {
+      "projection": "orthographic",
+      "focus": [
+        0,
+        2.16,
+        0
+      ],
+      "position": [
+        0,
+        44.16,
+        -72.746
+      ],
+      "rotationEuler": [
+        30,
+        0,
+        0
+      ],
+      "orthographicSize": 32.48,
+      "nearClip": 0.3,
+      "farClip": 196,
+      "durationSeconds": 2
+    },
+    "C1": {
+      "projection": "orthographic",
+      "focus": [
+        0,
+        0,
+        0
+      ],
+      "position": [
+        0,
+        42,
+        -72.746
+      ],
+      "rotationEuler": [
+        30,
+        0,
+        0
+      ],
+      "orthographicSize": 15,
+      "nearClip": 0.3,
+      "farClip": 196,
+      "follow": "0.7 player + 0.3 active objective; 3A-RETURN alignment uses fixed focus"
+    },
+    "C2": {
+      "projection": "orthographic",
+      "focus": [
+        12.32,
+        2,
+        0
+      ],
+      "position": [
+        12.32,
+        44,
+        -72.746
+      ],
+      "rotationEuler": [
+        30,
+        0,
+        0
+      ],
+      "orthographicSize": 7,
+      "nearClip": 0.3,
+      "farClip": 196,
+      "focusRule": "replace placeholder focus with current inspected object + (0,1,0)"
+    },
+    "modelingOverview": {
+      "projection": "orthographic",
+      "focus": [
+        0,
+        2.6999999999999997,
+        0
+      ],
+      "position": [
+        -48.655,
+        50.88,
+        -48.655
+      ],
+      "rotationEuler": [
+        35,
+        45,
+        0
+      ],
+      "orthographicSize": 34.72,
+      "nearClip": 0.3,
+      "farClip": 196
+    }
+  },
+  {
+    "id": "1A",
+    "status": "proposed_not_playtested",
+    "coordinateSystem": "local +Z north; +Y up; units=Unity units",
+    "envelopeXYZ": [
+      64,
+      26,
+      56
+    ],
+    "entry": [
+      0,
+      0,
+      -24.64
+    ],
+    "exit": [
+      0,
+      3.9,
+      24.64
+    ],
+    "C0": {
+      "projection": "orthographic",
+      "focus": [
+        0,
+        3.12,
+        0
+      ],
+      "position": [
+        0,
+        51.12,
+        -83.138
+      ],
+      "rotationEuler": [
+        30,
+        0,
+        0
+      ],
+      "orthographicSize": 37.12,
+      "nearClip": 0.3,
+      "farClip": 224,
+      "durationSeconds": 2
+    },
+    "C1": {
+      "projection": "orthographic",
+      "focus": [
+        0,
+        3,
+        2
+      ],
+      "position": [
+        0,
+        51,
+        -81.138
+      ],
+      "rotationEuler": [
+        30,
+        0,
+        0
+      ],
+      "orthographicSize": 16,
+      "nearClip": 0.3,
+      "farClip": 224,
+      "follow": "0.7 player + 0.3 active objective; 3A-RETURN alignment uses fixed focus"
+    },
+    "C2": {
+      "projection": "orthographic",
+      "focus": [
+        14.08,
+        2,
+        0
+      ],
+      "position": [
+        14.08,
+        50,
+        -83.138
+      ],
+      "rotationEuler": [
+        30,
+        0,
+        0
+      ],
+      "orthographicSize": 7,
+      "nearClip": 0.3,
+      "farClip": 224,
+      "focusRule": "replace placeholder focus with current inspected object + (0,1,0)"
+    },
+    "modelingOverview": {
+      "projection": "orthographic",
+      "focus": [
+        0,
+        3.9,
+        0
+      ],
+      "position": [
+        -55.606,
+        58.963,
+        -55.606
+      ],
+      "rotationEuler": [
+        35,
+        45,
+        0
+      ],
+      "orthographicSize": 39.68,
+      "nearClip": 0.3,
+      "farClip": 224
+    }
+  },
+  {
+    "id": "1B",
+    "status": "proposed_not_playtested",
+    "coordinateSystem": "local +Z north; +Y up; units=Unity units",
+    "envelopeXYZ": [
+      76,
+      24,
+      64
+    ],
+    "entry": [
+      0,
+      0,
+      -28.16
+    ],
+    "exit": [
+      0,
+      3.5999999999999996,
+      28.16
+    ],
+    "C0": {
+      "projection": "orthographic",
+      "focus": [
+        0,
+        2.88,
+        0
+      ],
+      "position": [
+        -98.727,
+        59.88,
+        0
+      ],
+      "rotationEuler": [
+        30,
+        90,
+        0
+      ],
+      "orthographicSize": 44.08,
+      "nearClip": 0.3,
+      "farClip": 266,
+      "durationSeconds": 2
+    },
+    "C1": {
+      "projection": "orthographic",
+      "focus": [
+        0,
+        2,
+        0
+      ],
+      "position": [
+        -98.727,
+        59,
+        0
+      ],
+      "rotationEuler": [
+        30,
+        90,
+        0
+      ],
+      "orthographicSize": 17,
+      "nearClip": 0.3,
+      "farClip": 266,
+      "follow": "0.7 player + 0.3 active objective; 3A-RETURN alignment uses fixed focus"
+    },
+    "C2": {
+      "projection": "orthographic",
+      "focus": [
+        16.72,
+        2,
+        0
+      ],
+      "position": [
+        -82.007,
+        59,
+        0
+      ],
+      "rotationEuler": [
+        30,
+        90,
+        0
+      ],
+      "orthographicSize": 7,
+      "nearClip": 0.3,
+      "farClip": 266,
+      "focusRule": "replace placeholder focus with current inspected object + (0,1,0)"
+    },
+    "modelingOverview": {
+      "projection": "orthographic",
+      "focus": [
+        0,
+        3.5999999999999996,
+        0
+      ],
+      "position": [
+        -66.032,
+        68.988,
+        -66.032
+      ],
+      "rotationEuler": [
+        35,
+        45,
+        0
+      ],
+      "orthographicSize": 47.12,
+      "nearClip": 0.3,
+      "farClip": 266
+    }
+  },
+  {
+    "id": "1C",
+    "status": "proposed_not_playtested",
+    "coordinateSystem": "local +Z north; +Y up; units=Unity units",
+    "envelopeXYZ": [
+      68,
+      30,
+      60
+    ],
+    "entry": [
+      0,
+      0,
+      -26.4
+    ],
+    "exit": [
+      0,
+      4,
+      26.4
+    ],
+    "C0": {
+      "projection": "orthographic",
+      "focus": [
+        0,
+        3.5999999999999996,
+        0
+      ],
+      "position": [
+        0,
+        54.6,
+        -88.335
+      ],
+      "rotationEuler": [
+        30,
+        0,
+        0
+      ],
+      "orthographicSize": 39.44,
+      "nearClip": 0.3,
+      "farClip": 238,
+      "durationSeconds": 2
+    },
+    "C1": {
+      "projection": "orthographic",
+      "focus": [
+        0,
+        4,
+        0
+      ],
+      "position": [
+        0,
+        55,
+        -88.335
+      ],
+      "rotationEuler": [
+        30,
+        0,
+        0
+      ],
+      "orthographicSize": 16,
+      "nearClip": 0.3,
+      "farClip": 238,
+      "follow": "0.7 player + 0.3 active objective; 3A-RETURN alignment uses fixed focus"
+    },
+    "C2": {
+      "projection": "orthographic",
+      "focus": [
+        14.96,
+        2,
+        0
+      ],
+      "position": [
+        14.96,
+        53,
+        -88.335
+      ],
+      "rotationEuler": [
+        30,
+        0,
+        0
+      ],
+      "orthographicSize": 7,
+      "nearClip": 0.3,
+      "farClip": 238,
+      "focusRule": "replace placeholder focus with current inspected object + (0,1,0)"
+    },
+    "modelingOverview": {
+      "projection": "orthographic",
+      "focus": [
+        0,
+        4.5,
+        0
+      ],
+      "position": [
+        -59.081,
+        63.005,
+        -59.081
+      ],
+      "rotationEuler": [
+        35,
+        45,
+        0
+      ],
+      "orthographicSize": 42.16,
+      "nearClip": 0.3,
+      "farClip": 238
+    }
+  },
+  {
+    "id": "1D",
+    "status": "proposed_not_playtested",
+    "coordinateSystem": "local +Z north; +Y up; units=Unity units",
+    "envelopeXYZ": [
+      72,
+      20,
+      58
+    ],
+    "entry": [
+      0,
+      0,
+      -25.52
+    ],
+    "exit": [
+      0,
+      3,
+      25.52
+    ],
+    "C0": {
+      "projection": "orthographic",
+      "focus": [
+        0,
+        2.4,
+        0
+      ],
+      "position": [
+        -93.531,
+        56.4,
+        0
+      ],
+      "rotationEuler": [
+        30,
+        90,
+        0
+      ],
+      "orthographicSize": 41.76,
+      "nearClip": 0.3,
+      "farClip": 252,
+      "durationSeconds": 2
+    },
+    "C1": {
+      "projection": "orthographic",
+      "focus": [
+        0,
+        1,
+        0
+      ],
+      "position": [
+        -93.531,
+        55,
+        0
+      ],
+      "rotationEuler": [
+        30,
+        90,
+        0
+      ],
+      "orthographicSize": 16,
+      "nearClip": 0.3,
+      "farClip": 252,
+      "follow": "0.7 player + 0.3 active objective; 3A-RETURN alignment uses fixed focus"
+    },
+    "C2": {
+      "projection": "orthographic",
+      "focus": [
+        15.84,
+        2,
+        0
+      ],
+      "position": [
+        -77.691,
+        56,
+        0
+      ],
+      "rotationEuler": [
+        30,
+        90,
+        0
+      ],
+      "orthographicSize": 7,
+      "nearClip": 0.3,
+      "farClip": 252,
+      "focusRule": "replace placeholder focus with current inspected object + (0,1,0)"
+    },
+    "modelingOverview": {
+      "projection": "orthographic",
+      "focus": [
+        0,
+        3,
+        0
+      ],
+      "position": [
+        -62.557,
+        64.946,
+        -62.557
+      ],
+      "rotationEuler": [
+        35,
+        45,
+        0
+      ],
+      "orthographicSize": 44.64,
+      "nearClip": 0.3,
+      "farClip": 252
+    }
+  },
+  {
+    "id": "1E",
+    "status": "proposed_not_playtested",
+    "coordinateSystem": "local +Z north; +Y up; units=Unity units",
+    "envelopeXYZ": [
+      66,
+      38,
+      66
+    ],
+    "entry": [
+      0,
+      0,
+      -29.04
+    ],
+    "exit": [
+      0,
+      4,
+      29.04
+    ],
+    "C0": {
+      "projection": "orthographic",
+      "focus": [
+        0,
+        4.56,
+        0
+      ],
+      "position": [
+        0,
+        54.06,
+        -85.737
+      ],
+      "rotationEuler": [
+        30,
+        0,
+        0
+      ],
+      "orthographicSize": 38.279999999999994,
+      "nearClip": 0.3,
+      "farClip": 231,
+      "durationSeconds": 2
+    },
+    "C1": {
+      "projection": "orthographic",
+      "focus": [
+        0,
+        5,
+        0
+      ],
+      "position": [
+        0,
+        54.5,
+        -85.737
+      ],
+      "rotationEuler": [
+        30,
+        0,
+        0
+      ],
+      "orthographicSize": 18,
+      "nearClip": 0.3,
+      "farClip": 231,
+      "follow": "0.7 player + 0.3 active objective; 3A-RETURN alignment uses fixed focus"
+    },
+    "C2": {
+      "projection": "orthographic",
+      "focus": [
+        14.52,
+        2,
+        0
+      ],
+      "position": [
+        14.52,
+        51.5,
+        -85.737
+      ],
+      "rotationEuler": [
+        30,
+        0,
+        0
+      ],
+      "orthographicSize": 7,
+      "nearClip": 0.3,
+      "farClip": 231,
+      "focusRule": "replace placeholder focus with current inspected object + (0,1,0)"
+    },
+    "modelingOverview": {
+      "projection": "orthographic",
+      "focus": [
+        0,
+        5.7,
+        0
+      ],
+      "position": [
+        -57.344,
+        62.484,
+        -57.344
+      ],
+      "rotationEuler": [
+        35,
+        45,
+        0
+      ],
+      "orthographicSize": 40.92,
+      "nearClip": 0.3,
+      "farClip": 231
+    }
+  },
+  {
+    "id": "2A",
+    "status": "proposed_not_playtested",
+    "coordinateSystem": "local +Z north; +Y up; units=Unity units",
+    "envelopeXYZ": [
+      78,
+      28,
+      54
+    ],
+    "entry": [
+      0,
+      0,
+      -23.76
+    ],
+    "exit": [
+      0,
+      4,
+      23.76
+    ],
+    "C0": {
+      "projection": "orthographic",
+      "focus": [
+        0,
+        3.36,
+        0
+      ],
+      "position": [
+        -101.325,
+        61.86,
+        0
+      ],
+      "rotationEuler": [
+        30,
+        90,
+        0
+      ],
+      "orthographicSize": 45.239999999999995,
+      "nearClip": 0.3,
+      "farClip": 273,
+      "durationSeconds": 2
+    },
+    "C1": {
+      "projection": "orthographic",
+      "focus": [
+        0,
+        3,
+        0
+      ],
+      "position": [
+        -101.325,
+        61.5,
+        0
+      ],
+      "rotationEuler": [
+        30,
+        90,
+        0
+      ],
+      "orthographicSize": 17,
+      "nearClip": 0.3,
+      "farClip": 273,
+      "follow": "0.7 player + 0.3 active objective; 3A-RETURN alignment uses fixed focus"
+    },
+    "C2": {
+      "projection": "orthographic",
+      "focus": [
+        17.16,
+        2,
+        0
+      ],
+      "position": [
+        -84.165,
+        60.5,
+        0
+      ],
+      "rotationEuler": [
+        30,
+        90,
+        0
+      ],
+      "orthographicSize": 7,
+      "nearClip": 0.3,
+      "farClip": 273,
+      "focusRule": "replace placeholder focus with current inspected object + (0,1,0)"
+    },
+    "modelingOverview": {
+      "projection": "orthographic",
+      "focus": [
+        0,
+        4.2,
+        0
+      ],
+      "position": [
+        -67.77,
+        71.308,
+        -67.77
+      ],
+      "rotationEuler": [
+        35,
+        45,
+        0
+      ],
+      "orthographicSize": 48.36,
+      "nearClip": 0.3,
+      "farClip": 273
+    }
+  },
+  {
+    "id": "2B",
+    "status": "proposed_not_playtested",
+    "coordinateSystem": "local +Z north; +Y up; units=Unity units",
+    "envelopeXYZ": [
+      70,
+      32,
+      62
+    ],
+    "entry": [
+      0,
+      0,
+      -27.28
+    ],
+    "exit": [
+      0,
+      4,
+      27.28
+    ],
+    "C0": {
+      "projection": "orthographic",
+      "focus": [
+        0,
+        3.84,
+        0
+      ],
+      "position": [
+        0,
+        56.34,
+        -90.933
+      ],
+      "rotationEuler": [
+        30,
+        0,
+        0
+      ],
+      "orthographicSize": 40.599999999999994,
+      "nearClip": 0.3,
+      "farClip": 245,
+      "durationSeconds": 2
+    },
+    "C1": {
+      "projection": "orthographic",
+      "focus": [
+        0,
+        3,
+        0
+      ],
+      "position": [
+        0,
+        55.5,
+        -90.933
+      ],
+      "rotationEuler": [
+        30,
+        0,
+        0
+      ],
+      "orthographicSize": 17,
+      "nearClip": 0.3,
+      "farClip": 245,
+      "follow": "0.7 player + 0.3 active objective; 3A-RETURN alignment uses fixed focus"
+    },
+    "C2": {
+      "projection": "orthographic",
+      "focus": [
+        15.4,
+        2,
+        0
+      ],
+      "position": [
+        15.4,
+        54.5,
+        -90.933
+      ],
+      "rotationEuler": [
+        30,
+        0,
+        0
+      ],
+      "orthographicSize": 7,
+      "nearClip": 0.3,
+      "farClip": 245,
+      "focusRule": "replace placeholder focus with current inspected object + (0,1,0)"
+    },
+    "modelingOverview": {
+      "projection": "orthographic",
+      "focus": [
+        0,
+        4.8,
+        0
+      ],
+      "position": [
+        -60.819,
+        65.026,
+        -60.819
+      ],
+      "rotationEuler": [
+        35,
+        45,
+        0
+      ],
+      "orthographicSize": 43.4,
+      "nearClip": 0.3,
+      "farClip": 245
+    }
+  },
+  {
+    "id": "2C",
+    "status": "proposed_not_playtested",
+    "coordinateSystem": "local +Z north; +Y up; units=Unity units",
+    "envelopeXYZ": [
+      82,
+      36,
+      82
+    ],
+    "entry": [
+      0,
+      0,
+      -36.08
+    ],
+    "exit": [
+      0,
+      4,
+      36.08
+    ],
+    "C0": {
+      "projection": "orthographic",
+      "focus": [
+        0,
+        4.32,
+        0
+      ],
+      "position": [
+        -106.521,
+        65.82,
+        0
+      ],
+      "rotationEuler": [
+        30,
+        90,
+        0
+      ],
+      "orthographicSize": 47.559999999999995,
+      "nearClip": 0.3,
+      "farClip": 287,
+      "durationSeconds": 2
+    },
+    "C1": {
+      "projection": "orthographic",
+      "focus": [
+        0,
+        5,
+        0
+      ],
+      "position": [
+        -106.521,
+        66.5,
+        0
+      ],
+      "rotationEuler": [
+        30,
+        90,
+        0
+      ],
+      "orthographicSize": 19,
+      "nearClip": 0.3,
+      "farClip": 287,
+      "follow": "0.7 player + 0.3 active objective; 3A-RETURN alignment uses fixed focus"
+    },
+    "C2": {
+      "projection": "orthographic",
+      "focus": [
+        18.04,
+        2,
+        0
+      ],
+      "position": [
+        -88.481,
+        63.5,
+        0
+      ],
+      "rotationEuler": [
+        30,
+        90,
+        0
+      ],
+      "orthographicSize": 7,
+      "nearClip": 0.3,
+      "farClip": 287,
+      "focusRule": "replace placeholder focus with current inspected object + (0,1,0)"
+    },
+    "modelingOverview": {
+      "projection": "orthographic",
+      "focus": [
+        0,
+        5.3999999999999995,
+        0
+      ],
+      "position": [
+        -71.245,
+        75.95,
+        -71.245
+      ],
+      "rotationEuler": [
+        35,
+        45,
+        0
+      ],
+      "orthographicSize": 50.839999999999996,
+      "nearClip": 0.3,
+      "farClip": 287
+    }
+  },
+  {
+    "id": "2D",
+    "status": "proposed_not_playtested",
+    "coordinateSystem": "local +Z north; +Y up; units=Unity units",
+    "envelopeXYZ": [
+      70,
+      34,
+      68
+    ],
+    "entry": [
+      0,
+      0,
+      -29.92
+    ],
+    "exit": [
+      0,
+      4,
+      29.92
+    ],
+    "C0": {
+      "projection": "orthographic",
+      "focus": [
+        0,
+        4.08,
+        0
+      ],
+      "position": [
+        0,
+        56.58,
+        -90.933
+      ],
+      "rotationEuler": [
+        30,
+        0,
+        0
+      ],
+      "orthographicSize": 40.599999999999994,
+      "nearClip": 0.3,
+      "farClip": 245,
+      "durationSeconds": 2
+    },
+    "C1": {
+      "projection": "orthographic",
+      "focus": [
+        0,
+        4,
+        0
+      ],
+      "position": [
+        0,
+        56.5,
+        -90.933
+      ],
+      "rotationEuler": [
+        30,
+        0,
+        0
+      ],
+      "orthographicSize": 18,
+      "nearClip": 0.3,
+      "farClip": 245,
+      "follow": "0.7 player + 0.3 active objective; 3A-RETURN alignment uses fixed focus"
+    },
+    "C2": {
+      "projection": "orthographic",
+      "focus": [
+        15.4,
+        2,
+        0
+      ],
+      "position": [
+        15.4,
+        54.5,
+        -90.933
+      ],
+      "rotationEuler": [
+        30,
+        0,
+        0
+      ],
+      "orthographicSize": 7,
+      "nearClip": 0.3,
+      "farClip": 245,
+      "focusRule": "replace placeholder focus with current inspected object + (0,1,0)"
+    },
+    "modelingOverview": {
+      "projection": "orthographic",
+      "focus": [
+        0,
+        5.1,
+        0
+      ],
+      "position": [
+        -60.819,
+        65.326,
+        -60.819
+      ],
+      "rotationEuler": [
+        35,
+        45,
+        0
+      ],
+      "orthographicSize": 43.4,
+      "nearClip": 0.3,
+      "farClip": 245
+    }
+  },
+  {
+    "id": "2E",
+    "status": "proposed_not_playtested",
+    "coordinateSystem": "local +Z north; +Y up; units=Unity units",
+    "envelopeXYZ": [
+      68,
+      44,
+      68
+    ],
+    "entry": [
+      0,
+      0,
+      -29.92
+    ],
+    "exit": [
+      0,
+      4,
+      29.92
+    ],
+    "C0": {
+      "projection": "orthographic",
+      "focus": [
+        0,
+        5.279999999999999,
+        0
+      ],
+      "position": [
+        -88.335,
+        56.28,
+        0
+      ],
+      "rotationEuler": [
+        30,
+        90,
+        0
+      ],
+      "orthographicSize": 39.44,
+      "nearClip": 0.3,
+      "farClip": 238,
+      "durationSeconds": 2
+    },
+    "C1": {
+      "projection": "orthographic",
+      "focus": [
+        0,
+        6,
+        0
+      ],
+      "position": [
+        -88.335,
+        57,
+        0
+      ],
+      "rotationEuler": [
+        30,
+        90,
+        0
+      ],
+      "orthographicSize": 18,
+      "nearClip": 0.3,
+      "farClip": 238,
+      "follow": "0.7 player + 0.3 active objective; 3A-RETURN alignment uses fixed focus"
+    },
+    "C2": {
+      "projection": "orthographic",
+      "focus": [
+        14.96,
+        2,
+        0
+      ],
+      "position": [
+        -73.375,
+        53,
+        0
+      ],
+      "rotationEuler": [
+        30,
+        90,
+        0
+      ],
+      "orthographicSize": 7,
+      "nearClip": 0.3,
+      "farClip": 238,
+      "focusRule": "replace placeholder focus with current inspected object + (0,1,0)"
+    },
+    "modelingOverview": {
+      "projection": "orthographic",
+      "focus": [
+        0,
+        6.6,
+        0
+      ],
+      "position": [
+        -59.081,
+        65.105,
+        -59.081
+      ],
+      "rotationEuler": [
+        35,
+        45,
+        0
+      ],
+      "orthographicSize": 42.16,
+      "nearClip": 0.3,
+      "farClip": 238
+    }
+  },
+  {
+    "id": "2F",
+    "status": "proposed_not_playtested",
+    "coordinateSystem": "local +Z north; +Y up; units=Unity units",
+    "envelopeXYZ": [
+      80,
+      40,
+      64
+    ],
+    "entry": [
+      0,
+      0,
+      -28.16
+    ],
+    "exit": [
+      0,
+      4,
+      28.16
+    ],
+    "C0": {
+      "projection": "orthographic",
+      "focus": [
+        0,
+        4.8,
+        0
+      ],
+      "position": [
+        0,
+        64.8,
+        -103.923
+      ],
+      "rotationEuler": [
+        30,
+        0,
+        0
+      ],
+      "orthographicSize": 46.4,
+      "nearClip": 0.3,
+      "farClip": 280,
+      "durationSeconds": 2
+    },
+    "C1": {
+      "projection": "orthographic",
+      "focus": [
+        0,
+        2,
+        0
+      ],
+      "position": [
+        0,
+        62,
+        -103.923
+      ],
+      "rotationEuler": [
+        30,
+        0,
+        0
+      ],
+      "orthographicSize": 17,
+      "nearClip": 0.3,
+      "farClip": 280,
+      "follow": "0.7 player + 0.3 active objective; 3A-RETURN alignment uses fixed focus"
+    },
+    "C2": {
+      "projection": "orthographic",
+      "focus": [
+        17.6,
+        2,
+        0
+      ],
+      "position": [
+        17.6,
+        62,
+        -103.923
+      ],
+      "rotationEuler": [
+        30,
+        0,
+        0
+      ],
+      "orthographicSize": 7,
+      "nearClip": 0.3,
+      "farClip": 280,
+      "focusRule": "replace placeholder focus with current inspected object + (0,1,0)"
+    },
+    "modelingOverview": {
+      "projection": "orthographic",
+      "focus": [
+        0,
+        6,
+        0
+      ],
+      "position": [
+        -69.507,
+        74.829,
+        -69.507
+      ],
+      "rotationEuler": [
+        35,
+        45,
+        0
+      ],
+      "orthographicSize": 49.6,
+      "nearClip": 0.3,
+      "farClip": 280
+    }
+  },
+  {
+    "id": "3A",
+    "status": "proposed_not_playtested",
+    "coordinateSystem": "local +Z north; +Y up; units=Unity units",
+    "envelopeXYZ": [
+      92,
+      42,
+      84
+    ],
+    "entry": [
+      0,
+      0,
+      -36.96
+    ],
+    "exit": [
+      0,
+      4,
+      36.96
+    ],
+    "C0": {
+      "projection": "orthographic",
+      "focus": [
+        0,
+        5.04,
+        0
+      ],
+      "position": [
+        0,
+        74.04,
+        -119.512
+      ],
+      "rotationEuler": [
+        30,
+        0,
+        0
+      ],
+      "orthographicSize": 53.36,
+      "nearClip": 0.3,
+      "farClip": 322,
+      "durationSeconds": 2
+    },
+    "C1": {
+      "projection": "orthographic",
+      "focus": [
+        0,
+        4,
+        8
+      ],
+      "position": [
+        0,
+        73,
+        -111.512
+      ],
+      "rotationEuler": [
+        30,
+        0,
+        0
+      ],
+      "orthographicSize": 21,
+      "nearClip": 0.3,
+      "farClip": 322,
+      "follow": "0.7 player + 0.3 active objective; 3A-RETURN alignment uses fixed focus"
+    },
+    "C2": {
+      "projection": "orthographic",
+      "focus": [
+        20.24,
+        2,
+        0
+      ],
+      "position": [
+        20.24,
+        71,
+        -119.512
+      ],
+      "rotationEuler": [
+        30,
+        0,
+        0
+      ],
+      "orthographicSize": 7,
+      "nearClip": 0.3,
+      "farClip": 322,
+      "focusRule": "replace placeholder focus with current inspected object + (0,1,0)"
+    },
+    "modelingOverview": {
+      "projection": "orthographic",
+      "focus": [
+        0,
+        6.3,
+        0
+      ],
+      "position": [
+        -79.933,
+        85.454,
+        -79.933
+      ],
+      "rotationEuler": [
+        35,
+        45,
+        0
+      ],
+      "orthographicSize": 57.04,
+      "nearClip": 0.3,
+      "farClip": 322
+    }
+  },
+  {
+    "id": "3B",
+    "status": "proposed_not_playtested",
+    "coordinateSystem": "local +Z north; +Y up; units=Unity units",
+    "envelopeXYZ": [
+      78,
+      36,
+      74
+    ],
+    "entry": [
+      0,
+      0,
+      -32.56
+    ],
+    "exit": [
+      0,
+      4,
+      32.56
+    ],
+    "C0": {
+      "projection": "orthographic",
+      "focus": [
+        0,
+        4.32,
+        0
+      ],
+      "position": [
+        0,
+        62.82,
+        -101.325
+      ],
+      "rotationEuler": [
+        30,
+        0,
+        0
+      ],
+      "orthographicSize": 45.239999999999995,
+      "nearClip": 0.3,
+      "farClip": 273,
+      "durationSeconds": 2
+    },
+    "C1": {
+      "projection": "orthographic",
+      "focus": [
+        0,
+        4,
+        0
+      ],
+      "position": [
+        0,
+        62.5,
+        -101.325
+      ],
+      "rotationEuler": [
+        30,
+        0,
+        0
+      ],
+      "orthographicSize": 19,
+      "nearClip": 0.3,
+      "farClip": 273,
+      "follow": "0.7 player + 0.3 active objective; 3A-RETURN alignment uses fixed focus"
+    },
+    "C2": {
+      "projection": "orthographic",
+      "focus": [
+        17.16,
+        2,
+        0
+      ],
+      "position": [
+        17.16,
+        60.5,
+        -101.325
+      ],
+      "rotationEuler": [
+        30,
+        0,
+        0
+      ],
+      "orthographicSize": 7,
+      "nearClip": 0.3,
+      "farClip": 273,
+      "focusRule": "replace placeholder focus with current inspected object + (0,1,0)"
+    },
+    "modelingOverview": {
+      "projection": "orthographic",
+      "focus": [
+        0,
+        5.3999999999999995,
+        0
+      ],
+      "position": [
+        -67.77,
+        72.508,
+        -67.77
+      ],
+      "rotationEuler": [
+        35,
+        45,
+        0
+      ],
+      "orthographicSize": 48.36,
+      "nearClip": 0.3,
+      "farClip": 273
+    }
+  },
+  {
+    "id": "3C",
+    "status": "proposed_not_playtested",
+    "coordinateSystem": "local +Z north; +Y up; units=Unity units",
+    "envelopeXYZ": [
+      66,
+      48,
+      74
+    ],
+    "entry": [
+      0,
+      0,
+      -32.56
+    ],
+    "exit": [
+      0,
+      4,
+      32.56
+    ],
+    "C0": {
+      "projection": "orthographic",
+      "focus": [
+        0,
+        5.76,
+        0
+      ],
+      "position": [
+        0,
+        61.26,
+        -96.129
+      ],
+      "rotationEuler": [
+        30,
+        0,
+        0
+      ],
+      "orthographicSize": 42.919999999999995,
+      "nearClip": 0.3,
+      "farClip": 259,
+      "durationSeconds": 2
+    },
+    "C1": {
+      "projection": "orthographic",
+      "focus": [
+        0,
+        7,
+        0
+      ],
+      "position": [
+        0,
+        62.5,
+        -96.129
+      ],
+      "rotationEuler": [
+        30,
+        0,
+        0
+      ],
+      "orthographicSize": 18,
+      "nearClip": 0.3,
+      "farClip": 259,
+      "follow": "0.7 player + 0.3 active objective; 3A-RETURN alignment uses fixed focus"
+    },
+    "C2": {
+      "projection": "orthographic",
+      "focus": [
+        14.52,
+        2,
+        0
+      ],
+      "position": [
+        14.52,
+        57.5,
+        -96.129
+      ],
+      "rotationEuler": [
+        30,
+        0,
+        0
+      ],
+      "orthographicSize": 7,
+      "nearClip": 0.3,
+      "farClip": 259,
+      "focusRule": "replace placeholder focus with current inspected object + (0,1,0)"
+    },
+    "modelingOverview": {
+      "projection": "orthographic",
+      "focus": [
+        0,
+        7.199999999999999,
+        0
+      ],
+      "position": [
+        -64.294,
+        70.867,
+        -64.294
+      ],
+      "rotationEuler": [
+        35,
+        45,
+        0
+      ],
+      "orthographicSize": 45.88,
+      "nearClip": 0.3,
+      "farClip": 259
+    }
+  },
+  {
+    "id": "3A-RETURN",
+    "status": "proposed_not_playtested",
+    "coordinateSystem": "local +Z north; +Y up; units=Unity units",
+    "envelopeXYZ": [
+      92,
+      42,
+      84
+    ],
+    "entry": [
+      0,
+      0,
+      -36.96
+    ],
+    "exit": [
+      0,
+      4,
+      36.96
+    ],
+    "C0": {
+      "projection": "orthographic",
+      "focus": [
+        0,
+        5.04,
+        0
+      ],
+      "position": [
+        0,
+        74.04,
+        -119.512
+      ],
+      "rotationEuler": [
+        30,
+        0,
+        0
+      ],
+      "orthographicSize": 53.36,
+      "nearClip": 0.3,
+      "farClip": 322,
+      "durationSeconds": 2
+    },
+    "C1": {
+      "projection": "orthographic",
+      "focus": [
+        0,
+        4,
+        8
+      ],
+      "position": [
+        0,
+        73,
+        -111.512
+      ],
+      "rotationEuler": [
+        30,
+        0,
+        0
+      ],
+      "orthographicSize": 21,
+      "nearClip": 0.3,
+      "farClip": 322,
+      "follow": "0.7 player + 0.3 active objective; 3A-RETURN alignment uses fixed focus"
+    },
+    "C2": {
+      "projection": "orthographic",
+      "focus": [
+        20.24,
+        2,
+        0
+      ],
+      "position": [
+        20.24,
+        71,
+        -119.512
+      ],
+      "rotationEuler": [
+        30,
+        0,
+        0
+      ],
+      "orthographicSize": 7,
+      "nearClip": 0.3,
+      "farClip": 322,
+      "focusRule": "replace placeholder focus with current inspected object + (0,1,0)"
+    },
+    "modelingOverview": {
+      "projection": "orthographic",
+      "focus": [
+        0,
+        6.3,
+        0
+      ],
+      "position": [
+        -79.933,
+        85.454,
+        -79.933
+      ],
+      "rotationEuler": [
+        35,
+        45,
+        0
+      ],
+      "orthographicSize": 57.04,
+      "nearClip": 0.3,
+      "farClip": 322
+    }
+  },
+  {
+    "id": "HD",
+    "status": "proposed_not_playtested",
+    "coordinateSystem": "local +Z north; +Y up; units=Unity units",
+    "envelopeXYZ": [
+      60,
+      30,
+      60
+    ],
+    "entry": [
+      0,
+      0,
+      -26.4
+    ],
+    "exit": [
+      0,
+      4,
+      26.4
+    ],
+    "C0": {
+      "projection": "orthographic",
+      "focus": [
+        0,
+        3.5999999999999996,
+        0
+      ],
+      "position": [
+        -77.942,
+        48.6,
+        0
+      ],
+      "rotationEuler": [
+        30,
+        90,
+        0
+      ],
+      "orthographicSize": 34.8,
+      "nearClip": 0.3,
+      "farClip": 210,
+      "durationSeconds": 2
+    },
+    "C1": {
+      "projection": "orthographic",
+      "focus": [
+        0,
+        3,
+        0
+      ],
+      "position": [
+        -77.942,
+        48,
+        0
+      ],
+      "rotationEuler": [
+        30,
+        90,
+        0
+      ],
+      "orthographicSize": 16,
+      "nearClip": 0.3,
+      "farClip": 210,
+      "follow": "0.7 player + 0.3 active objective; 3A-RETURN alignment uses fixed focus"
+    },
+    "C2": {
+      "projection": "orthographic",
+      "focus": [
+        13.2,
+        2,
+        0
+      ],
+      "position": [
+        -64.742,
+        47,
+        0
+      ],
+      "rotationEuler": [
+        30,
+        90,
+        0
+      ],
+      "orthographicSize": 7,
+      "nearClip": 0.3,
+      "farClip": 210,
+      "focusRule": "replace placeholder focus with current inspected object + (0,1,0)"
+    },
+    "modelingOverview": {
+      "projection": "orthographic",
+      "focus": [
+        0,
+        4.5,
+        0
+      ],
+      "position": [
+        -52.131,
+        56.122,
+        -52.131
+      ],
+      "rotationEuler": [
+        35,
+        45,
+        0
+      ],
+      "orthographicSize": 37.2,
+      "nearClip": 0.3,
+      "farClip": 210
+    }
+  }
+]

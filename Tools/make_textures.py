@@ -159,9 +159,21 @@ def save(name, arr, target_mean=0.94):
     print("%-12s %s  평균 %.3f  대비 %.3f" % (name, p, img.mean() / 255, img.std() / 255))
 
 
+def paper_normal():
+    # Wrap derivatives across the tile seam; the normal map adds fibre relief,
+    # without changing the opaque geometry used by shadow puzzles.
+    h = np.asarray(Image.open(os.path.join(OUT, "T_Paper.png")).convert("L"), dtype=float) / 255
+    x = (np.roll(h, -1, 1) - np.roll(h, 1, 1)) * 1.6
+    y = (np.roll(h, -1, 0) - np.roll(h, 1, 0)) * 1.6
+    n = np.stack([-x, -y, np.ones_like(x)], axis=-1)
+    n /= np.linalg.norm(n, axis=-1, keepdims=True)
+    Image.fromarray(((n * .5 + .5) * 255).astype(np.uint8)).save(os.path.join(OUT, "T_Paper_Normal.png"))
+
+
 if __name__ == "__main__":
     save("T_Paper", paper())
     save("T_Crayon", crayon())
     save("T_Pencil", pencil())
     save("T_Paper_Soft", soft_paper(), target_mean=0.955)
     save_rgb("T_Ghost_Ramp", ghost_ramp())
+    paper_normal()

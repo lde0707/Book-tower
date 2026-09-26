@@ -1,0 +1,920 @@
+[
+  {
+    "id": "F0",
+    "zones": [
+      {
+        "name": "입구",
+        "center": [
+          0,
+          0,
+          -16
+        ],
+        "radius": 8
+      },
+      {
+        "name": "왼쪽 끈 마당",
+        "center": [
+          -15,
+          1,
+          0
+        ],
+        "radius": 8
+      },
+      {
+        "name": "오른쪽 홈 마당",
+        "center": [
+          15,
+          1,
+          0
+        ],
+        "radius": 8
+      },
+      {
+        "name": "중앙 누름판",
+        "center": [
+          0,
+          0,
+          3
+        ],
+        "radius": 8
+      },
+      {
+        "name": "출구",
+        "center": [
+          0,
+          3,
+          16
+        ],
+        "radius": 8
+      }
+    ],
+    "route": "입구→좌/우 자유 탐색→중앙→출구",
+    "completionRule": "claspA && claspB && padPressed",
+    "recovery": "조각 홈 배치는 보존, 판만 다시 눌러 재전개",
+    "status": "blockout_proposal"
+  },
+  {
+    "id": "1A",
+    "zones": [
+      {
+        "name": "입구",
+        "center": [
+          0,
+          0,
+          -21
+        ],
+        "radius": 8
+      },
+      {
+        "name": "아래 관측",
+        "center": [
+          -17,
+          2,
+          -5
+        ],
+        "radius": 8
+      },
+      {
+        "name": "위 관측",
+        "center": [
+          15,
+          5,
+          4
+        ],
+        "radius": 8
+      },
+      {
+        "name": "그림자 목표",
+        "center": [
+          0,
+          4,
+          17
+        ],
+        "radius": 8
+      },
+      {
+        "name": "출구",
+        "center": [
+          0,
+          4,
+          23
+        ],
+        "radius": 8
+      }
+    ],
+    "route": "입구→아래→위→목표; 위↔아래 접지 승강",
+    "completionRule": "targetSeen && lightClear && panelAligned && confirmPad",
+    "recovery": "날개 역접기, 목표 윤곽은 계속 보임",
+    "status": "blockout_proposal"
+  },
+  {
+    "id": "1B",
+    "zones": [
+      {
+        "name": "입구",
+        "center": [
+          -19,
+          0,
+          -22
+        ],
+        "radius": 8
+      },
+      {
+        "name": "첫 섬",
+        "center": [
+          -16,
+          1,
+          -4
+        ],
+        "radius": 8
+      },
+      {
+        "name": "중간 섬",
+        "center": [
+          3,
+          2,
+          3
+        ],
+        "radius": 8
+      },
+      {
+        "name": "그림자 끝",
+        "center": [
+          15,
+          2,
+          14
+        ],
+        "radius": 8
+      },
+      {
+        "name": "출구",
+        "center": [
+          0,
+          3,
+          27
+        ],
+        "radius": 8
+      }
+    ],
+    "route": "초승달 외곽→첫 섬→중간 섬→그림자→출구",
+    "completionRule": "bookmarkLowered && leafAJoined && leafBJoined && shadowValid && crossed",
+    "recovery": "섬별 체크포인트; 광로 조작은 중간 섬에서만",
+    "status": "blockout_proposal"
+  },
+  {
+    "id": "1C",
+    "zones": [
+      {
+        "name": "입구",
+        "center": [
+          0,
+          0,
+          -23
+        ],
+        "radius": 8
+      },
+      {
+        "name": "왼 분지",
+        "center": [
+          -18,
+          2,
+          -3
+        ],
+        "radius": 8
+      },
+      {
+        "name": "중앙 능선",
+        "center": [
+          0,
+          4,
+          4
+        ],
+        "radius": 8
+      },
+      {
+        "name": "오른 분지",
+        "center": [
+          18,
+          2,
+          -3
+        ],
+        "radius": 8
+      },
+      {
+        "name": "출구",
+        "center": [
+          0,
+          5,
+          24
+        ],
+        "radius": 8
+      }
+    ],
+    "route": "두 분지 자유 왕복→능선 수광 꽃",
+    "completionRule": "wedgeLeft && wedgeRight && receiversLit3",
+    "recovery": "쐐기 회수/재설치, 호흡 정지 보조",
+    "status": "blockout_proposal"
+  },
+  {
+    "id": "1D",
+    "zones": [
+      {
+        "name": "입구",
+        "center": [
+          0,
+          0,
+          -22
+        ],
+        "radius": 8
+      },
+      {
+        "name": "발자국1",
+        "center": [
+          -19,
+          0,
+          -7
+        ],
+        "radius": 8
+      },
+      {
+        "name": "발자국2",
+        "center": [
+          18,
+          1,
+          2
+        ],
+        "radius": 8
+      },
+      {
+        "name": "비교대",
+        "center": [
+          -4,
+          2,
+          15
+        ],
+        "radius": 8
+      },
+      {
+        "name": "출구",
+        "center": [
+          0,
+          2,
+          24
+        ],
+        "radius": 8
+      }
+    ],
+    "route": "분기 탐색 순서 자유→비교대→발걸음 길",
+    "completionRule": "tracksExposed && realFragmentsMatched && falseFragmentExcluded",
+    "recovery": "생물 재접힘, 종으로 다시 유도; 오답 조각 반환",
+    "status": "blockout_proposal"
+  },
+  {
+    "id": "1E",
+    "zones": [
+      {
+        "name": "입구",
+        "center": [
+          0,
+          0,
+          -26
+        ],
+        "radius": 8
+      },
+      {
+        "name": "왼 저울",
+        "center": [
+          -22,
+          5,
+          0
+        ],
+        "radius": 8
+      },
+      {
+        "name": "오른 저울",
+        "center": [
+          22,
+          8,
+          0
+        ],
+        "radius": 8
+      },
+      {
+        "name": "인장 바닥",
+        "center": [
+          0,
+          0,
+          0
+        ],
+        "radius": 8
+      },
+      {
+        "name": "네 번째 기록",
+        "center": [
+          0,
+          6,
+          23
+        ],
+        "radius": 8
+      }
+    ],
+    "route": "외곽 고리→무게 조절→목표 바닥→비밀 홈",
+    "completionRule": "balanced && shadowSealAligned && memory4Recovered",
+    "recovery": "추는 리셋 받침으로 회수, 낙하해도 분실 없음",
+    "status": "blockout_proposal"
+  },
+  {
+    "id": "2A",
+    "zones": [
+      {
+        "name": "입구",
+        "center": [
+          -24,
+          0,
+          -19
+        ],
+        "radius": 8
+      },
+      {
+        "name": "첫 주름",
+        "center": [
+          -15,
+          2,
+          -3
+        ],
+        "radius": 8
+      },
+      {
+        "name": "핀 구역",
+        "center": [
+          13,
+          3,
+          -4
+        ],
+        "radius": 8
+      },
+      {
+        "name": "직조 교차",
+        "center": [
+          2,
+          4,
+          11
+        ],
+        "radius": 8
+      },
+      {
+        "name": "출구",
+        "center": [
+          20,
+          5,
+          21
+        ],
+        "radius": 8
+      }
+    ],
+    "route": "입구→재생 관찰→핀 배치→교차; 리본으로 되돌림",
+    "completionRule": "echoPadHeld && pinsCorrect && ribbonRouteContinuous",
+    "recovery": "재생 반복 무제한, 핀 위치만 보존",
+    "status": "blockout_proposal"
+  },
+  {
+    "id": "2B",
+    "zones": [
+      {
+        "name": "입구",
+        "center": [
+          0,
+          0,
+          -24
+        ],
+        "radius": 8
+      },
+      {
+        "name": "앞 관객석",
+        "center": [
+          0,
+          2,
+          -8
+        ],
+        "radius": 8
+      },
+      {
+        "name": "뒤편",
+        "center": [
+          -22,
+          4,
+          13
+        ],
+        "radius": 8
+      },
+      {
+        "name": "측면 비교",
+        "center": [
+          23,
+          3,
+          3
+        ],
+        "radius": 8
+      },
+      {
+        "name": "출구",
+        "center": [
+          0,
+          4,
+          25
+        ],
+        "radius": 8
+      }
+    ],
+    "route": "앞 관찰→왼 뒤편→오른 비교→무대",
+    "completionRule": "negativeShapeMatched && asymmetricNotchValid && screensCorrect",
+    "recovery": "전면 미리보기 항상 유지, 소품 홈 자동 복귀",
+    "status": "blockout_proposal"
+  },
+  {
+    "id": "2C",
+    "zones": [
+      {
+        "name": "입구",
+        "center": [
+          0,
+          0,
+          -32
+        ],
+        "radius": 8
+      },
+      {
+        "name": "중심핀",
+        "center": [
+          0,
+          3,
+          0
+        ],
+        "radius": 8
+      },
+      {
+        "name": "서쪽 꽃잎",
+        "center": [
+          -26,
+          3,
+          2
+        ],
+        "radius": 8
+      },
+      {
+        "name": "동쪽 꽃잎",
+        "center": [
+          26,
+          3,
+          -2
+        ],
+        "radius": 8
+      },
+      {
+        "name": "안쪽 기록",
+        "center": [
+          0,
+          5,
+          29
+        ],
+        "radius": 8
+      }
+    ],
+    "route": "중심↔네 꽃잎; 접기 상태별 동선 교체",
+    "completionRule": "pastLandmarksMatch && currentPathReachable && innerRecordFound",
+    "recovery": "중심핀 안전지대 확보, 이동체 위 접힘 입력 제한",
+    "status": "blockout_proposal"
+  },
+  {
+    "id": "2D",
+    "zones": [
+      {
+        "name": "입구",
+        "center": [
+          0,
+          0,
+          -26
+        ],
+        "radius": 8
+      },
+      {
+        "name": "흐름 분기",
+        "center": [
+          0,
+          3,
+          -9
+        ],
+        "radius": 8
+      },
+      {
+        "name": "왼 조사",
+        "center": [
+          -20,
+          5,
+          3
+        ],
+        "radius": 8
+      },
+      {
+        "name": "오른 조사",
+        "center": [
+          20,
+          7,
+          9
+        ],
+        "radius": 8
+      },
+      {
+        "name": "복원통",
+        "center": [
+          0,
+          9,
+          25
+        ],
+        "radius": 8
+      }
+    ],
+    "route": "S자 상승↔조사대; 복원 후 직통 종이 계단",
+    "completionRule": "flowPausedOrSlow && evidenceInspected3 && recordsClassified",
+    "recovery": "오분류 회수통; 운반 중 낙하하면 마지막 받침",
+    "status": "blockout_proposal"
+  },
+  {
+    "id": "2E",
+    "zones": [
+      {
+        "name": "사건1",
+        "center": [
+          0,
+          0,
+          -24
+        ],
+        "radius": 8
+      },
+      {
+        "name": "사건2",
+        "center": [
+          23,
+          3,
+          -7
+        ],
+        "radius": 8
+      },
+      {
+        "name": "사건3",
+        "center": [
+          14,
+          6,
+          20
+        ],
+        "radius": 8
+      },
+      {
+        "name": "사건4",
+        "center": [
+          -14,
+          9,
+          20
+        ],
+        "radius": 8
+      },
+      {
+        "name": "사건5",
+        "center": [
+          -23,
+          12,
+          -7
+        ],
+        "radius": 8
+      }
+    ],
+    "route": "안전 외곽 경유로 자유 조사; 리본은 인과 관계를 표현",
+    "completionRule": "dependenciesAllValid && replayNoContradiction",
+    "recovery": "연결만 풀고 조사 상태 유지",
+    "status": "blockout_proposal"
+  },
+  {
+    "id": "2F",
+    "zones": [
+      {
+        "name": "입구",
+        "center": [
+          0,
+          0,
+          -25
+        ],
+        "radius": 8
+      },
+      {
+        "name": "첫 둥지",
+        "center": [
+          -19,
+          1,
+          -9
+        ],
+        "radius": 8
+      },
+      {
+        "name": "바람막이",
+        "center": [
+          13,
+          2,
+          0
+        ],
+        "radius": 8
+      },
+      {
+        "name": "두 번째 둥지",
+        "center": [
+          -13,
+          3,
+          11
+        ],
+        "radius": 8
+      },
+      {
+        "name": "기억 요람",
+        "center": [
+          0,
+          3,
+          23
+        ],
+        "radius": 8
+      }
+    ],
+    "route": "낮은 리본길→두 바람막이→조용한 요람",
+    "completionRule": "windbreaksOpen2 && lanternAtCradle && memoryWatched",
+    "recovery": "시간 제한 없음, 종이등은 안전 둥지에서 기다림",
+    "status": "blockout_proposal"
+  },
+  {
+    "id": "3A",
+    "zones": [
+      {
+        "name": "입구",
+        "center": [
+          0,
+          0,
+          -33
+        ],
+        "radius": 8
+      },
+      {
+        "name": "왼 기록",
+        "center": [
+          -27,
+          2,
+          0
+        ],
+        "radius": 8
+      },
+      {
+        "name": "오른 기록",
+        "center": [
+          27,
+          3,
+          0
+        ],
+        "radius": 8
+      },
+      {
+        "name": "중앙 띠",
+        "center": [
+          0,
+          2,
+          7
+        ],
+        "radius": 8
+      },
+      {
+        "name": "북 통광문",
+        "center": [
+          0,
+          4,
+          34
+        ],
+        "radius": 8
+      }
+    ],
+    "route": "7분지 자유 탐색→세 비교대→중앙 복원→북쪽",
+    "completionRule": "records7Found && chronologyValid && rescueSceneRestored",
+    "recovery": "오답 띠 되돌림, 수집 조각 유지",
+    "status": "blockout_proposal"
+  },
+  {
+    "id": "3B",
+    "zones": [
+      {
+        "name": "입구",
+        "center": [
+          0,
+          0,
+          -29
+        ],
+        "radius": 8
+      },
+      {
+        "name": "장치A",
+        "center": [
+          -23,
+          3,
+          -3
+        ],
+        "radius": 8
+      },
+      {
+        "name": "장치B",
+        "center": [
+          23,
+          3,
+          -3
+        ],
+        "radius": 8
+      },
+      {
+        "name": "장치C",
+        "center": [
+          0,
+          4,
+          17
+        ],
+        "radius": 8
+      },
+      {
+        "name": "북 통광문",
+        "center": [
+          0,
+          4,
+          30
+        ],
+        "radius": 8
+      }
+    ],
+    "route": "세 잎 순환; 중앙 광로는 건너지 않는 별도 접근길",
+    "completionRule": "keyholeLit && echoExposed && socketExposed && holdsStable",
+    "recovery": "추 회수, 광로 실시간 피드백",
+    "status": "blockout_proposal"
+  },
+  {
+    "id": "3C",
+    "zones": [
+      {
+        "name": "입구",
+        "center": [
+          0,
+          0,
+          -29
+        ],
+        "radius": 8
+      },
+      {
+        "name": "첫 날개",
+        "center": [
+          -18,
+          5,
+          -9
+        ],
+        "radius": 8
+      },
+      {
+        "name": "둘째 날개",
+        "center": [
+          17,
+          10,
+          2
+        ],
+        "radius": 8
+      },
+      {
+        "name": "셋째 날개",
+        "center": [
+          -9,
+          15,
+          19
+        ],
+        "radius": 8
+      },
+      {
+        "name": "등대",
+        "center": [
+          0,
+          20,
+          10
+        ],
+        "radius": 8
+      }
+    ],
+    "route": "나선 상승/승강 우회→등대→귀환 리본",
+    "completionRule": "P13 && P14 && irisAligned3 && beaconActivated",
+    "recovery": "층별 체크포인트, 귀환 길 영구 해제",
+    "status": "blockout_proposal"
+  },
+  {
+    "id": "3A-RETURN",
+    "zones": [
+      {
+        "name": "남 진입",
+        "center": [
+          0,
+          0,
+          -33
+        ],
+        "radius": 8
+      },
+      {
+        "name": "접지판",
+        "center": [
+          -9,
+          1,
+          7
+        ],
+        "radius": 8
+      },
+      {
+        "name": "정렬 관측",
+        "center": [
+          0,
+          2,
+          -10
+        ],
+        "radius": 8
+      },
+      {
+        "name": "복원 선택",
+        "center": [
+          -15,
+          2,
+          17
+        ],
+        "radius": 8
+      },
+      {
+        "name": "머무름 선택",
+        "center": [
+          15,
+          2,
+          17
+        ],
+        "radius": 8
+      }
+    ],
+    "route": "같은 공간으로 귀환→왜상→좌/우 동등한 선택",
+    "completionRule": "beaconLit && foldAligned && yaw0 && allPartsInViewport && settled",
+    "recovery": "선택 확정 전 양쪽 관찰 가능; HD는 두 결말 모두 해제",
+    "status": "blockout_proposal"
+  },
+  {
+    "id": "HD",
+    "zones": [
+      {
+        "name": "큰 책",
+        "center": [
+          -16,
+          0,
+          -19
+        ],
+        "radius": 8
+      },
+      {
+        "name": "중간 문",
+        "center": [
+          0,
+          2,
+          -6
+        ],
+        "radius": 8
+      },
+      {
+        "name": "중간 책",
+        "center": [
+          16,
+          3,
+          0
+        ],
+        "radius": 8
+      },
+      {
+        "name": "작은 책",
+        "center": [
+          4,
+          5,
+          19
+        ],
+        "radius": 8
+      },
+      {
+        "name": "귀환 홈",
+        "center": [
+          -18,
+          2,
+          11
+        ],
+        "radius": 8
+      }
+    ],
+    "route": "8자 순환; 3규모 공간은 연결된 별도 셀",
+    "completionRule": "largeSymbol && middleFold && smallSymbolMapped && returnSocket",
+    "recovery": "크기 문마다 체크포인트, 원래 책으로 귀환 끈",
+    "status": "blockout_proposal"
+  }
+]

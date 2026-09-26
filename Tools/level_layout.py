@@ -41,7 +41,7 @@ def box(name, pos, scale, mat="mid", note="", bridge_for="", bridge_y=0.0):
                 scale=dict(x=scale[0], y=scale[1], z=scale[2]), mat=mat, note=note,
                 bridgeFor=bridge_for, bridgeY=bridge_y)
 
-def fold(name, pos, size, mat="light", state=0, note=""):
+def fold(name, pos, size, mat="light", state=0, note="", angles=None, reach=7.0, support=True):
     # state 자리에 실수로 설명을 넣으면 JSON 의 int 필드에 문자열이 들어가고,
     # 유니티의 JsonUtility 가 레벨 전체를 못 읽는다. 조용히 넘어가면 안 된다.
     if not isinstance(state, int):
@@ -51,7 +51,8 @@ def fold(name, pos, size, mat="light", state=0, note=""):
     if not 0 <= state <= 3:
         raise ValueError(f"fold('{name}'): state {state} 는 0~3 범위 밖")
     return dict(kind="fold", name=name, pos=dict(x=pos[0], y=pos[1], z=pos[2]),
-                scale=dict(x=size[0], y=0.08, z=size[1]), mat=mat, state=state, note=note)
+                scale=dict(x=size[0], y=0.08, z=size[1]), mat=mat, state=state, note=note,
+                angles=angles or [0,45,90,135], interactionRange=reach, noStanding=not support)
 
 def piece(name, pos, pid, label, area_id, decoy=False, mat="light", note=""):
     return dict(kind="piece", name=name, pos=dict(x=pos[0], y=pos[1], z=pos[2]),
@@ -217,13 +218,14 @@ AREAS.append(area("1B", "1B_끊긴길", 1, P_1B, (20, 14), wall=5, split=4.0,
         # P3 를 풀면 이 판이 바닥 높이까지 올라와 간극을 잇는다.
         # "접은 페이지의 그림자가 간극을 덮는다" 의 실제 구현부다.
         # 폭은 간극(4)보다 넓게 잡아 양쪽 바닥에 걸치게 한다.
-        box("간극_가림막", (0, -0.6, 0), (20, 0.05, 4.5), "shade",
+        box("간극_가림막", (-3.1, -0.6, 0), (6.3, 0.05, 4.5), "shade",
             "P3 · 찢겨나간 자리. 풀면 여기까지 올라와 길이 된다",
             bridge_for="P3", bridge_y=0.05),
-        # 접이면은 반드시 **입구 쪽**에 있어야 한다.
-        # 예전엔 간극 건너편(z -6)에 있었는데, 입구가 z +7 이라
-        # 건너지 않으면 닿지 않았다. 즉 P3 는 풀 수도 건널 수도 없었다.
-        fold("P3_대체용_접이면", (-7, 0.1, 5), (5, 5), "light"),
+        # 남쪽 힌지를 북쪽 가장자리에서 조작한다. 8.5u 범위와 안전 여유를 검증한다.
+        # 닫힘은 바깥쪽 180°: 납작한 면이 시작부터 틈을 잇는 우회를 막는다.
+        # 실제 다리 메시/콜라이더는 Unity 빌더가 45° 그림자를 투영해 만든다.
+        fold("P3_대체용_접이면", (-2.5, 0.1, -2.25), (5, 4.625), "light",
+             angles=[180,45,90,135], reach=8.5, support=False),
         marker("랜드마크_찢겨나간_간극", (0, 0.6, 0.5)),
         *torn_scraps("1B바닥", (7, 0.02, 6)),
         *ribbon_bits("1B리본", (8.5, 0.1, 3)),
@@ -402,7 +404,7 @@ AREAS.append(area("3A", "3A_복원의방", 3, P_3A, (32, 28), wall=0,
 
         marker("◈정렬시점_허공", (0, 5.5, 2),
                "P15 · 여기서만 조각이 새의 실루엣으로 정렬된다. 허공이라 걸어갈 수 없다"),
-        fold("P15_공간접이면", (-8, 0.1, -10), (7, 7), "mid", 0,
+        fold("P15_공간접이면", (-3.75, 0.1, 7.5), (4, 4), "mid", 0,
              "P15 · 이걸 접으면 방의 기하가 포개져 ◈가 플레이어 위치와 겹친다"),
 
         marker("히든_책속의책", (12, 0.3, -10), "엔딩 후 열림"),
@@ -522,7 +524,7 @@ CAM_DIST  = 90.0            # 직교 카메라를 뒤로 물리는 거리
 
 # 기본은 yaw 0 (카메라가 -z 쪽에서 +z 를 바라봄 → 뒷벽에 지는 그림자가 보인다).
 # 카메라 쪽 벽은 아래 면 컬링으로 숨기므로, 방마다 각도를 따로 줄 일이 거의 없다.
-CAM_YAW_OVERRIDE = {}
+CAM_YAW_OVERRIDE = {"1B": 1}
 
 
 def apply_xz_scale(s):
@@ -563,6 +565,87 @@ def apply_room_cameras():
 
 
 apply_xz_scale(XZ_SCALE)
+
+# ═══════════════════════════════════════════════ V2 · 거대한 종이 세계 블록아웃
+#
+# Docs/Blueprints/RoomRedesignV2 의 제작 설계도를 실제 레벨 데이터에 반영한다.
+# 방은 크지만 빈 운동장이 되지 않도록 5.5u/s 기준 5~12초 간격의 하위 구역으로
+# 나눈다. 아래 좌표는 스트리밍 셀의 staging 좌표이며 각 방 내부는 로컬 원점을 쓴다.
+#
+# 플레이어 실측 제원:
+#   CharacterController 지름 0.60u / 높이 1.40u
+#   걷기 5.5u/s / 점프 1.2u / 중력 18u/s²
+#   최고속도 점프 도달거리 약 4.02u. 필수 점프는 2.0u 이하로 제한하고,
+#   퍼즐로 막아야 하는 간극은 5.4u 이상으로 둔다.
+V2_TARGETS = {
+    "F0":  ((0, 0, -220),    (56, 44)),
+    "1A":  ((100, 4, -180),  (64, 56)),
+    "1B":  ((170, 8, -100),  (76, 64)),
+    "1C":  ((170, 12, 0),    (68, 60)),
+    "1D":  ((140, 17, 90),   (72, 58)),
+    "1E":  ((70, 22, 160),   (66, 66)),
+    "2A":  ((-30, 28, 180),  (78, 54)),
+    "2B":  ((-120, 34, 140), (70, 62)),
+    "2C":  ((-180, 40, 60),  (82, 82)),
+    "2D":  ((-180, 46, -30), (70, 68)),
+    "2E":  ((-140, 52, -120),(68, 68)),
+    "2F":  ((-50, 58, -205), (80, 64)),
+    # P15 논리 광축: 3A → 3B → 3C 가 +Z 일직선이다.
+    "3A":  ((-10, 66, -110), (92, 84)),
+    "3B":  ((-10, 72, -10),  (78, 74)),
+    "3C":  ((-10, 80, 100),  (66, 74)),
+    "HD":  ((200, 66, -200), (60, 60)),
+}
+
+
+def apply_v2_redesign():
+    for a in AREAS:
+        target = V2_TARGETS.get(a["id"])
+        if target is None:
+            continue
+        old_x, old_z = a["size"]["x"], a["size"]["z"]
+        (px, py, pz), (new_x, new_z) = target
+        sx, sz = new_x / old_x, new_z / old_z
+
+        # 기존 상호작용과 퍼즐 연결은 보존하면서 새 방의 비율로 퍼뜨린다.
+        # 높이는 플레이어 점프 제원과 기존 애니메이션을 지키기 위해 임의 확대하지 않는다.
+        for o in a["objects"]:
+            o["pos"]["x"] = round(o["pos"]["x"] * sx, 3)
+            o["pos"]["z"] = round(o["pos"]["z"] * sz, 3)
+            o["scale"]["x"] = round(o["scale"]["x"] * min(sx, 1.8), 3)
+            o["scale"]["z"] = round(o["scale"]["z"] * min(sz, 1.8), 3)
+        q = a.get("puzzle")
+        if q and q.get("hasAt"):
+            q["at"]["x"] = round(q["at"]["x"] * sx, 3)
+            q["at"]["z"] = round(q["at"]["z"] * sz, 3)
+            # 조작 반경은 방 크기와 함께 늘리지 않는다. 플레이어 몸 크기 기준이다.
+            q["assemblyRange"] = min(q["assemblyRange"], 4.5)
+
+        a["pos"] = dict(x=px, y=py, z=pz)
+        a["size"] = dict(x=new_x, z=new_z)
+        a["camPad"] = 0.88
+
+    # P3은 점프 최고 이론치(4.02u)보다 넓어서 그림자 다리 없이 건널 수 없다.
+    BY_ID["1B"]["splitGap"] = 5.4
+    # 1A에서 남쪽으로 들어오므로 접이면도 남쪽(진입측)에 있어야 한다.
+    # 건너편에 있으면 다리를 만들기 전에 간극을 건너야 하는 순환 잠금이 된다.
+    for o in BY_ID["1B"]["objects"]:
+        if o["name"] == "P3_대체용_접이면":
+            o["pos"]["z"] = -abs(o["pos"]["z"])
+
+    # 새 외곽에서 문 소켓까지 다시 계산한다. 폭 5.5u는 주 동선 폭과 같다.
+    for r in RAMPS:
+        a, b = BY_ID[r["fromId"]], BY_ID[r["toId"]]
+        pa = (a["pos"]["x"], a["pos"]["y"], a["pos"]["z"])
+        pb = (b["pos"]["x"], b["pos"]["y"], b["pos"]["z"])
+        rf = edge_point(a, pb)
+        rt = edge_point(b, pa)
+        r["from"] = dict(x=rf[0], y=rf[1], z=rf[2])
+        r["to"] = dict(x=rt[0], y=rt[1], z=rt[2])
+        r["width"] = 5.5
+
+
+apply_v2_redesign()
 apply_room_cameras()
 
 
@@ -901,6 +984,15 @@ def lit_targets(a):
     for o in a["objects"]:
         if o["kind"] == "fold":
             pts.append((o["pos"]["x"], o["pos"]["z"]))
+            if a["id"] == "1B" and o["name"] == "P3_대체용_접이면":
+                # Illuminate the entire solved caster, not only its hinge.
+                angle = math.radians(o.get("angles", [0,45,90,135])[1])
+                length = o["scale"]["z"]
+                travel = math.sin(angle)*length / -LIGHT_DIR[1]
+                for side in (-.5, .5):
+                    x = o["pos"]["x"] + side*o["scale"]["x"]
+                    pts.append((x, o["pos"]["z"]))
+                    pts.append((x+LIGHT_DIR[0]*travel, o["pos"]["z"]+math.cos(angle)*length+LIGHT_DIR[2]*travel))
         elif o["kind"] == "box" and o.get("mat") == "accent":
             pts.append((o["pos"]["x"], o["pos"]["z"]))
     q = a.get("puzzle")
@@ -938,16 +1030,16 @@ def ceiling_pieces(holes, hx, hz):
     out = []
     for i in range(len(zs) - 1):
         z0, z1 = zs[i], zs[i + 1]
-        if z1 - z0 < 0.05:
+        if z1 - z0 < 1e-6:
             continue
         zc = (z0 + z1) / 2
         cuts = sorted((h["x0"], h["x1"]) for h in holes if h["z0"] <= zc <= h["z1"])
         x = -hx
         for cx0, cx1 in cuts:
-            if cx0 - x > 0.05:
+            if cx0 - x > 1e-6:
                 out.append((x, cx0, z0, z1))
             x = max(x, cx1)
-        if hx - x > 0.05:
+        if hx - x > 1e-6:
             out.append((x, hx, z0, z1))
     return out
 
@@ -1025,7 +1117,7 @@ apply_rooms_closed()
 #
 # 퍼즐이 없는 방(2A·2D·2F)의 출구는 열어 둔다. 풀 것이 없는데 막으면
 # 그냥 소프트락이다.
-GATE_HEIGHT = 3.0          # 점프(1.2)로는 절대 못 넘는 높이여야 한다
+GATE_HEIGHT = 8.5          # V2 내부 단차(최대 4.5u)에서 접근해도 1.4u 플레이어가 넘지 못하는 높이
 
 def apply_gates():
     by_id = {a["id"]: a for a in AREAS}
@@ -1122,42 +1214,34 @@ def _ramp_wall_span(area_pos, ramp_from, ramp_to, width, other_axis, fixed_local
     return (c0, c1)
 
 
-def ramp_cut(r, a, wall, along, perp, margin=0.6):
-    """경사로 발자국이 이 벽면과 겹치는 구간 (벽의 along 축 기준).
-
-    경사로를 길이·폭 방향으로 훑어, 벽 두께 안에 들어오는 점들의
-    along 좌표 범위를 돌려준다. 겹치는 게 없으면 None.
-    """
+def ramp_cut(r, a, wall, along, perp, margin=0.08):
+    """진입판을 포함한 통로 다각형을 벽 두께 구간으로 잘라 정확한 문 폭을 구한다."""
     fx = r["from"]["x"] - a["pos"]["x"]; fz = r["from"]["z"] - a["pos"]["z"]
-    tx = r["to"]["x"] - a["pos"]["x"];   tz = r["to"]["z"] - a["pos"]["z"]
-    dx, dz = tx - fx, tz - fz
-    ln = math.hypot(dx, dz)
-    if ln < 1e-6:
-        return None
-    ux, uz = dx / ln, dz / ln
-    nx, nz = -uz, ux                      # 폭 방향
-    hw = r.get("width", 4.0) / 2
-
-    band = wall["scale"][perp] * 0.5 + margin
-    fixed = wall["pos"][perp]
-    lo, hi = None, None
-
-    for i in range(81):
-        t = i / 80
-        cx, cz = fx + dx * t, fz + dz * t
-        for j in range(17):
-            sgn = -1.0 + 2.0 * j / 16
-            wx, wz = cx + nx * hw * sgn, cz + nz * hw * sgn
-            v = wz if perp == "z" else wx
-            if abs(v - fixed) > band:
-                continue
-            u = wx if along == "x" else wz
-            lo = u if lo is None else min(lo, u)
-            hi = u if hi is None else max(hi, u)
-
-    if lo is None:
-        return None
-    return (lo - margin, hi + margin)
+    tx = r["to"]["x"] - a["pos"]["x"]; tz = r["to"]["z"] - a["pos"]["z"]
+    length = math.hypot(tx-fx,tz-fz)
+    if length < 1e-6: return None
+    ux,uz = (tx-fx)/length,(tz-fz)/length
+    nx,nz = -uz,ux
+    # Match Unity's flat landing extensions; clip continuously, not at sampled points.
+    fx -= ux*6.0; fz -= uz*6.0; tx += ux*6.0; tz += uz*6.0
+    half = r.get("width",4.0)/2 + .16
+    polygon = [(fx+nx*half,fz+nz*half),(tx+nx*half,tz+nz*half),
+               (tx-nx*half,tz-nz*half),(fx-nx*half,fz-nz*half)]
+    axis = 0 if perp=="x" else 1
+    fixed = wall["pos"][perp]; band = wall["scale"][perp]/2 + margin
+    for limit,sign in [(fixed-band,1),(fixed+band,-1)]:
+        clipped=[]
+        for j,p in enumerate(polygon):
+            q=polygon[(j+1)%len(polygon)]
+            dp=(p[axis]-limit)*sign; dq=(q[axis]-limit)*sign
+            if dp>=0: clipped.append(p)
+            if (dp>=0)!=(dq>=0):
+                t=dp/(dp-dq)
+                clipped.append((p[0]+(q[0]-p[0])*t,p[1]+(q[1]-p[1])*t))
+        polygon=clipped
+        if not polygon: return None
+    values=[p[1-axis] for p in polygon]
+    return min(values)-margin,max(values)+margin
 
 
 def apply_doorways():
@@ -1252,7 +1336,7 @@ def apply_doorways():
 
             parts, cursor, n = [], lo, 0
             for c0, c1 in merged + [[hi, hi]]:
-                if c0 - cursor > 0.4:
+                if c0 - cursor > 1e-6:
                     parts.append((cursor, min(c0, hi)))
                 cursor = max(cursor, c1)
             for a0, a1 in parts:
@@ -1264,6 +1348,16 @@ def apply_doorways():
                 out.append(part)
 
         a["objects"] = out
+
+# Include the formerly implicit Unity north wall in doorway cutting and path validation.
+# Keep backWall height as room/lighting metadata; the builder must not add it twice.
+for _area in AREAS:
+    if _area["backWall"] > 0.01:
+        _wall = box("뒷벽", (0, _area["backWall"]*.5, _area["size"]["z"]*.5),
+                    (_area["size"]["x"], _area["backWall"], .3), "shade")
+        _wall["face"] = "north"
+        _area["objects"].append(_wall)
+        _area["backWallInObjects"] = True
 
 apply_doorways()
 
@@ -1486,7 +1580,7 @@ def validate():
                     if o["kind"] == "box" and o["scale"]["y"] >= 2.0
                     and is_canvas(o["name"])
                     and "천장" not in o["name"]]
-        if a["backWall"] > 0.01:
+        if a["backWall"] > 0.01 and not a.get("backWallInObjects"):
             canvases.append(dict(name="뒷벽(자동)",
                                  pos=dict(x=0.0, y=a["backWall"] * 0.5, z=a["size"]["z"] * 0.5),
                                  scale=dict(x=a["size"]["x"], y=a["backWall"], z=0.3)))
@@ -1661,7 +1755,9 @@ def validate():
             if o["name"] not in need and o.get("pieceId", "") not in need:
                 continue
             side = 1.0 if o["pos"]["z"] > 0 else -1.0
-            if side != near or abs(o["pos"]["z"]) < g * 0.5:
+            ranged_fold = (o["kind"] == "fold" and side != near and
+                           g*.5 + abs(o["pos"]["z"]) + .5 <= o.get("interactionRange", 7.0))
+            if (side != near and not ranged_fold) or abs(o["pos"]["z"]) < g * 0.5:
                 errs.append(f"{a['id']} {q.get('id')}: '{o['name']}' 이 간극 건너편(z {o['pos']['z']:.1f})에 있다 "
                             f"— 건너야 풀 수 있는데 풀어야 건널 수 있다")
 

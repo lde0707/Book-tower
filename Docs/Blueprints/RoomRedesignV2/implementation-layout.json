@@ -1,0 +1,152 @@
+{
+  "revision": "A",
+  "status": "proposed_not_playtested",
+  "units": "Unity units",
+  "playerHeight": 1.2,
+  "clearances": {
+    "walkway": 4,
+    "mainWalkway": 5.5,
+    "railHeight": 1.15,
+    "railInset": 0.18,
+    "doorClearWidth": 5,
+    "doorClearHeight": 4,
+    "landingDepth": 4,
+    "jumpGapMax": 2,
+    "jumpRiseMax": 0.6,
+    "movingClearance": 0.35,
+    "visualOffset": 0.025,
+    "checkpointFall": 2.5,
+    "interactionRadius": 2.4
+  },
+  "worldCenters": {
+    "F0": [
+      0,
+      0,
+      -220
+    ],
+    "1A": [
+      100,
+      4,
+      -180
+    ],
+    "1B": [
+      170,
+      8,
+      -100
+    ],
+    "1C": [
+      170,
+      12,
+      0
+    ],
+    "1D": [
+      140,
+      17,
+      90
+    ],
+    "1E": [
+      70,
+      22,
+      160
+    ],
+    "2A": [
+      -30,
+      28,
+      180
+    ],
+    "2B": [
+      -120,
+      34,
+      140
+    ],
+    "2C": [
+      -180,
+      40,
+      60
+    ],
+    "2D": [
+      -180,
+      46,
+      -30
+    ],
+    "2E": [
+      -140,
+      52,
+      -120
+    ],
+    "2F": [
+      -50,
+      58,
+      -205
+    ],
+    "3A": [
+      -10,
+      66,
+      -110
+    ],
+    "3B": [
+      -10,
+      72,
+      -10
+    ],
+    "3C": [
+      -10,
+      80,
+      100
+    ],
+    "HD": [
+      200,
+      66,
+      -200
+    ]
+  },
+  "order": [
+    "F0",
+    "1A",
+    "1B",
+    "1C",
+    "1D",
+    "1E",
+    "2A",
+    "2B",
+    "2C",
+    "2D",
+    "2E",
+    "2F",
+    "3A",
+    "3B",
+    "3C",
+    "HD"
+  ],
+  "roomScenes": {
+    "F0": "Room_F0.unity",
+    "1A": "Room_1A.unity",
+    "1B": "Room_1B.unity",
+    "1C": "Room_1C.unity",
+    "1D": "Room_1D.unity",
+    "1E": "Room_1E.unity",
+    "2A": "Room_2A.unity",
+    "2B": "Room_2B.unity",
+    "2C": "Room_2C.unity",
+    "2D": "Room_2D.unity",
+    "2E": "Room_2E.unity",
+    "2F": "Room_2F.unity",
+    "3A": "Room_3A.unity",
+    "3B": "Room_3B.unity",
+    "3C": "Room_3C.unity",
+    "HD": "Room_HD.unity"
+  },
+  "stateVariants": {
+    "3A": [
+      "initial",
+      "return_anamorphosis",
+      "ending_refold",
+      "ending_preserve"
+    ]
+  },
+  "sourceFiles": [
+    "rooms.json",
+    "interaction-layout.json",
+    "camera-layout.json"
+  ]
+}

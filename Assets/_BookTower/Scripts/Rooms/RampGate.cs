@@ -39,27 +39,33 @@ namespace BookTower.Rooms
 
         [SerializeField] private float openSeconds = 1.1f;
 
+        [Tooltip("잠긴 동안 비활성화되는 연결 다리. 열린 뒤 다시 충돌 가능해진다")]
+        [SerializeField] private Collider lockedBridge;
+
         [Tooltip("열릴 때 켜지는 빛의 세기. '빛이 닿는 곳만 존재한다' 규칙의 실제 구현이다")]
         [SerializeField] private float openLight = 2.4f;
 
-        private Collider blocker;
+        private Collider[] blockers;
         private Light glow;
         private bool opened;
+        private Quaternion openRotation;
 
         public bool IsOpen => opened;
 
         private void Awake()
         {
-            blocker = GetComponentInChildren<Collider>();
+            openRotation = transform.localRotation;
+            blockers = GetComponentsInChildren<Collider>();
             glow = GetComponentInChildren<Light>(true);
 
             if (glow != null) glow.intensity = 0f;
+            if (lockedBridge != null) lockedBridge.enabled = false;
 
             // 퍼즐이 없으면 잠글 이유가 없다. 이 경우는 데이터 쪽 실수일 가능성이
             // 높지만, 여기서 막아 버리면 그 방은 통째로 못 지나간다. 열어 둔다.
             if (puzzle == null) { OpenNow(); return; }
 
-            transform.localRotation = Quaternion.AngleAxis(closedAngle, Vector3.left);
+            transform.localRotation = openRotation * Quaternion.AngleAxis(closedAngle, Vector3.left);
         }
 
         private void Update()
@@ -75,8 +81,9 @@ namespace BookTower.Rooms
         public void OpenNow()
         {
             opened = true;
-            transform.localRotation = Quaternion.identity;
-            if (blocker != null) blocker.enabled = false;
+            transform.localRotation = openRotation;
+            SetBlockers(false);
+            if (lockedBridge != null) lockedBridge.enabled = true;
             if (glow != null) glow.intensity = openLight;
         }
 
@@ -84,7 +91,8 @@ namespace BookTower.Rooms
         {
             // 콜라이더는 먼저 끈다. 페이지가 눕는 도중에 플레이어를 밀면
             // 보상이 아니라 사고처럼 보인다.
-            if (blocker != null) blocker.enabled = false;
+            SetBlockers(false);
+            if (lockedBridge != null) lockedBridge.enabled = true;
             BookTower.Core.GameEvents.RaiseGateOpened(this);
 
             Quaternion from = transform.localRotation;
@@ -93,13 +101,20 @@ namespace BookTower.Rooms
                 float k = t / openSeconds;
                 // 처음엔 천천히, 끝에서 탁 떨어진다 — 종이가 넘어가는 느낌
                 k = k * k * (3f - 2f * k);
-                transform.localRotation = Quaternion.Slerp(from, Quaternion.identity, k);
+                transform.localRotation = Quaternion.Slerp(from, openRotation, k);
                 if (glow != null) glow.intensity = Mathf.Lerp(0f, openLight, k);
                 yield return null;
             }
 
-            transform.localRotation = Quaternion.identity;
+            transform.localRotation = openRotation;
             if (glow != null) glow.intensity = openLight;
+        }
+
+        private void SetBlockers(bool value)
+        {
+            if (blockers == null) return;
+            foreach (Collider col in blockers)
+                if (col != null) col.enabled = value;
         }
     }
 }

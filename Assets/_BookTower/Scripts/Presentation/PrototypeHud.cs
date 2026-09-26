@@ -122,7 +122,6 @@ namespace BookTower.Presentation
 
             if (!visible)
             {
-                GUI.Label(new Rect(12, 8, 300, 22), "F1 — 도움말", small);
                 return;
             }
 
@@ -209,7 +208,7 @@ namespace BookTower.Presentation
             // ── 조작
             GUILayout.Label("조작", big);
             GUILayout.Label("WASD 이동 · Space 점프 · F 상호작용 (좌클릭도 된다)", small);
-            GUILayout.Label("Shift+F 되돌려 펴기 · Q E 카메라 회전", small);
+            GUILayout.Label("Shift+F 되돌려 펴기 · Q E 좌우 관찰 · 이동 시 추적 복귀", small);
             GUILayout.Label("Tab 전체 조망 · F1 이 창 · F2 이 방 강제 해결", small);
 
             var ld = LightingDirector.Instance;

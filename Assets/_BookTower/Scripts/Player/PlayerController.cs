@@ -52,7 +52,7 @@ namespace BookTower.PlayerSystem
         [Header("복귀 (죽음 없음)")]
         [Tooltip("마지막 안전 지점보다 이만큼 아래로 떨어지면 되돌린다. " +
                  "절대 높이로 잡으면 탑 위층에서 떨어질 때 낙하가 한참 이어진다")]
-        [SerializeField] private float fallBelowSafePoint = 15f;
+        [SerializeField] private float fallBelowSafePoint = 6f;
         [SerializeField] private float safePointInterval = 0.5f;
 
         [Header("디버그")]
@@ -158,7 +158,9 @@ namespace BookTower.PlayerSystem
         public Vector3 GetMoveDirection()
         {
             Vector2 raw = Input.Move;
-            float yaw = Camera != null ? Camera.YawDegrees : 0f;
+            float yaw = Camera != null && raw.sqrMagnitude>.01f
+                ? Camera.ConsumeMovementYaw()
+                : Camera != null ? Camera.YawDegrees : 0f;
             return Quaternion.Euler(0f, yaw, 0f) * new Vector3(raw.x, 0f, raw.y);
         }
 

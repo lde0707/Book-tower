@@ -1,0 +1,8 @@
+PASS: Play starts with player inside F0 at (0.00, 0.13, -236.00)
+PASS: Player remains on the F0 floor after one second
+PASS: F0 start has a floor collider below the player
+PASS: F0 map renderers are visible at Play start
+FAIL: System.Exception: 1A F-key selects the intended fold
+  at BookTower.EditorTools.DirectionPlayVerifier.Require (System.Boolean ok, System.String message) [0x00020] in C:\Users\doun0\Desktop\File\GitHub\Book-tower\Assets\_BookTower\Editor\DirectionPlayVerifier.cs:82 
+  at BookTower.EditorTools.DirectionPlayVerifier+<Verify>d__20.MoveNext () [0x00309] in C:\Users\doun0\Desktop\File\GitHub\Book-tower\Assets\_BookTower\Editor\DirectionPlayVerifier.cs:124 
+  at BookTower.EditorTools.DirectionPlayVerifier.Tick () [0x00045] in C:\Users\doun0\Desktop\File\GitHub\Book-tower\Assets\_BookTower\Editor\DirectionPlayVerifier.cs:65 

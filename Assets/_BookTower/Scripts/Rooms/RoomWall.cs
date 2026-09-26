@@ -45,11 +45,16 @@ namespace BookTower.Rooms
         {
             if (rend == null) return;
 
-            bool hide = face == WallFace.Ceiling || face == HiddenFor(yawStep);
+            // 근접 원근 카메라는 실제 방 안에 있으므로 천장과 뒤쪽 벽도 공간의
+            // 일부로 보여야 한다. 벽 숨김은 개발용 직교 전체조망에서만 사용한다.
+            Camera activeCamera=Camera.main;
+            bool diorama=activeCamera!=null && activeCamera.orthographic;
+            bool hide = diorama && (face == WallFace.Ceiling || face == HiddenFor(yawStep));
             if (outline != null) outline.enabled = !hide;
 
             if (!hide)
             {
+                rend.enabled = true;
                 rend.shadowCastingMode = original;
                 return;
             }
