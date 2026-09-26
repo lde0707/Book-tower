@@ -42,6 +42,7 @@ namespace BookTower.Presentation
         {
             if (light == null) yield break;
 
+            if(BookTower.UI.PaperSettingsRuntime.Values.reduceFlash)multiplier=Mathf.Min(multiplier,1.12f);
             float baseline = light.intensity;
             float half = duration * 0.5f;
 

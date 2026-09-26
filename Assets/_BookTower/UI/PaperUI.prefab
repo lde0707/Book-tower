@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2892462481046377266
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6542670912944159290}
+  - component: {fileID: 6655753072994246093}
+  - component: {fileID: 4018081349543553946}
+  m_Layer: 0
+  m_Name: PaperUI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6542670912944159290
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2892462481046377266}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6655753072994246093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2892462481046377266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2e21977656a38d4396a486fef40c141, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BookTower.UI.PaperSettingsRuntime
+--- !u!114 &4018081349543553946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2892462481046377266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1803ce9899bdc294d95d3bd58522f8e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BookTower.UI.PaperUI
+  storyAtlas: {fileID: 2800000, guid: 5e5c8b7770847a04396aa111294ec325, type: 3}
+  font: {fileID: 12800000, guid: 66223dcddfb9fc145b5089d88e83932e, type: 3}
+  headingFont: {fileID: 12800000, guid: 2dbe94256f633fd4c89c86c9d815f749, type: 3}
+  notebookSprite: {fileID: 21300000, guid: 7f161d08369c07442bba3ca615909626, type: 3}
+  leafSprite: {fileID: 21300000, guid: b3b86eb88ce4e834f890c9d4b96c766a, type: 3}
+  previewClip: {fileID: 8300000, guid: 7c665fe4f3df1984cad41acf8a5502a8, type: 3}
+  musicClip: {fileID: 8300000, guid: 3d06ceb09502a1c40b47211ecc67c709, type: 3}
+  ambienceClip: {fileID: 8300000, guid: ad2c4c77ed6856c4397b073cd23afa54, type: 3}
+  skinAtlas: {fileID: 2800000, guid: b345cf0259fbb5847af985773f9a4b29, type: 3}
+  inkOnlyMaterial: {fileID: 2100000, guid: 2dd4bfe72d5c7d247a32564e3afc27a2, type: 2}

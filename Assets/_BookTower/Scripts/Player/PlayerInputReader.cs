@@ -42,7 +42,7 @@ namespace BookTower.PlayerSystem
         private void Update()
         {
             // 연출·일시정지 중에는 입력을 통째로 막는다
-            if ((GameFlow.Instance != null && !GameFlow.Instance.AcceptsPlayerInput) || !BookTower.CameraSystem.PaperCamera.AimActive)
+            if (BookTower.UI.PaperUI.BlocksGameplay || (GameFlow.Instance != null && !GameFlow.Instance.AcceptsPlayerInput) || !BookTower.CameraSystem.PaperCamera.AimActive)
             {
                 Clear();
                 return;
@@ -57,16 +57,16 @@ namespace BookTower.PlayerSystem
                 return;
             }
 
-            float x = Axis(kb.dKey, kb.rightArrowKey) - Axis(kb.aKey, kb.leftArrowKey);
-            float z = Axis(kb.wKey, kb.upArrowKey) - Axis(kb.sKey, kb.downArrowKey);
+            float x = (BookTower.UI.PaperSettingsRuntime.Held(3)?1:0) - (BookTower.UI.PaperSettingsRuntime.Held(2)?1:0);
+            float z = (BookTower.UI.PaperSettingsRuntime.Held(0)?1:0) - (BookTower.UI.PaperSettingsRuntime.Held(1)?1:0);
 
             Vector2 raw = new Vector2(x, z);
             Move = raw.sqrMagnitude > 1f ? raw.normalized : raw;
 
-            GlideHeld = kb.spaceKey.isPressed;
-            JumpPressed = kb.spaceKey.wasPressedThisFrame;
+            GlideHeld = BookTower.UI.PaperSettingsRuntime.Held(4);
+            JumpPressed = BookTower.UI.PaperSettingsRuntime.Pressed(4);
             ModifierHeld = kb.leftShiftKey.isPressed;
-            InteractPressed = kb.fKey.wasPressedThisFrame;
+            InteractPressed = BookTower.UI.PaperSettingsRuntime.Pressed(5);
             PointerPressed = mouse != null && mouse.leftButton.wasPressedThisFrame;
         }
 

@@ -92,6 +92,10 @@ namespace BookTower.Presentation
 
             RenderSettings.ambientMode = AmbientMode.Flat;
             RenderSettings.ambientLight = shadowTint * (curAmbient * AmbientTrim);
+            // Keep runtime diffuse probes synchronized with the flat room ambient.
+            var ambientProbe = new SphericalHarmonicsL2();
+            ambientProbe.AddAmbientLight(RenderSettings.ambientLight);
+            RenderSettings.ambientProbe = ambientProbe;
 
             RenderSettings.fog = curFog > 0.0001f;
             RenderSettings.fogDensity = curFog;

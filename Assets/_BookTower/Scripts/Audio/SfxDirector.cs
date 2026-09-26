@@ -108,7 +108,7 @@ namespace BookTower.Audio
         private void PlayAt(AudioClip clip, Vector3 pos, float volume)
         {
             if (clip == null) return;
-            AudioSource.PlayClipAtPoint(clip, pos, Mathf.Clamp01(volume * masterVolume));
+            var go=new GameObject("Paper one-shot");go.transform.position=pos;var source=go.AddComponent<AudioSource>();source.clip=clip;source.spatialBlend=1;source.volume=Mathf.Clamp01(volume*masterVolume);BookTower.UI.PaperAudioLevel.Bind(source);source.Play();Destroy(go,clip.length+1);
         }
 
         /// <summary>씬에 없어도 자동 생성 — GameFlow.EnsureExists() 와 같은 패턴</summary>

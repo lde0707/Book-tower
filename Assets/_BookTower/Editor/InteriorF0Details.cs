@@ -18,6 +18,9 @@ namespace BookTower.EditorTools
             Knot(root,V(12.2f,2.6f,-9),.64f,false);
             for(int i=-1;i<=1;i++)Rope(root,"바닥길잡이실",V(i*.12f,.10f,-19.7f),V(i*.12f,.10f,15.1f),.046f);
             foreach(float z in new[]{-7f,.6f,9f})Knot(root,V(0,.17f,z),.36f,true);
+            Rope(root,"출구뒤실동선",V(3,.1f,18.3f),V(20,.1f,18.3f),.055f);
+            Rope(root,"출구꺾임실동선",V(20,.1f,18.3f),V(20,.1f,11.2f),.055f);
+            Rope(root,"출구연결실동선",V(20,.1f,11.2f),V(28,.1f,11.2f),.055f);
             Rope(root,"왼쪽단서밧줄",V(-10,.13f,3),V(0,.13f,.6f),.065f);Rope(root,"오른쪽단서밧줄",V(0,.13f,-7),V(10,.13f,-4),.065f);
             foreach(float x in new[]{-2.6f,2.6f})Box(root,"바닥적갈색인쇄선",V(x,.12f,-1),V(.09f,.014f,33),ink);
             foreach(float z in new[]{-16f,13.5f})Box(root,"바닥적갈색가로선",V(0,.12f,z),V(5.3f,.014f,.09f),ink);
@@ -26,7 +29,7 @@ namespace BookTower.EditorTools
         {
             foreach(int side in new[]{-1,1})foreach(float z in new[]{-5.2f,5.4f})
             {
-                var w=Group(root,"격자창문",V(side*15.9f,5.6f,z));w.localRotation=Quaternion.Euler(0,side<0?90:-90,0);
+                var w=Group(root,"격자창문",V(side*15.9f,5.6f,z));w.localRotation=Quaternion.Euler(0,side<0?-90:90,0);
                 Box(w,"빛나는창호지",V(0,3,.03f),V(4.4f,6.1f,.1f),glow);
                 foreach(float x in new[]{-2.35f,2.35f})Box(w,"창틀",V(x,3,-.16f),V(.22f,6.65f,.45f),wood);
                 foreach(float y in new[]{-.2f,6.2f})Box(w,"창틀",V(0,y,-.16f),V(4.9f,.24f,.45f),wood);
@@ -37,8 +40,9 @@ namespace BookTower.EditorTools
                 key.shadows=side<0?LightShadows.Soft:LightShadows.None;key.shadowBias=.015f;key.shadowNormalBias=.035f;
                 key.transform.LookAt(room.transform.TransformPoint(V(side*-2,.1f,z+6)));key.cookie=WindowCookie();
             }
+            var bounce=Group(root,"문쪽반사광",V(0,7,6)).gameObject.AddComponent<Light>();bounce.type=LightType.Point;bounce.color=new Color(1f,.83f,.61f);bounce.intensity=65;bounce.range=27;bounce.shadows=LightShadows.None;
             Lantern(V(10.2f,10.3f,1.5f),1.05f);Lantern(V(-10,11.6f,8.5f),.85f);Lantern(V(9,12.2f,-13),.75f);
-            var fill=Group(root,"실내반사광",V(0,6,-9)).gameObject.AddComponent<Light>();fill.type=LightType.Point;fill.color=new Color(1,.72f,.46f);fill.intensity=7;fill.range=22;fill.shadows=LightShadows.None;
+            var fill=Group(root,"실내반사광",V(0,6,-9)).gameObject.AddComponent<Light>();fill.type=LightType.Point;fill.color=new Color(1,.89f,.72f);fill.intensity=60;fill.range=22;fill.shadows=LightShadows.None;
         }
         static void Lantern(Vector3 at,float scale)
         {
@@ -85,7 +89,7 @@ namespace BookTower.EditorTools
             var g=Group(p,"꼬인제본매듭",at);if(floor)g.localRotation=Quaternion.Euler(90,0,0);
             for(int s=0;s<3;s++)
             {
-                var path=new Vector3[65];for(int i=0;i<path.Length;i++){float a=i*Mathf.PI*2/64;path[i]=V(Mathf.Sin(a)*r*(1.1f+s*.1f),Mathf.Cos(a*2)*r*.45f+s*.085f,Mathf.Cos(a)*r*.50f);}
+                var path=new Vector3[65];for(int i=0;i<path.Length;i++){float a=i*Mathf.PI*2/64;path[i]=V(Mathf.Sin(a)*r*(1.1f+s*.1f),Mathf.Sin(a*2)*r*.45f+s*.085f,Mathf.Cos(a)*r*.50f);}
                 Tube(g,"매듭고리",path,r*.17f,rope);
             }
             for(int side=-1;side<=1;side+=2)Rope(g,"매듭끝",V(side*r*.3f,0,0),V(side*r*1.35f,-r*.65f,-.04f),r*.14f);

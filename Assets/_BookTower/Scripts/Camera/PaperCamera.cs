@@ -56,7 +56,7 @@ namespace BookTower.CameraSystem
 
         [Tooltip("내려다보는 각도. 0에 가까울수록 완전한 2D처럼, 클수록 디오라마처럼 보인다. " +
                  "그림자가 바닥에 지는 걸 봐야 하므로 25~35도 권장")]
-        [Range(0f, 60f)][SerializeField] private float pitch = 12f;
+        [Range(-65f, 70f)][SerializeField] private float pitch = 12f;
 
         [Header("스냅 회전")]
         [SerializeField] private float rotateSpeed = 8f;
@@ -86,7 +86,8 @@ namespace BookTower.CameraSystem
         [SerializeField] private float mouseSensitivity = .12f;
         [SerializeField] private float shoulderOffset = .55f;
         public float AimYaw => observationLocked ? lockedYaw : aimYaw;
-        public static bool AimActive => Cursor.lockState == CursorLockMode.Locked;
+        // Batch-mode play verification has no window in which the OS can capture a cursor.
+        public static bool AimActive => Cursor.lockState == CursorLockMode.Locked || Application.isBatchMode;
 
         public static Ray AimRay(Camera camera) => camera.ViewportPointToRay(new Vector3(.5f,.5f,0));
 
@@ -100,7 +101,8 @@ namespace BookTower.CameraSystem
         public void ApplyLookDelta(Vector2 delta)
         {
             if(observationLocked || mode == CameraMode.Overview) return;
-            SetAim(aimYaw + delta.x * mouseSensitivity, pitch - delta.y * mouseSensitivity);
+            var settings=BookTower.UI.PaperSettingsRuntime.Values; lastLook=Time.time;
+            SetAim(aimYaw + delta.x * mouseSensitivity*settings.sensitivity, pitch - delta.y * mouseSensitivity*settings.sensitivity*(settings.invertY?-1:1));
         }
 
         public static float CardinalYaw(float yaw, int side)
@@ -109,14 +111,18 @@ namespace BookTower.CameraSystem
             return Mathf.Repeat((side>0 ? Mathf.Floor(turns+.0001f)+1f : Mathf.Ceil(turns-.0001f)-1f)*90f,360f);
         }
 
-        private void OnDisable() { Cursor.lockState=CursorLockMode.None; Cursor.visible=true; }
+        private void OnDisable() { GameEvents.PuzzleSolved-=Shake; Cursor.lockState=CursorLockMode.None; Cursor.visible=true; }
         private void OnApplicationFocus(bool focused)
         { if(!focused) { Cursor.lockState=CursorLockMode.None; Cursor.visible=true; } }
 
+        float lastLook,shakeUntil;
+        void OnEnable(){GameEvents.PuzzleSolved+=Shake;}
+        void Shake(MonoBehaviour puzzle){shakeUntil=Time.time+.65f;}
         private void Update() => HandleInput();
 
         private void OnGUI()
         {
+            if(BookTower.UI.PaperUI.Instance) return;
             if(!AimActive || mode==CameraMode.Overview || mode==CameraMode.Cinematic) return;
             if(GameFlow.Instance!=null && !GameFlow.Instance.AcceptsPlayerInput) return;
             Color old=GUI.color;
@@ -135,7 +141,7 @@ namespace BookTower.CameraSystem
 
         public bool IsObservationLocked => observationLocked;
 
-        /// <summary>이동이 시작되는 프레임에 관찰 고정을 풀고 플레이어 전방 기준을 돌려준다.</summary>
+        /// <summary>이동이 시작되는 프레임에 관찰 고정을 풀고 카메라 조준 방위를 돌려준다.</summary>
         public float ConsumeMovementYaw()
         {
             if(observationLocked) aimYaw=lockedYaw;
@@ -177,16 +183,17 @@ namespace BookTower.CameraSystem
             else if (mode == CameraMode.Overview) FitToFrameTarget();
 
             ApplyTransform();
+            if(BookTower.UI.PaperSettingsRuntime.Values.shake&&Time.time<shakeUntil)transform.position+=transform.right*(Mathf.Sin(Time.time*35)*.025f*(shakeUntil-Time.time)/.65f);
         }
 
         private void HandleInput()
         {
-            if (GameFlow.Instance != null && !GameFlow.Instance.AcceptsPlayerInput)
-            { Cursor.lockState=CursorLockMode.None; Cursor.visible=true; return; }
+            if (BookTower.UI.PaperUI.BlocksGameplay || (GameFlow.Instance != null && !GameFlow.Instance.AcceptsPlayerInput))
+            { if(BookTower.UI.PaperUI.Instance && BookTower.UI.PaperUI.Instance.ScreenState==BookTower.UI.PaperScreen.Playing) return; Cursor.lockState=CursorLockMode.None; Cursor.visible=true; return; }
 
             Keyboard kb = Keyboard.current;
             if (kb == null) return;
-            if(kb.escapeKey.wasPressedThisFrame)
+            if(!BookTower.UI.PaperUI.Instance && kb.escapeKey.wasPressedThisFrame)
             { Cursor.lockState=CursorLockMode.None; Cursor.visible=true; return; }
             var mouse=Mouse.current;
             if(!AimActive)
@@ -195,10 +202,11 @@ namespace BookTower.CameraSystem
                 { Cursor.lockState=CursorLockMode.Locked; Cursor.visible=false; }
                 return;
             }
-            if(mouse!=null) ApplyLookDelta(mouse.delta.ReadValue());
+            if(mouse!=null && mouse.delta.ReadValue().sqrMagnitude>0) ApplyLookDelta(mouse.delta.ReadValue());
+            if(BookTower.UI.PaperSettingsRuntime.Values.autoCamera&&!observationLocked&&target&&Time.time-lastLook>2&&playerInput!=null&&playerInput.Move.sqrMagnitude<.01f)aimYaw=Mathf.MoveTowardsAngle(aimYaw,target.eulerAngles.y,25*Time.deltaTime);
 
-            if (kb.qKey.wasPressedThisFrame) LockObservation(-1);
-            if (kb.eKey.wasPressedThisFrame) LockObservation(1);
+            if (BookTower.UI.PaperSettingsRuntime.Pressed(6)) LockObservation(-1);
+            if (BookTower.UI.PaperSettingsRuntime.Pressed(7)) LockObservation(1);
 
             // 관찰 방향은 이동을 시작하는 순간 해제한다. 플레이어 입력보다 늦게
             // 해제하면 첫 한 걸음만 옆 방향으로 튀므로 LateUpdate에서도 입력 원본을

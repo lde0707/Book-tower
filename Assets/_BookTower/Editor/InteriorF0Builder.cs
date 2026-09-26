@@ -34,15 +34,16 @@ namespace BookTower.EditorTools
             EditorSceneManager.SaveScene(scene,$"Logs/F0Backups/InGame-{DateTime.Now:yyyyMMdd-HHmmss}.unity",true);
             Apply();
             var player=Object.FindFirstObjectByType<PlayerController>();
-            if(player!=null){player.transform.position=room.transform.TransformPoint(V(0,.15f,-11.8f));player.transform.rotation=Quaternion.identity;}
+            if(player!=null){player.transform.position=room.transform.TransformPoint(room.GetComponentInChildren<FoldBridgePuzzle>()?V(0,3.15f,-10.5f):V(0,.15f,-11.8f));player.transform.rotation=Quaternion.identity;}
             var camera=Object.FindFirstObjectByType<PaperCamera>();
             if(camera!=null)
             {
                 var so=new SerializedObject(camera);
-                so.FindProperty("pitch").floatValue=10;so.FindProperty("closeDistance").floatValue=4.8f;
-                so.FindProperty("closeFocusHeight").floatValue=1.1f;so.FindProperty("perspectiveFov").floatValue=60;
+                so.FindProperty("pitch").floatValue=-2;so.FindProperty("closeDistance").floatValue=4.8f;
+                so.FindProperty("closeFocusHeight").floatValue=1.85f;so.FindProperty("perspectiveFov").floatValue=60;
                 so.ApplyModifiedPropertiesWithoutUndo();
                 camera.GetComponent<Camera>().GetUniversalAdditionalCameraData().renderPostProcessing=true;
+                camera.GetComponent<Camera>().GetUniversalAdditionalCameraData().antialiasing=AntialiasingMode.SubpixelMorphologicalAntiAliasing;
             }
             EditorSceneManager.MarkSceneDirty(scene);EditorSceneManager.SaveScene(scene);AssetDatabase.SaveAssets();
             Debug.Log("[F0 Reference] Saved modeled F0 and mouse-aim camera in InGame");
@@ -57,7 +58,8 @@ namespace BookTower.EditorTools
             Shell();Door();Library();Ropes();WindowsAndLights();SmallDetails();Gameplay();
             Group(root,"시작점",V(0,.10f,-11.8f));SetupRoomLighting();
             CombineDecorations(root,leftDoor,rightDoor);CombineDecorations(leftDoor);CombineDecorations(rightDoor);
-            SaveMeshes();PrefabUtility.SaveAsPrefabAsset(root.gameObject,Folder+"/F0_BindingVestibule.prefab");AssetDatabase.SaveAssets();
+            SaveMeshes();InteriorEnvelopeRepair.Apply();PrefabUtility.SaveAsPrefabAsset(root.gameObject,Folder+"/F0_BindingVestibule.prefab");AssetDatabase.SaveAssets();
+            if(room.GetComponentInChildren<FoldBridgePuzzle>(true))FoldBridgeBuilder.Apply();
             Debug.Log($"[F0 Reference] Modeled {root.GetComponentsInChildren<MeshFilter>().Length} mesh groups");
         }
         static void PreserveGameplayAndRetireLegacy()
@@ -67,7 +69,7 @@ namespace BookTower.EditorTools
             foreach(var p in room.GetComponentsInChildren<CollectiblePiece>(true))if(!p.transform.IsChildOf(gameplay))p.transform.SetParent(gameplay,true);
             foreach(var p in room.GetComponentsInChildren<AssemblyPoint>(true))if(!p.transform.IsChildOf(gameplay))p.transform.SetParent(gameplay,true);
             // Room.SetVisible re-enables renderers; obsolete hierarchy must actually be inactive.
-            foreach(Transform child in room.transform)if(child!=gameplay)child.gameObject.SetActive(false);
+            foreach(Transform child in room.transform)if(child!=gameplay&&child.name!="F0_살아있는제본실"&&child.name!="제본사의 읽는 기록")child.gameObject.SetActive(false);
             gameplay.gameObject.SetActive(true);
         }
         static void Gameplay()
@@ -76,7 +78,7 @@ namespace BookTower.EditorTools
             foreach(var piece in g.GetComponentsInChildren<CollectiblePiece>(true))
             {
                 bool first=piece.PieceId=="P1_a";if(!first&&piece.PieceId!="P1_b")continue;
-                ResetVisual(piece.transform);piece.transform.position=room.transform.TransformPoint(first?V(-9.5f,1.15f,3):V(9.8f,1.15f,-4));
+                ResetVisual(piece.transform);piece.transform.position=room.transform.TransformPoint(first?V(-9.5f,1.15f,.2f):V(9.8f,1.15f,-4));
                 piece.transform.localScale=Vector3.one;piece.transform.rotation=Quaternion.identity;
                 var visual=MeshObject(piece.transform,"찢긴표지조각",F0Mesh.Paper(.70f,.84f,first?531:371),ivory,V(0,-.2f,0));visual.localRotation=Quaternion.Euler(0,first?20:-20,8);
                 Sprig(piece.transform,V(0,-.1f,-.08f),.55f,ink);
@@ -126,19 +128,21 @@ namespace BookTower.EditorTools
                 if(importer.textureType!=type || importer.textureCompression!=TextureImporterCompression.Uncompressed)
                 {importer.textureType=type;importer.textureCompression=TextureImporterCompression.Uncompressed;importer.wrapMode=TextureWrapMode.Repeat;importer.anisoLevel=8;importer.SaveAndReimport();}
             }
-            paper=Mat("WarmPaper",new Color(.80f,.64f,.42f),"Paper");ivory=Mat("IvoryPaper",new Color(.98f,.84f,.62f),"Paper");
-            edge=Mat("LayeredPages",new Color(.85f,.72f,.51f),"Edges");oxblood=Mat("OxbloodBook",new Color(.36f,.09f,.035f),"Cover");
-            umber=Mat("UmberBook",new Color(.115f,.064f,.026f),"Cover");ochre=Mat("OchreBook",new Color(.39f,.21f,.058f),"Cover");
-            rope=Mat("CottonRope",new Color(.81f,.67f,.45f),"Rope");brass=Mat("AgedBrass",new Color(.53f,.30f,.08f),"Cover",.58f);
-            ink=Mat("TerracottaInk",new Color(.40f,.115f,.045f),"Paper");wood=Mat("DarkBinding",new Color(.15f,.062f,.021f),"Cover");glow=Mat("LanternPaper",new Color(1,.77f,.43f),"Paper",0,2.4f);
+            paper=Mat("WarmPaper",new Color(.94f,.82f,.63f),"Paper");ivory=Mat("IvoryPaper",new Color(1f,.91f,.73f),"Paper");
+            edge=Mat("LayeredPages",new Color(.96f,.86f,.67f),"Edges");oxblood=Mat("OxbloodBook",new Color(.36f,.09f,.035f),"Cover");
+            umber=Mat("UmberBook",new Color(.22f,.12f,.05f),"Cover");ochre=Mat("OchreBook",new Color(.39f,.21f,.058f),"Cover");
+            rope=Mat("CottonRope",new Color(.81f,.67f,.45f),"Rope");brass=Mat("AgedBrass",new Color(.53f,.30f,.08f),"Cover",.3f);
+            ink=Mat("TerracottaInk",new Color(.40f,.115f,.045f),"Paper");wood=Mat("DarkBinding",new Color(.15f,.062f,.021f),"Cover");glow=Mat("LanternPaper",new Color(1,.77f,.43f),"Paper",0,.9f);
         }
         static Material Mat(string name,Color color,string texture,float metallic=0,float emission=0)
         {
             string path=Folder+"/"+name+".mat";var m=AssetDatabase.LoadAssetAtPath<Material>(path);
             if(m==null){m=new Material(Shader.Find("Universal Render Pipeline/Lit"));AssetDatabase.CreateAsset(m,path);}
             m.SetColor("_BaseColor",color);m.SetTexture("_BaseMap",AssetDatabase.LoadAssetAtPath<Texture2D>($"Assets/_BookTower/Textures/F0Reference/{texture}_Albedo.png"));
-            m.SetTexture("_BumpMap",AssetDatabase.LoadAssetAtPath<Texture2D>($"Assets/_BookTower/Textures/F0Reference/{texture}_Normal.png"));m.EnableKeyword("_NORMALMAP");m.SetFloat("_BumpScale",texture=="Paper"?.70f:.55f);
-            m.SetFloat("_Smoothness",metallic>0?.32f:.18f);m.SetFloat("_Metallic",metallic);m.SetFloat("_Cull",0);
+            m.SetTexture("_BumpMap",AssetDatabase.LoadAssetAtPath<Texture2D>($"Assets/_BookTower/Textures/F0Reference/{texture}_Normal.png"));m.EnableKeyword("_NORMALMAP");m.SetFloat("_BumpScale",texture=="Paper"?.32f:.4f);
+            m.SetFloat("_EnvironmentReflections",0);m.EnableKeyword("_ENVIRONMENTREFLECTIONS_OFF");
+            m.SetFloat("_Smoothness",metallic>0?.27f:.12f);m.SetFloat("_Metallic",metallic);m.SetFloat("_Cull",0);
+            m.globalIlluminationFlags=emission>0?MaterialGlobalIlluminationFlags.RealtimeEmissive:MaterialGlobalIlluminationFlags.EmissiveIsBlack;
             m.SetColor("_EmissionColor",color*emission);if(emission>0)m.EnableKeyword("_EMISSION");else m.DisableKeyword("_EMISSION");m.enableInstancing=true;EditorUtility.SetDirty(m);return m;
         }
         static Texture2D WindowCookie()
@@ -174,7 +178,7 @@ namespace BookTower.EditorTools
             {
                 string path=$"{Folder}/Mesh_{serial++:000}.asset";var existing=AssetDatabase.LoadAssetAtPath<Mesh>(path);
                 if(existing==null)AssetDatabase.CreateAsset(m,path);
-                else {EditorUtility.CopySerialized(m,existing);EditorUtility.SetDirty(existing);foreach(var f in room.GetComponentsInChildren<MeshFilter>(true))if(f.sharedMesh==m)f.sharedMesh=existing;}
+                else {existing.Clear();existing.indexFormat=m.indexFormat;existing.vertices=m.vertices;existing.normals=m.normals;existing.tangents=m.tangents;existing.uv=m.uv;existing.triangles=m.triangles;existing.bounds=m.bounds;existing.name=m.name;existing.UploadMeshData(false);EditorUtility.SetDirty(existing);foreach(var f in room.GetComponentsInChildren<MeshFilter>(true))if(f.sharedMesh==m)f.sharedMesh=existing;}
             }
         }
         static void EnsureFolder(string path)

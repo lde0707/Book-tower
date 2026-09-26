@@ -1,0 +1,17 @@
+[
+  {
+    "file": "Region1_PaperLanterns.wav",
+    "minimum_100ms_rms": 0.049175194040123445,
+    "clipping": false
+  },
+  {
+    "file": "Region2_FadedMemories.wav",
+    "minimum_100ms_rms": 0.0400271476110063,
+    "clipping": false
+  },
+  {
+    "file": "Region3_TitleInTheLight.wav",
+    "minimum_100ms_rms": 0.04218390226776888,
+    "clipping": false
+  }
+]

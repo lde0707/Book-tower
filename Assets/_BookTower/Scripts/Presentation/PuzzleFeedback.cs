@@ -55,15 +55,17 @@ namespace BookTower.Presentation
 
         private IEnumerator Flare(List<Light> lights)
         {
+            float peak=BookTower.UI.PaperSettingsRuntime.Values.reduceFlash?1.12f:flareMultiplier;
+            float rise=BookTower.UI.PaperSettingsRuntime.Values.reduceFlash?.65f:flareUp;
             var baseline = new float[lights.Count];
             for (int i = 0; i < lights.Count; i++)
                 baseline[i] = lights[i] != null ? lights[i].intensity : 0f;
 
             // 확 밝아진다 — 빠르게
-            for (float t = 0f; t < flareUp; t += Time.deltaTime)
+            for (float t = 0f; t < rise; t += Time.deltaTime)
             {
-                float k = t / flareUp;
-                Apply(lights, baseline, Mathf.Lerp(1f, flareMultiplier, k));
+                float k = t / rise;
+                Apply(lights, baseline, Mathf.Lerp(1f, peak, k));
                 yield return null;
             }
 
@@ -71,7 +73,7 @@ namespace BookTower.Presentation
             for (float t = 0f; t < flareDown; t += Time.deltaTime)
             {
                 float k = t / flareDown;
-                Apply(lights, baseline, Mathf.Lerp(flareMultiplier, 1f, k * k));
+                Apply(lights, baseline, Mathf.Lerp(peak, 1f, k * k));
                 yield return null;
             }
 

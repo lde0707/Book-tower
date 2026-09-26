@@ -1,0 +1,32 @@
+[
+  {
+    "file": "Assets\\_BookTower\\Audio\\RegionMusic\\Region1_PaperLanterns.wav",
+    "bpm": 96,
+    "bars": 24,
+    "seconds": 60.0,
+    "peak_db": -4.3715009689331055,
+    "rms_db": -18.41637420654297,
+    "seam_delta": 0.005143463611602783,
+    "notes": 574
+  },
+  {
+    "file": "Assets\\_BookTower\\Audio\\RegionMusic\\Region2_FadedMemories.wav",
+    "bpm": 92,
+    "bars": 24,
+    "seconds": 62.60868480725624,
+    "peak_db": -4.66963529586792,
+    "rms_db": -18.41637420654297,
+    "seam_delta": 0.005611604079604149,
+    "notes": 526
+  },
+  {
+    "file": "Assets\\_BookTower\\Audio\\RegionMusic\\Region3_TitleInTheLight.wav",
+    "bpm": 100,
+    "bars": 24,
+    "seconds": 57.6,
+    "peak_db": -3.6156110763549805,
+    "rms_db": -18.41637420654297,
+    "seam_delta": 0.00198179017752409,
+    "notes": 586
+  }
+]

@@ -25,7 +25,8 @@ namespace BookTower.EditorTools
             mat.SetFloat("_SpecularHighlights",0);
             mat.SetTexture("_BaseMap",AssetDatabase.LoadAssetAtPath<Texture2D>(Dir+"/PaperFiber.png"));
             mat.SetTexture("_BumpMap",AssetDatabase.LoadAssetAtPath<Texture2D>(Dir+"/PaperFiberNormal.png"));
-            mat.SetFloat("_BumpScale",.65f); mat.EnableKeyword("_NORMALMAP");
+            mat.SetColor("_EmissionColor",Color.black); mat.DisableKeyword("_EMISSION");
+            mat.SetFloat("_BumpScale",name == "Ink" ? .15f : name == "PaperWrap" ? 1.15f : .7f); mat.EnableKeyword("_NORMALMAP");
             EditorUtility.SetDirty(mat); return mat;
         }
         public static GameObject Build(Transform parent)
@@ -57,6 +58,13 @@ namespace BookTower.EditorTools
                 go.AddComponent<MeshFilter>().sharedMesh=mesh;
                 if(!materials.ContainsKey(p.material)) materials[p.material]=Material(p.material);
                 go.AddComponent<MeshRenderer>().sharedMaterial=materials[p.material];
+                if(p.name.StartsWith("OverlappingSheet"))
+                {
+                    Vector3 pivot=new Vector3(0,.78f,0);
+                    var vertices=mesh.vertices;for(int i=0;i<vertices.Length;i++)vertices[i]-=pivot;
+                    mesh.vertices=vertices;mesh.RecalculateBounds();EditorUtility.SetDirty(mesh);
+                    go.transform.localPosition=pivot;
+                }
                 if(p.name.StartsWith("RibbonTail"))
                 {
                     // Pivot at the neck attachment, so the ribbon can flutter naturally.

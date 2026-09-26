@@ -42,6 +42,13 @@ namespace BookTower.EchoSystem
             // 숨겨진 방의 콜라이더에 가로막히지 않게 보이는 것만 고른다
             if (!InteractionRay.Cast(ray, out RaycastHit hit, 1000f, rayMask)) return;
 
+            var note=hit.collider.GetComponentInParent<BookTower.UI.ReadableNote>();
+            if(note!=null){note.TryRead(transform.position);return;}
+            var bridge = hit.collider.GetComponentInParent<FoldBridgeControl>();
+            if (bridge != null) { bridge.TryUse(transform.position); return; }
+            var touch = hit.collider.GetComponentInParent<BindingTouch>();
+            if (touch != null) { touch.TryUse(transform.position); return; }
+
             // ① 조각 줍기
             var piece = hit.collider.GetComponentInParent<CollectiblePiece>();
             if (piece != null)

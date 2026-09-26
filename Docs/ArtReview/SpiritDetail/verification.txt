@@ -1,0 +1,1 @@
+PASS: 15 mesh parts, four overlapping paper wraps; 21 poses per animation sampled with finite bounded geometry; scene and prefab saved; four review angles rendered.

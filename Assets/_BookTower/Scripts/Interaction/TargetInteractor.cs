@@ -114,6 +114,12 @@ namespace BookTower.Interaction
             }
 
             GameObject go = Current.gameObject;
+            var note=go.GetComponentInParent<BookTower.UI.ReadableNote>();
+            if(note!=null){note.TryRead(transform.position);return;}
+            var bridge = go.GetComponentInParent<FoldBridgeControl>();
+            if (bridge != null) { bridge.TryUse(transform.position); return; }
+            var touch = go.GetComponentInParent<BindingTouch>();
+            if (touch != null) { touch.TryUse(transform.position); return; }
 
             var piece = go.GetComponentInParent<CollectiblePiece>();
             if (piece != null)

@@ -1,0 +1,54 @@
+PASS: UI, Korean font and retouched shared sprites loaded
+PASS: Approved extraction atlas serialized in scene
+PASS: Initial Gameplay state
+PASS: Escape pauses simulation and frees cursor
+PASS: Menu keys cannot move player
+PASS: Single bound pause panel uses reference theme
+PASS: Settings notebook hidden while paused
+PASS: Pause option darkens on mouse hover
+PASS: Hover highlight clears on pointer exit
+PASS: Settings button enters Settings state
+PASS: Tab 0 shares same 120 x 120 leaf
+PASS: Slider geometry stays inside track
+PASS: Four extracted category icons and one active ribbon
+PASS: Tab 1 shares same 120 x 120 leaf
+PASS: Slider geometry stays inside track
+PASS: Four extracted category icons and one active ribbon
+PASS: Tab 2 shares same 120 x 120 leaf
+PASS: Slider geometry stays inside track
+PASS: Slider geometry stays inside track
+PASS: Slider geometry stays inside track
+PASS: Slider geometry stays inside track
+PASS: Four extracted category icons and one active ribbon
+PASS: Tab 3 shares same 120 x 120 leaf
+PASS: Four extracted category icons and one active ribbon
+PASS: Dropdown opens dedicated FSM choice state
+PASS: Dropdown selection edits draft and closes popup
+PASS: Escape/back dismisses dropdown
+PASS: Extracted checkbox updates bound setting
+PASS: Real slider edits draft only
+PASS: Unapplied draft does not change runtime
+PASS: Dirty back opens discard confirmation
+PASS: Discard returns to pause
+PASS: Duplicate key binding rejected
+PASS: Unused R binds interaction
+PASS: Apply persists rebound key and settings to disk
+PASS: Saved values survive reload
+PASS: Audio and graphics settings affect runtime: 0.4 / 0
+PASS: Music and ambience use independent gains
+PASS: Sensitivity controls camera look
+PASS: Invert Y changes camera direction
+PASS: Rebound gameplay input reaches reader (frames 17, key 32, phase Playing, blocked False, current True)
+PASS: Display change waits for confirmation while paused
+PASS: Unscaled display timer rolls back automatically
+PASS: Display confirmation commits selected mode
+PASS: Sound preview plays during pause
+PASS: Restore defaults applies bindings and text scale
+PASS: Readable story note exists in F0
+PASS: Reading state blocks gameplay
+PASS: Read next page without world interaction
+PASS: Close reading restores Gameplay state
+PASS: Collected reading appears in journal state
+PASS: Quit has confirmation state
+PASS: Quit cancel returns to pause safely
+PASS: UI state machine and settings integration

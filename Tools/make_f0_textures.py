@@ -25,13 +25,13 @@ def make(name,kind):
    d.line(pts,fill=int(rng.uniform(65,110)),width=int(rng.integers(1,3)))
   wrinkle=np.asarray(cr.filter(ImageFilter.GaussianBlur(1.1)),dtype=np.float32)/255-.5
   h+=wrinkle*.5+f*.3
-  v=np.clip(.83+(h-.5)*.6+f*.16,0,1)
+  v=np.clip(.90+(h-.5)*.20+f*.18,0,1)
  elif kind=='cover':
   h+=field(260)*.16+f*.22
-  v=np.clip(.70+(h-.5)*.95,0,1)
+  v=np.clip(.78+(h-.5)*.5,0,1)
  elif kind=='edge':
   lines=rng.uniform(-.10,.08,(n,1));h+=lines
-  v=np.clip(.82+(h-.5)*.6+lines,0,1)
+  v=np.clip(.88+(h-.5)*.28+lines*.45,0,1)
  else:
   h+=f*.25;v=np.clip(.72+(h-.5)*.9,0,1)
  Image.fromarray(np.uint8(np.stack([v,v*.97,v*.89],-1)*255)).save(out/(name+'_Albedo.png'))

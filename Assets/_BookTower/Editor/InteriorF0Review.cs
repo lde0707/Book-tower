@@ -33,15 +33,18 @@ namespace BookTower.EditorTools
             cam.GetUniversalAdditionalCameraData().renderPostProcessing=true;
             var ambient=RenderSettings.ambientLight;var mode=RenderSettings.ambientMode;bool fog=RenderSettings.fog;
             RenderSettings.ambientMode=AmbientMode.Flat;RenderSettings.ambientLight=new Color(.19f,.14f,.09f);RenderSettings.fog=false;
+            var ambientProbe=RenderSettings.ambientProbe;
+            var sh=new SphericalHarmonicsL2();sh.AddAmbientLight(new Color(.40f,.30f,.20f));RenderSettings.ambientProbe=sh;
+            cam.GetUniversalAdditionalCameraData().antialiasing=AntialiasingMode.SubpixelMorphologicalAntiAliasing;
             try
             {
                 cam.transform.position=r.transform.TransformPoint(V(1.7f,2.65f,-17));cam.transform.LookAt(r.transform.TransformPoint(V(0,5,9)));Capture(cam,Output+"/F0-reference-rebuild.png");
-                cam.transform.position=r.transform.TransformPoint(V(0,2.0f,-16.4f));cam.transform.rotation=Quaternion.Euler(10,0,0);Capture(cam,Output+"/F0-player-view.png");
+                cam.transform.position=r.transform.TransformPoint(V(0,2.0f,-16.4f));cam.transform.rotation=Quaternion.Euler(-2,0,0);Capture(cam,Output+"/F0-player-view.png");
                 cam.transform.position=r.transform.TransformPoint(V(-3,4,-8));cam.transform.LookAt(r.transform.TransformPoint(V(12,8,0)));Capture(cam,Output+"/F0-rope-window-detail.png");
             }
             finally
             {
-                RenderSettings.ambientLight=ambient;RenderSettings.ambientMode=mode;RenderSettings.fog=fog;Object.DestroyImmediate(camGo);
+                RenderSettings.ambientProbe=ambientProbe;RenderSettings.ambientLight=ambient;RenderSettings.ambientMode=mode;RenderSettings.fog=fog;Object.DestroyImmediate(camGo);
                 foreach(var s in states)if(s.Key!=null)s.Key.enabled=s.Value;foreach(var s in lightStates)if(s.Key!=null)s.Key.enabled=s.Value;
             }
             Debug.Log("[F0 Reference] Three GPU scene captures saved");

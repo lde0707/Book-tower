@@ -1,0 +1,8 @@
+PASS: F0 covered passage reaches 1A without falling
+PASS: Both page arches traversed
+PASS: One fold cannot complete P2
+PASS: Two folds still require the second shadow half
+PASS: Three fold combination solves P2
+PASS: Rabbit shadow halves align
+PASS: Solved exit reaches existing 1B bridge
+PASS: room, passage and P2 playback

@@ -7,6 +7,20 @@ namespace BookTower.EditorTools
     // Actual UV-mapped meshes, in metres: texture grain is consistent across large and small props.
     public static class F0Mesh
     {
+        public static Mesh Spine(float width,float height,float bulge)
+        {
+            var v=new List<Vector3>();var uv=new List<Vector2>();var t=new List<int>();
+            const int steps=32;
+            for(int i=0;i<=steps;i++)
+            {
+                float a=-Mathf.PI*.5f+i*Mathf.PI/steps;
+                float x=Mathf.Sin(a)*width*.5f,z=-Mathf.Cos(a)*bulge;
+                v.Add(new Vector3(x,0,z));v.Add(new Vector3(x,height,z));
+                uv.Add(new Vector2(i/(float)steps*width*.65f,0));uv.Add(new Vector2(i/(float)steps*width*.65f,height*.65f));
+                if(i>0){int q=(i-1)*2;t.AddRange(new[]{q,q+1,q+2,q+1,q+3,q+2});}
+            }
+            return Mesh(v,uv,t,"Convex book binding spine");
+        }
         public static Mesh RoundedBox(Vector3 size,float bevel=.06f)
         {
             var v=new List<Vector3>();var uv=new List<Vector2>();var t=new List<int>();
@@ -42,7 +56,7 @@ namespace BookTower.EditorTools
                 for(int j=0;j<=sides;j++)
                 {float angle=j*Mathf.PI*2/sides;v.Add(path[i]+radius*(a*Mathf.Cos(angle)+b*Mathf.Sin(angle)));uv.Add(new Vector2(j/(float)sides,distance*1.5f));}
                 if(i==0)continue;
-                for(int j=0;j<sides;j++){int q=(i-1)*(sides+1)+j;t.AddRange(new[]{q,q+sides+1,q+1,q+1,q+sides+1,q+sides+2});}
+                for(int j=0;j<sides;j++){int q=(i-1)*(sides+1)+j;t.AddRange(new[]{q,q+1,q+sides+1,q+1,q+sides+2,q+sides+1});}
             }
             return Mesh(v,uv,t,"Twisted cotton rope");
         }
@@ -64,7 +78,7 @@ namespace BookTower.EditorTools
         {
             var v=new List<Vector3>{Vector3.zero,new(-width*.5f,length*.45f,-.02f),new(0,length,-.01f),new(width*.5f,length*.45f,-.02f),new(0,length*.45f,-.07f)};
             var uv=new List<Vector2>{new(.5f,0),new(0,.45f),new(.5f,1),new(1,.45f),new(.5f,.45f)};
-            return Mesh(v,uv,new List<int>{0,4,1,1,4,2,2,4,3,3,4,0},"Pressed leaf motif");
+            return Mesh(v,uv,new List<int>{0,1,4,1,2,4,2,3,4,3,0,4},"Pressed leaf motif");
         }
         static Vector3 Abs(Vector3 v)=>new(Mathf.Abs(v.x),Mathf.Abs(v.y),Mathf.Abs(v.z));
         static Mesh Mesh(List<Vector3> v,List<Vector2> uv,List<int> triangles,string name)

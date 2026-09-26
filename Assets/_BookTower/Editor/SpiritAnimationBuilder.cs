@@ -199,6 +199,14 @@ namespace BookTower.EditorTools
                 Curve(path,"localEulerAnglesRaw.y",i=>Mathf.Sin(i*2*Mathf.PI+side)*12f);
                 Curve(path,"localEulerAnglesRaw.z",i=>side*Mathf.Cos(i*2*Mathf.PI)*8f);
             }
+            for(int layer=0;layer<4;layer++)
+            {
+                float phase=layer*1.4f;
+                string path="Motion/OverlappingSheet"+layer;
+                float amplitude=name=="Move"?1.4f:name=="Jump"?1.1f:.65f;
+                Curve(path,"localEulerAnglesRaw.x",i=>Mathf.Sin(i*2*Mathf.PI+phase)*amplitude);
+                Curve(path,"localEulerAnglesRaw.z",i=>Mathf.Cos(i*2*Mathf.PI+phase)*amplitude*.6f);
+            }
             var settings=AnimationUtility.GetAnimationClipSettings(clip); settings.loopTime=loop;
             AnimationUtility.SetAnimationClipSettings(clip,settings);
             if(fresh) AssetDatabase.CreateAsset(clip,Dir+"/"+name+".anim"); else EditorUtility.SetDirty(clip);

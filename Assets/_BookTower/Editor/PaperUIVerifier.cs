@@ -1,0 +1,70 @@
+using System;
+using System.IO;
+using System.Linq;
+using System.Collections;
+using System.Text;
+using UnityEditor;
+using UnityEditor.SceneManagement;
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.LowLevel;
+using UnityEngine.EventSystems;
+using BookTower.UI;
+using BookTower.Core;
+using BookTower.PlayerSystem;
+using BookTower.CameraSystem;
+using Object=UnityEngine.Object;
+namespace BookTower.EditorTools
+{
+ [DefaultExecutionOrder(500)] public class PaperInputProbe:MonoBehaviour {public bool Seen;public int Frames;void LateUpdate(){Frames++;Seen|=GetComponent<PlayerInputReader>().InteractPressed;}}
+ [InitializeOnLoad] public static class PaperUIVerifier
+ {
+  const string Flag="PaperUIVerify",Out="Docs/ArtReview/PaperUI";
+  static IEnumerator routine;static float next;static int frame;static double started;static StringBuilder report=new();static Keyboard keyboard;static InputSettings original;static PaperUI ui;static PaperSettings originalValues;static bool finished;
+  static PaperUIVerifier(){EditorApplication.playModeStateChanged+=Changed;}
+  public static void Run(){EditorSceneManager.OpenScene("Assets/Scenes/InGame.unity");SessionState.SetBool(Flag,true);EditorApplication.EnterPlaymode();}
+  static void Changed(PlayModeStateChange s){if(!SessionState.GetBool(Flag,false))return;if(s==PlayModeStateChange.EnteredPlayMode){Directory.CreateDirectory(Out);finished=false;report.Clear();started=EditorApplication.timeSinceStartup;frame=-1;next=0;routine=Verify();EditorApplication.update+=Tick;}if(s==PlayModeStateChange.EnteredEditMode){SessionState.SetBool(Flag,false);EditorApplication.Exit(SessionState.GetInt(Flag+"Code",1));}}
+  static void Tick(){try{if(EditorApplication.timeSinceStartup-started>200)throw new Exception("UI verification timeout");if(Time.frameCount==frame||Time.unscaledTime<next)return;frame=Time.frameCount;if(!routine.MoveNext()){Finish(null);return;}next=Time.unscaledTime+(routine.Current is float f?f:0);}catch(Exception e){Finish(e);}}
+  static void Finish(Exception error){if(finished)return;finished=true;EditorApplication.update-=Tick;if(keyboard!=null)InputSystem.RemoveDevice(keyboard);if(original)InputSystem.settings=original;if(PaperSettingsRuntime.Instance&&originalValues!=null)PaperSettingsRuntime.Instance.Apply(originalValues,false);PaperSettingsRuntime.TestStoragePath=null;report.AppendLine(error==null?"PASS: UI state machine and settings integration":"FAIL: "+error);File.WriteAllText(Out+"/play-check.txt",report.ToString());Debug.Log(report.ToString());SessionState.SetInt(Flag+"Code",error==null?0:1);Time.timeScale=1;AudioListener.pause=false;EditorApplication.ExitPlaymode();}
+  static void Check(bool value,string text){if(!value)throw new Exception(text);report.AppendLine("PASS: "+text);}
+  static void Click(string text){var b=ui.GetComponentsInChildren<Button>().First(b=>b.name==text&&b.gameObject.activeInHierarchy&&b.IsInteractable());var eventData=new PointerEventData(EventSystem.current){position=RectTransformUtility.WorldToScreenPoint(Camera.main,b.transform.position)};ExecuteEvents.Execute(b.gameObject,eventData,ExecuteEvents.pointerClickHandler);}
+  static IEnumerator KeyPress(Key key){InputSystem.QueueStateEvent(keyboard,new KeyboardState(key));yield return .1f;InputSystem.QueueStateEvent(keyboard,new KeyboardState());yield return .15f;}
+  static System.Collections.Generic.IEnumerable<object> Each(IEnumerator e){while(e.MoveNext())yield return e.Current;}
+  static void Capture(string path)
+  {
+   var canvas=ui.GetComponentInChildren<Canvas>();var cam=Camera.main;var rt=new RenderTexture(1600,900,24);var old=cam.targetTexture;var active=RenderTexture.active;float aspect=cam.aspect;var data=cam.GetComponent<UnityEngine.Rendering.Universal.UniversalAdditionalCameraData>();bool post=data.renderPostProcessing;var aa=data.antialiasing;float scale=canvas.scaleFactor;
+   try{canvas.renderMode=RenderMode.ScreenSpaceCamera;canvas.worldCamera=cam;canvas.planeDistance=cam.nearClipPlane+1f;cam.targetTexture=rt;cam.aspect=1600f/900;canvas.scaleFactor=1600f/1920;data.renderPostProcessing=false;data.antialiasing=UnityEngine.Rendering.Universal.AntialiasingMode.None;foreach(var label in canvas.GetComponentsInChildren<Text>())label.SetAllDirty();Canvas.ForceUpdateCanvases();cam.Render();RenderTexture.active=rt;var image=new Texture2D(1600,900,TextureFormat.RGB24,false);image.ReadPixels(new Rect(0,0,1600,900),0,0);image.Apply();File.WriteAllBytes(path,image.EncodeToPNG());Object.DestroyImmediate(image);}
+   finally{canvas.renderMode=RenderMode.ScreenSpaceOverlay;canvas.worldCamera=null;canvas.scaleFactor=scale;data.renderPostProcessing=post;data.antialiasing=aa;cam.targetTexture=old;cam.aspect=aspect;RenderTexture.active=active;rt.Release();Object.DestroyImmediate(rt);Canvas.ForceUpdateCanvases();}
+  }
+  static IEnumerator Verify()
+  {
+   yield return 1.5f;ui=Object.FindFirstObjectByType<PaperUI>();Check(ui&&ui.font&&ui.notebookSprite&&ui.leafSprite,"UI, Korean font and retouched shared sprites loaded");Check(ui.skinAtlas!=null&&ui.skinAtlas.width==1672&&ui.skinAtlas.height==941,"Approved extraction atlas serialized in scene");
+   var settings=PaperSettingsRuntime.Instance;originalValues=settings.Saved.Copy();PaperSettingsRuntime.TestStoragePath=Path.GetFullPath("Logs/ui-test-"+DateTime.Now.ToString("yyyyMMddHHmmss")+".json");settings.Apply(new PaperSettings(),false);
+   original=InputSystem.settings;var config=Object.Instantiate(original);config.updateMode=InputSettings.UpdateMode.ProcessEventsInDynamicUpdate;config.backgroundBehavior=InputSettings.BackgroundBehavior.IgnoreFocus;config.editorInputBehaviorInPlayMode=InputSettings.EditorInputBehaviorInPlayMode.AllDeviceInputAlwaysGoesToGameView;InputSystem.settings=config;keyboard=InputSystem.AddDevice<Keyboard>();keyboard.MakeCurrent();
+   Check(ui.ScreenState==PaperScreen.Playing&&Time.timeScale==1,"Initial Gameplay state");
+   foreach(var wait in Each(KeyPress(Key.Escape)))yield return wait;
+   Check(ui.ScreenState==PaperScreen.Paused&&Time.timeScale==0&&Cursor.lockState==CursorLockMode.None,"Escape pauses simulation and frees cursor");
+   var player=Object.FindFirstObjectByType<PlayerController>();var at=player.transform.position;foreach(var wait in Each(KeyPress(Key.W)))yield return wait;Check(Vector3.Distance(at,player.transform.position)<.01f&&player.Input.Move==Vector2.zero,"Menu keys cannot move player");
+   Check(ui.GetComponentsInChildren<Image>().Any(im=>im.name=="Bound paper"),"Single bound pause panel uses reference theme");Check(!ui.GetComponentsInChildren<Image>().Any(im=>im.name=="Retouched notebook"),"Settings notebook hidden while paused");Capture(Out+"/pause.png");var hover=ui.GetComponentsInChildren<Button>().First(b=>b.name=="설정");ExecuteEvents.Execute(hover.gameObject,new PointerEventData(EventSystem.current),ExecuteEvents.pointerEnterHandler);yield return .2f;Check(hover.image.color.a>.8f,"Pause option darkens on mouse hover");Capture(Out+"/pause-hover.png");ExecuteEvents.Execute(hover.gameObject,new PointerEventData(EventSystem.current),ExecuteEvents.pointerExitHandler);Check(hover.image.color.a==0,"Hover highlight clears on pointer exit");Click("설정");yield return .3f;
+   Check(ui.ScreenState==PaperScreen.Settings,"Settings button enters Settings state");var leaf=ui.SharedLeaf;Vector2 size=leaf.sizeDelta;Vector3 pos=leaf.localPosition;
+   for(int i=0;i<4;i++){ui.SelectTab(i);yield return .25f;Check(ui.SharedLeaf==leaf&&leaf.sizeDelta==size&&leaf.localPosition==pos&&size==new Vector2(120,120),"Tab "+i+" shares same 120 x 120 leaf");foreach(var s in ui.GetComponentsInChildren<Slider>())Check(s.fillRect.rect.width<=420.1f&&s.handleRect.rect.height<=28.1f,"Slider geometry stays inside track");Check(ui.GetComponentsInChildren<Image>().Count(im=>im.name.StartsWith("Category icon"))==4&&ui.GetComponentsInChildren<Image>().Count(im=>im.name=="Selected ribbon")==1,"Four extracted category icons and one active ribbon");Capture(Out+"/settings-"+i+".png");}
+   ui.SelectTab(1);yield return .2f;Click("화면 모드 dropdown");yield return .2f;Check(ui.ScreenState==PaperScreen.Choosing,"Dropdown opens dedicated FSM choice state");Capture(Out+"/dropdown.png");Click("Option 2");yield return .2f;Check(ui.ScreenState==PaperScreen.Settings&&ui.Draft.windowMode==2,"Dropdown selection edits draft and closes popup");Click("화면 모드 dropdown");yield return .1f;ui.Back();yield return .1f;Check(ui.ScreenState==PaperScreen.Settings,"Escape/back dismisses dropdown");ui.Draft.windowMode=1;
+   ui.SelectTab(3);yield return .2f;bool before=ui.Draft.prompts;Click("상호작용 안내 toggle");yield return .2f;Check(ui.Draft.prompts!=before,"Extracted checkbox updates bound setting");Click("상호작용 안내 toggle");
+   ui.SelectTab(0);yield return .2f;var slider=ui.GetComponentsInChildren<Slider>().First();slider.value=1.7f;Check(Mathf.Abs(ui.Draft.sensitivity-1.7f)<.02f,"Real slider edits draft only");Check(Mathf.Abs(settings.Current.sensitivity-1)<.01f,"Unapplied draft does not change runtime");
+   ui.Back();yield return .2f;Check(ui.ScreenState==PaperScreen.ConfirmDiscard,"Dirty back opens discard confirmation");ui.Discard();yield return .2f;Check(ui.ScreenState==PaperScreen.Paused,"Discard returns to pause");Click("설정");ui.BeginBind(5);yield return .3f;Check(!ui.TryBind(Key.W),"Duplicate key binding rejected");Check(ui.TryBind(Key.R),"Unused R binds interaction");
+   ui.Draft.muteBackground=false;ui.Draft.master=.4f;ui.Draft.music=.1f;ui.Draft.ambience=.2f;ui.Draft.effects=.3f;ui.Draft.textSize=2;ui.Draft.brightness=60;ui.Draft.vsync=false;ui.Draft.sensitivity=1.7f;ui.ApplySettings();yield return .4f;
+   Check(File.Exists(settings.StoragePath)&&settings.Saved.keys[5]==(int)Key.R,"Apply persists rebound key and settings to disk");settings.Load();Check(settings.Saved.textSize==2&&Mathf.Abs(settings.Saved.master-.4f)<.01f,"Saved values survive reload");Check(Mathf.Abs(AudioListener.volume-.4f)<.01f&&QualitySettings.vSyncCount==0,"Audio and graphics settings affect runtime: "+AudioListener.volume+" / "+QualitySettings.vSyncCount);
+   var buses=Object.FindObjectsByType<PaperAudioLevel>(FindObjectsSortMode.None);Check(buses.Any(b=>b.bus==PaperAudioBus.Music&&Mathf.Abs(b.GetComponent<AudioSource>().volume-b.baseline*.1f)<.001f)&&buses.Any(b=>b.bus==PaperAudioBus.Ambience&&Mathf.Abs(b.GetComponent<AudioSource>().volume-b.baseline*.2f)<.001f),"Music and ambience use independent gains");
+   var cam=Object.FindFirstObjectByType<PaperCamera>();cam.SetAim(0,0);cam.ApplyLookDelta(new Vector2(10,10));var cameraData=new SerializedObject(cam);Check(Mathf.Abs(cam.AimYaw-2.04f)<.01f&&cameraData.FindProperty("pitch").floatValue<0,"Sensitivity controls camera look");var inverted=settings.Current.Copy();inverted.invertY=true;settings.Apply(inverted,false);cam.SetAim(0,0);cam.ApplyLookDelta(new Vector2(0,10));cameraData.Update();Check(cameraData.FindProperty("pitch").floatValue>0,"Invert Y changes camera direction");settings.Apply(settings.Saved,false);cam.SetAim(0,-3);
+   ui.SelectTab(3);yield return .3f;Capture(Out+"/large-text.png");ui.Resume();yield return .3f;
+   var probe=player.gameObject.AddComponent<PaperInputProbe>();foreach(var wait in Each(KeyPress(Key.R)))yield return wait;Check(probe.Seen,$"Rebound gameplay input reaches reader (frames {probe.Frames}, key {settings.Current.keys[5]}, phase {GameFlow.Instance.Phase}, blocked {PaperUI.BlocksGameplay}, current {Keyboard.current==keyboard})");Object.Destroy(probe);
+   ui.Pause();ui.OpenSettings();ui.Draft.width=2560;ui.Draft.height=1440;ui.ApplySettings();yield return .3f;Check(ui.ScreenState==PaperScreen.ConfirmDisplay&&Time.timeScale==0,"Display change waits for confirmation while paused");yield return 15.3f;Check(ui.ScreenState==PaperScreen.Settings&&settings.Current.width==settings.Saved.width,"Unscaled display timer rolls back automatically");
+   ui.Draft.width=1600;ui.Draft.height=900;ui.ApplySettings();yield return .2f;ui.CommitDraft();yield return .2f;Check(settings.Saved.width==1600,"Display confirmation commits selected mode");
+   ui.SelectTab(2);ui.PreviewSound();yield return .1f;Check(ui.GetComponents<AudioSource>().Any(s=>s.isPlaying&&s.ignoreListenerPause),"Sound preview plays during pause");
+   ui.Defaults();ui.ApplySettings();yield return .2f;if(ui.ScreenState==PaperScreen.ConfirmDisplay)ui.CommitDraft();yield return .2f;Check(settings.Saved.keys[5]==(int)Key.F&&settings.Saved.textSize==1,"Restore defaults applies bindings and text scale");
+   ui.Resume();yield return .3f;var note=Object.FindFirstObjectByType<ReadableNote>();Check(note!=null,"Readable story note exists in F0");ui.Read(note);yield return .3f;Check(ui.ScreenState==PaperScreen.Reading&&Time.timeScale==0,"Reading state blocks gameplay");Capture(Out+"/reading.png");foreach(var wait in Each(KeyPress(Key.F)))yield return wait;Check(ui.ScreenState==PaperScreen.Reading,"Read next page without world interaction");ui.Back();yield return .3f;Check(ui.ScreenState==PaperScreen.Playing&&Time.timeScale==1,"Close reading restores Gameplay state");
+   PaperUI.Notify("페이지 위에서는 접을 수 없어.");yield return .2f;Capture(Out+"/feedback.png");ui.Pause();Click("기록장");yield return .2f;Check(ui.ScreenState==PaperScreen.Journal,"Collected reading appears in journal state");ui.Back();Click("나가기");yield return .2f;Check(ui.ScreenState==PaperScreen.ConfirmQuit,"Quit has confirmation state");ui.Back();yield return .2f;Check(ui.ScreenState==PaperScreen.Paused,"Quit cancel returns to pause safely");ui.Resume();yield return .2f;
+  }
+ }
+}

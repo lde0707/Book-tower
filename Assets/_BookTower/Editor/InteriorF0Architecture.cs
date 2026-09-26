@@ -10,7 +10,7 @@ namespace BookTower.EditorTools
             Box(root,"연속_충돌바닥",V(0,-.28f,0),V(56,.5f,44),paper,true);
             for(int x=0;x<8;x++)for(int z=0;z<10;z++)
             {
-                var tile=MeshObject(root,"장지바닥",F0Mesh.Paper(3.98f,3.98f,71+x*19+z),((x+z)%3==0)?ivory:paper,V(-14+x*4,.055f,-20+z*4));
+                var tile=MeshObject(root,"장지바닥",F0Mesh.Paper(3.98f,3.98f,71+x*19+z),paper,V(-14+x*4,.055f,-20+z*4));
                 tile.localRotation=Quaternion.Euler(90,0,0);
             }
             Box(root,"뒷복도바닥",V(0,-.02f,19),V(55,.07f,6),paper);
@@ -74,23 +74,25 @@ namespace BookTower.EditorTools
             for(int i=0;i<4;i++)Book(root,"뒷편장서",V(-12.5f+i*1.4f,0,13),1.2f,6.5f+i*.4f,2.8f,i%2==0?umber:oxblood,0);
             Table(root,V(12,0,2.8f));
             for(int i=0;i<18;i++)Box(root,"책상위낱장",V(12+Mathf.Sin(i)*.07f,3.65f+i*.055f,2.8f),V(4.3f,.045f,2.35f),i%3==0?paper:ivory);
-            PaperArch(V(-10.7f,0,-10));
+            PaperArch(V(-5.3f,0,-7.5f));
         }
         static void Book(Transform p,string name,Vector3 at,float w,float h,float d,Material cover,float yaw)
         {
             Transform b=Group(p,name,at);b.localRotation=Quaternion.Euler(0,yaw,0);
             Box(b,"책장덩어리",V(0,h*.5f,.06f),V(w-.22f,h-.28f,d-.28f),edge,true,.1f);
-            Box(b,"가죽책등",V(0,h*.5f,-d*.5f),V(w,h,.5f),cover,true,.22f);
+            var spine=MeshObject(b,"곡면가죽책등",F0Mesh.Spine(w,h,.58f),cover,V(0,0,-d*.5f));
+            var spineCollider=spine.gameObject.AddComponent<BoxCollider>();spineCollider.center=V(0,h*.5f,-.28f);spineCollider.size=V(w,h,.58f);
             foreach(int s in new[]{-1,1})Box(b,"책표지",V(s*w*.5f,h*.5f,.1f),V(.18f,h,d+.35f),cover,true,.055f);
             foreach(float y in new[]{.16f,.39f,h*.25f,h*.75f,h-.35f,h-.13f})
-            {Box(b,"책등양각띠",V(0,y,-d*.5f-.28f),V(w+.1f,.13f,.13f),cover,false,.06f);Box(b,"금박테두리",V(0,y+.065f,-d*.5f-.36f),V(w-.15f,.025f,.028f),brass);}
+            {MeshObject(b,"곡면양각띠",F0Mesh.Spine(w+.08f,.15f,.65f),cover,V(0,y,-d*.5f));
+                MeshObject(b,"곡면금박띠",F0Mesh.Spine(w+.1f,.025f,.67f),brass,V(0,y+.07f,-d*.5f));}
             for(int i=0;i<20;i++)Box(b,"종이단면",V(w*.5f-.09f,.3f+i*(h-.6f)/20,.07f),V(.025f,.02f,d-.37f),paper);
-            Sprig(b,V(0,h*.79f,-d*.5f-.3f),h*.13f,brass);
+            Sprig(b,V(0,h*.79f,-d*.5f-.65f),h*.13f,brass);
             if(h>10)
             {
-                Box(b,"황동걸쇠",V(0,h*.49f,-d*.5f-.33f),V(w+.18f,1.6f,.14f),brass,false,.10f);
-                Box(b,"걸쇠맞춤선",V(.3f,h*.49f,-d*.5f-.43f),V(.06f,1.5f,.03f),umber);Sprig(b,V(-.38f,h*.46f,-d*.5f-.44f),.9f,umber);
-                foreach(float x in new[]{-w*.42f,w*.42f})foreach(float y in new[]{h*.49f-.55f,h*.49f+.55f})Sphere(b,"걸쇠리벳",V(x,y,-d*.5f-.45f),V(.09f,.09f,.06f),brass);
+                Box(b,"황동걸쇠",V(0,h*.49f,-d*.5f-.70f),V(w+.18f,1.6f,.14f),brass,false,.10f);
+                Box(b,"걸쇠맞춤선",V(.3f,h*.49f,-d*.5f-.80f),V(.06f,1.5f,.03f),umber);Sprig(b,V(-.38f,h*.46f,-d*.5f-.81f),.9f,umber);
+                foreach(float x in new[]{-w*.42f,w*.42f})foreach(float y in new[]{h*.49f-.55f,h*.49f+.55f})Sphere(b,"걸쇠리벳",V(x,y,-d*.5f-.82f),V(.09f,.09f,.06f),brass);
             }
         }
         static void FlatBook(Transform p,Vector3 at,float w,float h,float d,Material cover,float yaw)
@@ -110,17 +112,24 @@ namespace BookTower.EditorTools
         }
         static void PaperArch(Vector3 at)
         {
-            var p=Group(root,"접힌종이아치",at);p.localRotation=Quaternion.Euler(0,9,0);
+            var p=Group(root,"접힌종이아치",at);p.localRotation=Quaternion.Euler(0,-32,0);
             var verts=new List<Vector3>();var uv=new List<Vector2>();var tris=new List<int>();
             for(int i=0;i<=40;i++)
             {
                 float a=i*Mathf.PI/40;foreach(float r in new[]{1.16f,1.60f}){verts.Add(V(Mathf.Cos(a)*r,1.48f+Mathf.Sin(a)*r,-.12f+Mathf.Sin(i*3.4f)*.035f));uv.Add(new Vector2(Mathf.Cos(a)*r,Mathf.Sin(a)*r));}
-                if(i>0){int q=(i-1)*2;tris.AddRange(new[]{q,q+1,q+2,q+1,q+3,q+2});}
+                if(i>0){int q=(i-1)*2;tris.AddRange(new[]{q,q+2,q+1,q+1,q+2,q+3});}
             }
             var m=new Mesh();m.SetVertices(verts);m.SetUVs(0,uv);m.SetTriangles(tris,0);m.RecalculateNormals();m.RecalculateTangents();MeshObject(p,"찢긴종이아치면",m,ivory,Vector3.zero);
-            foreach(int s in new[]{-1,1})Box(p,"아치기둥",V(s*1.4f,.74f,.05f),V(.43f,1.48f,.3f),paper,true);
+            foreach(int s in new[]{-1,1})Box(p,"아치기둥",V(s*1.4f,.74f,1.1f),V(.43f,1.48f,2.4f),paper,true);
             for(int i=0;i<19;i++){float a=i*Mathf.PI/18;Vector3 pos=V(Mathf.Cos(a)*1.48f,1.48f+Mathf.Sin(a)*1.48f,-.21f);Tube(p,"아치실밥",new[]{pos+V(-.09f,0,0),pos+V(0,.02f,-.1f),pos+V(.09f,0,0)},.043f,rope);}
-            Box(p,"종이집지붕",V(0,2.85f,1.2f),V(3.2f,.15f,2.6f),paper);Box(p,"종이집뒷벽",V(0,1.4f,2.3f),V(3.2f,2.8f,.2f),umber,true);
+            var vaultV=new List<Vector3>();var vaultUv=new List<Vector2>();var vaultT=new List<int>();
+            for(int i=0;i<=40;i++)
+            {
+                float a=i*Mathf.PI/40;
+                foreach(float z in new[]{0f,2.3f}){vaultV.Add(V(Mathf.Cos(a)*1.38f,1.48f+Mathf.Sin(a)*1.38f,z));vaultUv.Add(new Vector2(i*.1f,z));}
+                if(i>0){int q=(i-1)*2;vaultT.AddRange(new[]{q,q+2,q+1,q+1,q+2,q+3});}
+            }
+            var vault=new Mesh();vault.SetVertices(vaultV);vault.SetUVs(0,vaultUv);vault.SetTriangles(vaultT,0);vault.RecalculateNormals();vault.RecalculateTangents();MeshObject(p,"둥근종이터널",vault,paper,Vector3.zero);
         }
     }
 }
