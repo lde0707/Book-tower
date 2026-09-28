@@ -1,0 +1,7 @@
+# F0 individual prop checks
+PASS 01_BindingWorkbench: 9716 triangles, 11 renderers, bounds (5.96, 1.62, 3.39)
+PASS 02_OpenClueBook: 48686 triangles, 7 renderers, bounds (3.04, 1.73, 2.03)
+PASS 03_InkwellAndQuill: 3056 triangles, 6 renderers, bounds (1.06, 1.72, 0.70)
+PASS 04_PaperLantern: 2280 triangles, 4 renderers, bounds (1.20, 2.03, 1.20)
+PASS 05_BoundBookStack: 10192 triangles, 8 renderers, bounds (2.94, 1.30, 2.20)
+PASS 06_WheeledArchive: 26914 triangles, 19 renderers, bounds (3.55, 4.80, 1.85)

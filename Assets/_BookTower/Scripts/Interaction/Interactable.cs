@@ -34,6 +34,7 @@ namespace BookTower.Interaction
         [Tooltip("곁의 등이 몇 배로 밝아지는가")]
         [SerializeField] private float lightBoost = 1.8f;
 
+        [SerializeField] private bool animatePosition = true;
         private Transform player;
         private Light nearbyLight;
         private Vector3 restPos;
@@ -100,7 +101,7 @@ namespace BookTower.Interaction
             float blend = rangeBlend * 0.35f + targetBlend * 0.65f;
 
             float bob = blend > 0.01f ? (Mathf.Sin(Time.time * bobSpeed) * 0.5f + 0.5f) : 0f;
-            transform.localPosition = restPos + Vector3.up * (lift * blend * (0.6f + 0.4f * bob));
+            if (animatePosition) transform.localPosition = restPos + Vector3.up * (lift * blend * (0.6f + 0.4f * bob));
 
             if (nearbyLight != null)
                 nearbyLight.intensity = Mathf.Lerp(baseIntensity, baseIntensity * lightBoost, blend);

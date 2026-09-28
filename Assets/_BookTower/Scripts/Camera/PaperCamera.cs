@@ -100,6 +100,7 @@ namespace BookTower.CameraSystem
 
         public void ApplyLookDelta(Vector2 delta)
         {
+            if(BookTower.Interaction.PaperShadowDrag.Holding)return;
             if(observationLocked || mode == CameraMode.Overview) return;
             var settings=BookTower.UI.PaperSettingsRuntime.Values; lastLook=Time.time;
             SetAim(aimYaw + delta.x * mouseSensitivity*settings.sensitivity, pitch - delta.y * mouseSensitivity*settings.sensitivity*(settings.invertY?-1:1));
@@ -189,7 +190,7 @@ namespace BookTower.CameraSystem
         private void HandleInput()
         {
             if (BookTower.UI.PaperUI.BlocksGameplay || (GameFlow.Instance != null && !GameFlow.Instance.AcceptsPlayerInput))
-            { if(BookTower.UI.PaperUI.Instance && BookTower.UI.PaperUI.Instance.ScreenState==BookTower.UI.PaperScreen.Playing) return; Cursor.lockState=CursorLockMode.None; Cursor.visible=true; return; }
+            { var ui=BookTower.UI.PaperUI.Instance;if(ui&&(ui.ScreenState==BookTower.UI.PaperScreen.Playing||(ui.ScreenState==BookTower.UI.PaperScreen.Story&&ui.WalkingStory)))return; Cursor.lockState=CursorLockMode.None; Cursor.visible=true; return; }
 
             Keyboard kb = Keyboard.current;
             if (kb == null) return;
@@ -326,7 +327,7 @@ namespace BookTower.CameraSystem
             roomFocusHeight = room.RoomId == "3A" ? 2f : 0.7f;
             if (first) transiting = false;
             hasRoom = true;
-            mode = CameraMode.Room;
+            if (mode != CameraMode.Cinematic) mode = CameraMode.Room;
 
             // 첫 방은 즉시 맞춘다. 보간을 두면 게임 시작 직후 카메라가
             // 엉뚱한 데서 날아오는 것처럼 보인다.

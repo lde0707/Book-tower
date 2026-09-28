@@ -23,13 +23,21 @@ namespace BookTower.EditorTools
         static readonly StringBuilder report=new();static PlayerController player;static PaperCamera camera;static Room room;
         static Mouse testMouse;static Keyboard keyboard;static InputSettings originalSettings;
         [InitializeOnLoadMethod]static void Init()=>EditorApplication.playModeStateChanged+=Changed;
+        public static void CancelOwnReview()
+        {
+            if(!SessionState.GetBool(Flag,false))return;
+            EditorApplication.update-=Tick;routine=null;
+            if(testMouse!=null)InputSystem.RemoveDevice(testMouse);if(keyboard!=null)InputSystem.RemoveDevice(keyboard);
+            if(originalSettings!=null)InputSystem.settings=originalSettings;
+            SessionState.SetBool(Flag,false);EditorApplication.ExitPlaymode();
+        }
         public static void RunBindingBatch(){UnityEditor.SceneManagement.EditorSceneManager.OpenScene("Assets/Scenes/InGame.unity");BindingPlayBuilder.Apply();Run();}
         public static void Run(){UnityEditor.SceneManagement.EditorSceneManager.OpenScene("Assets/Scenes/InGame.unity");SessionState.SetBool(Flag,true);EditorApplication.EnterPlaymode();}
         static void Changed(PlayModeStateChange state)
         {
             if(!SessionState.GetBool(Flag,false))return;
             if(state==PlayModeStateChange.EnteredPlayMode)
-            {Application.targetFrameRate=60;report.Clear();started=EditorApplication.timeSinceStartup;next=0;frame=-1;routine=Verify();EditorApplication.update+=Tick;}
+            {Application.targetFrameRate=60;report.Clear();var story=Object.FindFirstObjectByType<BookTower.Story.OpeningStoryDirector>();if(story)story.gameObject.SetActive(false);started=EditorApplication.timeSinceStartup;next=0;frame=-1;routine=Verify();EditorApplication.update+=Tick;}
             if(state==PlayModeStateChange.EnteredEditMode)
             {
                 SessionState.SetBool(Flag,false);
@@ -165,6 +173,21 @@ namespace BookTower.EditorTools
             room.SetVisible(false);Require(!shutter.TryUse(shutter.transform.position),"Hidden-room optical interaction rejected");room.SetVisible(true);
             Require(room.GetComponentsInChildren<CollectiblePiece>().Length==0,"Retired fragment route remains disabled");
             camera.SetAim(0,-12);yield return .6f;InteriorF0Builder.Capture(Camera.main,"Docs/ArtReview/FoldBridge/01-raised.png");
+            if(room.GetComponentsInChildren<Transform>().Any(t=>t.name=="기준이미지_가죽제본기둥"))
+            {
+                Directory.CreateDirectory("Docs/ArtReview/BookSpinePillar");
+                InteriorF0Builder.Capture(Camera.main,"Docs/ArtReview/BookSpinePillar/player-overview.png");
+                var originalPosition=player.transform.position;
+                Teleport(W(-5.5f,-15.5f));camera.SetAim(-48,-26);yield return .8f;
+                InteriorF0Builder.Capture(Camera.main,"Docs/ArtReview/BookSpinePillar/player-pillar.png");
+                if(room.transform.Find(InteriorF0Builder.RootName+"/F0_개별공예소품"))
+                {
+                    Directory.CreateDirectory("Docs/ArtReview/F0CraftedProps");
+                    Teleport(W(-6,-11));camera.SetAim(-45,9);yield return .8f;
+                    InteriorF0Builder.Capture(Camera.main,"Docs/ArtReview/F0CraftedProps/player-workbench.png");
+                }
+                Teleport(originalPosition);camera.SetAim(0,-12);yield return .3f;
+            }
             Teleport(room.transform.TransformPoint(new Vector3(0,1.4f,3)));yield return .5f;
             Require(puzzle.Recoveries==1&&room.transform.InverseTransformPoint(player.transform.position).z<0,"Pit fall recovers at entrance bank");
             originalSettings=InputSystem.settings;var settings=Object.Instantiate(originalSettings);
@@ -184,6 +207,7 @@ namespace BookTower.EditorTools
             Require(first.TryUse(player.transform.position),"Entrance mirror can rotate to bypass");yield return 2.2f;
             Require(puzzle.lightSurfaces.Any(s=>s.name=="건너편 장식 종이꽃"&&s.Lit)&&!puzzle.LightConnected,"Bypass reaches far bank but initial far reflection goes to decoration; stop="+puzzle.BeamStoppedAt);
             camera.enabled=true;camera.SetAim(0,-12);yield return .6f;InteriorF0Builder.Capture(Camera.main,"Docs/ArtReview/FoldBridge/02-bridge.png");
+            foreach(var wait in Enumerate(F0PaperIdentityVerifier.CaptureDirections(player,camera,room)))yield return wait;
             foreach(var wait in Enumerate(Walk(W(0,-3))))yield return wait;
             foreach(var wait in Enumerate(Walk(W(0,3))))yield return wait;
             Require(player.transform.position.y>2.8f,"Player walks across solid page bridge");

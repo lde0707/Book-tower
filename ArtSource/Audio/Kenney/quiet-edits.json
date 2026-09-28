@@ -1,0 +1,93 @@
+[
+  {
+    "asset": "fold_step",
+    "source": "ArtSource\\Audio\\Kenney\\rpg\\Audio\\bookFlip1.ogg",
+    "seconds": 0.663,
+    "peak_dbfs": -14.89,
+    "sha256": "fa81ac2fedc8c641661b87e349630a36c9800e795e0c800e029214efdbe26a7d"
+  },
+  {
+    "asset": "fold_step_2",
+    "source": "ArtSource\\Audio\\Kenney\\rpg\\Audio\\bookFlip2.ogg",
+    "seconds": 0.415,
+    "peak_dbfs": -14.89,
+    "sha256": "3409042acbfaebc24c1a6327dc073e36f9250841712e96c5040da566a97df73c"
+  },
+  {
+    "asset": "fold_step_3",
+    "source": "ArtSource\\Audio\\Kenney\\rpg\\Audio\\bookFlip3.ogg",
+    "seconds": 0.21,
+    "peak_dbfs": -14.89,
+    "sha256": "c85db5dceb3f1df073e960630277eaa88a5afda0477c1ddd68dad707621767be"
+  },
+  {
+    "asset": "puzzle_solve",
+    "source": "ArtSource\\Audio\\Kenney\\rpg\\Audio\\bookClose.ogg",
+    "seconds": 0.194,
+    "peak_dbfs": -13.98,
+    "sha256": "81e976532565f4372abd14e83d2684195fa548d0a28d345de221e56052454f32"
+  },
+  {
+    "asset": "piece_pickup",
+    "source": "ArtSource\\Audio\\Kenney\\rpg\\Audio\\clothBelt.ogg",
+    "seconds": 0.695,
+    "peak_dbfs": -15.39,
+    "sha256": "f29560a2aea95bbfeb643e1e8f56ec2b6f7e32f32ce4e140645a36db81de3253"
+  },
+  {
+    "asset": "gate_open",
+    "source": "ArtSource\\Audio\\Kenney\\rpg\\Audio\\bookOpen.ogg",
+    "seconds": 0.143,
+    "peak_dbfs": -13.15,
+    "sha256": "953390534377222bee89ac8cd9e60a58fdc037c71a4d7c18c43cd647c7f34ba8"
+  },
+  {
+    "asset": "rustle_step",
+    "source": "ArtSource\\Audio\\Kenney\\rpg\\Audio\\cloth1.ogg",
+    "seconds": 0.596,
+    "peak_dbfs": -18.42,
+    "sha256": "ddb93a3671233f95da0e0b10367f082f7eb42fa6caaddcf776410aa8833c747d"
+  },
+  {
+    "asset": "rustle_step_2",
+    "source": "ArtSource\\Audio\\Kenney\\rpg\\Audio\\cloth2.ogg",
+    "seconds": 0.35,
+    "peak_dbfs": -18.42,
+    "sha256": "8a7451193c38bc05483aec25dd193e163a15d44cf7fff04ac7912573231b0201"
+  },
+  {
+    "asset": "rustle_step_3",
+    "source": "ArtSource\\Audio\\Kenney\\rpg\\Audio\\cloth4.ogg",
+    "seconds": 0.384,
+    "peak_dbfs": -18.42,
+    "sha256": "e7ab9a6c4466dea874196c61f59bf1da05cfe58748f42fadd695d441a154a99b"
+  },
+  {
+    "asset": "hint_tremble",
+    "source": "ArtSource\\Audio\\Kenney\\rpg\\Audio\\cloth3.ogg",
+    "seconds": 0.457,
+    "peak_dbfs": -20.0,
+    "sha256": "a48632d17a4f1416541d261a32a31612e01267144c407fa3ecab3ff410f0085b"
+  },
+  {
+    "asset": "hint_nudge",
+    "source": "ArtSource\\Audio\\Kenney\\rpg\\Audio\\bookFlip3.ogg",
+    "seconds": 0.21,
+    "peak_dbfs": -17.08,
+    "sha256": "c85db5dceb3f1df073e960630277eaa88a5afda0477c1ddd68dad707621767be"
+  },
+  {
+    "asset": "ui_click",
+    "source": "ArtSource\\Audio\\Kenney\\interface\\Audio\\click_001.ogg",
+    "seconds": 0.058,
+    "peak_dbfs": -17.73,
+    "sha256": "ccfb7fa0cccdd9faec0eb16033c732b1e308d139d80f799161495d58f7adcdb9"
+  },
+  {
+    "asset": "ui_page",
+    "source": "ArtSource\\Audio\\Kenney\\rpg\\Audio\\bookFlip2.ogg",
+    "seconds": 0.415,
+    "peak_dbfs": -18.42,
+    "sha256": "3409042acbfaebc24c1a6327dc073e36f9250841712e96c5040da566a97df73c"
+  }
+]

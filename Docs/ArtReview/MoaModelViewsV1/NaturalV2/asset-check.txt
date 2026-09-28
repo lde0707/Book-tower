@@ -1,0 +1,45 @@
+PASS: Prefab has articulated body, head, wings and animation driver
+PASS: Head, throat and breast share one continuous skinned surface
+PASS: Three sheet layers per wing and asymmetric left-wing flecks
+PASS: Companion cannot block player or intercept light rays
+PASS: Bird shares actual paper spirit fibre and normal textures
+PASS: Valid saved mesh: EyeL
+PASS: Valid saved mesh: EyeR
+PASS: Valid saved mesh: UpperBeak
+PASS: Valid saved mesh: LowerBeak
+PASS: Valid saved mesh: WingLSheet2
+PASS: Valid saved mesh: WingLSheet1
+PASS: Valid saved mesh: WingLSheet0
+PASS: Valid saved mesh: WingGold0
+PASS: Valid saved mesh: WingGold1
+PASS: Valid saved mesh: WingGold2
+PASS: Valid saved mesh: Leg-1
+PASS: Valid saved mesh: Toe-1_-1
+PASS: Valid saved mesh: Toe-1_0
+PASS: Valid saved mesh: Toe-1_1
+PASS: Valid saved mesh: Toe-1_2
+PASS: Valid saved mesh: WingRSheet2
+PASS: Valid saved mesh: WingRSheet1
+PASS: Valid saved mesh: WingRSheet0
+PASS: Valid saved mesh: Leg1
+PASS: Valid saved mesh: Toe1_-1
+PASS: Valid saved mesh: Toe1_0
+PASS: Valid saved mesh: Toe1_1
+PASS: Valid saved mesh: Toe1_2
+PASS: Valid saved mesh: TailSheet-1
+PASS: Valid saved mesh: TailSheet1
+PASS: Valid saved mesh: TailSheet0
+PASS: Valid saved mesh: HiddenLightSeed
+PASS: Valid sculpted skin: ContinuousPaperBody
+PASS: Normalized smooth skin weights: ContinuousPaperBody
+PASS: Valid sculpted skin: HandlaidPaperSeam0
+PASS: Normalized smooth skin weights: HandlaidPaperSeam0
+PASS: Valid sculpted skin: HandlaidPaperSeam1
+PASS: Normalized smooth skin weights: HandlaidPaperSeam1
+PASS: Valid sculpted skin: HandlaidPaperSeam2
+PASS: Normalized smooth skin weights: HandlaidPaperSeam2
+Mesh triangles: 60688
+PASS: Continuous 60 Hz authored clip: Idle
+PASS: Continuous 60 Hz authored clip: Run
+PASS: Continuous 60 Hz authored clip: WingRest
+PASS: Continuous 60 Hz authored clip: Flutter

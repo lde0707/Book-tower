@@ -1,0 +1,1 @@
+PASS: scene references approved V3 sculpt, 7 skin bones, 3 flight clips, airborne follower, no solid collider, 16 opening lines.

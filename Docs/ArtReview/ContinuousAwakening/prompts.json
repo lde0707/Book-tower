@@ -1,0 +1,25 @@
+{
+  "tool": "built-in image_gen",
+  "scenes": [
+    {
+      "id": "bird",
+      "prompt": "Create an animation sprite cutout from the reference bird: same round ivory paper bird, dark eyes, tiny ochre beak, short paper crest, same worried caring tilt leaning in from viewer RIGHT. Full head and round upper torso, thin fibrous handmade paper, warm soft lighting. Three-quarter view facing LEFT toward camera. IMPORTANT near wing (on viewer left) OMITTED for separate rigged wing attachment; leave a clean rounded torso shoulder edge. Far wing can stay tiny tucked behind right edge. No hands, no light seed, no props. The entire bird isolated on genuinely transparent background, fully in frame with padding. 1024 square. Preserve face and paper design, no black backdrop.",
+      "path": "C:\\Users\\doun0\\.codex\\generated_images\\01a0d1de-4cc4-77e0-8280-e364fc88f468\\exec-0cd434c6-90c5-460c-9e29-88adde8b9c2e.png"
+    },
+    {
+      "id": "wing",
+      "prompt": "Create ONE isolated ivory paper bird wing for 2D animation: reference bird's soft layered fibrous paper feathers. Wing stretched gently to viewer LEFT, rounded compact shoulder on RIGHT, three overlapping rounded paper feather tips spread on LEFT. Horizontal elongated teardrop shape, no claws, no human fingers, no bird body, no light, no text. Soft warm illumination matching reference. Entire single wing on genuine transparent background with padding, landscape canvas. Handmade layered thin paper edge detail, cute soft shape.",
+      "path": "C:\\Users\\doun0\\.codex\\generated_images\\01a0d1de-4cc4-77e0-8280-e364fc88f468\\exec-13b0d371-fdd0-4357-946d-0050fe4060aa.png"
+    },
+    {
+      "id": "hands",
+      "prompt": "Create a first-person sprite layer of TWO tiny ivory paper-spirit mitten hands cupped to receive light at lower center. Layered ivory paper cloak sleeves enter from bottom left and bottom right; rounded mittens facing up/inward, NO realistic human fingers. Hands frame EMPTY CENTER so separate glowing seed can move there. Both sleeves and hands confined to bottom half of square canvas; upper half and entire background genuinely transparent. No bird, no face, no light seed, no background, no words. Tactile warm ivory paper fibers and layered torn hems, softly shaded.",
+      "path": "C:\\Users\\doun0\\.codex\\generated_images\\01a0d1de-4cc4-77e0-8280-e364fc88f468\\exec-ee251b99-f299-4942-99ea-fbf778aeed53.png"
+    },
+    {
+      "id": "seed",
+      "prompt": "Create a single tiny folded golden paper seed shaped like two delicate folded leaves cupped together. Warm amber fibrous paper, lit from within, subtle luminous edge but keep distinct paper silhouette. No bird, no hands, no text, no other objects. Centered isolated on genuine transparent background, square. A game animation sprite, not an icon outline.",
+      "path": "C:\\Users\\doun0\\.codex\\generated_images\\01a0d1de-4cc4-77e0-8280-e364fc88f468\\exec-a754b494-fca8-4a71-b540-5d8481539f3f.png"
+    }
+  ]
+}

@@ -69,7 +69,9 @@ namespace BookTower.Puzzles
 
             if (State != PuzzleState.Active) return;
 
-            ActiveTime += Time.deltaTime;
+            // Reading and story time must not trigger automatic puzzle hints.
+            if (GameFlow.Instance == null || GameFlow.Instance.AcceptsPlayerInput)
+                ActiveTime += Time.deltaTime;
 
             if (CheckSolved())
             {

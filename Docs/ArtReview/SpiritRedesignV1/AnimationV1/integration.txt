@@ -1,0 +1,4 @@
+Player=BookmarkBird
+Visual height=1.355
+Scale=(0.79, 0.79, 0.79)
+Movement and colliders unchanged.

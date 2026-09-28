@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 420a46e189de0174caa3260dccb8dbac, type: 3}
+  m_Name: OpeningCutsceneArt
+  m_EditorClassIdentifier: Assembly-CSharp::BookTower.Story.PaperCutsceneArt
+  spirit: {fileID: 21300000, guid: 45b8b19ce0c83274396c281fa3919942, type: 3}
+  moa: {fileID: 21300000, guid: 8d57c75490dae1049a9cf3f2d8041650, type: 3}
+  foyer: {fileID: 21300000, guid: 421f0d575d6926a48b96d255523089e4, type: 3}
+  theatre: {fileID: 21300000, guid: 6fbf191280ab7244ca624b0acf452377, type: 3}
+  memory: {fileID: 21300000, guid: 6bcca9c6bb2c2eb4abb2c62cca381c4f, type: 3}
+  entryCuts: []
+  returnCuts: []
+  theatreCuts: []
+  nameCuts: []
+  firstPersonAwakening:
+  - {fileID: 21300000, guid: eb860b534de53de4abc52ddf85de8439, type: 3}
+  - {fileID: 21300000, guid: c70e4fc58fb300140b1e996cad6a58cd, type: 3}
+  - {fileID: 21300000, guid: bd3e4d39b2fa64d4aa05738bd9a841ae, type: 3}
+  - {fileID: 21300000, guid: 97672aca58a080a4e90f7b37c58a889e, type: 3}
+  continuousBird: {fileID: 21300000, guid: a2e94accbbdb07940ad1effaaf9c8dda, type: 3}
+  continuousWing: {fileID: 21300000, guid: ce5c4ea64692b174597da2f7348de8a8, type: 3}
+  continuousHands: {fileID: 21300000, guid: a4fbad21c470c974db817c8ccec2cea2, type: 3}
+  continuousSeed: {fileID: 21300000, guid: 9ac04d036f141f44d801ee90ee31bc6e, type: 3}
+  continuousOffering: {fileID: 21300000, guid: 1e9d89cad9aa84c42a0119d3fce5e158, type: 3}
+  spiritPortrait: {fileID: 21300000, guid: 4902fbfbf7c75cb42b6b6eabc6850944, type: 3}

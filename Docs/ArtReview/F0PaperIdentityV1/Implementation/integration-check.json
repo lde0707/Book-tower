@@ -1,0 +1,13 @@
+{
+  "scene_sha256": "1feab5567afcb3c344c2ec5cf5944f72f1e7f41dd6211c5bfaee23b87449f358",
+  "copied_files_checked": 332,
+  "new_scene_asset_guids": 159,
+  "missing_new_guids": [],
+  "duplicate_new_guids": {},
+  "report_pass_lines": {
+    "structure-check.txt": 152,
+    "f0-play-check.txt": 41,
+    "story-play-check.txt": 43
+  },
+  "scene_matches_tested_scene": true
+}

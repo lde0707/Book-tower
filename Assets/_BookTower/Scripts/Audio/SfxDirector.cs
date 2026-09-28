@@ -24,6 +24,11 @@ namespace BookTower.Audio
         [Range(0f, 1f)] [SerializeField] private float footstepVolume = 0.32f;
 
         private AudioClip foldStep, puzzleSolve, pieceUp, gateOpen, rustleStep, hintTremble, hintNudge;
+        private AudioClip[] folds, steps;
+        private AudioClip click, page;
+        private AudioSource uiSource;
+        private int foldIndex, stepIndex;
+        private float lastFootstep = -10, lastUi = -10;
 
         private void Awake()
         {
@@ -37,6 +42,12 @@ namespace BookTower.Audio
             rustleStep  = Load("rustle_step");
             hintTremble = Load("hint_tremble");
             hintNudge   = Load("hint_nudge");
+            folds = new[] { foldStep, Load("fold_step_2"), Load("fold_step_3") };
+            steps = new[] { rustleStep, Load("rustle_step_2"), Load("rustle_step_3") };
+            click = Load("ui_click"); page = Load("ui_page");
+            uiSource = gameObject.AddComponent<AudioSource>();
+            uiSource.playOnAwake = false; uiSource.spatialBlend = 0;
+            uiSource.ignoreListenerPause = true;
         }
 
         private static AudioClip Load(string name)
@@ -44,7 +55,7 @@ namespace BookTower.Audio
             var clip = Resources.Load<AudioClip>("Sfx/" + name);
             if (clip == null)
                 Debug.LogWarning($"[SfxDirector] Resources/Sfx/{name}.wav 이 없다 — 해당 효과음은 생략된다. " +
-                                  "Tools/make_sounds.py 로 생성했는지 확인할 것");
+                                  "Tools/prepare_quiet_sfx.py의 에셋 출처와 생성 결과를 확인할 것");
             return clip;
         }
 
@@ -70,7 +81,7 @@ namespace BookTower.Audio
 
         private void OnFoldChanged(FoldPanel panel)
         {
-            if (panel != null) PlayAt(foldStep, panel.transform.position, 0.65f);
+            if (panel != null) PlayAt(folds[foldIndex++ % folds.Length], panel.transform.position, 0.65f);
         }
 
         private void OnPuzzleSolved(MonoBehaviour puzzle)
@@ -85,7 +96,23 @@ namespace BookTower.Audio
             PlayAt(gateOpen, gate != null ? gate.transform.position : PlayerPos(), 0.9f);
         }
 
-        private void OnFootstep(Vector3 pos) => PlayAt(rustleStep, pos, footstepVolume);
+        private void OnFootstep(Vector3 pos)
+        {
+            if (Time.time - lastFootstep < .22f) return;
+            lastFootstep = Time.time;
+            PlayAt(steps[stepIndex++ % steps.Length], pos, footstepVolume);
+        }
+
+        public static void PlayUi(bool turnPage = false)
+        {
+            var self = EnsureExists();
+            if (Time.unscaledTime - self.lastUi < .07f) return;
+            self.lastUi = Time.unscaledTime;
+            self.uiSource.Stop(); // A single quiet voice even when the menu is clicked rapidly.
+            self.uiSource.clip = turnPage ? self.page : self.click;
+            self.uiSource.volume = .65f * BookTower.UI.PaperSettingsRuntime.Values.effects;
+            if (self.uiSource.clip) self.uiSource.Play();
+        }
 
         /// <summary>
         /// 힌트 1단계(떨림)·3단계(반접힘)에만 소리를 붙인다. 2단계(빛)는 시각만 —
@@ -108,7 +135,7 @@ namespace BookTower.Audio
         private void PlayAt(AudioClip clip, Vector3 pos, float volume)
         {
             if (clip == null) return;
-            var go=new GameObject("Paper one-shot");go.transform.position=pos;var source=go.AddComponent<AudioSource>();source.clip=clip;source.spatialBlend=1;source.volume=Mathf.Clamp01(volume*masterVolume);BookTower.UI.PaperAudioLevel.Bind(source);source.Play();Destroy(go,clip.length+1);
+            var go=new GameObject("Paper one-shot");go.transform.position=pos;var source=go.AddComponent<AudioSource>();source.clip=clip;source.spatialBlend=1;source.minDistance=2;source.maxDistance=22;source.rolloffMode=AudioRolloffMode.Linear;source.volume=Mathf.Clamp01(volume*masterVolume);BookTower.UI.PaperAudioLevel.Bind(source);source.Play();Destroy(go,clip.length+1);
         }
 
         /// <summary>씬에 없어도 자동 생성 — GameFlow.EnsureExists() 와 같은 패턴</summary>

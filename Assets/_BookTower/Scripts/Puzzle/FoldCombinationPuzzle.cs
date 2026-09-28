@@ -15,6 +15,7 @@ namespace BookTower.Puzzles
     {
         [Header("대상")]
         [SerializeField] private FoldGroup group;
+        public StorybookLightPuzzle lightWorkshop;
 
         [Header("정답 조합")]
         [Tooltip("접이면 개수와 길이가 같아야 한다. 각 값은 0~3 (닫힘/살짝/수직/넘어감)")]
@@ -31,6 +32,7 @@ namespace BookTower.Puzzles
 
         protected override bool CheckSolved()
         {
+            if (lightWorkshop) return lightWorkshop.Complete;
             if (group == null) return false;
             if (requireSettled && !group.AllSettled()) return false;
 
@@ -39,6 +41,7 @@ namespace BookTower.Puzzles
 
         protected override void OnActivated()
         {
+            if (lightWorkshop) return;
             if (group == null)
                 Debug.LogError($"[Puzzle {PuzzleId}] FoldGroup이 비어 있음", this);
             else if (answer == null || answer.Length != group.Count)
@@ -63,6 +66,7 @@ namespace BookTower.Puzzles
         /// </summary>
         protected override void OnHintEscalated(int level)
         {
+            if (lightWorkshop) return; // Observation and reversible experiments, never auto-solve.
             if (group == null) return;
 
             if (level == 1)

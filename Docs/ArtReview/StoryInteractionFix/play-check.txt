@@ -1,0 +1,81 @@
+PASS: Test storage isolated from player records/settings
+PASS: Play automatically starts illustrated first meeting
+PASS: All five 2D sprites are present and cutscene covers gameplay
+PASS: First-person entry starts on dark bird frame
+PASS: Old 3D memory tableaux removed from scene
+PASS: Story owns input while illustrations animate
+PASS: Bird name is hidden before 1A
+PASS: Before receiving light only dialogue bird silhouette is shown; no bird or hands on stage
+PASS: Movement blocked during story
+PASS: 2D spirit moves gently while text waits
+PASS: Cutscene does not animate 3D camera, bird or spirit scale
+PASS: Completed text waits indefinitely for input
+PASS: Holding F advances exactly one line and never skips the scene
+PASS: Releasing F does not advance text
+PASS: Escape pauses with illustration retained behind menu
+PASS: Pause freezes illustration and dialogue timeline
+PASS: Obsolete automatic dialogue setting removed
+PASS: Settings returns to same illustration and line
+PASS: Story prompt uses remapped interaction key and left click
+PASS: Remapped press advances exactly one completed dialogue
+PASS: Light offering starts on bird's gift frame
+PASS: Light moves into first-person hands without advancing dialogue
+PASS: Approaching light does not reveal bird early
+PASS: Bird becomes fully visible before the hold
+PASS: Bird stays visible for three seconds; early F cannot skip the hold
+PASS: Long dialogue begins with typewriter text
+PASS: Awakening returns to gameplay with dialogue retained
+PASS: Revealed bird portrait appears during gameplay dialogue
+PASS: Player walks while dialogue is still active
+PASS: Camera and companion follow during walking dialogue
+PASS: Walking dialogue pauses movement
+PASS: Resume retains walking dialogue mode
+PASS: Walking resumes without requiring another mouse click
+PASS: One press reveals all text without changing dialogue
+PASS: Dialogue advance is not forwarded to world interaction
+PASS: Next press advances immediately without animation minimum-time gate
+PASS: Spirit dialogue selects current hooded spirit portrait
+PASS: Large dialogue text fits the paper panel
+PASS: Last dialogue immediately releases F0.Entry.Promise
+PASS: Promise and goal survive scene completion
+PASS: Final press hides cutscene and restores gameplay immediately
+PASS: Current room objective persists beyond old five-second timeout
+PASS: Current objective survives pause and resume
+PASS: Player can actually move after last dialogue
+PASS: Actual F input operates light control after dialogue
+AUDIT: after dialogue target=02_OpenClueBook (BookTower.Interaction.Interactable) hit=두꺼운제본상판 (UnityEngine.BoxCollider) story=False phase=Playing
+PASS: Actual F input opens workbench book after final dialogue
+PASS: Reading book advances the persistent room objective
+PASS: Left click also reads workbench through its tabletop proxy
+PASS: Reading stores clue and pauses safely
+PASS: M01 awarded before cutscene; reading is not interrupted
+PASS: Last dialogue immediately releases F0.Complete.Memory01
+PASS: Checkpoint does not replay opening or memory
+PASS: Reduced motion disables ongoing cutout drift
+PASS: Last dialogue immediately releases 1A.Entry.Shadow
+PASS: Actual 1A puzzle completion awards M02 before illustrated memory
+PASS: Last dialogue immediately releases 1A.Complete.Memory02
+PASS: 1A ending reveals name and next objective
+PASS: Returning to rooms does not duplicate story scenes
+PASS: Key held before cutscene entry cannot skip or advance it
+PASS: Fresh press after release advances normally
+PASS: Held input across pause/resume cannot skip a line
+PASS: Last dialogue immediately releases F0.Entry.Promise
+PASS: Completion releases all story ownership
+PASS: Mouse held before cutscene entry cannot advance its first line
+PASS: Releasing entry-held mouse does not advance dialogue
+PASS: Right mouse click does not advance dialogue
+PASS: Clicking outside dialogue advances one completed line
+PASS: Next mouse-driven line begins with typewriter text
+PASS: Left press on dialogue button reveals all text without advancing the line
+PASS: Holding left mouse does not repeat dialogue actions
+PASS: Dialogue button release does not double-advance revealed text
+PASS: Actual dialogue button click advances once across press and release
+PASS: Simultaneous F and left click reveal only the current line
+PASS: Mouse input on pause background does not advance story
+PASS: Mouse held through pause resume cannot advance story
+PASS: Release after pause resume does not advance story
+PASS: Early click cannot bypass light arriving at the viewer
+PASS: Closest light automatically wakes spirit and restores walking
+PASS: Mouse alone finishes remaining dialogue and restores gameplay
+PASS: F0–1A illustrated cutscene integration

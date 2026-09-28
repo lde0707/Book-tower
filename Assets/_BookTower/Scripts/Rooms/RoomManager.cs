@@ -88,6 +88,7 @@ namespace BookTower.Rooms
                 if (r == null) continue;
                 if (r.GetComponentInParent<Room>() != null) continue;
                 if (r.GetComponentInParent<RoomBound>() != null) continue;
+                if (r.GetComponentInParent<BookTower.Story.PaperCompanion>() != null) continue;
 
                 Transform top = r.transform;
                 while (top.parent != null) top = top.parent;
@@ -222,6 +223,13 @@ namespace BookTower.Rooms
                 if (room==null) continue;
                 bool show=room==current || (showEndpoints &&
                     (room.RoomId==standingOn.FromRoomId || room.RoomId==standingOn.ToRoomId));
+                // In a perspective interior the next room must exist through the doorway
+                // before the player's feet reach the ramp. Keep only nearby linked neighbours.
+                if(!show&&current!=null)
+                    foreach(var link in ramps)
+                        if(link!=null&&((link.FromRoomId==current.RoomId&&link.ToRoomId==room.RoomId)||
+                            (link.ToRoomId==current.RoomId&&link.FromRoomId==room.RoomId))&&link.DistanceTo(player.position,out _) < 18f)
+                        {show=true;break;}
                 if (room.IsVisible!=show) room.SetVisible(show);
                 if (show) room.ApplyYaw(paperCamera.YawStep);
             }

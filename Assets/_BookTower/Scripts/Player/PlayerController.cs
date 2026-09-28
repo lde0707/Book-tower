@@ -143,6 +143,7 @@ namespace BookTower.PlayerSystem
 
         private void Update()
         {
+            if (GameFlow.Instance != null && GameFlow.Instance.Phase == GamePhase.Cutscene) return;
             Machine.Tick(Time.deltaTime);
 
             if (transform.position.y < safePoint.y - fallBelowSafePoint && Machine.Current != Respawn)

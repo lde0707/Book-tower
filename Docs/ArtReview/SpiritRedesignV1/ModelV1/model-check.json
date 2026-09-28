@@ -1,0 +1,10 @@
+{
+  "source": "ArtSource/PaperHoodSpiritV1/PaperHoodSpirit.blend",
+  "renderer": "Blender Cycles; actual mesh renders",
+  "geometry_objects": 44,
+  "evaluated_triangles": 114888,
+  "texture_packed": true,
+  "unity_scene_modified": false,
+  "rigged": false,
+  "material_note": "Native Blender contains full paper shading. FBX procedural wrinkle shading requires baking/rebuilding in Unity."
+}

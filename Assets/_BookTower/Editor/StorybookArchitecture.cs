@@ -85,7 +85,7 @@ namespace BookTower.EditorTools
         static void Leaves(Transform p,Vector3 at,float scale,float yaw=0)
         {
             var g=Group(p,"청록 크레파스 잎",at);g.localRotation=Quaternion.Euler(0,yaw,0);Stroke(g,"줄기",new[]{V(0,0,0),V(.18f*scale,scale,0),V(0,2*scale,0)},teal,.04f*scale);
-            for(int i=0;i<5;i++){var leaf=Obj(g,"입체 압화",F0Mesh.Leaf(.68f*scale,.30f*scale),teal,V(.1f*scale,(.25f+i*.32f)*scale,-.035f));leaf.localRotation=Quaternion.Euler(0,0,i%2==0?-48:48);}
+            for(int i=0;i<5;i++){var leaf=Obj(g,"입체 압화",teal.name.StartsWith("04_")?OrganicLeaf(.68f*scale,.30f*scale):F0Mesh.Leaf(.68f*scale,.30f*scale),teal,V(.1f*scale,(.25f+i*.32f)*scale,-.035f));leaf.localRotation=Quaternion.Euler(0,0,i%2==0?-48:48);}
         }
         static void Books(Vector3 at,int count,float yaw)
         {

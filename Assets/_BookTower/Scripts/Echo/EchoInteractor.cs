@@ -30,6 +30,7 @@ namespace BookTower.EchoSystem
 
         private void Update()
         {
+            if(PaperShadowDrag.ConsumesInput)return;
             if (!input.PointerPressed) return;
 
             if (cam == null) cam = Camera.main;
@@ -42,7 +43,12 @@ namespace BookTower.EchoSystem
             // 숨겨진 방의 콜라이더에 가로막히지 않게 보이는 것만 고른다
             if (!InteractionRay.Cast(ray, out RaycastHit hit, 1000f, rayMask)) return;
 
-            var note=hit.collider.GetComponentInParent<BookTower.UI.ReadableNote>();
+            var resolved=InteractionTargetProxy.Resolve(hit.collider);
+            var reading=resolved?resolved.GetComponentInParent<BookTower.Puzzles.ReadingRoomControl>():hit.collider.GetComponentInParent<BookTower.Puzzles.ReadingRoomControl>();
+            if(reading!=null){reading.TryUse(transform.position);return;}
+            var workshop=resolved?resolved.GetComponentInParent<BookTower.Puzzles.StorybookLightControl>():hit.collider.GetComponentInParent<BookTower.Puzzles.StorybookLightControl>();
+            if(workshop!=null){workshop.TryUse(transform.position,input.ModifierHeld);return;}
+            var note=resolved?resolved.GetComponent<BookTower.UI.ReadableNote>():hit.collider.GetComponentInParent<BookTower.UI.ReadableNote>();
             if(note!=null){note.TryRead(transform.position);return;}
             var bridge = hit.collider.GetComponentInParent<FoldBridgeControl>();
             if (bridge != null) { bridge.TryUse(transform.position); return; }

@@ -1,0 +1,54 @@
+{
+  "tool": "built-in imagegen",
+  "reference": "Docs/ArtReview/PuzzlePlacementV1/1B-front.png and 1B-side.png",
+  "jobs": [
+    [
+      "02-left",
+      "LEFT SIDE view across the same room toward the giant LEFT-WALL desk: desk dominates middle, three deep drawer pedestals, walkable arched tunnel underneath, charging lantern at left front, hidden record lectern glowing faintly beyond tunnel, tall library ladder, rope pulley. Bridge visible foreground sideways; keep same room palette and proportions."
+    ],
+    [
+      "03-right",
+      "RIGHT SIDE view from left near giant desk across bridge toward right shelves, long burgundy runner draped side table, brass caged lamp, stacked books, raven banners, doorway toward back. Same tall blue window on north end wall visible left edge, chandeliers and ribbed enclosed ceiling. Do not add extra doors."
+    ],
+    [
+      "04-back",
+      "REAR view looking from northern exit back toward southern entry. Giant desk now RIGHT, left side has burgundy draped table and caged lantern, center bridge and book-filled trench, rear entry arched doorway connects warm picturebook corridor. Shelves fill entire walls to vaulted paper ceiling, ladders and raven banners. Continuous walkable side paths, same room."
+    ],
+    [
+      "05-puzzle-lantern",
+      "Close up at player's height of the portable MEMORY LANTERN in the left giant desk niche. Handcrafted ivory translucent paper hexagonal lantern with brass ribs, raven silhouette ink on paper, TWO clearly separate circular locking rings on left and right, luminous charge ribbon at base. Stone-like surfaces are layered paper not rock. Show nearby second empty docking lectern through desk tunnel so transport purpose readable. Focus asset scale, no UI or labels."
+    ],
+    [
+      "06-puzzle-window",
+      "Close up of north EXIT MECHANISM: dark burgundy arched double book door under tall cool blue paper window, right-hand low brass crank axle empty, visible rope connecting axle pulley to folded accordion window shutter above, matching removable brass crank sitting on service shelf in foreground. Exit receiver socket bird emblem at reachable height. Mechanically plausible rope path, thick layered paper, amber and indigo lighting. No text, no UI."
+    ],
+    [
+      "asset-01-desk",
+      "Isolated SINGLE GIANT WRITING DESK asset from reference, 3/4 front view full silhouette on neutral warm gray background, not in room. Indigo layered bookboard construction, worn gold corner brackets and fine embossed gold leaf lines, deep drawer pedestals flanking large central arched walk-through opening, beveled irregular paper edges, tiny round brass drawer knobs, thick bowed top. Rich real 3D modeled craftsmanship, no character, no writing, no multiple panels."
+    ],
+    [
+      "asset-02-bookcase",
+      "Isolated SINGLE TALL LIBRARY BOOKCASE asset from reference on neutral warm gray background, full 3/4 view. Six shelves packed with indigo burgundy ochre books of varied height and lean, rounded convex book spines, fine golden binding bands and botanical embossing, visible ivory page edges, stepped cornice, layered bevels, inset rear panel, small brass corner straps. Looks crafted of textured bookboard, not plain boxes. No text."
+    ],
+    [
+      "asset-03-lantern",
+      "Isolated SINGLE MEMORY LANTERN from reference on neutral warm gray background, front 3/4 full view. Ivory textured paper six-sided glowing panes with raven ink silhouette, dark gold arched ribs, sculpted finial and handle, TWO separate lock rings on left and right at midheight, charge ribbon around broad plinth. Rounded crafted metal-paper texture. No character, no writing."
+    ],
+    [
+      "asset-04-window",
+      "Isolated SINGLE DOOR-WINDOW-PULLEY architectural module full frontal slightly angled view on neutral gray. Indigo pointed arch bookboard double door with embossed golden botanical branches, circular receiver at reachable low height, above it a tall cool blue translucent paper window with winged emblem and lattice, folded accordion shutter at top, right exposed brass pulleys and twisted cotton rope ending at low empty crank axle. Include small crank next to base as separate component. No text."
+    ],
+    [
+      "asset-05-chandelier",
+      "Isolated SINGLE chandelier from reference, full 3/4 view neutral gray. Dark aged gold suspended ring with six upward arms, warm glowing paper flame candles, six hanging ivory torn manuscript strips decorated with delicate leaf stamps but no readable text, small dangling folded paper pendant, chain at top, warm amber light. Handmade paper fantasy quality, fine silhouette."
+    ],
+    [
+      "asset-06-banner",
+      "Isolated SINGLE long burgundy hanging paper banner from reference front view neutral gray background. Thick torn ivory layered borders, bottom swallowtail points, gold stitched border, large cream raven standing above open book and botanical sprigs, subtle creased fibrous paper, brass horizontal rod and hanging loops. Artwork fully visible, no words."
+    ],
+    [
+      "asset-07-rug",
+      "Isolated SINGLE burgundy PAPER RUNNER BRIDGE asset full 3/4 view neutral gray. Long broad bookboard footbridge with layered dark indigo book-spine sides, ivory page edges, burgundy fibrous paper runner with antique golden raven and botanical border motifs, sewn deckled edge, brass corner brackets and four low brass rope stanchions, cotton ropes along sides. Gentle curved surface, walkable gentle endpoints, no stairs, no words."
+    ]
+  ]
+}

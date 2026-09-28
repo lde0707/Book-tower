@@ -1,0 +1,462 @@
+[
+  {
+    "beat": 0.0,
+    "note": 48,
+    "voice": "pad"
+  },
+  {
+    "beat": 0.045,
+    "note": 55,
+    "voice": "pad"
+  },
+  {
+    "beat": 0.09,
+    "note": 60,
+    "voice": "pad"
+  },
+  {
+    "beat": 0.135,
+    "note": 64,
+    "voice": "pad"
+  },
+  {
+    "beat": 0.65,
+    "note": 64,
+    "voice": "felt"
+  },
+  {
+    "beat": 2.7,
+    "note": 67,
+    "voice": "felt"
+  },
+  {
+    "beat": 4.0,
+    "note": 48,
+    "voice": "pad"
+  },
+  {
+    "beat": 4.045,
+    "note": 55,
+    "voice": "pad"
+  },
+  {
+    "beat": 4.09,
+    "note": 60,
+    "voice": "pad"
+  },
+  {
+    "beat": 4.135,
+    "note": 64,
+    "voice": "pad"
+  },
+  {
+    "beat": 4.65,
+    "note": 67,
+    "voice": "felt"
+  },
+  {
+    "beat": 8.0,
+    "note": 45,
+    "voice": "pad"
+  },
+  {
+    "beat": 8.045,
+    "note": 52,
+    "voice": "pad"
+  },
+  {
+    "beat": 8.09,
+    "note": 57,
+    "voice": "pad"
+  },
+  {
+    "beat": 8.135,
+    "note": 60,
+    "voice": "pad"
+  },
+  {
+    "beat": 8.65,
+    "note": 64,
+    "voice": "felt"
+  },
+  {
+    "beat": 10.7,
+    "note": 60,
+    "voice": "felt"
+  },
+  {
+    "beat": 12.0,
+    "note": 45,
+    "voice": "pad"
+  },
+  {
+    "beat": 12.045,
+    "note": 52,
+    "voice": "pad"
+  },
+  {
+    "beat": 12.09,
+    "note": 57,
+    "voice": "pad"
+  },
+  {
+    "beat": 12.135,
+    "note": 60,
+    "voice": "pad"
+  },
+  {
+    "beat": 12.65,
+    "note": 60,
+    "voice": "felt"
+  },
+  {
+    "beat": 12.8,
+    "note": 69,
+    "voice": "air"
+  },
+  {
+    "beat": 16.0,
+    "note": 41,
+    "voice": "pad"
+  },
+  {
+    "beat": 16.045,
+    "note": 48,
+    "voice": "pad"
+  },
+  {
+    "beat": 16.09,
+    "note": 53,
+    "voice": "pad"
+  },
+  {
+    "beat": 16.135,
+    "note": 57,
+    "voice": "pad"
+  },
+  {
+    "beat": 16.65,
+    "note": 65,
+    "voice": "felt"
+  },
+  {
+    "beat": 18.7,
+    "note": 64,
+    "voice": "felt"
+  },
+  {
+    "beat": 20.0,
+    "note": 41,
+    "voice": "pad"
+  },
+  {
+    "beat": 20.045,
+    "note": 48,
+    "voice": "pad"
+  },
+  {
+    "beat": 20.09,
+    "note": 53,
+    "voice": "pad"
+  },
+  {
+    "beat": 20.135,
+    "note": 57,
+    "voice": "pad"
+  },
+  {
+    "beat": 20.65,
+    "note": 64,
+    "voice": "felt"
+  },
+  {
+    "beat": 24.0,
+    "note": 43,
+    "voice": "pad"
+  },
+  {
+    "beat": 24.045,
+    "note": 50,
+    "voice": "pad"
+  },
+  {
+    "beat": 24.09,
+    "note": 55,
+    "voice": "pad"
+  },
+  {
+    "beat": 24.135,
+    "note": 62,
+    "voice": "pad"
+  },
+  {
+    "beat": 24.65,
+    "note": 62,
+    "voice": "felt"
+  },
+  {
+    "beat": 26.7,
+    "note": 60,
+    "voice": "felt"
+  },
+  {
+    "beat": 28.0,
+    "note": 43,
+    "voice": "pad"
+  },
+  {
+    "beat": 28.045,
+    "note": 50,
+    "voice": "pad"
+  },
+  {
+    "beat": 28.09,
+    "note": 55,
+    "voice": "pad"
+  },
+  {
+    "beat": 28.135,
+    "note": 62,
+    "voice": "pad"
+  },
+  {
+    "beat": 28.65,
+    "note": 60,
+    "voice": "felt"
+  },
+  {
+    "beat": 28.8,
+    "note": 67,
+    "voice": "air"
+  },
+  {
+    "beat": 32.0,
+    "note": 48,
+    "voice": "pad"
+  },
+  {
+    "beat": 32.045,
+    "note": 55,
+    "voice": "pad"
+  },
+  {
+    "beat": 32.09,
+    "note": 60,
+    "voice": "pad"
+  },
+  {
+    "beat": 32.135,
+    "note": 64,
+    "voice": "pad"
+  },
+  {
+    "beat": 32.65,
+    "note": 64,
+    "voice": "felt"
+  },
+  {
+    "beat": 34.7,
+    "note": 67,
+    "voice": "felt"
+  },
+  {
+    "beat": 36.0,
+    "note": 48,
+    "voice": "pad"
+  },
+  {
+    "beat": 36.045,
+    "note": 55,
+    "voice": "pad"
+  },
+  {
+    "beat": 36.09,
+    "note": 60,
+    "voice": "pad"
+  },
+  {
+    "beat": 36.135,
+    "note": 64,
+    "voice": "pad"
+  },
+  {
+    "beat": 36.65,
+    "note": 67,
+    "voice": "felt"
+  },
+  {
+    "beat": 40.0,
+    "note": 45,
+    "voice": "pad"
+  },
+  {
+    "beat": 40.045,
+    "note": 52,
+    "voice": "pad"
+  },
+  {
+    "beat": 40.09,
+    "note": 57,
+    "voice": "pad"
+  },
+  {
+    "beat": 40.135,
+    "note": 60,
+    "voice": "pad"
+  },
+  {
+    "beat": 40.65,
+    "note": 64,
+    "voice": "felt"
+  },
+  {
+    "beat": 42.7,
+    "note": 60,
+    "voice": "felt"
+  },
+  {
+    "beat": 44.0,
+    "note": 45,
+    "voice": "pad"
+  },
+  {
+    "beat": 44.045,
+    "note": 52,
+    "voice": "pad"
+  },
+  {
+    "beat": 44.09,
+    "note": 57,
+    "voice": "pad"
+  },
+  {
+    "beat": 44.135,
+    "note": 60,
+    "voice": "pad"
+  },
+  {
+    "beat": 44.65,
+    "note": 60,
+    "voice": "felt"
+  },
+  {
+    "beat": 44.8,
+    "note": 69,
+    "voice": "air"
+  },
+  {
+    "beat": 48.0,
+    "note": 41,
+    "voice": "pad"
+  },
+  {
+    "beat": 48.045,
+    "note": 48,
+    "voice": "pad"
+  },
+  {
+    "beat": 48.09,
+    "note": 53,
+    "voice": "pad"
+  },
+  {
+    "beat": 48.135,
+    "note": 57,
+    "voice": "pad"
+  },
+  {
+    "beat": 48.65,
+    "note": 65,
+    "voice": "felt"
+  },
+  {
+    "beat": 50.7,
+    "note": 64,
+    "voice": "felt"
+  },
+  {
+    "beat": 52.0,
+    "note": 41,
+    "voice": "pad"
+  },
+  {
+    "beat": 52.045,
+    "note": 48,
+    "voice": "pad"
+  },
+  {
+    "beat": 52.09,
+    "note": 53,
+    "voice": "pad"
+  },
+  {
+    "beat": 52.135,
+    "note": 57,
+    "voice": "pad"
+  },
+  {
+    "beat": 52.65,
+    "note": 64,
+    "voice": "felt"
+  },
+  {
+    "beat": 56.0,
+    "note": 43,
+    "voice": "pad"
+  },
+  {
+    "beat": 56.045,
+    "note": 50,
+    "voice": "pad"
+  },
+  {
+    "beat": 56.09,
+    "note": 55,
+    "voice": "pad"
+  },
+  {
+    "beat": 56.135,
+    "note": 62,
+    "voice": "pad"
+  },
+  {
+    "beat": 56.65,
+    "note": 62,
+    "voice": "felt"
+  },
+  {
+    "beat": 58.7,
+    "note": 60,
+    "voice": "felt"
+  },
+  {
+    "beat": 60.0,
+    "note": 43,
+    "voice": "pad"
+  },
+  {
+    "beat": 60.045,
+    "note": 50,
+    "voice": "pad"
+  },
+  {
+    "beat": 60.09,
+    "note": 55,
+    "voice": "pad"
+  },
+  {
+    "beat": 60.135,
+    "note": 62,
+    "voice": "pad"
+  },
+  {
+    "beat": 60.65,
+    "note": 60,
+    "voice": "felt"
+  },
+  {
+    "beat": 60.8,
+    "note": 67,
+    "voice": "air"
+  }
+]

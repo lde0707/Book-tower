@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07a982eeb6c513241a3162deab7b4858, type: 3}
+  m_Name: RegionMusic
+  m_EditorClassIdentifier: Assembly-CSharp::BookTower.Audio.RegionMusicLibrary
+  clips:
+  - {fileID: 8300000, guid: 8f9926de84d5492397ce2b40954c185c, type: 3}
+  - {fileID: 8300000, guid: e051d4f5107d42b28c9a2103ca78cb55, type: 3}
+  - {fileID: 8300000, guid: a899b29dd71d4284bd524bbad9d99e09, type: 3}
+  volume: 0.5
+  fadeSeconds: 2.5

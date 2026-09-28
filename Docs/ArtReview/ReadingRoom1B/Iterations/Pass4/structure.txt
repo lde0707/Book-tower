@@ -1,0 +1,4 @@
+PASS: upper end-wall closure samples=136
+PASS: floor=396 roof=396 side wall=168 sampled rays. Door openings intentionally excluded.
+PASS: finite mesh vertices and P3/control/door bindings.
+Sampling is not an exhaustive proof of all cracks; visual views and play traversal are separate checks.

@@ -5,23 +5,45 @@ PASS: Escape pauses simulation and frees cursor
 PASS: Menu keys cannot move player
 PASS: Single bound pause panel uses reference theme
 PASS: Settings notebook hidden while paused
+PASS: Centered larger pause text: 계속하기
+PASS: Paper edge: 계속하기
+PASS: Centered larger pause text: 설정
+PASS: Paper edge: 설정
+PASS: Centered larger pause text: 기록장
+PASS: Paper edge: 기록장
+PASS: Centered larger pause text: 체크포인트로 돌아가기
+PASS: Paper edge: 체크포인트로 돌아가기
+PASS: Centered larger pause text: 나가기
+PASS: Paper edge: 나가기
 PASS: Pause option darkens on mouse hover
-PASS: Hover highlight clears on pointer exit
+PASS: Pointer exit restores visible paper button
 PASS: Settings button enters Settings state
 PASS: Tab 0 shares same 120 x 120 leaf
 PASS: Slider geometry stays inside track
 PASS: Four extracted category icons and one active ribbon
+PASS: Footer safe margins: 기본값 복원
+PASS: Footer safe margins: 취소
+PASS: Footer safe margins: 적용
 PASS: Tab 1 shares same 120 x 120 leaf
 PASS: Slider geometry stays inside track
 PASS: Four extracted category icons and one active ribbon
+PASS: Footer safe margins: 기본값 복원
+PASS: Footer safe margins: 취소
+PASS: Footer safe margins: 적용
 PASS: Tab 2 shares same 120 x 120 leaf
 PASS: Slider geometry stays inside track
 PASS: Slider geometry stays inside track
 PASS: Slider geometry stays inside track
 PASS: Slider geometry stays inside track
 PASS: Four extracted category icons and one active ribbon
+PASS: Footer safe margins: 기본값 복원
+PASS: Footer safe margins: 취소
+PASS: Footer safe margins: 적용
 PASS: Tab 3 shares same 120 x 120 leaf
 PASS: Four extracted category icons and one active ribbon
+PASS: Footer safe margins: 기본값 복원
+PASS: Footer safe margins: 취소
+PASS: Footer safe margins: 적용
 PASS: Dropdown opens dedicated FSM choice state
 PASS: Dropdown selection edits draft and closes popup
 PASS: Escape/back dismisses dropdown
@@ -38,7 +60,7 @@ PASS: Audio and graphics settings affect runtime: 0.4 / 0
 PASS: Music and ambience use independent gains
 PASS: Sensitivity controls camera look
 PASS: Invert Y changes camera direction
-PASS: Rebound gameplay input reaches reader (frames 430, key 32, phase Playing, blocked False, current True)
+PASS: Rebound gameplay input reaches reader (frames 16, key 32, phase Playing, blocked False, current True)
 PASS: Display change waits for confirmation while paused
 PASS: Unscaled display timer rolls back automatically
 PASS: Display confirmation commits selected mode

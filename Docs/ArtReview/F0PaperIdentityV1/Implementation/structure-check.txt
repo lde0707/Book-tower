@@ -1,0 +1,154 @@
+PASS: Room art includes all four walls, floor, ceiling and exit passage
+PASS: All moving puzzle references preserved
+PASS: All six original controls preserved
+PASS: Original mirrors and light receivers preserved
+PASS: New art has valid materials and shaders
+PASS: All authored meshes are serialized and nonempty
+PASS: Retired static renderers cannot return after scene reload
+PASS: Persistent emission: WindowMulberry
+PASS: Persistent emission: LanternMulberry
+PASS: Persistent emission: HoneyOpticalLight
+PASS: Entrance collision continuous at -14,-19
+PASS: Entrance collision continuous at -14,-17
+PASS: Entrance collision continuous at -14,-15
+PASS: Entrance collision continuous at -14,-13
+PASS: Entrance collision continuous at -14,-11
+PASS: Entrance collision continuous at -14,-9
+PASS: Entrance collision continuous at -14,-7
+PASS: Entrance collision continuous at -14,-5
+PASS: Entrance collision continuous at -14,-3
+PASS: Entrance collision continuous at -12,-19
+PASS: Entrance collision continuous at -12,-17
+PASS: Entrance collision continuous at -12,-15
+PASS: Entrance collision continuous at -12,-13
+PASS: Entrance collision continuous at -12,-11
+PASS: Entrance collision continuous at -12,-9
+PASS: Entrance collision continuous at -12,-7
+PASS: Entrance collision continuous at -12,-5
+PASS: Entrance collision continuous at -12,-3
+PASS: Entrance collision continuous at -10,-19
+PASS: Entrance collision continuous at -10,-17
+PASS: Entrance collision continuous at -10,-15
+PASS: Entrance collision continuous at -10,-13
+PASS: Entrance collision continuous at -10,-11
+PASS: Entrance collision continuous at -10,-9
+PASS: Entrance collision continuous at -10,-7
+PASS: Entrance collision continuous at -10,-5
+PASS: Entrance collision continuous at -10,-3
+PASS: Entrance collision continuous at -8,-19
+PASS: Entrance collision continuous at -8,-17
+PASS: Entrance collision continuous at -8,-15
+PASS: Entrance collision continuous at -8,-13
+PASS: Entrance collision continuous at -8,-11
+PASS: Entrance collision continuous at -8,-9
+PASS: Entrance collision continuous at -8,-7
+PASS: Entrance collision continuous at -8,-5
+PASS: Entrance collision continuous at -8,-3
+PASS: Entrance collision continuous at -6,-19
+PASS: Entrance collision continuous at -6,-17
+PASS: Entrance collision continuous at -6,-15
+PASS: Entrance collision continuous at -6,-13
+PASS: Entrance collision continuous at -6,-11
+PASS: Entrance collision continuous at -6,-9
+PASS: Entrance collision continuous at -6,-7
+PASS: Entrance collision continuous at -6,-5
+PASS: Entrance collision continuous at -6,-3
+PASS: Entrance collision continuous at -4,-19
+PASS: Entrance collision continuous at -4,-17
+PASS: Entrance collision continuous at -4,-15
+PASS: Entrance collision continuous at -4,-13
+PASS: Entrance collision continuous at -4,-11
+PASS: Entrance collision continuous at -4,-9
+PASS: Entrance collision continuous at -4,-7
+PASS: Entrance collision continuous at -4,-5
+PASS: Entrance collision continuous at -4,-3
+PASS: Entrance collision continuous at -2,-19
+PASS: Entrance collision continuous at -2,-17
+PASS: Entrance collision continuous at -2,-15
+PASS: Entrance collision continuous at -2,-13
+PASS: Entrance collision continuous at -2,-11
+PASS: Entrance collision continuous at -2,-9
+PASS: Entrance collision continuous at -2,-7
+PASS: Entrance collision continuous at -2,-5
+PASS: Entrance collision continuous at -2,-3
+PASS: Entrance collision continuous at 0,-19
+PASS: Entrance collision continuous at 0,-17
+PASS: Entrance collision continuous at 0,-15
+PASS: Entrance collision continuous at 0,-13
+PASS: Entrance collision continuous at 0,-11
+PASS: Entrance collision continuous at 0,-9
+PASS: Entrance collision continuous at 0,-7
+PASS: Entrance collision continuous at 0,-5
+PASS: Entrance collision continuous at 0,-3
+PASS: Entrance collision continuous at 2,-19
+PASS: Entrance collision continuous at 2,-17
+PASS: Entrance collision continuous at 2,-15
+PASS: Entrance collision continuous at 2,-13
+PASS: Entrance collision continuous at 2,-11
+PASS: Entrance collision continuous at 2,-9
+PASS: Entrance collision continuous at 2,-7
+PASS: Entrance collision continuous at 2,-5
+PASS: Entrance collision continuous at 2,-3
+PASS: Entrance collision continuous at 4,-19
+PASS: Entrance collision continuous at 4,-17
+PASS: Entrance collision continuous at 4,-15
+PASS: Entrance collision continuous at 4,-13
+PASS: Entrance collision continuous at 4,-11
+PASS: Entrance collision continuous at 4,-9
+PASS: Entrance collision continuous at 4,-7
+PASS: Entrance collision continuous at 4,-5
+PASS: Entrance collision continuous at 4,-3
+PASS: Entrance collision continuous at 6,-19
+PASS: Entrance collision continuous at 6,-17
+PASS: Entrance collision continuous at 6,-15
+PASS: Entrance collision continuous at 6,-13
+PASS: Entrance collision continuous at 6,-11
+PASS: Entrance collision continuous at 6,-9
+PASS: Entrance collision continuous at 6,-7
+PASS: Entrance collision continuous at 6,-5
+PASS: Entrance collision continuous at 6,-3
+PASS: Entrance collision continuous at 8,-19
+PASS: Entrance collision continuous at 8,-17
+PASS: Entrance collision continuous at 8,-15
+PASS: Entrance collision continuous at 8,-13
+PASS: Entrance collision continuous at 8,-11
+PASS: Entrance collision continuous at 8,-9
+PASS: Entrance collision continuous at 8,-7
+PASS: Entrance collision continuous at 8,-5
+PASS: Entrance collision continuous at 8,-3
+PASS: Entrance collision continuous at 10,-19
+PASS: Entrance collision continuous at 10,-17
+PASS: Entrance collision continuous at 10,-15
+PASS: Entrance collision continuous at 10,-13
+PASS: Entrance collision continuous at 10,-11
+PASS: Entrance collision continuous at 10,-9
+PASS: Entrance collision continuous at 10,-7
+PASS: Entrance collision continuous at 10,-5
+PASS: Entrance collision continuous at 10,-3
+PASS: Entrance collision continuous at 12,-19
+PASS: Entrance collision continuous at 12,-17
+PASS: Entrance collision continuous at 12,-15
+PASS: Entrance collision continuous at 12,-13
+PASS: Entrance collision continuous at 12,-11
+PASS: Entrance collision continuous at 12,-9
+PASS: Entrance collision continuous at 12,-7
+PASS: Entrance collision continuous at 12,-5
+PASS: Entrance collision continuous at 12,-3
+PASS: Entrance collision continuous at 14,-19
+PASS: Entrance collision continuous at 14,-17
+PASS: Entrance collision continuous at 14,-15
+PASS: Entrance collision continuous at 14,-13
+PASS: Entrance collision continuous at 14,-11
+PASS: Entrance collision continuous at 14,-9
+PASS: Entrance collision continuous at 14,-7
+PASS: Entrance collision continuous at 14,-5
+PASS: Entrance collision continuous at 14,-3
+PASS: Enclosed shell retained: 서벽
+PASS: Enclosed shell retained: 동벽
+PASS: Enclosed shell retained: 남벽
+PASS: Enclosed shell retained: 제본천장
+PASS: Enclosed shell retained: 문벽_좌
+PASS: Enclosed shell retained: 문벽_우
+PASS: Enclosed shell retained: 문벽_상
+New static art: 84 renderers, 1,080,688 triangles; existing world and moving props excluded.
+GPU frame time has not been benchmarked by this structure check.

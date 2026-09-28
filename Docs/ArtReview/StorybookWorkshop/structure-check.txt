@@ -1,0 +1,1 @@
+PASS: 2457 sampled floor/roof/corridor rays. Decorative and continuous opaque shells coexist. Finite sampling is not an exhaustive proof.

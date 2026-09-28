@@ -1,0 +1,10 @@
+{
+  "changed_existing_documents": [
+    "2087631871"
+  ],
+  "removed_old_visual_documents": 66,
+  "added_new_visual_documents": 4,
+  "player_transform_preserved": true,
+  "all_existing_nonvisual_components_preserved": true,
+  "scene_sha256": "a16b69a3d235e9aa66cdc8f4d6976206e081acdf066ef9c258cc57d74f8d6a6b"
+}

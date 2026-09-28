@@ -1,0 +1,1 @@
+PASS: 17 bones, normalized weights, 9 clips, idle behavior activation, movement cancellation, jump/fall/glide/landing FSM, finite skin deformation, no root motion.

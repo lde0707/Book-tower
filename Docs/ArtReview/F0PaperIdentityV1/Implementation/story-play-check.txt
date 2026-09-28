@@ -1,0 +1,43 @@
+PASS: Test storage isolated from player records/settings
+PASS: Play automatically starts illustrated first meeting
+PASS: All five 2D sprites are present and cutscene covers gameplay
+PASS: Old 3D memory tableaux removed from scene
+PASS: Story owns input while illustrations animate
+PASS: Bird name is hidden before 1A
+PASS: Movement blocked during story
+PASS: 2D spirit moves gently while text waits
+PASS: Cutscene does not animate 3D camera, bird or spirit scale
+PASS: Completed text waits indefinitely for input
+PASS: Holding F advances exactly one line and never skips the scene
+PASS: Releasing F does not advance text
+PASS: Escape pauses with illustration retained behind menu
+PASS: Pause freezes illustration and dialogue timeline
+PASS: Obsolete automatic dialogue setting removed
+PASS: Settings returns to same illustration and line
+PASS: Story prompt uses remapped interaction key
+PASS: Remapped press advances exactly one completed dialogue
+PASS: Long dialogue begins with typewriter text
+PASS: One press reveals all text without changing dialogue
+PASS: Next press advances immediately without animation minimum-time gate
+PASS: Large dialogue text fits the paper panel
+PASS: Last dialogue immediately releases F0.Entry.Promise
+PASS: Promise and goal survive scene completion
+PASS: Final press hides cutscene and restores gameplay immediately
+PASS: Player can actually move after last dialogue
+PASS: Workbench clue remains readable within reach
+PASS: Reading stores clue and pauses safely
+PASS: M01 awarded before cutscene; reading is not interrupted
+PASS: Last dialogue immediately releases F0.Complete.Memory01
+PASS: Checkpoint does not replay opening or memory
+PASS: Reduced motion disables ongoing cutout drift
+PASS: Last dialogue immediately releases 1A.Entry.Shadow
+PASS: Actual 1A puzzle completion awards M02 before illustrated memory
+PASS: Last dialogue immediately releases 1A.Complete.Memory02
+PASS: 1A ending reveals name and next objective
+PASS: Returning to rooms does not duplicate story scenes
+PASS: Key held before cutscene entry cannot skip or advance it
+PASS: Fresh press after release advances normally
+PASS: Held input across pause/resume cannot skip a line
+PASS: Last dialogue immediately releases F0.Entry.Promise
+PASS: Completion releases all story ownership
+PASS: F0–1A illustrated cutscene integration

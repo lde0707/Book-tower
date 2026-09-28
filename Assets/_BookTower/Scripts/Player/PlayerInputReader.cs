@@ -68,6 +68,9 @@ namespace BookTower.PlayerSystem
             ModifierHeld = kb.leftShiftKey.isPressed;
             InteractPressed = BookTower.UI.PaperSettingsRuntime.Pressed(5);
             PointerPressed = mouse != null && mouse.leftButton.wasPressedThisFrame;
+            // The dialogue owns advance inputs while locomotion/look remain available.
+            if(BookTower.UI.PaperUI.Instance&&BookTower.UI.PaperUI.Instance.StoryActive)
+            {InteractPressed=false;PointerPressed=false;}
         }
 
         private static float Axis(KeyControl a, KeyControl b)

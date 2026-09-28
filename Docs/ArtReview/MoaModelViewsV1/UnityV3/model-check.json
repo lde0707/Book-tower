@@ -1,0 +1,10 @@
+{
+  "triangles": 230190,
+  "bones": 7,
+  "source": "Moa_SculptV3.blend",
+  "clips": [
+    "Hover",
+    "Fly",
+    "Flutter"
+  ]
+}

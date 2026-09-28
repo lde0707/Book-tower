@@ -1,0 +1,41 @@
+[
+  {
+    "file": "Assets\\_BookTower\\Audio\\RegionMusic\\Region1_PaperLanterns_PianoViolinV3.wav",
+    "version": "PianoViolinV3",
+    "sound_source": "original synthesized piano and bowed-string voices",
+    "bpm": 82,
+    "bars": 20,
+    "seconds": 58.53657596371882,
+    "peak_db": -9.251451978045338,
+    "rms_db": -22,
+    "seam_delta": 0.0008987202309072018,
+    "derivative_p999": 0.015342764556407928,
+    "notes": 145
+  },
+  {
+    "file": "Assets\\_BookTower\\Audio\\RegionMusic\\Region2_FadedMemories_PianoViolinV3.wav",
+    "version": "PianoViolinV3",
+    "sound_source": "original synthesized piano and bowed-string voices",
+    "bpm": 80,
+    "bars": 20,
+    "seconds": 60.0,
+    "peak_db": -8.613649610450766,
+    "rms_db": -22,
+    "seam_delta": 9.781867265701294e-05,
+    "derivative_p999": 0.01573769934475422,
+    "notes": 145
+  },
+  {
+    "file": "Assets\\_BookTower\\Audio\\RegionMusic\\Region3_TitleInTheLight_PianoViolinV3.wav",
+    "version": "PianoViolinV3",
+    "sound_source": "original synthesized piano and bowed-string voices",
+    "bpm": 86,
+    "bars": 20,
+    "seconds": 55.81394557823129,
+    "peak_db": -9.167842625627546,
+    "rms_db": -22,
+    "seam_delta": 0.001977086067199707,
+    "derivative_p999": 0.01480149570852518,
+    "notes": 145
+  }
+]

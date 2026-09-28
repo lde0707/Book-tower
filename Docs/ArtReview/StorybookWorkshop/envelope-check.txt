@@ -1,0 +1,1 @@
+PASS: 1299 floor/ceiling sample pairs; 2670 wall rays (intentional doorways excluded); corridor roof colliders added. Finite samples are not proof of every seam.

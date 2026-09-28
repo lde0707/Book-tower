@@ -1,0 +1,4 @@
+Built pass 1
+Meshes=476
+Renderers=650
+Modules=7

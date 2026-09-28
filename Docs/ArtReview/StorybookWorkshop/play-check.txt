@@ -1,0 +1,20 @@
+PASS: Real controller traverses F0 corridor and compact curved room entrance
+PASS: Synthetic shadow copies removed
+PASS: Real spot light casts shadows
+PASS: Initial separated puppets cannot solve
+PASS: Actual left mouse press grabs puppet collider
+PASS: Held mouse motion continuously moves real paper
+PASS: Mouse release drops paper and restores camera input
+PASS: F grabs ears in toggle mode
+PASS: Mouse wheel flips held asymmetric ears
+PASS: Right click reverses ear orientation
+PASS: Second F releases without activating another object
+PASS: Correct size still requires ear orientation
+PASS: Aligned objects without light cannot solve
+AUDIT: active=True found=True/True installed=True/True lamp=True flip=True d=8.333333/4.166667 shown=8.333333/4.166667 aligned=True hold=3.0167 complete=True P2=Solved holding=False body=(0.00, 1.00, 8.33) ears=(0.00, 1.00, 4.17)
+PASS: Continuous position, scale, orientation and light solve original P2
+PASS: Both cutouts cast geometric shadows
+PASS: Rendered pixels respond to real shadow casters: 45264
+PASS: Existing 1B exit remains traversable
+PASS: Next room is visible on connecting passage
+PASS: workshop play verification

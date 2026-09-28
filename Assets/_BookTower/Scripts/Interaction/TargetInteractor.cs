@@ -58,6 +58,7 @@ namespace BookTower.Interaction
 
         private void Update()
         {
+            if(PaperShadowDrag.ConsumesInput)return;
             Retarget();
             if (input.InteractPressed) Act();
         }
@@ -75,7 +76,7 @@ namespace BookTower.Interaction
             if(BookTower.CameraSystem.PaperCamera.AimActive && camera!=null &&
                 InteractionRay.Cast(BookTower.CameraSystem.PaperCamera.AimRay(camera),out var hit,100f))
             {
-                var candidate=hit.collider.GetComponentInParent<Interactable>();
+                var candidate=InteractionTargetProxy.Resolve(hit.collider);
                 if(candidate!=null && candidate.isActiveAndEnabled && candidate.InRange && Visible(candidate)) best=candidate;
             }
 
@@ -114,6 +115,10 @@ namespace BookTower.Interaction
             }
 
             GameObject go = Current.gameObject;
+            var reading=go.GetComponentInParent<BookTower.Puzzles.ReadingRoomControl>();
+            if(reading!=null){reading.TryUse(transform.position);return;}
+            var workshop=go.GetComponentInParent<BookTower.Puzzles.StorybookLightControl>();
+            if(workshop!=null){workshop.TryUse(transform.position,input.ModifierHeld);return;}
             var note=go.GetComponentInParent<BookTower.UI.ReadableNote>();
             if(note!=null){note.TryRead(transform.position);return;}
             var bridge = go.GetComponentInParent<FoldBridgeControl>();

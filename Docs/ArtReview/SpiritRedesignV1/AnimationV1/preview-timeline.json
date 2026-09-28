@@ -1,0 +1,46 @@
+{
+  "fps": 24,
+  "frames": 447,
+  "timeline": [
+    {
+      "clip": "Idle",
+      "from_seconds": 0.0,
+      "to_seconds": 2.0
+    },
+    {
+      "clip": "Move",
+      "from_seconds": 2.0,
+      "to_seconds": 3.7916666666666665
+    },
+    {
+      "clip": "JumpRise",
+      "from_seconds": 3.7916666666666665,
+      "to_seconds": 4.375
+    },
+    {
+      "clip": "Fall",
+      "from_seconds": 4.375,
+      "to_seconds": 5.083333333333333
+    },
+    {
+      "clip": "Land",
+      "from_seconds": 5.083333333333333,
+      "to_seconds": 5.541666666666667
+    },
+    {
+      "clip": "LookAround",
+      "from_seconds": 5.541666666666667,
+      "to_seconds": 10.333333333333334
+    },
+    {
+      "clip": "TidyBookmark",
+      "from_seconds": 10.333333333333334,
+      "to_seconds": 14.125
+    },
+    {
+      "clip": "Stretch",
+      "from_seconds": 14.125,
+      "to_seconds": 18.625
+    }
+  ]
+}

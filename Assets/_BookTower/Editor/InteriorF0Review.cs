@@ -77,12 +77,16 @@ namespace BookTower.EditorTools
         static void Tick()
         {
             if(EditorApplication.timeSinceStartup<next)return;next=EditorApplication.timeSinceStartup+1;
+            // A queued art apply may replace our own review run, never a user's ordinary Play session.
+            if(File.Exists(Request)&&File.ReadAllText(Request).Trim()=="embedded-optics"&&EditorApplication.isPlaying&&SessionState.GetBool("F0ReferenceVerify",false))
+            {F0PlayVerifier.CancelOwnReview();return;}
             if(EditorApplication.isCompiling||EditorApplication.isUpdating||EditorApplication.isPlayingOrWillChangePlaymode||!File.Exists(Request))return;
             string action=File.ReadAllText(Request).Trim();File.Delete(Request);
             try
             {
                 if(action=="apply") {InteriorF0Builder.ApplyAndSave();InteriorF0Builder.ValidateStructure();InteriorF0Builder.CaptureReferenceView();}
                 else if(action=="capture")InteriorF0Builder.CaptureReferenceView();
+                else if(action=="embedded-optics")InteriorF0Builder.ApplyEmbeddedOptics();
                 else if(action=="play") {F0PlayVerifier.Run();return;}
                 else throw new Exception("Unknown F0 request");
                 File.WriteAllText(Result,"PASS "+action+" "+DateTime.Now.ToString("O"));

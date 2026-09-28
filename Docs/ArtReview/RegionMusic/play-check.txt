@@ -1,0 +1,1 @@
+PASS: real InGame startup plays Region 1, no QuietPages overlap, room mapping, same-region continuity, three crossfades, loop wrap, independent music gain, pause gain freeze. Test settings isolated.

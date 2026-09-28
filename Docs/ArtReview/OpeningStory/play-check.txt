@@ -1,0 +1,25 @@
+PASS: Test storage isolated from player records/settings
+PASS: Play automatically starts first meeting
+PASS: Story owns input while animation time runs
+PASS: Bird name is hidden before 1A
+PASS: Movement blocked during story
+PASS: Escape pauses story
+PASS: Pause freezes bird and timeline
+PASS: Settings returns to same story line
+PASS: Story prompt uses remapped interaction key
+PASS: Remapped short press advances exactly one dialogue
+PASS: Promise and goal survive scene completion
+PASS: Camera and gameplay restored
+PASS: Companion cannot body block player or light ray
+PASS: Workbench clue is readable within reach
+PASS: Reading stores clue and pauses safely
+PASS: M01 awarded before cutscene; reading is not interrupted
+PASS: Checkpoint does not replay opening or memory
+PASS: Actual 1A puzzle completion awards M02 before memory
+PASS: 1A ending reveals name and next objective
+PASS: Returning to rooms does not duplicate story scenes
+PASS: Hold skips intro and returns control (sequence , beat 0, screen Playing, key 20)
+PASS: Skipping retains promise and goal
+PASS: Skipping restores spirit pose
+PASS: Skip releases all story ownership
+PASS: F0–1A story integration

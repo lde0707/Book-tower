@@ -1,0 +1,11 @@
+{
+  "changed_existing_components": [
+    "2087631871",
+    "552800874",
+    "552800875"
+  ],
+  "removed_old_visual_documents": 62,
+  "added_new_visual_documents": 5,
+  "scene_sha256": "0bdc190c4238708bc1e59ba0be3d8b3ecee89cc38841638ac6c6c3fe09d21119",
+  "existing_gameplay_properties_preserved": true
+}

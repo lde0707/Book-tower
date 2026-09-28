@@ -19,7 +19,7 @@ namespace BookTower.UI
    footerLeaf=Cut(1445,626,99,157);
    // Avoid the adjacent dropdown corner without changing the source image.
    var points=new[]{new Vector2(42,0),new Vector2(99,0),new Vector2(99,157),new Vector2(0,157),new Vector2(0,95),new Vector2(42,35)};
-   for(int i=0;i<points.Length;i++)points[i]=new Vector2((points[i].x-49.5f)/100,(78.5f-points[i].y)/100);
+   for(int i=0;i<points.Length;i++)points[i]=new Vector2((Mathf.Clamp(points[i].x,.05f,98.95f)-49.5f)/100,(78.5f-Mathf.Clamp(points[i].y,.05f,156.95f))/100);
    footerLeaf.OverrideGeometry(points,new ushort[]{0,1,5,1,2,5,2,3,5,3,4,5});
    categories=new[]{Cut(250,218,53,39),Cut(250,320,54,51),Cut(249,425,56,47),Cut(251,525,51,57)};
   }

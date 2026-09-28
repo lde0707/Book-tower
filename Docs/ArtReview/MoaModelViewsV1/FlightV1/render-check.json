@@ -1,0 +1,9 @@
+{
+  "loop_matrix_error": 1.8851972246953084e-17,
+  "frames": 240,
+  "render_fps": 30,
+  "authored_fps": 60,
+  "seconds": 8,
+  "renderer": "Blender EEVEE actual 3D frame sequence",
+  "unity_scene_changed": false
+}

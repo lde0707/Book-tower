@@ -11,7 +11,7 @@ namespace BookTower.UI
  public sealed class PaperAudioLevel:MonoBehaviour
  {
   public PaperAudioBus bus;public float baseline=1;AudioSource source;
-  public static void Bind(AudioSource source,PaperAudioBus bus=PaperAudioBus.Effects){var level=source.GetComponent<PaperAudioLevel>();if(!level)level=source.gameObject.AddComponent<PaperAudioLevel>();level.source=source;level.baseline=source.volume;level.bus=bus;}
+  public static void Bind(AudioSource source,PaperAudioBus bus=PaperAudioBus.Effects){var level=source.GetComponent<PaperAudioLevel>();if(!level)level=source.gameObject.AddComponent<PaperAudioLevel>();level.source=source;level.baseline=source.volume;level.bus=bus;level.LateUpdate();}
   void LateUpdate(){if(!source)return;var s=PaperSettingsRuntime.Values;source.volume=baseline*(bus==PaperAudioBus.Music?s.music:bus==PaperAudioBus.Ambience?s.ambience:s.effects);}
  }
 }

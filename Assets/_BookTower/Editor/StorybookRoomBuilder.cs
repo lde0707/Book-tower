@@ -25,14 +25,15 @@ namespace BookTower.EditorTools
         static void Poll()
         {
             if(EditorApplication.isCompiling||EditorApplication.isUpdating||EditorApplication.isPlayingOrWillChangePlaymode||!File.Exists("Logs/storybook.request"))return;
-            File.Delete("Logs/storybook.request");
-            try{Apply();File.WriteAllText("Logs/storybook.result","PASS "+DateTime.Now.ToString("O"));}
+            string request=File.ReadAllText("Logs/storybook.request").Trim();File.Delete("Logs/storybook.request");
+            try{if(request=="workshop")ApplyWorkshop();else Apply();File.WriteAllText("Logs/storybook.result","PASS "+DateTime.Now.ToString("O"));}
             catch(Exception e){File.WriteAllText("Logs/storybook.result",e.ToString());Debug.LogException(e);}
         }
         public static void RunBatch(){EditorSceneManager.OpenScene("Assets/Scenes/InGame.unity");Apply();}
         [MenuItem("Book Tower/1A 팝업북 회랑 적용")]
         public static void Apply()
         {
+            if(Object.FindFirstObjectByType<StorybookLightPuzzle>(FindObjectsInactive.Include)) { ApplyWorkshop(); return; }
             if(EditorApplication.isPlaying)throw new Exception("Exit Play Mode first");
             var scene=UnityEngine.SceneManagement.SceneManager.GetActiveScene();if(scene.path!="Assets/Scenes/InGame.unity")throw new Exception("Open InGame scene");
             Directory.CreateDirectory("Logs/StorybookBackups");EditorSceneManager.SaveScene(scene,"Logs/StorybookBackups/InGame-"+DateTime.Now.ToString("yyyyMMdd-HHmmss")+".unity",true);

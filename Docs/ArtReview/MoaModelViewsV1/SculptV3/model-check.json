@@ -1,0 +1,30 @@
+{
+  "blender": "5.1.1",
+  "model_objects": 98,
+  "scene_game_changed": false,
+  "source": "ArtSource/PaperMoaV3/Moa_SculptV3.blend",
+  "render": "Cycles actual geometry; studio lighting, not Unity gameplay",
+  "meshes": {
+    "Moa_SculptedBody": 59916,
+    "Moa_Eye_-1": 2560,
+    "Moa_Eye_1": 2560,
+    "Moa_BeakUpper": 1121,
+    "Moa_BeakLower": 1121,
+    "Moa_covert_-1": 2560,
+    "Moa_primary_-1_0": 756,
+    "Moa_primary_-1_1": 756,
+    "Moa_primary_-1_2": 756,
+    "Moa_primary_-1_3": 756,
+    "Moa_covert_1": 2560,
+    "Moa_primary_1_0": 756,
+    "Moa_primary_1_1": 756,
+    "Moa_primary_1_2": 756,
+    "Moa_primary_1_3": 756,
+    "Moa_tail_-1": 756,
+    "Moa_tail_0": 756,
+    "Moa_tail_1": 756,
+    "Moa_crown_-1": 756,
+    "Moa_crown_0": 756,
+    "Moa_crown_1": 756
+  }
+}
