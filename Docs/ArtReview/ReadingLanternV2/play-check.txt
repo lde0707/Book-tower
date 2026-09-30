@@ -1,0 +1,51 @@
+PASS: Covered 1A approach and desk arch traversable with real CharacterController
+PASS: Initial state unsolved and empty
+PASS: Updated lantern is actually bound in the gameplay scene
+PASS: Open latch lifts outwards by 65 degrees
+PASS: Prompt states current open state and next locking action
+PASS: Out-of-range interaction rejected
+PASS: Control Pickup expected=False
+PASS: Control TakeCrank expected=False
+PASS: Control Latch expected=False
+PASS: Actual F charges lantern through aim ray
+PASS: Actual mouse click toggles one ring
+PASS: Control Pickup expected=False
+PASS: Control RightRing expected=True
+PASS: Control Pickup expected=True
+PASS: Locked tongue visibly seats against receiver
+PASS: Both rings allow carrying
+PASS: Control LeftRing expected=False
+PASS: Control ExitDock expected=True
+PASS: Docked prompt switches from locking to opening
+PASS: Placing a locked lantern does not automatically release light
+PASS: Control LeftRing expected=True
+PASS: Control RightRing expected=True
+PASS: Exit-first experiment consumes light without false success
+PASS: Control Charge expected=True
+PASS: Control LeftRing expected=True
+PASS: Control RightRing expected=True
+PASS: Control Pickup expected=True
+PASS: Charge does not decay while carried
+PASS: Actual F places locked lantern without prematurely opening service panel
+PASS: Control LeftRing expected=True
+PASS: One unlocked latch still preserves light on the stand
+PASS: Actual mouse opens the remaining docked latch and releases light
+PASS: Light reveals service panel and physical opening
+PASS: Placed lantern exactly matches the illustrated receiving tray
+Crank approach distance=3.243598 aim=보관된 도르래 손잡이
+PASS: Actual F retrieves crank through the opened physical cabinet
+PASS: Control Crank expected=True
+PASS: Control WindowCharge expected=False
+PASS: Control Latch expected=True
+PASS: Control WindowCharge expected=True
+PASS: Window recharge stays at its own visible plinth
+PASS: Control LeftRing expected=True
+PASS: Control RightRing expected=True
+PASS: Control Pickup expected=True
+PASS: Control ExitDock expected=True
+PASS: Control LeftRing expected=True
+PASS: Control RightRing expected=True
+PASS: Final release solves original P3 and opens door
+PASS: Central bridge and entire covered exit ramp to 1C traversable
+Input tested physically: charge(F), left ring(mouse), crank retrieval(F). Remaining branches invoked through range/visibility-checked controls; not a human usability test.
+PASS: 1B play verification

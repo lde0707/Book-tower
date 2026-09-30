@@ -25,9 +25,9 @@ namespace BookTower.UI
   void DrawOptions()
   {
    var backdrop=Image(dialog,"Close options",0,0,1920,1080,new Color(0,0,0,.35f),null,true);backdrop.gameObject.AddComponent<Button>().onClick.AddListener(()=>Switch(new SettingsState()));
-   float height=105+optionValues.Length*65;float top=(1080-height)/2;
-   var panel=Image(dialog,"Options paper",670,top,670,height,paper,null,true);Label(panel.transform,optionTitle,30,15,610,55,31,true);
-   for(int i=0;i<optionValues.Length;i++){int index=i;var b=Button(panel.transform,optionValues[i],30,85+i*65,610,54,()=>{optionSet(index);Switch(new SettingsState());},i==optionSelected);b.name="Option "+i;}
+   float height=155+optionValues.Length*65;float top=(1080-height)/2;
+   var panel=Image(dialog,"Options paper",625,top,670,height,paper,null,true);Label(panel.transform,optionTitle,60,35,550,55,31,true);
+   for(int i=0;i<optionValues.Length;i++){int index=i;var b=Button(panel.transform,optionValues[i],60,105+i*65,550,54,()=>{optionSet(index);Switch(new SettingsState());},i==optionSelected);b.name="Option "+i;}
   }
  }
 }

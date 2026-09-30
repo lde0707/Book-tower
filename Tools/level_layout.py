@@ -509,7 +509,7 @@ XZ_SCALE = 1.6
 #
 # PlayerController 의 값을 그대로 옮겨 적은 것이다. 둘이 어긋나면
 # 아래 점프 검증이 아무것도 보장하지 못하므로 C# 을 고치면 여기도 고쳐야 한다.
-MOVE_SPEED_P   = 5.5
+MOVE_SPEED_P   = 5.9  # PlayerController.runSpeed: maximum reach uses Shift running.
 GRAVITY        = 18.0
 JUMP_HEIGHT    = 1.2
 GLIDE_FALL     = 1.6
@@ -2009,7 +2009,7 @@ def validate():
 
 
 # ═══════════════════════════════════════════════ 이동 시뮬레이션
-MOVE_SPEED = 5.5    # PlayerController.moveSpeed (방을 키우면서 상향)
+MOVE_SPEED = 3.8    # PlayerController.walkSpeed; Shift running is 5.9.
 
 # 기획서(Docs/06)의 구역별 퍼즐 목표 시간(초)
 PUZZLE_BUDGET = {

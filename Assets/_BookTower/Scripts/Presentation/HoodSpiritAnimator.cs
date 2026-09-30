@@ -8,7 +8,7 @@ namespace BookTower.Presentation
     [DefaultExecutionOrder(120), DisallowMultipleComponent]
     public sealed class HoodSpiritAnimator : MonoBehaviour
     {
-        public enum Pose { Idle, Move, JumpRise, Fall, Glide, Land, LookAround, TidyBookmark, Stretch }
+        public enum Pose { Idle, Move, Run, JumpRise, Fall, Glide, Land, LookAround, TidyBookmark, Stretch }
         [SerializeField] Animator animator;
         [SerializeField] Transform sway;
         PlayerController player;
@@ -35,12 +35,12 @@ namespace BookTower.Presentation
             pose=next;actionTime=0;
             animator.CrossFadeInFixedTime(next.ToString(),blend,0,0);
         }
-        public void Step(float dt,float speed,bool airborne,bool rising,bool gliding,bool blocked,bool activeInput)
+        public void Step(float dt,float speed,bool airborne,bool rising,bool gliding,bool blocked,bool activeInput,bool running=false)
         {
             if(!animator || dt<=0) return;
             actionTime+=dt;
             if(blocked) { Change(Pose.Idle);Schedule();wasAirborne=false;return; }
-            bool moving=speed>(pose==Pose.Move?.16f:.3f);
+            bool moving=speed>(pose==Pose.Move || pose==Pose.Run?.16f:.3f);
             if(airborne)
             {
                 Change(gliding?Pose.Glide:rising?Pose.JumpRise:Pose.Fall,.14f);
@@ -48,7 +48,7 @@ namespace BookTower.Presentation
             }
             else if(moving)
             {
-                Change(Pose.Move,.16f);Schedule();wasAirborne=false;
+                Change(running?Pose.Run:Pose.Move,.18f);Schedule();wasAirborne=false;
             }
             else if(wasAirborne) { Change(Pose.Land,.09f);Schedule();wasAirborne=false; }
             else if(pose==Pose.Land && actionTime<.42f) { }
@@ -68,7 +68,7 @@ namespace BookTower.Presentation
                     Schedule();
                 }
             }
-            float target=pose==Pose.Move?Mathf.Clamp(speed/4.5f,.65f,1.35f):1;
+            float target=pose==Pose.Move?Mathf.Clamp(speed/3.8f,.65f,1.3f):pose==Pose.Run?Mathf.Clamp(speed/5.9f,.7f,1.2f):1;
             animator.speed=Mathf.Lerp(animator.speed,target,1-Mathf.Exp(-10*dt));
         }
         void Update()
@@ -79,7 +79,7 @@ namespace BookTower.Presentation
                 || player.Machine?.Current==player.Respawn;
             bool air=player.Machine?.Current==player.Airborne || player.Machine?.Current==player.Glide;
             bool input=player.Input && (player.Input.Move.sqrMagnitude>.01f || player.Input.InteractPressed || player.Input.PointerPressed);
-            Step(Time.deltaTime,player.HorizontalVelocity.magnitude,air,player.VerticalVelocity>.3f,player.Machine?.Current==player.Glide,blocked,input);
+            Step(Time.deltaTime,player.HorizontalVelocity.magnitude,air,player.VerticalVelocity>.3f,player.Machine?.Current==player.Glide,blocked,input,player.WantsToRun);
             if(!sway || Time.deltaTime<=0) return;
             float yaw=transform.eulerAngles.y;
             float turn=Mathf.DeltaAngle(lastYaw,yaw)/Mathf.Max(Time.deltaTime,.001f);lastYaw=yaw;

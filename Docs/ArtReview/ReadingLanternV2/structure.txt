@@ -1,0 +1,2 @@
+PASS: all four receiving trays and interaction colliders share the physical docking position.
+PASS: independent hinge pivots, keyed base and portrait-specific material bound.

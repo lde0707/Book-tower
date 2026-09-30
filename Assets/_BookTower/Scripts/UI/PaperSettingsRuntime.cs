@@ -20,6 +20,7 @@ namespace BookTower.UI
   int baseVsync,baseFps;bool focused=true;
   public static bool Held(int action)=>Keyboard.current!=null&&Keyboard.current[(Key)Values.keys[action]].isPressed;
   public static bool Pressed(int action)=>Keyboard.current!=null&&Keyboard.current[(Key)Values.keys[action]].wasPressedThisFrame;
+  public static bool RunHeld=>Held(8)||(Values.keys[8]==(int)Key.LeftShift&&!Values.keys.Contains((int)Key.RightShift)&&Keyboard.current!=null&&Keyboard.current.rightShiftKey.isPressed);
   void Awake(){if(Instance&&Instance!=this){Destroy(gameObject);return;}Instance=this;baseVsync=QualitySettings.vSyncCount;baseFps=Application.targetFrameRate;Load();var asset=GraphicsSettings.currentRenderPipeline as UniversalRenderPipelineAsset;if(asset){priorPipeline=QualitySettings.renderPipeline;pipeline=Instantiate(asset);QualitySettings.renderPipeline=pipeline;}volume=gameObject.AddComponent<Volume>();volume.isGlobal=true;volume.priority=100;volume.profile=ScriptableObject.CreateInstance<VolumeProfile>();color=volume.profile.Add<ColorAdjustments>(true);bloom=volume.profile.Add<Bloom>(true);Apply(Saved,!Application.isEditor);}
   public void Load(){try{Saved=File.Exists(StoragePath)?JsonUtility.FromJson<PaperSettings>(File.ReadAllText(StoragePath)):new PaperSettings();Saved??=new PaperSettings();Saved.Validate();}catch(Exception e){Debug.LogWarning("Settings reset: "+e.Message);Saved=new PaperSettings();}Current=Saved.Copy();}
   public bool Commit(PaperSettings settings,out string error)

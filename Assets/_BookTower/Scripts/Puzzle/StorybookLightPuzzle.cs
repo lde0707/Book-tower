@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using BookTower.UI;
 using BookTower.Rooms;
 
@@ -6,7 +6,7 @@ namespace BookTower.Puzzles
 {
     // Projected geometry uses the same distance ratio as the visible paper puppets.
     // No angle combination from the former FoldPanels participates in this puzzle.
-    public sealed class StorybookLightPuzzle : MonoBehaviour
+    public sealed partial class StorybookLightPuzzle : MonoBehaviour
     {
         public Transform body, ears, bodyShadow, earShadow, bodyPickup, earPickup, drawer;
         public Transform rabbitPopup, rewardStar, toyStar;
@@ -30,17 +30,17 @@ namespace BookTower.Puzzles
         public float EarDistance => realShadows?earAt.z:3 + EarStep;
         public float BodyRatio => (realShadows?ScreenDistance:12) / BodyDistance;
         public float EarRatio => (realShadows?ScreenDistance:12) / EarDistance;
-        public bool Aligned => BodyInstalled && EarsInstalled && LampOn && Flipped &&
+        public bool Aligned => Duet ? Duet.RabbitAligned : BodyInstalled && EarsInstalled && LampOn && Flipped &&
             Mathf.Abs(BodyRatio - 1.5f) < .08f && Mathf.Abs(EarRatio - 3f) < .12f &&
             (!realShadows||(Mathf.Abs(bodyAt.x*BodyRatio)<.18f&&Mathf.Abs(earAt.x*EarRatio)<.18f));
         float hold, unfold, toy, shownBody = 4, shownEar = 7;
         string lastGoal;
         RoomManager rooms;Room owner;
-        void Awake(){rooms=FindFirstObjectByType<RoomManager>();owner=GetComponentInParent<Room>();if(realShadows){BodyFound=EarsFound=BodyInstalled=EarsInstalled=true;LampOn=true;shownBody=bodyAt.z;shownEar=earAt.z;}}
+        void Awake(){rooms=FindFirstObjectByType<RoomManager>();owner=GetComponentInParent<Room>();if(realShadows){BodyFound=EarsFound=BodyInstalled=EarsInstalled=true;LampOn=true;shownBody=bodyAt.z;shownEar=earAt.z;SetupDuet();}}
         public void DragPaper(bool isEar,Vector3 localPosition)
         {
             if(!realShadows||Complete)return;
-            localPosition=new Vector3(Mathf.Clamp(localPosition.x,-3.3f,3.3f),1,Mathf.Clamp(localPosition.z,3,10));
+            localPosition=new Vector3(Mathf.Clamp(localPosition.x,Duet?-5.5f:-3.3f,Duet?5.5f:3.3f),1,Mathf.Clamp(localPosition.z,3,10));
             if(isEar)earAt=localPosition;else bodyAt=localPosition;
         }
         public void TurnPaper(bool isEar){if(realShadows&&isEar&&!Complete)Flipped=!Flipped;}
@@ -67,6 +67,9 @@ namespace BookTower.Puzzles
                     break;
                 case StorybookLightControl.Action.Flip: Flipped = !Flipped; break;
                 case StorybookLightControl.Action.Lamp: LampOn = !LampOn; break;
+                case StorybookLightControl.Action.LightLeft: SelectLight(0); break;
+                case StorybookLightControl.Action.LightCentre: SelectLight(1); break;
+                case StorybookLightControl.Action.LightRight: SelectLight(2); break;
                 case StorybookLightControl.Action.Toy: toy += 1; break;
             }
         }
@@ -86,7 +89,7 @@ namespace BookTower.Puzzles
             bool settled=Mathf.Abs(shownBody-BodyDistance)<.01f&&Mathf.Abs(shownEar-EarDistance)<.01f;
             if(realShadows)settled=Vector3.Distance(body.localPosition,bodyAt)<.025f&&Vector3.Distance(ears.localPosition,earAt)<.025f&&!BookTower.Interaction.PaperShadowDrag.Holding;
             hold=Aligned&&settled?hold+dt:0;
-            if(hold>=1.25f)Complete=true;
+            if(Duet){Duet.Tick(dt);if(Duet.AllRecorded)Complete=true;}else if(hold>=1.25f)Complete=true;
             unfold=Mathf.MoveTowards(unfold,Complete?1:0,dt*.4f);
             if(rabbitPopup)rabbitPopup.localRotation=Quaternion.Euler(Mathf.Lerp(86,0,Mathf.SmoothStep(0,1,unfold)),0,0);
             if(rewardStar)rewardStar.localRotation=Quaternion.Euler(0,0,Mathf.Sin(Time.time)*5+unfold*30);
@@ -96,7 +99,7 @@ namespace BookTower.Puzzles
                 string goal=Complete?"모아의 이름을 되찾았다 · 별등을 따라 다음 열람실로":
                     !BodyFound||!EarsFound?"토끼의 이름 되찾기 · 작업대와 책장에서 몸통·귀 오림 찾기":
                     !BodyInstalled||!EarsInstalled?"토끼의 이름 되찾기 · 두 오림을 극장의 종이 꽂이에 끼우기":
-                    realShadows?"토끼의 이름 되찾기 · 오림을 잡아 끌어 실제 그림자 맞추기 · 귀는 휠로 뒤집기":
+                    Duet?Duet.Goal:realShadows?"토끼의 이름 되찾기 · 클릭 유지 + 마우스 / 이동 키 · 우클릭 뒤집기":
                     "토끼의 이름 되찾기 · 등과의 거리·귀 방향으로 벽의 윤곽 맞추기";
                 if(goal!=lastGoal){PaperUI.Instance.Objective("1A.shadow-workshop",goal);lastGoal=goal;}
             }

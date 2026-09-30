@@ -1,0 +1,1 @@
+PASS: current InGame scene resolves existing prefab/FBX/material/9 animation references; 17 bones; finite deformations in all 9 clips. Scene not saved.

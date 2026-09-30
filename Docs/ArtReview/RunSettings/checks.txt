@@ -1,0 +1,16 @@
+PASS: Eight-key settings migrate without losing custom bindings
+PASS: Run has an editable binding button
+PASS: Inset footer: 기본값 복원
+PASS: Inset footer: 취소
+PASS: Inset footer: 적용
+PASS: Modal paper button padding: 취소
+PASS: Duplicate movement binding rejected
+PASS: Run can be rebound to R
+PASS: Run binding persists after reload
+PASS: Rebound key reaches run input
+PASS: Old Shift no longer runs after rebinding
+PASS: Restore defaults restores Shift
+PASS: Options paper button padding: Option 0
+PASS: Options paper button padding: Option 1
+PASS: Options paper button padding: Option 2
+PASS

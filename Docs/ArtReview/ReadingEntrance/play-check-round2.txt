@@ -1,0 +1,22 @@
+PASS: actual CharacterController lane=-1.5, reverse=False
+PASS: actual CharacterController lane=-1.5, reverse=True
+PASS: actual CharacterController lane=0, reverse=False
+PASS: actual CharacterController lane=0, reverse=True
+PASS: actual CharacterController lane=1.5, reverse=False
+PASS: actual CharacterController lane=1.5, reverse=True
+VIEW: station=0, yaw=0, exposed-background pixels=0
+VIEW: station=0, yaw=90, exposed-background pixels=0
+VIEW: station=0, yaw=180, exposed-background pixels=0
+VIEW: station=0, yaw=270, exposed-background pixels=0
+VIEW: station=1, yaw=0, exposed-background pixels=0
+VIEW: station=1, yaw=90, exposed-background pixels=0
+VIEW: station=1, yaw=180, exposed-background pixels=0
+VIEW: station=1, yaw=270, exposed-background pixels=0
+VIEW: station=2, yaw=0, exposed-background pixels=0
+VIEW: station=2, yaw=90, exposed-background pixels=0
+VIEW: station=2, yaw=180, exposed-background pixels=0
+VIEW: station=2, yaw=270, exposed-background pixels=0
+PASS: 12 camera views show no magenta exterior background
+PASS: visible from 1A
+PASS: visible from 1B
+PASS: entrance QA

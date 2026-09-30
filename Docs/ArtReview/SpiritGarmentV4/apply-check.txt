@@ -1,0 +1,1 @@
+PASS: validated FBX and four textures copied; existing GUIDs retained; scene hash unchanged.

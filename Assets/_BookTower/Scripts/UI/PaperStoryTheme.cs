@@ -18,8 +18,8 @@ namespace BookTower.UI
    string[] names={"계속하기","설정","기록장","체크포인트로 돌아가기","나가기"};
    System.Action[] actions={Resume,OpenSettings,()=>Switch(new JournalState()),Checkpoint,()=>Switch(new ConfirmationState(PaperScreen.ConfirmQuit))};
    for(int i=0;i<names.Length;i++){
-    var b=Button(pauseContent,names[i],120,185+i*91,520,72,actions[i]);PaperBox(b.image);PaperEdge(b);b.transition=Selectable.Transition.None;
-    var label=b.GetComponentInChildren<Text>();label.alignment=TextAnchor.MiddleCenter;label.rectTransform.anchoredPosition=new Vector2(18,0);label.rectTransform.sizeDelta=new Vector2(484,72);label.fontSize=Mathf.RoundToInt(32*TextFactor);
+    var b=Button(pauseContent,names[i],140,185+i*91,480,72,actions[i]);PaperBox(b.image);PaperEdge(b);b.transition=Selectable.Transition.None;
+    var label=b.GetComponentInChildren<Text>();label.alignment=TextAnchor.MiddleCenter;label.rectTransform.anchoredPosition=new Vector2(18,0);label.rectTransform.sizeDelta=new Vector2(444,72);label.fontSize=Mathf.RoundToInt(32*TextFactor);
     if(i==3&&StoryActive){b.interactable=false;label.text="장면을 마친 뒤 돌아갈 수 있어요";label.fontSize=Mathf.RoundToInt(22*TextFactor);}
     var marker=Art(b.transform,"Hover bookmark",-18,0,27,72,skin.ribbon);var hover=b.gameObject.AddComponent<PaperMenuHighlight>();hover.strip=b.image;hover.ribbon=marker.gameObject;hover.Set(false);
    }

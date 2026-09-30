@@ -100,7 +100,7 @@ namespace BookTower.CameraSystem
 
         public void ApplyLookDelta(Vector2 delta)
         {
-            if(BookTower.Interaction.PaperShadowDrag.Holding)return;
+            if(BookTower.Interaction.PaperShadowDrag.Holding&&observationLocked)ConsumeMovementYaw();
             if(observationLocked || mode == CameraMode.Overview) return;
             var settings=BookTower.UI.PaperSettingsRuntime.Values; lastLook=Time.time;
             SetAim(aimYaw + delta.x * mouseSensitivity*settings.sensitivity, pitch - delta.y * mouseSensitivity*settings.sensitivity*(settings.invertY?-1:1));

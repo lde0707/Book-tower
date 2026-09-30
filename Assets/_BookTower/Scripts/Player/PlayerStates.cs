@@ -31,6 +31,7 @@ namespace BookTower.PlayerSystem
             {
                 p.VerticalVelocity = Mathf.Sqrt(2f * Mathf.Abs(p.Gravity) * p.JumpHeight);
                 p.JumpedThisAir = true;
+                BookTower.Audio.SfxDirector.PlayJump(p.transform.position);
                 p.Machine.Change(p.Airborne);
                 return;
             }

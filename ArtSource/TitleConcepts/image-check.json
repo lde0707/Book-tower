@@ -1,0 +1,65 @@
+[
+  {
+    "name": "logo-a",
+    "size": [
+      1536,
+      1024
+    ],
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      254
+    ]
+  },
+  {
+    "name": "logo-b",
+    "size": [
+      1536,
+      1024
+    ],
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      254
+    ]
+  },
+  {
+    "name": "logo-c",
+    "size": [
+      1536,
+      1024
+    ],
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      254
+    ]
+  },
+  {
+    "name": "background-a",
+    "size": [
+      1672,
+      941
+    ],
+    "mode": "RGB",
+    "alpha_range": null
+  },
+  {
+    "name": "background-b",
+    "size": [
+      1672,
+      941
+    ],
+    "mode": "RGB",
+    "alpha_range": null
+  },
+  {
+    "name": "background-c",
+    "size": [
+      1672,
+      941
+    ],
+    "mode": "RGB",
+    "alpha_range": null
+  }
+]

@@ -1,0 +1,1 @@
+PASS: InGame existing prefab resolves V6, 23 bones, 10 clips sampled at 5 points, finite skin. Existing scene and prefab IDs preserved.

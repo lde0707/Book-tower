@@ -16,14 +16,14 @@ namespace BookTower.Puzzles
   public bool LightConnected {get;private set;}
   public int Recoveries {get;private set;}
   public int FoldCount {get;private set;}
-  float angle=-90,lastUse=-10;bool requested,farBank;PlayerController actor;Room room;AudioSource audioSource;
+  float angle=90,lastUse=-10;bool requested,farBank;PlayerController actor;Room room;AudioSource audioSource;
   Vector3 loweredSeal;
   protected override void OnSolved()
   {
    loweredSeal=sealVisual.parent.localPosition-Vector3.up*1.4f;
    var blocker=sealVisual.parent.GetComponent<Collider>();if(blocker)blocker.enabled=false;
   }
-  void Awake(){actor=FindFirstObjectByType<PlayerController>();room=GetComponentInParent<Room>();audioSource=gameObject.AddComponent<AudioSource>();audioSource.spatialBlend=1;audioSource.volume=.4f;audioSource.minDistance=2;audioSource.maxDistance=25;audioSource.playOnAwake=false;BookTower.UI.PaperAudioLevel.Bind(audioSource);hinge.localRotation=Quaternion.Euler(-90,0,0);}
+  void Awake(){actor=FindFirstObjectByType<PlayerController>();room=GetComponentInParent<Room>();audioSource=gameObject.AddComponent<AudioSource>();audioSource.spatialBlend=1;audioSource.volume=.4f;audioSource.minDistance=2;audioSource.maxDistance=25;audioSource.playOnAwake=false;BookTower.UI.PaperAudioLevel.Bind(audioSource);hinge.localRotation=Quaternion.Euler(90,0,0);}
   public bool TryOperate(bool seal,Vector3 position,Vector3 controlPosition,float range)
   {
    if(!isActiveAndEnabled||(room&&!room.IsVisible)||Vector3.Distance(position,controlPosition)>range||Time.time-lastUse<.35f)return false;
@@ -31,12 +31,12 @@ namespace BookTower.Puzzles
    if(!IsSettled){BookTower.UI.PaperUI.Notify("페이지가 움직이고 있어.");return false;}
    Vector3 p=roomSpace.InverseTransformPoint(position);
    if(p.z>-1.5f&&p.z<7.6f&&Mathf.Abs(p.x)<2.8f&&p.y>2){BookTower.UI.PaperUI.Notify("페이지 위에서는 접을 수 없어.");return false;}
-   lastUse=Time.time;BridgeDown=!BridgeDown;FoldCount++;if(foldSound)audioSource.PlayOneShot(foldSound);return true;
+   BookTower.Audio.SfxDirector.PlayMechanism("mechanism_press",controlPosition,.55f);lastUse=Time.time;BridgeDown=!BridgeDown;FoldCount++;if(foldSound)audioSource.PlayOneShot(foldSound);return true;
   }
   protected override bool CheckSolved()=>requested&&LightConnected&&IsSettled;
   protected override void Update()
   {
-   angle=Mathf.MoveTowards(angle,BridgeDown?0:-90,55*Time.deltaTime);hinge.localRotation=Quaternion.Euler(angle,0,0);IsSettled=Mathf.Abs(angle-(BridgeDown?0:-90))<.05f;
+   angle=Mathf.MoveTowards(angle,BridgeDown?0:90,55*Time.deltaTime);hinge.localRotation=Quaternion.Euler(angle,0,0);IsSettled=Mathf.Abs(angle-(BridgeDown?0:90))<.05f;
    UpdateLightRoute();
    connection.enabled=LightConnected&&(room==null||room.IsVisible);receiverLight.intensity=DirectReceiverLit?12:0;
    sealVisual.localScale=Vector3.one*(LightConnected?1:.55f);

@@ -1,0 +1,30 @@
+[
+  {
+    "File": "PaperHoodSpirit_Rigged.fbx",
+    "Match": true
+  },
+  {
+    "File": "PaperHoodSpirit_Rigged.fbx.meta",
+    "Match": true
+  },
+  {
+    "File": "HoodSpirit.controller",
+    "Match": true
+  },
+  {
+    "File": "Spirit_BaseColor.png",
+    "Match": true
+  },
+  {
+    "File": "Spirit_Normal.png",
+    "Match": true
+  },
+  {
+    "File": "Spirit_Roughness.png",
+    "Match": true
+  },
+  {
+    "File": "Spirit_MetallicSmoothness.png",
+    "Match": true
+  }
+]

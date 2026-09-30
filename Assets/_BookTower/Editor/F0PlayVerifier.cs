@@ -233,7 +233,7 @@ namespace BookTower.EditorTools
             Teleport(W(0,9));yield return .5f;
             Teleport(room.transform.TransformPoint(new Vector3(0,1.4f,3)));yield return .5f;
             Require(puzzle.Recoveries==2&&room.transform.InverseTransformPoint(player.transform.position).z>7.7f,"Far-bank fall recovers beyond bridge");
-            Require(seal.TryUse(player.transform.position),"Lit seal accepts nearby confirmation");yield return 2.5f;
+            Require(seal.TryUse(player.transform.position),"Lit seal accepts nearby confirmation");yield return 4.5f;
             var door=room.GetComponentInChildren<BindingDoor>();
             Require(puzzle.State==PuzzleBase.PuzzleState.Solved&&door.IsOpen,"Reflected light and confirmation unlock P1 door");
             Require(Mathf.Abs(Mathf.DeltaAngle(door.left.localEulerAngles.y,170))<.1f,"Open door folds away from exit passage");

@@ -1,0 +1,45 @@
+[
+  {
+    "asset": "mechanism_press",
+    "seconds": 0.44583333333333336,
+    "peak_dbfs": -22.369463645251052,
+    "sources": [
+      "ArtSource\\Audio\\Kenney\\rpg\\Audio\\metalClick.ogg",
+      "ArtSource\\Audio\\Kenney\\interface\\Audio\\click_001.ogg"
+    ]
+  },
+  {
+    "asset": "foil_move",
+    "seconds": 1.2034166666666666,
+    "peak_dbfs": -14.89454989793388,
+    "sources": [
+      "ArtSource\\Audio\\Kenney\\rpg\\Audio\\bookFlip2.ogg",
+      "ArtSource\\Audio\\Kenney\\rpg\\Audio\\cloth2.ogg",
+      "ArtSource\\Audio\\Kenney\\rpg\\Audio\\cloth2.ogg"
+    ]
+  },
+  {
+    "asset": "mirror_move",
+    "seconds": 1.7111875,
+    "peak_dbfs": -14.89454989793388,
+    "sources": [
+      "ArtSource\\Audio\\Kenney\\rpg\\Audio\\creak2.ogg",
+      "ArtSource\\Audio\\Kenney\\rpg\\Audio\\clothBelt.ogg",
+      "ArtSource\\Audio\\Kenney\\rpg\\Audio\\clothBelt2.ogg",
+      "ArtSource\\Audio\\Kenney\\rpg\\Audio\\cloth2.ogg"
+    ]
+  },
+  {
+    "asset": "binding_door_open",
+    "seconds": 2.9958958333333334,
+    "peak_dbfs": -12.041199826559248,
+    "sources": [
+      "ArtSource\\Audio\\Kenney\\rpg\\Audio\\metalLatch.ogg",
+      "ArtSource\\Audio\\Kenney\\rpg\\Audio\\doorOpen_1.ogg",
+      "ArtSource\\Audio\\Kenney\\rpg\\Audio\\creak1.ogg",
+      "ArtSource\\Audio\\Kenney\\rpg\\Audio\\bookOpen.ogg",
+      "ArtSource\\Audio\\Kenney\\rpg\\Audio\\cloth4.ogg",
+      "ArtSource\\Audio\\Kenney\\rpg\\Audio\\bookPlace1.ogg"
+    ]
+  }
+]

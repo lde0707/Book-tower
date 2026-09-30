@@ -1,0 +1,1 @@
+PASS: actual InGame play mode, new skinned model, player-driven Idle/Move/JumpRise/Fall/Glide/Land, pause freeze, idle action cancellation and unchanged collider.

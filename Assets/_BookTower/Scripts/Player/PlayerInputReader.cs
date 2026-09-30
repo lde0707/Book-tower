@@ -38,6 +38,7 @@ namespace BookTower.PlayerSystem
 
         /// <summary>펴기(역방향) 보조키를 누르고 있는가</summary>
         public bool ModifierHeld { get; private set; }
+        public bool RunHeld { get; private set; }
 
         private void Update()
         {
@@ -66,6 +67,7 @@ namespace BookTower.PlayerSystem
             GlideHeld = BookTower.UI.PaperSettingsRuntime.Held(4);
             JumpPressed = BookTower.UI.PaperSettingsRuntime.Pressed(4);
             ModifierHeld = kb.leftShiftKey.isPressed;
+            RunHeld = BookTower.UI.PaperSettingsRuntime.RunHeld;
             InteractPressed = BookTower.UI.PaperSettingsRuntime.Pressed(5);
             PointerPressed = mouse != null && mouse.leftButton.wasPressedThisFrame;
             // The dialogue owns advance inputs while locomotion/look remain available.
@@ -84,6 +86,7 @@ namespace BookTower.PlayerSystem
             InteractPressed = false;
             PointerPressed = false;
             ModifierHeld = false;
+            RunHeld = false;
         }
     }
 }

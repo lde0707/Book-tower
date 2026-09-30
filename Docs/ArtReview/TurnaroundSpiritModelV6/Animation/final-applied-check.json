@@ -1,0 +1,42 @@
+[
+  {
+    "File": "Art/PaperHoodSpirit/PaperHoodSpirit_Rigged.fbx",
+    "Match": true
+  },
+  {
+    "File": "Art/PaperHoodSpirit/PaperHoodSpirit_Rigged.fbx.meta",
+    "Match": true
+  },
+  {
+    "File": "Art/PaperHoodSpirit/HoodSpirit.controller",
+    "Match": true
+  },
+  {
+    "File": "Scripts/Player/PlayerController.cs",
+    "Match": true
+  },
+  {
+    "File": "Scripts/Player/PlayerInputReader.cs",
+    "Match": true
+  },
+  {
+    "File": "Scripts/Player/PlayerStates.cs",
+    "Match": true
+  },
+  {
+    "File": "Scripts/Presentation/HoodSpiritAnimator.cs",
+    "Match": true
+  },
+  {
+    "File": "Scripts/Audio/SfxDirector.cs",
+    "Match": true
+  },
+  {
+    "File": "Scripts/UI/PaperUIView.cs",
+    "Match": true
+  },
+  {
+    "File": "Resources/Sfx/spirit_jump.wav",
+    "Match": true
+  }
+]

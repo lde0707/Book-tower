@@ -22,7 +22,8 @@ namespace BookTower.PlayerSystem
     public class PlayerController : MonoBehaviour
     {
         [Header("이동")]
-        [SerializeField] private float moveSpeed = 5.5f;   // 방을 1.6배로 키우면서 상향
+        [SerializeField] private float walkSpeed = 3.8f;
+        [SerializeField] private float runSpeed = 5.9f;
         [SerializeField] private float turnSpeed = 14f;
 
         [Tooltip("목표 속도까지 가속되는 데 걸리는 시간(초). 0이면 예전처럼 즉시 최고속도 — " +
@@ -72,7 +73,10 @@ namespace BookTower.PlayerSystem
         public PlayerRespawnState Respawn { get; private set; }
 
         // ---- 공유 값 ----
-        public float MoveSpeed => moveSpeed;
+        public float WalkSpeed => walkSpeed;
+        public float RunSpeed => runSpeed;
+        public bool WantsToRun => Input && Input.RunHeld && Input.Move.sqrMagnitude > .01f;
+        public float MoveSpeed => WantsToRun ? runSpeed : walkSpeed;
         public float Gravity => gravity;
         public float JumpHeight => jumpHeight;
         public float GlideFallSpeed => glideFallSpeed;
@@ -185,7 +189,7 @@ namespace BookTower.PlayerSystem
             float time = accelerating ? accelTime : decelTime;
             float maxDelta = time <= 0f
                 ? float.PositiveInfinity
-                : (moveSpeed + glideDrift) / time * dt;   // 활공 속도까지 같은 리듬으로 다다르게
+                : (runSpeed + glideDrift) / time * dt;
 
             HorizontalVelocity = Vector3.MoveTowards(HorizontalVelocity, targetVelocity, maxDelta);
         }

@@ -1,0 +1,61 @@
+{
+  "bones": 17,
+  "skin_transfer_max_error": 5.960464477539063e-08,
+  "clips": [
+    {
+      "name": "Idle",
+      "seconds": 4,
+      "loop": true,
+      "fps": 60
+    },
+    {
+      "name": "Move",
+      "seconds": 0.9,
+      "loop": true,
+      "fps": 60
+    },
+    {
+      "name": "JumpRise",
+      "seconds": 0.6,
+      "loop": false,
+      "fps": 60
+    },
+    {
+      "name": "Fall",
+      "seconds": 1.4,
+      "loop": true,
+      "fps": 60
+    },
+    {
+      "name": "Glide",
+      "seconds": 1.8,
+      "loop": true,
+      "fps": 60
+    },
+    {
+      "name": "Land",
+      "seconds": 0.45,
+      "loop": false,
+      "fps": 60
+    },
+    {
+      "name": "LookAround",
+      "seconds": 4.8,
+      "loop": false,
+      "fps": 60
+    },
+    {
+      "name": "TidyBookmark",
+      "seconds": 3.8,
+      "loop": false,
+      "fps": 60
+    },
+    {
+      "name": "Stretch",
+      "seconds": 4.5,
+      "loop": false,
+      "fps": 60
+    }
+  ],
+  "root_motion": false
+}

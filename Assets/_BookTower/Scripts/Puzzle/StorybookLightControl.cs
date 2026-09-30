@@ -5,7 +5,7 @@ namespace BookTower.Puzzles
     [RequireComponent(typeof(Interactable))]
     public sealed class StorybookLightControl : MonoBehaviour
     {
-        public enum Action { FindBody, FindEars, BodyRail, EarRail, Flip, Lamp, Toy }
+        public enum Action { FindBody, FindEars, BodyRail, EarRail, Flip, Lamp, Toy, LightLeft, LightCentre, LightRight }
         public StorybookLightPuzzle puzzle;
         public Action action;
         void Update(){if(puzzle&&((action==Action.FindBody&&puzzle.BodyFound)||(action==Action.FindEars&&puzzle.EarsFound)))gameObject.SetActive(false);}

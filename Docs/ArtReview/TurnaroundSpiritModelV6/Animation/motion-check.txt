@@ -1,0 +1,10 @@
+PASS Idle: maximum vertex travel 0.140833
+PASS Move: maximum vertex travel 0.084037
+PASS JumpRise: maximum vertex travel 0.280135
+PASS Fall: maximum vertex travel 0.143088
+PASS Glide: maximum vertex travel 0.143088
+PASS Land: maximum vertex travel 0.118122
+PASS LookAround: maximum vertex travel 0.154447
+PASS TidyBookmark: maximum vertex travel 0.432426
+PASS Stretch: maximum vertex travel 0.434802
+PASS Run: maximum vertex travel 0.184963

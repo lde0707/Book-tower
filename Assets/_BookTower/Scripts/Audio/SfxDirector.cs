@@ -25,7 +25,7 @@ namespace BookTower.Audio
 
         private AudioClip foldStep, puzzleSolve, pieceUp, gateOpen, rustleStep, hintTremble, hintNudge;
         private AudioClip[] folds, steps;
-        private AudioClip click, page;
+        private AudioClip click, page, jump;
         private AudioSource uiSource;
         private int foldIndex, stepIndex;
         private float lastFootstep = -10, lastUi = -10;
@@ -45,6 +45,7 @@ namespace BookTower.Audio
             folds = new[] { foldStep, Load("fold_step_2"), Load("fold_step_3") };
             steps = new[] { rustleStep, Load("rustle_step_2"), Load("rustle_step_3") };
             click = Load("ui_click"); page = Load("ui_page");
+            jump = Load("spirit_jump");
             uiSource = gameObject.AddComponent<AudioSource>();
             uiSource.playOnAwake = false; uiSource.spatialBlend = 0;
             uiSource.ignoreListenerPause = true;
@@ -132,11 +133,16 @@ namespace BookTower.Audio
             return pc != null ? pc.transform.position : transform.position;
         }
 
-        private void PlayAt(AudioClip clip, Vector3 pos, float volume)
+        private void PlayAt(AudioClip clip, Vector3 pos, float volume, float reach=22, float near=2, float spatial=1)
         {
             if (clip == null) return;
-            var go=new GameObject("Paper one-shot");go.transform.position=pos;var source=go.AddComponent<AudioSource>();source.clip=clip;source.spatialBlend=1;source.minDistance=2;source.maxDistance=22;source.rolloffMode=AudioRolloffMode.Linear;source.volume=Mathf.Clamp01(volume*masterVolume);BookTower.UI.PaperAudioLevel.Bind(source);source.Play();Destroy(go,clip.length+1);
+            var go=new GameObject("Paper one-shot");go.transform.position=pos;var source=go.AddComponent<AudioSource>();source.clip=clip;source.spatialBlend=spatial;source.minDistance=near;source.maxDistance=reach;source.rolloffMode=AudioRolloffMode.Linear;source.volume=Mathf.Clamp01(volume*masterVolume);BookTower.UI.PaperAudioLevel.Bind(source);source.Play();Destroy(go,clip.length+1);
         }
+        public static void PlayMechanism(string clip,Vector3 position,float volume=.65f)
+        {bool door=clip=="binding_door_open";EnsureExists().PlayAt(Resources.Load<AudioClip>("Sfx/"+clip),position,volume,door?60:30,door?8:3,door?.65f:1);}
+
+        public static void PlayJump(Vector3 position)
+        { var self=EnsureExists();self.PlayAt(self.jump,position,.55f,18,3,.5f); }
 
         /// <summary>씬에 없어도 자동 생성 — GameFlow.EnsureExists() 와 같은 패턴</summary>
         public static SfxDirector EnsureExists()

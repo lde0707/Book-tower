@@ -1,0 +1,1 @@
+PASS: 900 floor, roof and side rays across 3 lanes and 5 bays.

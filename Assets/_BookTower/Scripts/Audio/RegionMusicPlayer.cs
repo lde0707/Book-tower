@@ -50,8 +50,8 @@ namespace BookTower.Audio
         {
             if(!library)return;
             if(rooms&&rooms.Current)SelectRoom(rooms.Current.RoomId);
-            // Existing UI owns AudioListener.pause. Keep the blend stationary during pauses.
-            if(AudioListener.pause)return;
+            // Reading freezes gameplay, while the music and its unscaled fade continue.
+            if(AudioListener.pause&&!(PaperUI.Instance&&PaperUI.Instance.ScreenState==PaperScreen.Reading))return;
             float step=Time.unscaledDeltaTime/Mathf.Max(.1f,library.fadeSeconds);
             for(int i=0;i<3;i++)
             {

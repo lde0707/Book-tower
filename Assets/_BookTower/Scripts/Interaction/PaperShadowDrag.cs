@@ -9,49 +9,67 @@ namespace BookTower.Interaction
     public sealed class PaperShadowDrag:MonoBehaviour
     {
         public static bool Holding=>active&&active.held;
-        public static bool ConsumesInput=>Holding||consumedFrame==Time.frameCount;
+        public static bool ConsumesInput=>Holding||Aimed||consumedFrame==Time.frameCount;
         static PaperShadowDrag active;static int consumedFrame=-1;
-        PaperShadowHandle held;PlayerInputReader input;Plane plane;Vector3 offset;
-        Vector2 pointer;bool mouseHeld;int began;
+        PaperShadowHandle held;PlayerInputReader input;
+        public const float GrabDistance=12f;
+        public static PaperShadowHandle Aimed { get; private set; }
+        int began;
+        Vector3 previousPlayerPosition;
         public PaperShadowHandle Held=>held;
         void Awake(){input=GetComponent<PlayerInputReader>();}
-        void OnDisable(){Release();}
+        void OnDisable(){Release();Aimed=null;}
         void OnApplicationFocus(bool focus){if(!focus)Release();}
         void Release(){if(held)consumedFrame=Time.frameCount;held=null;if(active==this)active=null;}
         void Update()
         {
             var camera=Camera.main;var mouse=Mouse.current;
-            if(!camera||mouse==null||PaperUI.BlocksGameplay||(PaperUI.Instance&&PaperUI.Instance.StoryActive)){Release();return;}
+            Aimed=null;
+            if(!camera||mouse==null||!PaperCamera.AimActive||PaperUI.BlocksGameplay||(BookTower.Core.GameFlow.Instance&&!BookTower.Core.GameFlow.Instance.AcceptsPlayerInput)||(PaperUI.Instance&&PaperUI.Instance.StoryActive)){Release();return;}
             if(!held)
             {
-                if(!input.PointerPressed&&!input.InteractPressed)return;
-                if(!InteractionRay.Cast(PaperCamera.AimRay(camera),out var hit,9))return;
+                if(!InteractionRay.Cast(PaperCamera.AimRay(camera),out var hit,GrabDistance+Vector3.Distance(camera.transform.position,transform.position)+1))return;
                 var handle=hit.collider.GetComponentInParent<PaperShadowHandle>();
-                if(!handle||!handle.puzzle||handle.puzzle.Complete)return;
+                if(!handle||!handle.puzzle||!handle.CanGrab)return;
                 var room=handle.GetComponentInParent<BookTower.Rooms.Room>();
                 if(room&&!room.IsVisible)return;
-                if(Vector3.Distance(transform.position,hit.point)>6)return;
-                held=handle;active=this;mouseHeld=input.PointerPressed;began=Time.frameCount;consumedFrame=Time.frameCount;
-                plane=new Plane(handle.puzzle.stage.up,hit.point);offset=handle.transform.position-hit.point;
-                pointer=new Vector2(camera.pixelWidth*.5f,camera.pixelHeight*.5f);
-                PaperUI.Notify("누른 채 끌기 · 놓으면 고정 · 귀는 휠/우클릭으로 뒤집기");return;
+                if(Vector3.Distance(transform.position,hit.point)>GrabDistance)return;
+                Aimed=handle;
+                if(!input.PointerPressed)return;
+                held=handle;active=this;began=Time.frameCount;consumedFrame=Time.frameCount;
+                previousPlayerPosition=transform.position;
+
+                var orbit=camera.GetComponent<PaperCamera>();if(orbit)orbit.ConsumeMovementYaw();
+                PaperUI.Notify("클릭 유지: 마우스 상하·좌우 또는 이동 키로 옮기기 · 우클릭: 뒤집기 · 놓으면 고정");return;
             }
-            if(Time.frameCount>began&&((mouseHeld&&!mouse.leftButton.isPressed)||(!mouseHeld&&input.InteractPressed))){Release();return;}
-            if(mouse.rightButton.wasPressedThisFrame||Mathf.Abs(mouse.scroll.ReadValue().y)>.1f)held.puzzle.TurnPaper(held.isEar);
-            pointer+=mouse.delta.ReadValue();pointer.x=Mathf.Clamp(pointer.x,12,camera.pixelWidth-12);pointer.y=Mathf.Clamp(pointer.y,12,camera.pixelHeight-12);
-            var ray=camera.ScreenPointToRay(pointer);
-            Vector3 wanted=held.transform.position;
-            if(plane.Raycast(ray,out float distance)&&distance<40)wanted=ray.GetPoint(distance)+offset;
-            else
-            {
-                var right=Vector3.ProjectOnPlane(camera.transform.right,Vector3.up).normalized;
-                var forward=Vector3.ProjectOnPlane(camera.transform.forward,Vector3.up).normalized;
-                var delta=mouse.delta.ReadValue();wanted+=right*delta.x*.012f+forward*delta.y*.012f;
-            }
-            if(Vector3.Distance(transform.position,wanted)>7)wanted=transform.position+(wanted-transform.position).normalized*7;
-            wanted=Vector3.MoveTowards(held.transform.position,wanted,Time.deltaTime*7);
-            held.puzzle.DragPaper(held.isEar,held.puzzle.stage.InverseTransformPoint(wanted));
+            if(!held.puzzle||held.puzzle.Complete||Vector3.Distance(transform.position,held.transform.position)>18f){Release();return;}
+            var heldRoom=held.GetComponentInParent<BookTower.Rooms.Room>();
+            if(heldRoom&&!heldRoom.IsVisible){Release();return;}
+            if(Time.frameCount>began&&!mouse.leftButton.isPressed){Release();return;}
+            if(mouse.rightButton.wasPressedThisFrame)held.puzzle.TurnPiece(held.PieceIndex);
         }
-        void OnGUI(){if(!held)return;var before=GUI.color;GUI.color=new Color(1,.87f,.58f);GUI.DrawTexture(new Rect(pointer.x-4,Screen.height-pointer.y-4,8,8),Texture2D.whiteTexture);GUI.color=before;}
+        // One planar drag gesture handles both axes without unstable ray/plane intersections.
+        public static float DistanceGain(float distance)
+        {
+            float near=Mathf.SmoothStep(.2f,1,Mathf.InverseLerp(1.2f,5.5f,distance));
+            float far=Mathf.Lerp(1,.22f,Mathf.SmoothStep(0,1,Mathf.InverseLerp(7,15,distance)));
+            return near*far;
+        }
+        void LateUpdate()
+        {
+            if(!held||!Camera.main||Mouse.current==null||Time.timeScale==0||Time.frameCount==began)return;
+            var mouse=Mouse.current;
+            float gain=DistanceGain(Vector3.Distance(transform.position,held.transform.position));
+            if(input.ModifierHeld)gain*=.3f;
+            var delta=Vector2.ClampMagnitude(mouse.delta.ReadValue(),120)*.015f*gain;
+            float lateral=delta.x,depth=delta.y;
+            Vector3 position=held.puzzle.PiecePosition(held.PieceIndex);
+            var stage=held.puzzle.stage;var camera=Camera.main.transform;
+            var right=stage.InverseTransformDirection(Vector3.ProjectOnPlane(camera.right,stage.up)).normalized;
+            var forward=Vector3.Cross(right,Vector3.up).normalized;
+            Vector3 carry=stage.InverseTransformVector(Vector3.ProjectOnPlane(transform.position-previousPlayerPosition,stage.up));
+            previousPlayerPosition=transform.position;
+            held.puzzle.DragPiece(held.PieceIndex,position+right*lateral+forward*depth+carry);
+        }
     }
 }

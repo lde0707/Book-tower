@@ -44,6 +44,7 @@ namespace BookTower.Interaction
 
         public string Label => label;
         public string Verb => verb;
+        public void SetPresentation(string title, string action) { label = title; verb = action; }
         public float Range => range;
         public bool InRange { get; private set; }
 

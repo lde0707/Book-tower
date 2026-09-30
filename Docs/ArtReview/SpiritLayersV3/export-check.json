@@ -1,0 +1,18 @@
+{
+  "source_reopened": true,
+  "portable_glb_reimported": true,
+  "dimensions_m": [
+    1.2428836822509766,
+    1.1196975708007812,
+    2.142756700515747
+  ],
+  "triangles": 235360,
+  "pbr_textures": [
+    "Spirit_BaseColor.png",
+    "Spirit_Normal.png",
+    "Spirit_Roughness.png"
+  ],
+  "texture_resolution": 2048,
+  "rigged": false,
+  "unity_applied": false
+}

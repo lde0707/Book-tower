@@ -28,16 +28,23 @@ namespace BookTower.Story
                 new StoryBeat(StoryShot.Promise, "나", "응. 이번엔 내가 도울게. 네 집까지 같이 가자."),
             },
             Return => new[] {
+                new StoryBeat(StoryShot.DoorMemory, "나", "문틈에서… 누가 말하는 소리가 나."),
                 new StoryBeat(StoryShot.DoorMemory, "제본사의 기억", "잠깐 다녀와도 괜찮아.\n돌아올 자리는 남겨 둘게."),
-                new StoryBeat(StoryShot.DoorMemory, "종이새", "이 목소리… 우리 집에서 들었어."),
+                new StoryBeat(StoryShot.DoorMemory, "종이새", "나한테 하던 말이야. 집을 나설 때마다…\n이 목소리는 잊지 않았네."),
+                new StoryBeat(StoryShot.DoorMemory, "나", "이 책에 네 기억이 남아 있나 봐.\n문 너머에도 있을까? 같이 가 보자."),
             },
             Theatre => new[] {
-                new StoryBeat(StoryShot.CompareWing, "종이새", "여기서는 다들 나보다 컸는데."),
-                new StoryBeat(StoryShot.CompareWing, "나", "그림자가 컸던 걸까?"),
+                new StoryBeat(StoryShot.CompareWing, "종이새", "잠깐… 이 그림들, 본 적 있어.\n집에 가는 길에 들르던 작은 극장이야."),
+                new StoryBeat(StoryShot.CompareWing, "나", "토끼도 있고, 여우도 있네.\n그런데 이야기가 중간에서 끊긴 것 같아."),
+                new StoryBeat(StoryShot.CompareWing, "종이새", "등불이 켜지면 저 벽에 친구들이 나타났어.\n나는 앞에 앉아서 보고… 누가 날 불러 줬는데."),
+                new StoryBeat(StoryShot.CompareWing, "나", "그때 장면을 다시 볼 수 있으면 기억날지도 몰라.\n여기 남은 것들을 같이 살펴보자."),
             },
             Name => new[] {
-                new StoryBeat(StoryShot.NameMemory, "종이새", "나… 모아였어."),
-                new StoryBeat(StoryShot.NameMemory, "나", "이제 부를 수 있겠다. 모아."),
+                new StoryBeat(StoryShot.NameMemory, "종이새", "맞아… 토끼 다음에 여우가 나왔어.\n둘이 집으로 돌아가는 이야기였지."),
+                new StoryBeat(StoryShot.NameMemory, "종이새", "끝나면 그 목소리가 말했어.\n‘모아, 이제 우리도 집에 가자.’"),
+                new StoryBeat(StoryShot.NameMemory, "나", "모아… 그게 네 이름이구나."),
+                new StoryBeat(StoryShot.NameMemory, "종이새", "응. 누군가 날 기다렸다는 것도 생각났어."),
+                new StoryBeat(StoryShot.NameMemory, "나", "그럼 그곳까지 같이 가자, 모아.\n이번엔 이름도 잊지 않게 내가 불러 줄게."),
             },
             _ => System.Array.Empty<StoryBeat>()
         };

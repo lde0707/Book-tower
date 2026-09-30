@@ -21,12 +21,14 @@ namespace BookTower.Puzzles
    else if(control==3)FarDirection=(FarDirection+1)%3;
    else return false;
    lastUse=Time.time;OpticsSettled=false;
-   if(foldSound)audioSource.PlayOneShot(foldSound);
+   BookTower.Audio.SfxDirector.PlayMechanism("mechanism_press",handle,.65f);
+   BookTower.Audio.SfxDirector.PlayMechanism(control==1?"foil_move":"mirror_move",(control==1?shutter:control==2?entranceMirror:farMirror).position,.8f);
    return true;
   }
   static Quaternion Face(Vector3 incoming,Vector3 outgoing)=>Quaternion.LookRotation((incoming-outgoing).normalized);
   void UpdateLightRoute()
   {
+   UpdateBeamPresentation();
    if(!shutter){LightConnected=false;return;}
    Quaternion cover=Quaternion.Euler(0,0,ShutterOpen?100:0);
    Vector3 firstPosition=new(EntranceDirection==0?2.1f:0,6,3);

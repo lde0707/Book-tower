@@ -1,0 +1,72 @@
+PASS: Old journal drops puzzle notes and rebuilds essential summary
+PASS: Only canonical story milestones are stored
+PASS: Reading a puzzle book does not add journal entries
+PASS: Actual scene loads four cutouts and three projectors
+PASS: Grab bounds include stand of 몸통 종이 꽂이
+PASS: Aim selects stand / shaft / cutout of 몸통 종이 꽂이 at -0.7
+PASS: Aim selects stand / shaft / cutout of 몸통 종이 꽂이 at 0.5740868
+PASS: Aim selects stand / shaft / cutout of 몸통 종이 꽂이 at 1.918765
+PASS: Left mouse grabs 몸통 종이 꽂이
+PASS: Mouse moves both axes together: 몸통 종이 꽂이
+PASS: Reverse mouse moves both axes: 몸통 종이 꽂이
+PASS: Player movement carries held piece: (0.20, 0.00, 0.00)
+PASS: Player movement carries held piece: (-0.20, 0.00, 0.00)
+PASS: Player movement carries held piece: (0.00, 0.00, 0.20)
+PASS: Player movement carries held piece: (0.00, 0.00, -0.20)
+PASS: WASD remains available while holding
+PASS: Mouse release fixes position
+PASS: Grab bounds include stand of 작은 귀 종이 꽂이
+PASS: Aim selects stand / shaft / cutout of 작은 귀 종이 꽂이 at -0.7
+PASS: Aim selects stand / shaft / cutout of 작은 귀 종이 꽂이 at 0.3086818
+PASS: Aim selects stand / shaft / cutout of 작은 귀 종이 꽂이 at 1.414495
+PASS: Left mouse grabs 작은 귀 종이 꽂이
+PASS: Mouse moves both axes together: 작은 귀 종이 꽂이
+PASS: Reverse mouse moves both axes: 작은 귀 종이 꽂이
+PASS: Player movement carries held piece: (0.20, 0.00, 0.00)
+PASS: Player movement carries held piece: (-0.20, 0.00, 0.00)
+PASS: Player movement carries held piece: (0.00, 0.00, 0.20)
+PASS: Player movement carries held piece: (0.00, 0.00, -0.20)
+PASS: WASD remains available while holding
+PASS: Mouse release fixes position
+PASS: Grab bounds include stand of 여우 몸통 종이 꽂이
+PASS: Aim selects stand / shaft / cutout of 여우 몸통 종이 꽂이 at -0.7
+PASS: Aim selects stand / shaft / cutout of 여우 몸통 종이 꽂이 at 0.6269494
+PASS: Aim selects stand / shaft / cutout of 여우 몸통 종이 꽂이 at 2.019204
+PASS: Left mouse grabs 여우 몸통 종이 꽂이
+PASS: Mouse moves both axes together: 여우 몸통 종이 꽂이
+PASS: Reverse mouse moves both axes: 여우 몸통 종이 꽂이
+PASS: Player movement carries held piece: (0.20, 0.00, 0.00)
+PASS: Player movement carries held piece: (-0.20, 0.00, 0.00)
+PASS: Player movement carries held piece: (0.00, 0.00, 0.20)
+PASS: Player movement carries held piece: (0.00, 0.00, -0.20)
+PASS: WASD remains available while holding
+PASS: Mouse release fixes position
+PASS: Grab bounds include stand of 여우 꼬리 종이 꽂이
+PASS: Aim selects stand / shaft / cutout of 여우 꼬리 종이 꽂이 at -0.7
+PASS: Aim selects stand / shaft / cutout of 여우 꼬리 종이 꽂이 at 0.1452323
+PASS: Aim selects stand / shaft / cutout of 여우 꼬리 종이 꽂이 at 1.103941
+PASS: Left mouse grabs 여우 꼬리 종이 꽂이
+PASS: Mouse moves both axes together: 여우 꼬리 종이 꽂이
+PASS: Reverse mouse moves both axes: 여우 꼬리 종이 꽂이
+PASS: Player movement carries held piece: (0.20, 0.00, 0.00)
+PASS: Player movement carries held piece: (-0.20, 0.00, 0.00)
+PASS: Player movement carries held piece: (0.00, 0.00, 0.20)
+PASS: Player movement carries held piece: (0.00, 0.00, -0.20)
+PASS: WASD remains available while holding
+PASS: Mouse release fixes position
+PASS: Near and far movement are slower than middle distance
+PASS: Can re-grab before pause
+PASS: ESC releases drag without moving paper
+PASS: Out-of-range grab rejected
+PASS: Actual aim reaches left projector control
+PASS: F selects left projection light
+PASS: Rabbit alone records memory but does not open exit
+PASS: Fox rejects matching positions under the wrong central light
+PASS: Correcting lateral position under wrong light still cannot match folded fox silhouette
+PASS: Right light changes real folded silhouette and does not solve fox
+PASS: Actual left-lamp projection matches fox contour
+PASS: Both recorded animals finish room puzzle
+PASS: Existing P2 gate and story receive completed duet
+PASS: Hidden room disables new lights and art
+PASS: Only selected light restored when entering room
+PASS

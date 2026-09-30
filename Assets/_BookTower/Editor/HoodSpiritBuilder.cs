@@ -16,7 +16,7 @@ namespace BookTower.EditorTools
         public const string Dir="Assets/_BookTower/Art/PaperHoodSpirit";
         public const string Review="Docs/ArtReview/SpiritRedesignV1/AnimationV1";
         const string Request="Temp/HoodSpiritApply.request";
-        static readonly string[] Names={"Idle","Move","JumpRise","Fall","Glide","Land","LookAround","TidyBookmark","Stretch"};
+        static readonly string[] Names={"Idle","Move","Run","JumpRise","Fall","Glide","Land","LookAround","TidyBookmark","Stretch"};
         [InitializeOnLoadMethod] static void Initialize() { EditorApplication.update-=Poll;EditorApplication.update+=Poll; }
         static void Poll()
         {
@@ -42,7 +42,7 @@ namespace BookTower.EditorTools
             var configs=imp.defaultClipAnimations;
             foreach(var c in configs)
             {
-                c.name=ShortName(c.name);c.loopTime=new[]{"Idle","Move","Fall","Glide"}.Contains(c.name);
+                c.name=ShortName(c.name);c.loopTime=new[]{"Idle","Move","Run","Fall","Glide"}.Contains(c.name);
                 c.loopPose=c.loopTime;c.lockRootRotation=true;c.lockRootHeightY=true;c.lockRootPositionXZ=true;
                 c.keepOriginalOrientation=true;c.keepOriginalPositionY=true;c.keepOriginalPositionXZ=true;
             }

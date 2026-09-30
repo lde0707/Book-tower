@@ -1,0 +1,26 @@
+{
+  "limbs": [
+    {
+      "name": "Spirit_LegFoot_-1",
+      "connected_components": 1,
+      "vertices": 34260
+    },
+    {
+      "name": "Spirit_ArmHand_-1",
+      "connected_components": 1,
+      "vertices": 26748
+    },
+    {
+      "name": "Spirit_LegFoot_1",
+      "connected_components": 1,
+      "vertices": 34260
+    },
+    {
+      "name": "Spirit_ArmHand_1",
+      "connected_components": 1,
+      "vertices": 26748
+    }
+  ],
+  "minimum_hem_height_m": 0.06,
+  "unity_applied": false
+}
