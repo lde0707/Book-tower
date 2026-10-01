@@ -1,0 +1,65 @@
+PASS: Actual W input walks across paper joints: 3.96u
+PASS: Shift runs without seam snag: 6.14u
+PASS: Space jumps and lands on start bank, rise=1.15
+PASS: F0 roof collision sample -14,-18
+PASS: F0 roof collision sample -14,-10
+PASS: F0 roof collision sample -14,-2
+PASS: F0 roof collision sample -14,8
+PASS: F0 roof collision sample -14,14
+PASS: F0 roof collision sample -7,-18
+PASS: F0 roof collision sample -7,-10
+PASS: F0 roof collision sample -7,-2
+PASS: F0 roof collision sample -7,8
+PASS: F0 roof collision sample -7,14
+PASS: F0 roof collision sample 0,-18
+PASS: F0 roof collision sample 0,-10
+PASS: F0 roof collision sample 0,-2
+PASS: F0 roof collision sample 0,8
+PASS: F0 roof collision sample 0,14
+PASS: F0 roof collision sample 7,-18
+PASS: F0 roof collision sample 7,-10
+PASS: F0 roof collision sample 7,-2
+PASS: F0 roof collision sample 7,8
+PASS: F0 roof collision sample 7,14
+PASS: F0 roof collision sample 14,-18
+PASS: F0 roof collision sample 14,-10
+PASS: F0 roof collision sample 14,-2
+PASS: F0 roof collision sample 14,8
+PASS: F0 roof collision sample 14,14
+PASS: 57 passage centre/edge positions have floor, roof and both walls (collision sampling; screenshots reviewed separately)
+PASS: Ten owned structure roots reloaded
+PASS: Stored mesh: 01_시작_장지대지 LayeredCottonEdges
+PASS: Stored mesh: 01_시작_장지대지 IvoryMulberry
+PASS: Stored mesh: 01_시작_장지대지 CottonThread
+PASS: Stored mesh: 01_시작_장지대지 TerracottaPrint
+PASS: Stored mesh: 01_시작_장지대지 UmberDyedPaper
+PASS: Stored mesh: 02_건너편_장지대지 LayeredCottonEdges
+PASS: Stored mesh: 02_건너편_장지대지 IvoryMulberry
+PASS: Stored mesh: 02_건너편_장지대지 CottonThread
+PASS: Stored mesh: 02_건너편_장지대지 TerracottaPrint
+PASS: Stored mesh: 02_건너편_장지대지 UmberDyedPaper
+PASS: Stored mesh: 03_서벽_단서와창 UmberDyedPaper
+PASS: Stored mesh: 03_서벽_단서와창 LayeredCottonEdges
+PASS: Stored mesh: 04_동벽_서가와창 UmberDyedPaper
+PASS: Stored mesh: 04_동벽_서가와창 LayeredCottonEdges
+PASS: Stored mesh: 06_북벽_출구프레임 UmberDyedPaper
+PASS: Stored mesh: 06_북벽_출구프레임 LayeredCottonEdges
+PASS: Stored mesh: 07_천장_겹표지 IvoryMulberry
+PASS: Stored mesh: 07_천장_겹표지 UmberDyedPaper
+PASS: Stored mesh: 07_천장_겹표지 LayeredCottonEdges
+PASS: Stored mesh: 07_천장_겹표지 TerracottaPrint
+PASS: Stored mesh: 13_출구뒤_연속장지복도 IvoryMulberry
+PASS: Stored mesh: 13_출구뒤_연속장지복도 UmberDyedPaper
+PASS: Stored mesh: 13_출구뒤_연속장지복도 LayeredCottonEdges
+PASS: Stored mesh: 13_출구뒤_연속장지복도 TerracottaPrint
+PASS: Stored mesh: 13_출구뒤_연속장지복도 CottonThread
+PASS: Stored mesh: 다음 길의 등불 IvoryMulberry
+PASS: Stored mesh: 다음 길의 등불 UmberDyedPaper
+PASS: Stored mesh: 다음 길의 등불 IvoryMulberry
+PASS: Stored mesh: 다음 길의 등불 UmberDyedPaper
+PASS: Stored mesh: 다음 길의 등불 IvoryMulberry
+PASS: Stored mesh: 다음 길의 등불 UmberDyedPaper
+PASS: Walked full F0-to-1A incline with live RoomManager
+PASS: Live room transition reaches 1A
+PASS: Ran full incline back to F0 without falling; actual CharacterController.Move per game frame
+PASS: traversal checks completed

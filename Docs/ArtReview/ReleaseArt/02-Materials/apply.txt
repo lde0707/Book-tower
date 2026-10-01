@@ -1,0 +1,2 @@
+PASS: geometry/colliders/light settings/slot counts unchanged.
+Changed renderers=3268; material slots before=after=3367; material variants=99; original materials=57

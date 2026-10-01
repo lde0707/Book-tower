@@ -1,0 +1,110 @@
+00-profile-warmup: 1600x900, camera (-4.95, 4.72, -235.30), euler (358.0, 0.0, 0.0), FOV 60, q=1
+PASS: shared contrast 5 / saturation -5; user brightness alone owns exposure .35 at 50, .85 at 75.
+F0-0: 1600x900, camera (0.55, 5.37, -235.28), euler (5.0, 0.0, 0.0), FOV 60, q=1
+F0-0 collision ray coverage 510/510, additional backfaces=0, unresolved=0; geometry sampling, not proof of all visible seams.
+F0-90: 1600x900, camera (-4.78, 5.37, -231.05), euler (5.0, 90.0, 0.0), FOV 60, q=1
+F0-90 collision ray coverage 510/510, additional backfaces=0, unresolved=0; geometry sampling, not proof of all visible seams.
+F0-180: 1600x900, camera (-0.55, 5.37, -225.72), euler (5.0, 180.0, 0.0), FOV 60, q=1
+F0-180 collision ray coverage 510/510, additional backfaces=0, unresolved=0; geometry sampling, not proof of all visible seams.
+F0-270: 1600x900, camera (4.78, 5.37, -229.95), euler (5.0, 270.0, 0.0), FOV 60, q=1
+F0-270 collision ray coverage 510/510, additional backfaces=0, unresolved=0; geometry sampling, not proof of all visible seams.
+F0-post-off: 1600x900, camera (0.55, 5.37, -235.28), euler (5.0, 0.0, 0.0), FOV 60, q=1
+F0-16x10: 1600x1000, camera (0.55, 5.37, -235.28), euler (5.0, 0.0, 0.0), FOV 60, q=1
+F0-21x9: 2100x900, camera (0.55, 5.37, -235.28), euler (5.0, 0.0, 0.0), FOV 60, q=1
+F0-quality-0: 1600x900, camera (0.55, 5.37, -235.28), euler (5.0, 0.0, 0.0), FOV 60, q=0
+F0-quality-2: 1600x900, camera (0.55, 5.37, -235.28), euler (5.0, 0.0, 0.0), FOV 60, q=2
+1A-0: 1600x900, camera (96.53, 6.47, -170.79), euler (5.0, 0.0, 0.0), FOV 60, q=1
+1A-0 collision ray coverage 510/510, additional backfaces=0, unresolved=0; geometry sampling, not proof of all visible seams.
+1A-90: 1600x900, camera (91.22, 6.47, -166.55), euler (5.0, 90.0, 0.0), FOV 60, q=1
+1A-90 collision ray coverage 510/510, additional backfaces=0, unresolved=0; geometry sampling, not proof of all visible seams.
+1A-180: 1600x900, camera (95.45, 6.47, -161.22), euler (5.0, 180.0, 0.0), FOV 60, q=1
+1A-180 collision ray coverage 510/510, additional backfaces=0, unresolved=0; geometry sampling, not proof of all visible seams.
+1A-270: 1600x900, camera (100.78, 6.47, -165.45), euler (5.0, 270.0, 0.0), FOV 60, q=1
+1A-270 collision ray coverage 510/510, additional backfaces=0, unresolved=0; geometry sampling, not proof of all visible seams.
+1A-post-off: 1600x900, camera (96.55, 6.47, -170.78), euler (5.0, 0.0, 0.0), FOV 60, q=1
+1A-16x10: 1600x1000, camera (96.55, 6.47, -170.78), euler (5.0, 0.0, 0.0), FOV 60, q=1
+1A-21x9: 2100x900, camera (96.55, 6.47, -170.78), euler (5.0, 0.0, 0.0), FOV 60, q=1
+1A-quality-0: 1600x900, camera (96.55, 6.47, -170.78), euler (5.0, 0.0, 0.0), FOV 60, q=0
+1A-quality-2: 1600x900, camera (96.55, 6.47, -170.78), euler (5.0, 0.0, 0.0), FOV 60, q=2
+1B-0: 1600x900, camera (170.53, 9.55, -115.78), euler (354.0, 0.0, 0.0), FOV 60, q=1
+1B-0 collision ray coverage 504/510, additional backfaces=6, unresolved=0; geometry sampling, not proof of all visible seams.
+1B-90: 1600x900, camera (165.23, 9.55, -111.55), euler (354.0, 90.0, 0.0), FOV 60, q=1
+1B-90 collision ray coverage 510/510, additional backfaces=0, unresolved=0; geometry sampling, not proof of all visible seams.
+1B-180: 1600x900, camera (169.45, 9.55, -106.23), euler (354.0, 180.0, 0.0), FOV 60, q=1
+1B-180 collision ray coverage 510/510, additional backfaces=0, unresolved=0; geometry sampling, not proof of all visible seams.
+1B-270: 1600x900, camera (174.77, 9.55, -110.45), euler (354.0, 270.0, 0.0), FOV 60, q=1
+1B-270 collision ray coverage 510/510, additional backfaces=0, unresolved=0; geometry sampling, not proof of all visible seams.
+1B-post-off: 1600x900, camera (170.55, 9.55, -115.77), euler (354.0, 0.0, 0.0), FOV 60, q=1
+1B-16x10: 1600x1000, camera (170.55, 9.55, -115.77), euler (354.0, 0.0, 0.0), FOV 60, q=1
+1B-21x9: 2100x900, camera (170.55, 9.55, -115.77), euler (354.0, 0.0, 0.0), FOV 60, q=1
+1B-quality-0: 1600x900, camera (170.55, 9.55, -115.77), euler (354.0, 0.0, 0.0), FOV 60, q=0
+1B-quality-2: 1600x900, camera (170.55, 9.55, -115.77), euler (354.0, 0.0, 0.0), FOV 60, q=2
+1A-fox-parked: 1600x900, camera (96.55, 6.38, -170.79), euler (4.0, 0.0, 0.0), FOV 60, q=1
+1A-both-recorded: 1600x900, camera (96.55, 6.38, -170.79), euler (4.0, 0.0, 0.0), FOV 60, q=1
+PASS: fox-first completion, stable remembered projections, completed silhouettes move into wings.
+PASS: Q/E use map cardinal axes; movement unlocks observation.
+PASS: room motion suspends while hidden/paused and settles to still under accessibility setting.
+Motion/frame-000: 960x540, camera (-9.78, 4.98, -230.36), euler (5.0, 0.0, 0.0), FOV 60, q=1
+Motion/frame-001: 960x540, camera (-9.96, 4.98, -230.35), euler (5.0, 0.0, 0.0), FOV 60, q=1
+Motion/frame-002: 960x540, camera (-9.96, 4.98, -230.35), euler (5.0, 0.0, 0.0), FOV 60, q=1
+Motion/frame-003: 960x540, camera (-9.96, 4.98, -230.35), euler (5.0, 0.0, 0.0), FOV 60, q=1
+Motion/frame-004: 960x540, camera (-9.96, 4.98, -230.35), euler (5.0, 0.0, 0.0), FOV 60, q=1
+Motion/frame-005: 960x540, camera (-9.96, 4.98, -230.35), euler (5.0, 0.0, 0.0), FOV 60, q=1
+Motion/frame-006: 960x540, camera (-9.96, 4.98, -230.35), euler (5.0, 0.0, 0.0), FOV 60, q=1
+Motion/frame-007: 960x540, camera (-9.96, 4.98, -230.35), euler (5.0, 0.0, 0.0), FOV 60, q=1
+Motion/frame-008: 960x540, camera (-9.96, 4.98, -230.35), euler (5.0, 0.0, 0.0), FOV 60, q=1
+Motion/frame-009: 960x540, camera (-9.96, 4.98, -230.35), euler (5.0, 0.0, 0.0), FOV 60, q=1
+Motion/frame-010: 960x540, camera (-9.96, 4.98, -230.35), euler (5.0, 0.0, 0.0), FOV 60, q=1
+Motion/frame-011: 960x540, camera (-9.96, 4.98, -230.35), euler (5.0, 0.0, 0.0), FOV 60, q=1
+Motion/frame-012: 960x540, camera (-9.96, 4.98, -230.35), euler (5.0, 0.0, 0.0), FOV 60, q=1
+Motion/frame-013: 960x540, camera (-9.96, 4.98, -230.35), euler (5.0, 0.0, 0.0), FOV 60, q=1
+Motion/frame-014: 960x540, camera (-9.96, 4.98, -230.35), euler (5.0, 0.0, 0.0), FOV 60, q=1
+Motion/frame-015: 960x540, camera (-9.96, 4.98, -230.35), euler (5.0, 0.0, 0.0), FOV 60, q=1
+Motion/frame-016: 960x540, camera (-9.96, 4.98, -230.35), euler (5.0, 0.0, 0.0), FOV 60, q=1
+Motion/frame-017: 960x540, camera (-9.96, 4.98, -230.35), euler (5.0, 0.0, 0.0), FOV 60, q=1
+Motion/frame-018: 960x540, camera (-9.96, 4.98, -230.35), euler (5.0, 0.0, 0.0), FOV 60, q=1
+Motion/frame-019: 960x540, camera (-9.96, 4.98, -230.35), euler (5.0, 0.0, 0.0), FOV 60, q=1
+Motion/frame-020: 960x540, camera (-9.96, 4.98, -230.35), euler (5.0, 0.0, 0.0), FOV 60, q=1
+Motion/frame-021: 960x540, camera (-9.96, 4.98, -230.35), euler (5.0, 0.0, 0.0), FOV 60, q=1
+Motion/frame-022: 960x540, camera (-9.96, 4.98, -230.35), euler (5.0, 0.0, 0.0), FOV 60, q=1
+Motion/frame-023: 960x540, camera (-9.96, 4.98, -230.35), euler (5.0, 0.0, 0.0), FOV 60, q=1
+Motion/frame-024: 960x540, camera (-9.96, 4.98, -230.35), euler (5.0, 0.0, 0.0), FOV 60, q=1
+Motion/frame-025: 960x540, camera (-9.96, 4.98, -230.35), euler (5.0, 0.0, 0.0), FOV 60, q=1
+Motion/frame-026: 960x540, camera (-9.96, 4.98, -230.35), euler (5.0, 0.0, 0.0), FOV 60, q=1
+Motion/frame-027: 960x540, camera (-9.96, 4.98, -230.35), euler (5.0, 0.0, 0.0), FOV 60, q=1
+Motion/frame-028: 960x540, camera (-9.96, 4.98, -230.35), euler (5.0, 0.0, 0.0), FOV 60, q=1
+Motion/frame-029: 960x540, camera (-9.96, 4.98, -230.35), euler (5.0, 0.0, 0.0), FOV 60, q=1
+Motion/frame-030: 960x540, camera (-9.96, 4.98, -230.35), euler (5.0, 0.0, 0.0), FOV 60, q=1
+Motion/frame-031: 960x540, camera (-9.96, 4.98, -230.35), euler (5.0, 0.0, 0.0), FOV 60, q=1
+Motion/frame-032: 960x540, camera (-9.96, 4.98, -230.35), euler (5.0, 0.0, 0.0), FOV 60, q=1
+Motion/frame-033: 960x540, camera (-9.96, 4.98, -230.35), euler (5.0, 0.0, 0.0), FOV 60, q=1
+Motion/frame-034: 960x540, camera (-9.96, 4.98, -230.35), euler (5.0, 0.0, 0.0), FOV 60, q=1
+Motion/frame-035: 960x540, camera (-9.96, 4.98, -230.35), euler (5.0, 0.0, 0.0), FOV 60, q=1
+Motion/frame-036: 960x540, camera (-9.96, 4.98, -230.35), euler (5.0, 0.0, 0.0), FOV 60, q=1
+Motion/frame-037: 960x540, camera (-9.96, 4.98, -230.35), euler (5.0, 0.0, 0.0), FOV 60, q=1
+Motion/frame-038: 960x540, camera (-9.96, 4.98, -230.35), euler (5.0, 0.0, 0.0), FOV 60, q=1
+Motion/frame-039: 960x540, camera (-9.96, 4.98, -230.35), euler (5.0, 0.0, 0.0), FOV 60, q=1
+Motion/frame-040: 960x540, camera (-9.96, 4.98, -230.35), euler (5.0, 0.0, 0.0), FOV 60, q=1
+Motion/frame-041: 960x540, camera (-9.96, 4.98, -230.35), euler (5.0, 0.0, 0.0), FOV 60, q=1
+Motion/frame-042: 960x540, camera (-9.96, 4.98, -230.35), euler (5.0, 0.0, 0.0), FOV 60, q=1
+Motion/frame-043: 960x540, camera (-9.96, 4.98, -230.35), euler (5.0, 0.0, 0.0), FOV 60, q=1
+Motion/frame-044: 960x540, camera (-9.96, 4.98, -230.35), euler (5.0, 0.0, 0.0), FOV 60, q=1
+Motion/frame-045: 960x540, camera (-9.96, 4.98, -230.35), euler (5.0, 0.0, 0.0), FOV 60, q=1
+Motion/frame-046: 960x540, camera (-9.96, 4.98, -230.35), euler (5.0, 0.0, 0.0), FOV 60, q=1
+Motion/frame-047: 960x540, camera (-9.96, 4.98, -230.35), euler (5.0, 0.0, 0.0), FOV 60, q=1
+Motion/frame-048: 960x540, camera (-9.96, 4.98, -230.35), euler (5.0, 0.0, 0.0), FOV 60, q=1
+Motion/frame-049: 960x540, camera (-9.96, 4.98, -230.35), euler (5.0, 0.0, 0.0), FOV 60, q=1
+Motion/frame-050: 960x540, camera (-9.96, 4.98, -230.35), euler (5.0, 0.0, 0.0), FOV 60, q=1
+Motion/frame-051: 960x540, camera (-9.96, 4.98, -230.35), euler (5.0, 0.0, 0.0), FOV 60, q=1
+Motion/frame-052: 960x540, camera (-9.96, 4.98, -230.35), euler (5.0, 0.0, 0.0), FOV 60, q=1
+Motion/frame-053: 960x540, camera (-9.96, 4.98, -230.35), euler (5.0, 0.0, 0.0), FOV 60, q=1
+Motion/frame-054: 960x540, camera (-9.96, 4.98, -230.35), euler (5.0, 0.0, 0.0), FOV 60, q=1
+Motion/frame-055: 960x540, camera (-9.96, 4.98, -230.35), euler (5.0, 0.0, 0.0), FOV 60, q=1
+Motion/frame-056: 960x540, camera (-9.96, 4.98, -230.35), euler (5.0, 0.0, 0.0), FOV 60, q=1
+Motion/frame-057: 960x540, camera (-9.96, 4.98, -230.35), euler (5.0, 0.0, 0.0), FOV 60, q=1
+Motion/frame-058: 960x540, camera (-9.96, 4.98, -230.35), euler (5.0, 0.0, 0.0), FOV 60, q=1
+Motion/frame-059: 960x540, camera (-9.96, 4.98, -230.35), euler (5.0, 0.0, 0.0), FOV 60, q=1
+Motion/frame-060: 960x540, camera (-9.96, 4.98, -230.35), euler (5.0, 0.0, 0.0), FOV 60, q=1
+Captured a 60-second environment sequence. Editor timings are not release performance evidence.
+Editor machine: AMD Ryzen 5 7500F 6-Core Processor ; NVIDIA GeForce RTX 4060 Ti; 32480 MB RAM; Direct3D11; Unity 6000.3.10f1.
+PASS: automated finish checks; visual judgment recorded separately.

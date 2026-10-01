@@ -1,0 +1,3 @@
+Succeeded; 612260942 bytes; 00:00:22.6153160; errors=0; warnings=1
+Win64 Mono nondevelopment, InGame-only QA build.
+C:\Users\doun0\Desktop\File\GitHub\Book-tower\Logs\AtmosphereBuild\AFoldOfLight.exe

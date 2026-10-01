@@ -1,0 +1,145 @@
+{
+  "cutoff_utc": "2026-10-01T18:26:32.000Z",
+  "messages": 773,
+  "user_messages": 148,
+  "assistant_messages": 625,
+  "days": {
+    "2026-09-24": 52,
+    "2026-09-25": 66,
+    "2026-09-26": 127,
+    "2026-09-27": 215,
+    "2026-09-28": 229,
+    "2026-10-01": 24,
+    "2026-10-02": 60
+  },
+  "excluded": {
+    "environment_blocks": 10
+  },
+  "attachments": [
+    {
+      "file": "Docs/Handoff/Attachments/408b47b03048fc567da6.png",
+      "sha256": "408b47b03048fc567da640ca011bf24bddd387367f0c082eb76e8cfe0e3eaa8c",
+      "bytes": 2058664,
+      "sources": [
+        "embedded-user-reference:msg_01a0d1ef-8138-79f2-acc6-4bb495a0f08c"
+      ]
+    },
+    {
+      "file": "Docs/Handoff/Attachments/e3e96ce4a04dd1dc8664.png",
+      "sha256": "e3e96ce4a04dd1dc86645ac71aa6ad596ddd419702869a05cd94783ca3cb026f",
+      "bytes": 2751306,
+      "sources": [
+        "embedded-user-reference:msg_01a0d929-d835-7a01-9880-bfc643215b37",
+        "C:/Users/doun0/AppData/Local/Temp/codex-clipboard-d5204ff7-25f2-4bed-9f86-12a20076e8bb.png",
+        "C:\\Users\\doun0\\AppData\\Local\\Temp\\codex-clipboard-d5204ff7-25f2-4bed-9f86-12a20076e8bb.png"
+      ]
+    },
+    {
+      "file": "Docs/Handoff/Attachments/ae1b53645e2e9838e59f.png",
+      "sha256": "ae1b53645e2e9838e59ffb765dbb2ad82e0177f947a88223d05a0cab13dd662c",
+      "bytes": 2614443,
+      "sources": [
+        "embedded-user-reference:msg_01a0dc13-fab2-72b3-b1d3-2c99a666589e",
+        "C:/Users/doun0/AppData/Local/Temp/codex-clipboard-8cdf04a8-973e-42a4-b359-551a84e00834.png",
+        "C:\\Users\\doun0\\AppData\\Local\\Temp\\codex-clipboard-8cdf04a8-973e-42a4-b359-551a84e00834.png"
+      ]
+    },
+    {
+      "file": "Docs/Handoff/Attachments/bbe3e46a7fd54adc8b63.txt",
+      "sha256": "bbe3e46a7fd54adc8b632994d22c050d76a1e9def4f4c06cd805d9072b4b068d",
+      "bytes": 12691,
+      "sources": [
+        "C:\\Users\\doun0\\.codex/attachments/2a06024a-0240-4950-86fc-bc0368beb92f/붙여넣은 텍스트.txt"
+      ]
+    },
+    {
+      "file": "Docs/Handoff/Attachments/f6520b9fd4be3f8e5e84.png",
+      "sha256": "f6520b9fd4be3f8e5e845a718011abf2ab11a63c6c25326974b936ac6702b208",
+      "bytes": 2325942,
+      "sources": [
+        "embedded-user-reference:msg_01a0dd48-0b9b-7a73-80c1-23b11e53c261",
+        "C:/Users/doun0/AppData/Local/Temp/codex-clipboard-16a711aa-b82f-45fb-a25c-6ae196f36eb1.png",
+        "C:\\Users\\doun0\\AppData\\Local\\Temp\\codex-clipboard-16a711aa-b82f-45fb-a25c-6ae196f36eb1.png"
+      ]
+    },
+    {
+      "file": "Docs/Handoff/Attachments/13c4564b8ed80b0f0947.png",
+      "sha256": "13c4564b8ed80b0f0947da596f3cc3b7946df60a2e0c96ee4c9356abe93bc65a",
+      "bytes": 2538576,
+      "sources": [
+        "embedded-user-reference:msg_01a0dd66-6a9c-7010-a9ed-d3fdf1e201b0",
+        "C:/Users/doun0/AppData/Local/Temp/codex-clipboard-cfbe7031-e7b9-4db4-ad09-792c7c3afd7a.png",
+        "C:\\Users\\doun0\\AppData\\Local\\Temp\\codex-clipboard-cfbe7031-e7b9-4db4-ad09-792c7c3afd7a.png"
+      ]
+    },
+    {
+      "file": "Docs/Handoff/Attachments/c90114d5db4f0afa655e.png",
+      "sha256": "c90114d5db4f0afa655ecb5f8d390baac304d501bb6a3b65ec9c3436a659cd3a",
+      "bytes": 2152520,
+      "sources": [
+        "embedded-user-reference:msg_01a0dec1-2d39-7342-a6b7-515e835b9733",
+        "C:/Users/doun0/AppData/Local/Temp/codex-clipboard-6e5ee1e7-6b5c-4397-8e23-cd00b8a2f334.png",
+        "C:\\Users\\doun0\\AppData\\Local\\Temp\\codex-clipboard-6e5ee1e7-6b5c-4397-8e23-cd00b8a2f334.png"
+      ]
+    },
+    {
+      "file": "Docs/Handoff/Attachments/f9f40b49f5e06d1d7b7a.png",
+      "sha256": "f9f40b49f5e06d1d7b7a91548c40cc1b9a09d50baeebf7a25cbee8797c0519a0",
+      "bytes": 3141774,
+      "sources": [
+        "embedded-user-reference:msg_01a0e1d0-9ca5-7b62-b4f6-cd7dadc94749",
+        "C:/Users/doun0/AppData/Local/Temp/codex-clipboard-9e24dd21-c0f0-4698-8abf-1cee8dcc299a.png",
+        "C:\\Users\\doun0\\AppData\\Local\\Temp\\codex-clipboard-9e24dd21-c0f0-4698-8abf-1cee8dcc299a.png",
+        "embedded-user-reference:msg_01a0e25c-70e1-7210-ab6c-da9a07831992",
+        "C:/Users/doun0/AppData/Local/Temp/codex-clipboard-d2703b02-ac80-424d-9b87-bdf2a4dfe531.png",
+        "C:\\Users\\doun0\\AppData\\Local\\Temp\\codex-clipboard-d2703b02-ac80-424d-9b87-bdf2a4dfe531.png"
+      ]
+    },
+    {
+      "file": "Docs/Handoff/Attachments/33293517b790a1a35719.png",
+      "sha256": "33293517b790a1a357193bc751bbf3beda5cb7cb0fbad13a4f276ffdeaf63f7f",
+      "bytes": 3149873,
+      "sources": [
+        "embedded-user-reference:msg_01a0e25c-70e1-7210-ab6c-da9a07831992",
+        "C:/Users/doun0/AppData/Local/Temp/codex-clipboard-9671b9aa-d1c1-4d75-bf80-230bbee45031.png",
+        "C:\\Users\\doun0\\AppData\\Local\\Temp\\codex-clipboard-9671b9aa-d1c1-4d75-bf80-230bbee45031.png"
+      ]
+    },
+    {
+      "file": "Docs/Handoff/Attachments/8c9f7ebed406188357c5.png",
+      "sha256": "8c9f7ebed406188357c5d5dd298cd8a8c3e446309b5ee2f67c719dff21d20bb5",
+      "bytes": 1457906,
+      "sources": [
+        "embedded-user-reference:msg_01a0e2a7-9d74-7ac2-b781-f3265924780e",
+        "C:/Users/doun0/AppData/Local/Temp/codex-clipboard-a56e5291-4f74-4943-bc24-dbc97ffde944.png"
+      ]
+    },
+    {
+      "file": "Docs/Handoff/Attachments/b52883ce65c503271d68.png",
+      "sha256": "b52883ce65c503271d68bc14c68edb2906a7cd8ae8a30d65d7139afd64548af0",
+      "bytes": 479920,
+      "sources": [
+        "embedded-user-reference:msg_01a0e362-ba98-7102-8874-82b338ed8463",
+        "C:/Users/doun0/AppData/Local/Temp/codex-clipboard-71790f45-beee-4c47-8d78-8b3a845823ce.png",
+        "C:\\Users\\doun0\\AppData\\Local\\Temp\\codex-clipboard-71790f45-beee-4c47-8d78-8b3a845823ce.png"
+      ]
+    },
+    {
+      "file": "Docs/Handoff/Attachments/a9a636569a06a3ce60c1.png",
+      "sha256": "a9a636569a06a3ce60c1a74ae1a5ecaa3ad45fcb39338576f07092b1536e9754",
+      "bytes": 2669774,
+      "sources": [
+        "embedded-user-reference:msg_01a0e662-c668-7330-904b-152c4fbb4f20",
+        "C:/Users/doun0/AppData/Local/Temp/codex-clipboard-ecc23e66-d4f2-411f-96a2-6c418ca5ad7a.png",
+        "C:\\Users\\doun0\\AppData\\Local\\Temp\\codex-clipboard-ecc23e66-d4f2-411f-96a2-6c418ca5ad7a.png",
+        "embedded-user-reference:msg_01a0e678-e55e-7f11-81a5-22756e037b98",
+        "C:/Users/doun0/AppData/Local/Temp/codex-clipboard-c5f08769-de79-4503-a251-321ba9b5ef9f.png",
+        "C:\\Users\\doun0\\AppData\\Local\\Temp\\codex-clipboard-c5f08769-de79-4503-a251-321ba9b5ef9f.png"
+      ]
+    }
+  ],
+  "missing_original_paths": [
+    "C:/Users/doun0/AppData/Local/Temp/codex-clipboard-8f99f511-4ee8-4dd2-9e5c-c0f3c742a9f1.png"
+  ],
+  "scope": "Visible response_item user input_text + assistant commentary/final only; not system/developer/reasoning/tool payloads. Inline generated media outside those records is not guaranteed. Original local links retained."
+}

@@ -79,13 +79,13 @@ namespace BookTower.Puzzles
             float dt=Time.deltaTime;
             shownBody=Mathf.MoveTowards(shownBody,BodyDistance,dt*3);
             shownEar=Mathf.MoveTowards(shownEar,EarDistance,dt*3);
-            if(body){body.gameObject.SetActive(BodyInstalled);body.localPosition=realShadows?Vector3.MoveTowards(body.localPosition,bodyAt,dt*9):new Vector3(0,1,shownBody);}
-            if(ears){ears.gameObject.SetActive(EarsInstalled);ears.localPosition=realShadows?Vector3.MoveTowards(ears.localPosition,earAt,dt*9):new Vector3(0,1,shownEar);ears.localScale=new Vector3(Flipped?1:-1,1,1);}
+            if(body){body.gameObject.SetActive(BodyInstalled);body.localPosition=realShadows?Vector3.MoveTowards(body.localPosition,Duet?Duet.VisualPosition(0,bodyAt):bodyAt,dt*(Duet&&Duet.RabbitRecorded?3:9)):new Vector3(0,1,shownBody);}
+            if(ears){ears.gameObject.SetActive(EarsInstalled);ears.localPosition=realShadows?Vector3.MoveTowards(ears.localPosition,Duet?Duet.VisualPosition(1,earAt):earAt,dt*(Duet&&Duet.RabbitRecorded?3:9)):new Vector3(0,1,shownEar);ears.localScale=new Vector3(Flipped?1:-1,1,1);}
             if(bodyPickup)bodyPickup.gameObject.SetActive(!BodyFound);
             if(earPickup)earPickup.gameObject.SetActive(!EarsFound);
             if(drawer)drawer.localPosition=Vector3.Lerp(drawer.localPosition,new Vector3(0,1.2f,EarsFound?-1.6f:-.35f),1-Mathf.Exp(-dt*5));
             if(!realShadows){Shadow(bodyShadow,BodyInstalled,12/shownBody,false);Shadow(earShadow,EarsInstalled,12/shownEar,!Flipped);}
-            if(lantern)lantern.intensity=Mathf.Lerp(lantern.intensity,LampOn?(realShadows?160:16):0,1-Mathf.Exp(-dt*5));
+            if(lantern)lantern.intensity=Mathf.Lerp(lantern.intensity,LampOn?(realShadows?ShadowDuet.ProjectionIntensity:16):0,1-Mathf.Exp(-dt*5));
             bool settled=Mathf.Abs(shownBody-BodyDistance)<.01f&&Mathf.Abs(shownEar-EarDistance)<.01f;
             if(realShadows)settled=Vector3.Distance(body.localPosition,bodyAt)<.025f&&Vector3.Distance(ears.localPosition,earAt)<.025f&&!BookTower.Interaction.PaperShadowDrag.Holding;
             hold=Aligned&&settled?hold+dt:0;

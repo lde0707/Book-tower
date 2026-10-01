@@ -1,0 +1,13 @@
+quality-0-rabbit: camera=(96.550, 6.385, -170.788) rotation=(4.00, 0.00, 0.00), FOV=60; gameQuality=0, scale=0.75, shadows=25; exposure=0.35; liveLights=112, shadowLights=3, ambient=RGBA(0.080, 0.100, 0.130, 1.000), probes=3
+quality-0-wrong-fox: camera=(96.550, 6.385, -170.788) rotation=(4.00, 0.00, 0.00), FOV=60; gameQuality=0, scale=0.75, shadows=25; exposure=0.35; liveLights=112, shadowLights=3, ambient=RGBA(0.080, 0.100, 0.130, 1.000), probes=3
+quality-0-correct-fox: camera=(96.550, 6.385, -170.788) rotation=(4.00, 0.00, 0.00), FOV=60; gameQuality=0, scale=0.75, shadows=25; exposure=0.35; liveLights=112, shadowLights=3, ambient=RGBA(0.080, 0.100, 0.130, 1.000), probes=3
+quality-1-rabbit: camera=(96.550, 6.385, -170.788) rotation=(4.00, 0.00, 0.00), FOV=60; gameQuality=1, scale=1, shadows=45; exposure=0.35; liveLights=112, shadowLights=3, ambient=RGBA(0.080, 0.100, 0.130, 1.000), probes=3
+quality-1-wrong-fox: camera=(96.550, 6.385, -170.788) rotation=(4.00, 0.00, 0.00), FOV=60; gameQuality=1, scale=1, shadows=45; exposure=0.35; liveLights=112, shadowLights=3, ambient=RGBA(0.080, 0.100, 0.130, 1.000), probes=3
+quality-1-correct-fox: camera=(96.550, 6.385, -170.788) rotation=(4.00, 0.00, 0.00), FOV=60; gameQuality=1, scale=1, shadows=45; exposure=0.35; liveLights=112, shadowLights=3, ambient=RGBA(0.080, 0.100, 0.130, 1.000), probes=3
+quality-2-rabbit: camera=(96.550, 6.385, -170.788) rotation=(4.00, 0.00, 0.00), FOV=60; gameQuality=2, scale=1.15, shadows=70; exposure=0.35; liveLights=112, shadowLights=3, ambient=RGBA(0.080, 0.100, 0.130, 1.000), probes=3
+quality-2-wrong-fox: camera=(96.550, 6.385, -170.788) rotation=(4.00, 0.00, 0.00), FOV=60; gameQuality=2, scale=1.15, shadows=70; exposure=0.35; liveLights=112, shadowLights=3, ambient=RGBA(0.080, 0.100, 0.130, 1.000), probes=3
+quality-2-correct-fox: camera=(96.550, 6.385, -170.788) rotation=(4.00, 0.00, 0.00), FOV=60; gameQuality=2, scale=1.15, shadows=70; exposure=0.35; liveLights=112, shadowLights=3, ambient=RGBA(0.080, 0.100, 0.130, 1.000), probes=3
+quality-0-F0: camera=(0.565, 5.368, -235.270) rotation=(5.00, 0.00, 0.00), FOV=60; gameQuality=0, scale=0.75, shadows=25; exposure=0.35; liveLights=29, shadowLights=4, ambient=RGBA(0.080, 0.100, 0.130, 1.000), probes=3
+quality-2-F0: camera=(0.550, 5.368, -235.282) rotation=(5.00, 0.00, 0.00), FOV=60; gameQuality=2, scale=1.15, shadows=70; exposure=0.35; liveLights=29, shadowLights=4, ambient=RGBA(0.080, 0.100, 0.130, 1.000), probes=3
+PASS: wrong/right fox geometric projection at all three game qualities; rabbit/fox rendered evidence requires visual inspection.
+PASS: review captures completed; visual assessment separate

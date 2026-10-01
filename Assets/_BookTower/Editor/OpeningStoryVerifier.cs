@@ -174,7 +174,7 @@ namespace BookTower.EditorTools
             yield return 1.3f;Capture("03-promise-large-text");
             Check(ui.GetComponentsInChildren<Text>().Where(t=>t.text==ui.StoryText).All(t=>t.cachedTextGenerator.characterCountVisible>=ui.StoryText.Replace("\n","").Length),"Large dialogue text fits the paper panel");
             foreach(var w in Each(ReadRest()))yield return w;
-            Check(story.Completed(OpeningStoryData.Promise)&&ui.HasRecord("Story.Promise")&&ui.HasRecord("Goal.Promise"),"Promise and goal survive scene completion");
+            Check(story.Completed(OpeningStoryData.Promise)&&ui.HasRecord("Story.Promise")&&!ui.HasRecord("Goal.Promise"),"Witnessed promise is recorded; duplicate goal is excluded from journal");
             yield return .15f;Check(ui.ScreenState==PaperScreen.Playing&&!PaperUI.BlocksGameplay&&!ui.CutsceneView.IsVisible&&story.player.Camera.Mode!=BookTower.CameraSystem.PaperCamera.CameraMode.Cinematic,"Final press hides cutscene and restores gameplay immediately");
             Check(ui.GuidedTarget&&ui.GuidedTarget.GetComponent<ReadableNote>().id==OpeningStoryDirector.WorkNote,"First objective points to the actual work book");
             yield return .3f;Check(ui.ObjectiveGuideVisible&&story.WorkBookEmphasized,"Unread work book has a visible label and warm light");
@@ -207,12 +207,13 @@ namespace BookTower.EditorTools
             foreach(var w in Each(Click()))yield return w;
             Check(ui.ScreenState==PaperScreen.Reading,"Left click also reads workbench through its tabletop proxy");
             story.storyCamera.enabled=true;
-            Check(ui.ScreenState==PaperScreen.Reading&&ui.HasRecord(OpeningStoryDirector.WorkNote),"Reading stores clue and pauses safely");
+            Check(ui.ScreenState==PaperScreen.Reading&&!ui.HasRecord(OpeningStoryDirector.WorkNote),"Reading pauses safely without copying puzzle solutions into the journal");
             story.bridge.Solve();yield return .2f;
-            Check(ui.HasRecord("M01")&&ui.ScreenState==PaperScreen.Reading,"M01 awarded before cutscene; reading is not interrupted");
+            Check(!ui.HasRecord("M01")&&ui.ScreenState==PaperScreen.Reading,"Unread memory is not spoiled in journal; reading is not interrupted");
             ui.Back();foreach(var w in Each(Wait(()=>story.ActiveSequence==OpeningStoryData.Return)))yield return w;
             yield return 1.3f;if(!ui.StoryTextComplete)foreach(var w in Each(Tap()))yield return w;Capture("04-returning-place");
             foreach(var w in Each(ReadRest()))yield return w;
+            Check(ui.HasRecord("M01"),"Return memory enters journal only after its dialogue completes");
             int count=story.SequenceStarts;story.player.TeleportToSafePoint();yield return 1f;
             Check(story.SequenceStarts==count,"Checkpoint does not replay opening or memory");
             Teleport(story.theatreRoom.transform.TransformPoint(new Vector3(-23,.2f,-22)));yield return 1f;
@@ -224,7 +225,13 @@ namespace BookTower.EditorTools
             foreach(var w in Each(ReadRest()))yield return w;
             Teleport(story.theatreRoom.transform.TransformPoint(new Vector3(7,.2f,21)));yield return .6f;
             var workshop=story.theatreRoom.GetComponentInChildren<BookTower.Puzzles.StorybookLightPuzzle>();
-            if(workshop&&workshop.realShadows)
+            if(workshop&&workshop.Duet)
+            {
+                workshop.SelectLight(1);workshop.DragPiece(0,new Vector3(-1.8f,1,12.5f/1.5f));workshop.DragPiece(1,new Vector3(-.9f,1,12.5f/3));if(!workshop.Flipped)workshop.TurnPiece(1);yield return 2f;
+                Check(workshop.Duet.RabbitRecorded&&!workshop.Complete,"One animal does not start the naming story");
+                workshop.DragPiece(2,BookTower.Puzzles.ShadowDuet.FoxBodySolution);workshop.DragPiece(3,BookTower.Puzzles.ShadowDuet.FoxTailSolution);if(!workshop.Duet.TailFlipped)workshop.TurnPiece(3);workshop.SelectLight(0);
+            }
+            else if(workshop&&workshop.realShadows)
             {workshop.DragPaper(false,new Vector3(0,1,12.5f/1.5f));workshop.DragPaper(true,new Vector3(0,1,12.5f/3));workshop.TurnPaper(true);}
             else if(workshop)
             {
@@ -240,10 +247,10 @@ namespace BookTower.EditorTools
                 theatre.practice.CycleForward();theatre.practice.CycleForward();theatre.left.CycleForward();theatre.right.CycleForward();theatre.right.CycleForward();theatre.right.CycleForward();
             }
             foreach(var w in Each(Wait(()=>story.ActiveSequence==OpeningStoryData.Name)))yield return w;
-            Check(ui.HasRecord("M02"),"Actual 1A puzzle completion awards M02 before illustrated memory");
+            Check(!ui.HasRecord("M02"),"Actual two-animal puzzle starts memory without prematurely spoiling its name");
             yield return 1.3f;if(!ui.StoryTextComplete)foreach(var w in Each(Tap()))yield return w;Capture("06-moa-name");
             foreach(var w in Each(ReadRest()))yield return w;
-            Check(story.NameKnown&&ui.HasRecord("Goal.Moa"),"1A ending reveals name and next objective");
+            Check(story.NameKnown&&ui.HasRecord("M02")&&!ui.HasRecord("Goal.Moa"),"1A ending records witnessed name once and keeps objectives out of journal");
             count=story.SequenceStarts;Teleport(story.foyer.transform.TransformPoint(new Vector3(0,3.2f,9)));yield return 1f;
             Teleport(story.theatreRoom.transform.TransformPoint(new Vector3(-23,.2f,-22)));yield return 1f;
             Check(story.SequenceStarts==count,"Returning to rooms does not duplicate story scenes");

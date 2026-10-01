@@ -1,0 +1,32 @@
+[
+  {
+    "method": "ReleaseArtFinishBuilder.Run",
+    "exit": 0,
+    "seconds": 147.1,
+    "log": "C:\\Users\\doun0\\Desktop\\File\\GitHub\\Book-tower\\Logs\\final-ReleaseArtFinishBuilder.Run.log"
+  },
+  {
+    "method": "ReleaseFinishReview.CoverageOnly",
+    "exit": 0,
+    "seconds": 28.5,
+    "log": "C:\\Users\\doun0\\Desktop\\File\\GitHub\\Book-tower\\Logs\\final-ReleaseFinishReview.CoverageOnly.log"
+  },
+  {
+    "method": "ReadingEntranceVerifier.Run",
+    "exit": 0,
+    "seconds": 24.7,
+    "log": "C:\\Users\\doun0\\Desktop\\File\\GitHub\\Book-tower\\Logs\\final-ReadingEntranceVerifier.Run.log"
+  },
+  {
+    "method": "ReadingRoomVerifier.RunBatch",
+    "exit": 0,
+    "seconds": 56.6,
+    "log": "C:\\Users\\doun0\\Desktop\\File\\GitHub\\Book-tower\\Logs\\final-ReadingRoomVerifier.RunBatch.log"
+  },
+  {
+    "method": "ReleaseArtBuild.Run",
+    "exit": 0,
+    "seconds": 46.9,
+    "log": "C:\\Users\\doun0\\Desktop\\File\\GitHub\\Book-tower\\Logs\\final-ReleaseArtBuild.Run.log"
+  }
+]

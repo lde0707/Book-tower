@@ -1,0 +1,104 @@
+[
+  {
+    "method": "ShadowDuetVerifier.Run",
+    "exit": 0,
+    "seconds": 44.8,
+    "log": "C:\\Users\\doun0\\Desktop\\File\\GitHub\\Book-tower\\Logs\\final-ShadowDuetVerifier.Run.log"
+  },
+  {
+    "method": "ReadingRoomVerifier.RunBatch",
+    "exit": 0,
+    "seconds": 56.6,
+    "log": "C:\\Users\\doun0\\Desktop\\File\\GitHub\\Book-tower\\Logs\\final-ReadingRoomVerifier.RunBatch.log"
+  },
+  {
+    "method": "ReadingEntranceVerifier.Run",
+    "exit": 0,
+    "seconds": 24.6,
+    "log": "C:\\Users\\doun0\\Desktop\\File\\GitHub\\Book-tower\\Logs\\final-ReadingEntranceVerifier.Run.log"
+  },
+  {
+    "method": "F0PlayVerifier.Run",
+    "exit": 0,
+    "seconds": 77.5,
+    "log": "C:\\Users\\doun0\\Desktop\\File\\GitHub\\Book-tower\\Logs\\final-F0PlayVerifier.Run.log"
+  },
+  {
+    "method": "FoyerTransitionVerifier.Run",
+    "exit": 0,
+    "seconds": 40.3,
+    "log": "C:\\Users\\doun0\\Desktop\\File\\GitHub\\Book-tower\\Logs\\final-FoyerTransitionVerifier.Run.log"
+  },
+  {
+    "method": "OpeningStoryVerifier.RunBatch",
+    "exit": 0,
+    "seconds": 100.9,
+    "log": "C:\\Users\\doun0\\Desktop\\File\\GitHub\\Book-tower\\Logs\\final-OpeningStoryVerifier.RunBatch.log"
+  },
+  {
+    "method": "RunSettingsVerifier.Run",
+    "exit": 0,
+    "seconds": 28.4,
+    "log": "C:\\Users\\doun0\\Desktop\\File\\GitHub\\Book-tower\\Logs\\final-RunSettingsVerifier.Run.log"
+  },
+  {
+    "method": "ReadingMusicVerifier.Run",
+    "exit": 0,
+    "seconds": 26.0,
+    "log": "C:\\Users\\doun0\\Desktop\\File\\GitHub\\Book-tower\\Logs\\final-ReadingMusicVerifier.Run.log"
+  },
+  {
+    "method": "ReleaseReadingStructureCheck.Run",
+    "exit": 0,
+    "seconds": 14.8,
+    "log": "C:\\Users\\doun0\\Desktop\\File\\GitHub\\Book-tower\\Logs\\final-ReleaseReadingStructureCheck.Run.log"
+  },
+  {
+    "method": "ReleaseStructureTraversal.Run",
+    "exit": 0,
+    "seconds": 47.9,
+    "log": "C:\\Users\\doun0\\Desktop\\File\\GitHub\\Book-tower\\Logs\\final-ReleaseStructureTraversal.Run.log"
+  },
+  {
+    "method": "ReleaseArtBuild.Run",
+    "exit": 0,
+    "seconds": 45.5,
+    "log": "C:\\Users\\doun0\\Desktop\\File\\GitHub\\Book-tower\\Logs\\final-ReleaseArtBuild.Run.log"
+  },
+  {
+    "method": "ReleaseFinishReview.Run",
+    "exit": 0,
+    "seconds": 140.7,
+    "log": "C:\\Users\\doun0\\Desktop\\File\\GitHub\\Book-tower\\Logs\\final-ReleaseFinishReview.Run.log"
+  },
+  {
+    "method": "ReleaseLightingReview.PuzzleQualities",
+    "exit": 0,
+    "seconds": 43.0,
+    "log": "C:\\Users\\doun0\\Desktop\\File\\GitHub\\Book-tower\\Logs\\final-ReleaseLightingReview.PuzzleQualities.log"
+  },
+  {
+    "method": "ReleaseFinishReview.CoverageOnly",
+    "exit": 0,
+    "seconds": 28.5,
+    "log": "C:\\Users\\doun0\\Desktop\\File\\GitHub\\Book-tower\\Logs\\final-ReleaseFinishReview.CoverageOnly.log"
+  },
+  {
+    "method": "ReleaseArtFinishBuilder.Run",
+    "exit": 0,
+    "seconds": 147.1,
+    "log": "C:\\Users\\doun0\\Desktop\\File\\GitHub\\Book-tower\\Logs\\final-ReleaseArtFinishBuilder.Run.log"
+  },
+  {
+    "method": "ReleaseArtFinishBuilder.SealAndReview",
+    "exit": 0,
+    "seconds": 38.2,
+    "log": "C:\\Users\\doun0\\Desktop\\File\\GitHub\\Book-tower\\Logs\\final-ReleaseArtFinishBuilder.SealAndReview.log"
+  },
+  {
+    "method": "ReleaseArtFinishBuilder.FoyerAndReview",
+    "exit": 0,
+    "seconds": 42.9,
+    "log": "C:\\Users\\doun0\\Desktop\\File\\GitHub\\Book-tower\\Logs\\final-ReleaseArtFinishBuilder.FoyerAndReview.log"
+  }
+]

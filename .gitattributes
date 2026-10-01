@@ -50,3 +50,7 @@
 *.dylib     binary
 *.pdb       binary
 *.unitypackage binary
+
+# Unity GI bake data is binary despite its .asset extension.
+# Keep its bytes intact when the project is cloned on another computer.
+Assets/Scenes/InGame/LightingData.asset binary

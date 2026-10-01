@@ -1,0 +1,6 @@
+Backface hit: continuous folded paper vault, viewport=(0.250,0.853)
+Backface hit: continuous folded paper vault, viewport=(0.750,0.853)
+Backface hit: continuous folded paper vault, viewport=(0.217,0.912)
+Backface hit: continuous folded paper vault, viewport=(0.783,0.912)
+Backface hit: continuous folded paper vault, viewport=(0.183,0.971)
+Backface hit: continuous folded paper vault, viewport=(0.817,0.971)

@@ -45,9 +45,11 @@ namespace BookTower.EditorTools
    var cam=new GameObject("360-degree seam camera").AddComponent<Camera>();cam.fieldOfView=82;cam.nearClipPlane=.06f;cam.farClipPlane=150;cam.clearFlags=CameraClearFlags.SolidColor;cam.backgroundColor=Color.magenta;cam.allowHDR=false;
    var points=new[]{new Vector3(142.5f,9.8f,-132),new Vector3(156.5f,9.8f,-126.5f),new Vector3(160,9.8f,-122)};
    var rt=new RenderTexture(480,300,24);rt.Create();var image=new Texture2D(480,300,TextureFormat.RGB24,false);var prior=RenderTexture.active;
+   int airCount=Shader.GetGlobalInt("_PaperAirCount"),beamCount=Shader.GetGlobalInt("_PaperBeamCount");
+   Shader.SetGlobalInt("_PaperAirCount",0);Shader.SetGlobalInt("_PaperBeamCount",0);
    try{for(int i=0;i<points.Length;i++)foreach(int yaw in new[]{0,90,180,270})
     {cam.transform.position=points[i];cam.transform.rotation=Quaternion.Euler(-12,yaw,0);cam.targetTexture=rt;cam.Render();RenderTexture.active=rt;image.ReadPixels(new Rect(0,0,480,300),0,0);image.Apply();int holes=image.GetPixels32().Count(c=>c.r>180&&c.b>180&&c.g<85);File.WriteAllBytes(Out+$"/seam-{i}-{yaw}.png",image.EncodeToPNG());report+=$"VIEW: station={i}, yaw={yaw}, exposed-background pixels={holes}\n";if(holes>0)throw new Exception($"Exterior visible at station {i} yaw {yaw}: {holes} pixels");}
-   }finally{cam.targetTexture=null;RenderTexture.active=prior;Object.DestroyImmediate(image);rt.Release();Object.DestroyImmediate(rt);Object.DestroyImmediate(cam.gameObject);}
+   }finally{Shader.SetGlobalInt("_PaperAirCount",airCount);Shader.SetGlobalInt("_PaperBeamCount",beamCount);cam.targetTexture=null;RenderTexture.active=prior;Object.DestroyImmediate(image);rt.Release();Object.DestroyImmediate(rt);Object.DestroyImmediate(cam.gameObject);}
    report+="PASS: 12 camera views show no magenta exterior background\n";
    foreach(string id in new[]{"1A","1B"}){var bound=root.GetComponent<RoomBound>();bound.SetVisible(bound.Belongs(id));if(root.GetComponentsInChildren<Renderer>().Any(r=>!r.enabled))throw new Exception("Passage culled in "+id);report+="PASS: visible from "+id+"\n";}
   }

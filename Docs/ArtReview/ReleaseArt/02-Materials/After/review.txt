@@ -1,0 +1,11 @@
+01-F0-start: player=(0.0000, 3.1000, -230.5000) camera=(0.5482, 5.3684, -235.2817) rotation=(5.0000, 0.0000, 0.0000) FOV=60, gameQuality=1, UnityQuality=0, renderScale=1, shadowDistance=45
+02-F0-grazing-floor: player=(0.0000, 3.1000, -232.0000) camera=(0.5500, 7.0542, -236.3141) rotation=(26.0000, 0.0000, 0.0000) FOV=60, gameQuality=1, UnityQuality=0, renderScale=1, shadowDistance=45
+03-F0-wall: player=(-11.0000, 3.1000, -230.0000) camera=(-10.6513, 4.9803, -229.9606) rotation=(5.0000, 270.0000, 0.0000) FOV=60, gameQuality=1, UnityQuality=0, renderScale=1, shadowDistance=45
+04-spirit-front: player=(0.0000, 3.1000, -230.0000) camera=(-0.5526, 5.3683, -225.2184) rotation=(5.0000, 180.0000, 0.0000) FOV=60, gameQuality=1, UnityQuality=0, renderScale=1, shadowDistance=45
+05-spirit-normal-off: player=(0.0000, 3.1000, -230.0000) camera=(-0.5500, 5.3683, -225.2183) rotation=(5.0000, 180.0000, 0.0000) FOV=60, gameQuality=1, UnityQuality=0, renderScale=1, shadowDistance=45
+06-1A-entry: player=(92.0000, 4.2000, -201.0000) camera=(92.2766, 6.4064, -203.5429) rotation=(8.0000, 0.0000, 0.0000) FOV=60, gameQuality=1, UnityQuality=0, renderScale=1, shadowDistance=45
+07-1A-stage: player=(96.0000, 4.2000, -166.0000) camera=(96.5493, 6.3848, -170.7942) rotation=(4.0000, 0.0000, 0.0000) FOV=60, gameQuality=1, UnityQuality=0, renderScale=1, shadowDistance=45
+08-1A-low: player=(96.0000, 4.2000, -166.0000) camera=(96.5500, 6.3848, -170.7884) rotation=(4.0000, 0.0000, 0.0000) FOV=60, gameQuality=0, UnityQuality=0, renderScale=0.75, shadowDistance=25
+09-F0-low: player=(0.0000, 3.1000, -230.5000) camera=(0.5670, 5.3685, -235.2703) rotation=(5.0000, 0.0000, 0.0000) FOV=60, gameQuality=0, UnityQuality=0, renderScale=0.75, shadowDistance=25
+PASS: 24 maps have explicit colour/data spaces, authored normals, mipmaps and anisotropic filtering; no missing/error material
+PASS: saved-scene capture complete; visual findings recorded separately

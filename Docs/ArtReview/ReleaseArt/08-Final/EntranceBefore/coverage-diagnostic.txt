@@ -1,0 +1,8 @@
+1B-0 collision ray coverage 504/510, additional backfaces=6, unresolved=0; geometry sampling, not proof of all visible seams.
+1B-0 rendered envelope: 0 exposed magenta pixels at 960x540 (post and fog disabled).
+1B-180 collision ray coverage 509/510, additional backfaces=0, unresolved=1; geometry sampling, not proof of all visible seams.
+1B-180 rendered envelope: 1083 exposed magenta pixels at 960x540 (post and fog disabled).
+FAIL: System.Exception: 1B-180 has exposed background pixels: 1083
+  at BookTower.EditorTools.ReleaseFinishReview.CheckRenderedEnvelope (System.String name) [0x0013a] in C:\Users\doun0\Desktop\File\GitHub\Book-tower\Logs\F0ArtValidation\Assets\_BookTower\Editor\ReleaseFinishReview.cs:117 
+  at BookTower.EditorTools.ReleaseFinishReview+<Review>d__19.MoveNext () [0x001c3] in C:\Users\doun0\Desktop\File\GitHub\Book-tower\Logs\F0ArtValidation\Assets\_BookTower\Editor\ReleaseFinishReview.cs:58 
+  at BookTower.EditorTools.ReleaseFinishReview.Tick () [0x0002f] in C:\Users\doun0\Desktop\File\GitHub\Book-tower\Logs\F0ArtValidation\Assets\_BookTower\Editor\ReleaseFinishReview.cs:38 

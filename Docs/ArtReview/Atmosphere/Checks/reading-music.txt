@@ -1,0 +1,14 @@
+PASS: Region BGM exists in actual InGame scene
+PASS: BGM plays before reading
+PASS: Readable book exists
+PASS: Reading still freezes gameplay
+PASS: BGM ignores listener pause only during reading
+PASS: Playback advances when opening book
+PASS: BGM continues throughout reading
+PASS: Reading BGM has nonzero volume and fade
+PASS: Music volume setting still mutes reading BGM
+PASS: Closing book keeps same playing track
+PASS: Closing book does not restart the track
+PASS: ESC pause retains existing music pause behavior
+PASS: BGM resumes after ESC menu
+PASS

@@ -1,0 +1,1 @@
+Frames exceeding 33.33 ms. Captured in memory during sampling, written after each segment.

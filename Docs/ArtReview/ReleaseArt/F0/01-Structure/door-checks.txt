@@ -1,0 +1,90 @@
+PASS: Actual scene story and UI present
+PASS: F0 bound door initially closed
+PASS: Puzzle solved synchronously locks locomotion
+PASS: No story before actual door completion
+PASS: Walking/jumping cannot move player during door animation
+PASS: No story before actual door completion
+PASS: Walking/jumping cannot move player during door animation
+PASS: No story before actual door completion
+PASS: Walking/jumping cannot move player during door animation
+PASS: No story before actual door completion
+PASS: Walking/jumping cannot move player during door animation
+PASS: No story before actual door completion
+PASS: Walking/jumping cannot move player during door animation
+PASS: No story before actual door completion
+PASS: Walking/jumping cannot move player during door animation
+PASS: No story before actual door completion
+PASS: Walking/jumping cannot move player during door animation
+PASS: No story before actual door completion
+PASS: Walking/jumping cannot move player during door animation
+PASS: No story before actual door completion
+PASS: Walking/jumping cannot move player during door animation
+PASS: No story before actual door completion
+PASS: Walking/jumping cannot move player during door animation
+PASS: No story before actual door completion
+PASS: Walking/jumping cannot move player during door animation
+PASS: No story before actual door completion
+PASS: Walking/jumping cannot move player during door animation
+PASS: No story before actual door completion
+PASS: Walking/jumping cannot move player during door animation
+PASS: No story before actual door completion
+PASS: Walking/jumping cannot move player during door animation
+PASS: No story before actual door completion
+PASS: Walking/jumping cannot move player during door animation
+PASS: No story before actual door completion
+PASS: Walking/jumping cannot move player during door animation
+PASS: No story before actual door completion
+PASS: Walking/jumping cannot move player during door animation
+PASS: No story before actual door completion
+PASS: Walking/jumping cannot move player during door animation
+PASS: No story before actual door completion
+PASS: Walking/jumping cannot move player during door animation
+PASS: No story before actual door completion
+PASS: Walking/jumping cannot move player during door animation
+PASS: No story before actual door completion
+PASS: Walking/jumping cannot move player during door animation
+PASS: No story before actual door completion
+PASS: Walking/jumping cannot move player during door animation
+PASS: No story before actual door completion
+PASS: Walking/jumping cannot move player during door animation
+PASS: No story before actual door completion
+PASS: Walking/jumping cannot move player during door animation
+PASS: No story before actual door completion
+PASS: Walking/jumping cannot move player during door animation
+PASS: No story before actual door completion
+PASS: Walking/jumping cannot move player during door animation
+PASS: No story before actual door completion
+PASS: Walking/jumping cannot move player during door animation
+PASS: No story before actual door completion
+PASS: Walking/jumping cannot move player during door animation
+PASS: No story before actual door completion
+PASS: Walking/jumping cannot move player during door animation
+PASS: No story before actual door completion
+PASS: Walking/jumping cannot move player during door animation
+PASS: No story before actual door completion
+PASS: Walking/jumping cannot move player during door animation
+PASS: No story before actual door completion
+PASS: Walking/jumping cannot move player during door animation
+PASS: No story before actual door completion
+PASS: Walking/jumping cannot move player during door animation
+PASS: No story before actual door completion
+PASS: Walking/jumping cannot move player during door animation
+PASS: No story before actual door completion
+PASS: Walking/jumping cannot move player during door animation
+PASS: No story before actual door completion
+PASS: Walking/jumping cannot move player during door animation
+PASS: No story before actual door completion
+PASS: Walking/jumping cannot move player during door animation
+PASS: No story before actual door completion
+PASS: Walking/jumping cannot move player during door animation
+PASS: Fully opened door immediately starts Return story
+PASS: Door opening foley triggered
+PASS: Door swept bounds fit camera throughout opening
+PASS: Story continues input lock without disabling player permanently
+PASS: Finishing story restores gameplay
+PASS: Ceiling prefab present at runtime
+PASS: Ceiling belongs to both rooms across transition
+PASS: All ceiling renderers remain visible in F0
+PASS: All ceiling renderers remain visible in 1A
+PASS: Actual CharacterController traverses entire covered F0 to 1A ramp
+PASS

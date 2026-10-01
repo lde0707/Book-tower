@@ -22,6 +22,9 @@ namespace BookTower.CameraSystem
         [SerializeField] private float closeFocusHeight = 0.85f;
         [SerializeField] private float cameraCollisionRadius = 0.28f;
         [SerializeField] private float cameraWallClearance = 0.18f;
+        [SerializeField, Min(1f)] private float collisionReturnSpeed = 5f;
+        readonly RaycastHit[] collisionHits = new RaycastHit[64];
+        float resolvedDistance = -1f;
 
         [Header("모드")]
         [SerializeField] private CameraMode mode = CameraMode.Follow;
@@ -184,7 +187,7 @@ namespace BookTower.CameraSystem
             else if (mode == CameraMode.Overview) FitToFrameTarget();
 
             ApplyTransform();
-            if(BookTower.UI.PaperSettingsRuntime.Values.shake&&Time.time<shakeUntil)transform.position+=transform.right*(Mathf.Sin(Time.time*35)*.025f*(shakeUntil-Time.time)/.65f);
+            if(BookTower.UI.PaperSettingsRuntime.Values.shake&&!BookTower.UI.PaperSettingsRuntime.Values.reduceStoryMotion&&!BookTower.Interaction.PaperShadowDrag.Holding&&Time.time<shakeUntil)transform.position+=transform.right*(Mathf.Sin(Time.time*35)*.025f*(shakeUntil-Time.time)/.65f);
         }
 
         private void HandleInput()
@@ -204,7 +207,7 @@ namespace BookTower.CameraSystem
                 return;
             }
             if(mouse!=null && mouse.delta.ReadValue().sqrMagnitude>0) ApplyLookDelta(mouse.delta.ReadValue());
-            if(BookTower.UI.PaperSettingsRuntime.Values.autoCamera&&!observationLocked&&target&&Time.time-lastLook>2&&playerInput!=null&&playerInput.Move.sqrMagnitude<.01f)aimYaw=Mathf.MoveTowardsAngle(aimYaw,target.eulerAngles.y,25*Time.deltaTime);
+            if(BookTower.UI.PaperSettingsRuntime.Values.autoCamera&&!BookTower.Interaction.PaperShadowDrag.Holding&&!observationLocked&&target&&Time.time-lastLook>2&&playerInput!=null&&playerInput.Move.sqrMagnitude<.01f)aimYaw=Mathf.MoveTowardsAngle(aimYaw,target.eulerAngles.y,25*Time.deltaTime);
 
             if (BookTower.UI.PaperSettingsRuntime.Pressed(6)) LockObservation(-1);
             if (BookTower.UI.PaperSettingsRuntime.Pressed(7)) LockObservation(1);
@@ -373,15 +376,22 @@ namespace BookTower.CameraSystem
             Vector3 delta=wanted-origin;
             float length=delta.magnitude;
             if(length<.01f)return wanted;
-            RaycastHit[] hits=Physics.SphereCastAll(origin,cameraCollisionRadius,delta/length,length);
+            int count=Physics.SphereCastNonAlloc(origin,cameraCollisionRadius,delta/length,collisionHits,length,~0,QueryTriggerInteraction.Ignore);
+            // Dense book stacks may exceed the buffer; never miss the closest wall.
+            var hits=count==collisionHits.Length?Physics.SphereCastAll(origin,cameraCollisionRadius,delta/length,length,~0,QueryTriggerInteraction.Ignore):collisionHits;
+            if(hits!=collisionHits)count=hits.Length;
             float nearest=length;
-            foreach(var hit in hits)
+            for(int i=0;i<count;i++)
             {
+                var hit=hits[i];
                 if(hit.collider==null || hit.collider.isTrigger)continue;
                 if(target!=null && hit.collider.transform.IsChildOf(target))continue;
                 nearest=Mathf.Min(nearest,Mathf.Max(.35f,hit.distance-cameraWallClearance));
             }
-            return origin+delta.normalized*nearest;
+            // Pull in immediately to prevent clipping; ease only the outward recovery.
+            if(resolvedDistance<0||nearest<resolvedDistance)resolvedDistance=nearest;
+            else resolvedDistance=Mathf.Lerp(resolvedDistance,nearest,1f-Mathf.Exp(-collisionReturnSpeed*Time.deltaTime));
+            return origin+delta.normalized*Mathf.Min(nearest,resolvedDistance);
         }
 
         // ---------------- 외부 제어 ----------------

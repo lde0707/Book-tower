@@ -1,0 +1,2 @@
+PASS: saved 1B shell: floors=396, roofs=396, side walls=168, upper end walls=136; active renderer material bindings=2016.
+Intentional door openings excluded. Sampled collision coverage is not proof of all visible seams. Separate passage-camera and CharacterController checks are required.

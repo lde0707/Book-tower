@@ -1,0 +1,22 @@
+Atmosphere: 780 baked probes calibrated; 1 visible room volumes; shader supported=True.
+Unity 6000.3.10f1, development=False, platform=WindowsPlayer
+CPU: AMD Ryzen 5 7500F 6-Core Processor 
+GPU: NVIDIA GeForce RTX 4060 Ti, VRAM 7949 MB, API Direct3D12
+RAM: 32480 MB
+
+Measured resolution 1920x1080. Each segment forces uncapped/VSync=0 and warms up 5s; q1=60s, q0/2=15s. See measurement-config.txt for actual segment settings. No screenshots during sampling.
+Room,q,frames,mean_ms,p50_ms,p95_ms,p99_ms,max_ms,CPU_mean_ms,GPU_mean_ms,draw_calls_mean,triangles_mean,used_memory_MiB
+
+F0,1,7430,8.08,7.78,10.05,10.24,10.42,8.08,7.79,2173,10921627,535
+1A,1,10862,5.52,5.52,5.93,6.31,6.89,5.52,4.36,3480,5909844,533
+1B,1,6524,9.20,8.62,12.56,13.37,13.89,9.20,8.89,4506,9800410,529
+F0,0,2594,5.78,5.57,6.63,6.85,7.00,5.78,5.12,1880,11182891,532
+1A,0,2716,5.52,5.52,5.58,5.69,6.24,5.52,3.02,2909,5643615,531
+1B,0,2496,6.01,5.63,7.72,8.14,8.51,6.01,5.34,3988,9369291,531
+F0,2,1446,10.38,10.05,12.57,12.76,12.96,10.38,10.08,2556,11032221,539
+1A,2,2555,5.87,5.65,6.70,6.77,6.98,5.87,5.46,3972,6296613,540
+1B,2,1288,11.65,10.86,15.48,16.37,16.90,11.65,11.35,4664,9973231,538
+
+Quality 0/2 samples are 15s plus warmup; baseline q1 is 60s. No full-game release-performance claim. FrameTiming zero means unsupported, not zero cost.
+
+PASS: standalone sequence completed; performance budgets evaluated in table.

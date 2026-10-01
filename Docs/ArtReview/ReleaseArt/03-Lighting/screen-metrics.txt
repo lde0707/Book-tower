@@ -1,0 +1,9 @@
+Post-tonemapped screenshot luminance statistics; not HDR clipping or usability proof.
+Before/01-F0-start: mean_luma=0.4969; p10/p50/p90=[0.14038902 0.55961804 0.82372784]; pixels all RGB>0.98=0.0000%; dark_luma<0.035=0.0099%
+After/01-F0-start: mean_luma=0.3768; p10/p50/p90=[0.07212706 0.4000698  0.69467529]; pixels all RGB>0.98=0.0000%; dark_luma<0.035=0.2993%
+Before/03-1A-stage: mean_luma=0.5256; p10/p50/p90=[0.30880392 0.51032549 0.70555922]; pixels all RGB>0.98=0.0000%; dark_luma<0.035=0.0000%
+After/03-1A-stage: mean_luma=0.4452; p10/p50/p90=[0.25006196 0.39304471 0.66440863]; pixels all RGB>0.98=0.0000%; dark_luma<0.035=0.0000%
+Before/05-1B-entry: mean_luma=0.3708; p10/p50/p90=[0.18336706 0.35411843 0.59055216]; pixels all RGB>0.98=0.0000%; dark_luma<0.035=0.0002%
+After/05-1B-entry: mean_luma=0.2894; p10/p50/p90=[0.13073961 0.27447373 0.50956549]; pixels all RGB>0.98=0.0000%; dark_luma<0.035=0.0008%
+Before/06-1B-lantern: mean_luma=0.4918; p10/p50/p90=[0.16190118 0.49200941 0.78626353]; pixels all RGB>0.98=0.0000%; dark_luma<0.035=0.0013%
+After/06-1B-lantern: mean_luma=0.4615; p10/p50/p90=[0.14174275 0.4308651  0.77644471]; pixels all RGB>0.98=0.0000%; dark_luma<0.035=0.0024%

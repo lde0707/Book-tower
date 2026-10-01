@@ -1,0 +1,39 @@
+PASS: loaded and calibrated 780 real baked irradiance probes.
+F0-0: camera=(0.548, 5.368, -235.282), angle=(5.00, 0.00, 0.00), FOV=60, 1600x900, q=1
+F0-90: camera=(-4.782, 5.368, -231.050), angle=(5.00, 90.00, 0.00), FOV=60, 1600x900, q=1
+F0-180: camera=(-0.550, 5.368, -225.718), angle=(5.00, 180.00, 0.00), FOV=60, 1600x900, q=1
+F0-270: camera=(4.782, 5.368, -229.950), angle=(5.00, 270.00, 0.00), FOV=60, 1600x900, q=1
+F0-air-off: camera=(0.550, 5.368, -235.282), angle=(5.00, 0.00, 0.00), FOV=60, 1600x900, q=1
+F0-shafts-off: camera=(0.550, 5.368, -235.282), angle=(5.00, 0.00, 0.00), FOV=60, 1600x900, q=1
+F0-quality-0: camera=(0.550, 5.368, -235.282), angle=(5.00, 0.00, 0.00), FOV=60, 1600x900, q=0
+F0-quality-2: camera=(0.550, 5.368, -235.282), angle=(5.00, 0.00, 0.00), FOV=60, 1600x900, q=2
+F0-accessibility: camera=(0.550, 5.368, -235.282), angle=(5.00, 0.00, 0.00), FOV=60, 1600x900, q=1
+PASS F0: bounded air active, legacy fog off, independent puzzle lights preserved; shafts=2.
+Baked irradiance up/front/down: RGBA(0.1489, 0.0971, 0.0797, 1.0000) RGBA(0.2761, 0.1685, 0.1121, 1.0000) RGBA(0.3333, 0.2161, 0.1415, 1.0000)
+1A-0: camera=(96.532, 6.468, -170.793), angle=(5.00, 0.00, 0.00), FOV=60, 1600x900, q=1
+1A-90: camera=(91.218, 6.468, -166.550), angle=(5.00, 90.00, 0.00), FOV=60, 1600x900, q=1
+1A-180: camera=(95.450, 6.468, -161.218), angle=(5.00, 180.00, 0.00), FOV=60, 1600x900, q=1
+1A-270: camera=(100.782, 6.468, -165.450), angle=(5.00, 270.00, 0.00), FOV=60, 1600x900, q=1
+1A-air-off: camera=(96.550, 6.468, -170.782), angle=(5.00, 0.00, 0.00), FOV=60, 1600x900, q=1
+1A-shafts-off: camera=(96.550, 6.468, -170.782), angle=(5.00, 0.00, 0.00), FOV=60, 1600x900, q=1
+1A-quality-0: camera=(96.550, 6.468, -170.782), angle=(5.00, 0.00, 0.00), FOV=60, 1600x900, q=0
+1A-quality-2: camera=(96.550, 6.468, -170.782), angle=(5.00, 0.00, 0.00), FOV=60, 1600x900, q=2
+1A-accessibility: camera=(96.550, 6.468, -170.782), angle=(5.00, 0.00, 0.00), FOV=60, 1600x900, q=1
+PASS 1A: bounded air active, legacy fog off, independent puzzle lights preserved; shafts=0.
+Baked irradiance up/front/down: RGBA(0.0734, 0.0668, 0.0698, 1.0000) RGBA(0.0830, 0.0681, 0.0660, 1.0000) RGBA(0.1004, 0.0757, 0.0676, 1.0000)
+1B-0: camera=(170.536, 9.548, -115.781), angle=(354.00, 0.00, 0.00), FOV=60, 1600x900, q=1
+1B-90: camera=(165.226, 9.548, -111.550), angle=(354.00, 90.00, 0.00), FOV=60, 1600x900, q=1
+1B-180: camera=(169.450, 9.548, -106.226), angle=(354.00, 180.00, 0.00), FOV=60, 1600x900, q=1
+1B-270: camera=(174.774, 9.548, -110.450), angle=(354.00, 270.00, 0.00), FOV=60, 1600x900, q=1
+1B-air-off: camera=(170.550, 9.548, -115.774), angle=(354.00, 0.00, 0.00), FOV=60, 1600x900, q=1
+1B-shafts-off: camera=(170.550, 9.548, -115.774), angle=(354.00, 0.00, 0.00), FOV=60, 1600x900, q=1
+1B-quality-0: camera=(170.550, 9.548, -115.774), angle=(354.00, 0.00, 0.00), FOV=60, 1600x900, q=0
+1B-quality-2: camera=(170.550, 9.548, -115.774), angle=(354.00, 0.00, 0.00), FOV=60, 1600x900, q=2
+1B-accessibility: camera=(170.550, 9.548, -115.774), angle=(354.00, 0.00, 0.00), FOV=60, 1600x900, q=1
+PASS 1B: bounded air active, legacy fog off, independent puzzle lights preserved; shafts=2.
+Baked irradiance up/front/down: RGBA(0.1678, 0.1032, 0.0870, 1.0000) RGBA(0.1933, 0.1142, 0.0962, 1.0000) RGBA(0.1617, 0.0936, 0.0814, 1.0000)
+1A-entry: camera=(92.310, 6.410, -203.543), angle=(8.00, 0.00, 0.00), FOV=60, 1600x900, q=1
+1B-rear: camera=(169.436, 9.381, -81.269), angle=(352.00, 180.00, 0.00), FOV=60, 1600x900, q=1
+F0-workbook: camera=(-8.435, 5.357, -233.623), angle=(5.00, 0.00, 0.00), FOV=60, 1600x900, q=1
+PASS: hidden rooms contribute no fog or beams. No animated noise, motion blur or gameplay DOF.
+PASS: render and state checks completed. Visual judgment is separate.

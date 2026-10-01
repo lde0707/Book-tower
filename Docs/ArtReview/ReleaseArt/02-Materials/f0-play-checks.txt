@@ -1,0 +1,41 @@
+PASS: Player and camera exist
+PASS: Player grounded after startup (position (-5.50, 3.02, -230.50), state PlayerGroundedState, velocity -2, dt 0.0169624)
+PASS: Start safely on entrance book bank
+PASS: Paper shutter initially blocks the light
+PASS: Remote seal cannot be used from entrance
+PASS: Far reflector cannot be operated from entrance
+PASS: Distant optical interaction rejected
+PASS: Hidden-room optical interaction rejected
+PASS: Retired fragment route remains disabled
+PASS: Pit fall recovers at entrance bank
+PASS: Aim ray targets physical shutter handle; hit=빛 덮개의 제본 고리 current=빛 덮개의 제본 고리 player=(-5.50, 3.02, -227.60) handle=(-5.50, 4.00, -225.80) inRange=True
+PASS: F folds shutter: direct beam wakes lower flower, not exit; stop=골 아래 종이꽃
+PASS: Bridge lowers from entrance handle
+PASS: Walkable page physically blocks the direct beam; stop=밟는 종이 다리
+PASS: Unlit exit rejects confirmation
+PASS: First reflection can be explored
+PASS: Wrong branch opens optional paper flower; stop=옆길의 종이꽃
+PASS: Entrance mirror can rotate to bypass
+PASS: Bypass reaches far bank but initial far reflection goes to decoration; stop=건너편 장식 종이꽃
+PASS: Player walks across solid page bridge
+PASS: Occupied bridge cannot fold under player
+PASS: Far bridge handle still works
+PASS: Old lower-cross-raise solution no longer opens exit
+PASS: Bridge can stay down while solving light path
+PASS: Aim ray reaches far reflector handle
+PASS: Mouse advances far mirror once; reverse path is not a solution
+PASS: Far reflector rotates toward leaf receiver
+PASS: Physical reflected path lights exit while bridge remains walkable; stop=문을 깨우는 잎 문양
+PASS: Lit receiver waits for nearby seal confirmation
+PASS: Source can be closed again
+PASS: Closed paper shutter invalidates correct mirror arrangement
+PASS: Source can be reopened without reset
+PASS: Reopening source restores actual optical path
+PASS: Far-bank fall recovers beyond bridge
+PASS: Lit seal accepts nearby confirmation
+PASS: Reflected light and confirmation unlock P1 door
+PASS: Open door folds away from exit passage
+PASS: Mirrors remain reversible after solve
+PASS: Changing light after solve cannot relock exit
+PASS: Walked bridge, page ramp, open door and F0-to-1A passage
+PASS: F0 runtime and camera checks

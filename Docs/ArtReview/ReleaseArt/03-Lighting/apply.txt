@@ -1,0 +1,61 @@
+PASS: existing geometry, collision, optical transforms and puzzle-owned light values unchanged.
+1A: Map/1A_접힘방향/V4_팝업북회랑/따뜻한 종이등 빛 5 -> 2.8
+F0: Map/F0_표지/V3_제본현관/F0_종이공간_완성아트/11_제본실과매달린종이등/매달린종이등 9 -> 9
+F0: Map/F0_표지/V3_제본현관/연속 외피 보강/다음 길의 등불 45 -> 25
+F0: Map/F0_표지/V3_제본현관/접는 다리와 빛/위에서 내려오는 빛 80 -> 80
+F0: Map/F0_표지/V3_제본현관/F0_종이공간_완성아트/11_제본실과매달린종이등/매달린종이등 9 -> 9
+1A: Map/1A_접힘방향/V4_팝업북회랑/따뜻한 종이등 빛 20 -> 11.2
+1B: Map/1B_끊긴길/ReadingRoom1B/warm paper light 30 -> 18.6
+F0: Map/F0_표지/V3_제본현관/F0_종이공간_완성아트/11_제본실과매달린종이등/매달린종이등 9 -> 9
+F0: Map/F0_표지/V3_제본현관/F0_종이공간_완성아트/11_제본실과매달린종이등/매달린종이등 9 -> 9
+F0: Map/F0_표지/V3_제본현관/연속 외피 보강/다음 길의 등불 45 -> 25
+1A: Map/1A_접힘방향/V4_팝업북회랑/따뜻한 종이등 빛 20 -> 11.2
+1A: Map/1A_접힘방향/V4_팝업북회랑/따뜻한 종이등 빛 55 -> 30.8
+1A: Map/1A_접힘방향/V4_팝업북회랑/접힌 극장 옆날개/따뜻한 종이등 빛 5 -> 2.8
+1A: Map/1A_접힘방향/V4_팝업북회랑/접힌 극장 옆날개/따뜻한 종이등 빛 5 -> 2.8
+1A: Map/1A_접힘방향/V4_팝업북회랑/따뜻한 종이등 빛 5 -> 2.8
+1B: Map/1B_끊긴길/ReadingRoom1B/warm paper light 10 -> 6.2
+1A: Map/1A_접힘방향/V4_팝업북회랑/따뜻한 종이등 빛 5 -> 2.8
+F0: Map/F0_표지/V3_제본현관/F0_종이공간_완성아트/12_창빛과종이반사광/동쪽책등_부드러운반사 100 -> 45
+1A: Map/1A_접힘방향/V4_팝업북회랑/따뜻한 종이등 빛 5 -> 2.8
+1B: Map/1B_끊긴길/ReadingRoom1B/warm paper light 24 -> 14.88
+1B: Map/1B_끊긴길/ReadingRoom1B/warm paper light 35 -> 21.7
+1B: Map/1B_끊긴길/조명/빛_출구 1.6 -> 1.6
+1A: Map/1A_접힘방향/V4_팝업북회랑/따뜻한 종이등 빛 5 -> 2.8
+F0: Map/F0_표지/V3_제본현관/F0_종이공간_완성아트/12_창빛과종이반사광/종이창_투광 185 -> 155
+1B: Map/1B_끊긴길/ReadingRoom1B/05_PaperChandelier instance/warm paper light 35 -> 21.7
+1A: Map/1A_접힘방향/V4_팝업북회랑/따뜻한 종이등 빛 5 -> 2.8
+1B: Map/1B_끊긴길/ReadingRoom1B/warm paper light 30 -> 18.6
+F0: Map/F0_표지/V3_제본현관/F0_종이공간_완성아트/12_창빛과종이반사광/후면표지_반사 130 -> 55
+1A: Map/1A_접힘방향/V4_팝업북회랑/따뜻한 종이등 빛 5 -> 2.8
+F0: Map/F0_표지/F0_살아있는제본실/솔기 도착 반응 0 2 -> 2
+F0: Map/F0_표지/V3_제본현관/F0_종이공간_완성아트/12_창빛과종이반사광/서쪽책등_부드러운반사 105 -> 65
+F0: Map/F0_표지/V3_제본현관/F0_종이공간_완성아트/12_창빛과종이반사광/종이창_투광 48 -> 30
+1B: Map/1B_끊긴길/ReadingRoom1B/warm paper light 30 -> 18.6
+1A: Map/1A_접힘방향/V4_팝업북회랑/따뜻한 종이등 빛 5 -> 2.8
+1A: Map/1A_접힘방향/V4_팝업북회랑/따뜻한 종이등 빛 5 -> 2.8
+1B: Map/1B_끊긴길/ReadingRoom1B/warm paper light 30 -> 18.6
+1A: Map/1A_접힘방향/V4_팝업북회랑/따뜻한 종이등 빛 20 -> 11.2
+1B: Map/1B_끊긴길/ReadingRoom1B/05_PaperChandelier/warm paper light 35 -> 21.7
+1B: Map/1B_끊긴길/ReadingRoom1B/warm paper light 24 -> 14.88
+1B: Map/1B_끊긴길/ReadingRoom1B/shadow-casting reading light 85 -> 68
+1A: Map/1A_접힘방향/V4_팝업북회랑/따뜻한 종이등 빛 20 -> 11.2
+F0: Map/F0_표지/V3_제본현관/F0_종이공간_완성아트/12_창빛과종이반사광/종이창_투광 185 -> 155
+F0: Map/F0_표지/V3_제본현관/F0_종이공간_완성아트/12_창빛과종이반사광/시작대지_장지반사 115 -> 55
+1A: Map/1A_접힘방향/V4_팝업북회랑/따뜻한 종이등 빛 5 -> 2.8
+1B: Map/1B_끊긴길/ReadingRoom1B/warm paper light 5 -> 3.1
+F0: Map/F0_표지/V3_제본현관/F0_종이공간_완성아트/12_창빛과종이반사광/종이창_투광 48 -> 30
+1B: Map/1B_끊긴길/조명/빛_랜드마크_찢겨나간_간극 2.6 -> 2.6
+1B: Map/1B_끊긴길/ReadingRoom1B/warm paper light 10 -> 6.2
+1A: Map/1A_접힘방향/V4_팝업북회랑/따뜻한 종이등 빛 5 -> 2.8
+1A: Map/1A_접힘방향/V4_팝업북회랑/따뜻한 종이등 빛 5 -> 2.8
+F0: Map/F0_표지/V3_제본현관/F0_종이공간_완성아트/11_제본실과매달린종이등/매달린종이등 9 -> 9
+F0: Map/F0_표지/F0_살아있는제본실/솔기 도착 반응 1 2 -> 2
+1A: Map/1A_접힘방향/V4_팝업북회랑/따뜻한 종이등 빛 5 -> 2.8
+1B: Map/1B_끊긴길/ReadingRoom1B/shadow-casting reading light 75 -> 60
+1B: Map/1B_끊긴길/ReadingRoom1B/warm paper light 24 -> 14.88
+F0: Map/F0_표지/F0_살아있는제본실/솔기 도착 반응 2 2 -> 2
+1B: Map/1B_끊긴길/ReadingRoom1B/warm paper light 24 -> 14.88
+F0: Map/F0_표지/V3_제본현관/F0_종이공간_완성아트/12_창빛과종이반사광/문과건너편_반사 150 -> 80
+1A: Map/1A_접힘방향/V4_팝업북회랑/따뜻한 종이등 빛 55 -> 30.8
+F0: Map/F0_표지/V3_제본현관/연속 외피 보강/다음 길의 등불 45 -> 25

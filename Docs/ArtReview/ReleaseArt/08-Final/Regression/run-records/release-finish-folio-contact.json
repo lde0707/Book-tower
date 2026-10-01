@@ -1,0 +1,20 @@
+[
+  {
+    "method": "ReleaseArtFinishBuilder.FoyerAndReview",
+    "exit": 0,
+    "seconds": 42.9,
+    "log": "C:\\Users\\doun0\\Desktop\\File\\GitHub\\Book-tower\\Logs\\final-ReleaseArtFinishBuilder.FoyerAndReview.log"
+  },
+  {
+    "method": "F0PlayVerifier.Run",
+    "exit": 0,
+    "seconds": 77.5,
+    "log": "C:\\Users\\doun0\\Desktop\\File\\GitHub\\Book-tower\\Logs\\final-F0PlayVerifier.Run.log"
+  },
+  {
+    "method": "ReleaseArtBuild.Run",
+    "exit": 0,
+    "seconds": 45.5,
+    "log": "C:\\Users\\doun0\\Desktop\\File\\GitHub\\Book-tower\\Logs\\final-ReleaseArtBuild.Run.log"
+  }
+]

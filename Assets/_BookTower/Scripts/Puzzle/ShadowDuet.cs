@@ -14,6 +14,7 @@ namespace BookTower.Puzzles
   public Renderer[] rabbitRecord,foxRecord;
   public Vector3[] bodyProbes,tailProbes,bodyTargets,tailTargets;
   public const float RabbitX=-2.7f,FoxX=2.8f;
+  public const float ProjectionIntensity=115;
   public static readonly Vector3 FoxBodySolution=new(-.2222222f,1,12.5f/1.8f),FoxTailSolution=new(-1.28f,1,5);
   StorybookLightPuzzle puzzle;Room room;
   Vector3 bodyAt=new(3.2f,1,8.6f),tailAt=new(-4.4f,1,6.2f);
@@ -25,6 +26,10 @@ namespace BookTower.Puzzles
   public bool AllRecorded=>RabbitRecorded&&FoxRecorded;
   public bool Recorded(int index)=>index<2?RabbitRecorded:FoxRecorded;
   public Vector3 Position(int index)=>index==2?bodyAt:tailAt;
+  // Recorded paper slides into the wings; the remembered projection remains on the page.
+  // Logical positions stay unchanged so recording order cannot alter puzzle conditions.
+  public Vector3 VisualPosition(int index,Vector3 original)=>!Recorded(index)?original:
+   index switch {0=>new Vector3(-6.8f,1,3.4f),1=>new Vector3(-5.9f,1,2.2f),2=>new Vector3(6.8f,1,3.4f),_=>new Vector3(5.9f,1,2.2f)};
   public string Goal=>AllRecorded?"두 친구의 그림자가 돌아왔다 · 별등을 따라 다음 열람실로":RabbitRecorded?"여우의 그림자 되찾기 · 세 빛의 방향과 몸통·꼬리의 거리 맞추기":FoxRecorded?"토끼의 그림자 되찾기 · 몸통과 귀의 크기·방향 맞추기":"두 친구의 그림자 되찾기 · 세 방향의 빛으로 토끼와 여우 완성하기";
   Vector3 Source=>puzzle.stage.InverseTransformPoint(puzzle.lantern.transform.position);
   public void Setup(StorybookLightPuzzle p)
@@ -38,6 +43,7 @@ namespace BookTower.Puzzles
    foreach(var line in p.stage.GetComponentsInChildren<Transform>())if(line.name=="맞춰야 할 토끼 윤곽")line.localPosition+=Vector3.right*RabbitX;
    rabbitRecord=p.stage.GetComponentsInChildren<Renderer>().Where(r=>r.name=="맞춰야 할 토끼 윤곽").ToArray();
    for(int i=0;i<lamps.Length;i++){
+    lamps[i].cookie=Resources.Load<Texture2D>("ReleaseProjectionCookie");
     lamps[i].color=original.color;lamps[i].range=24;lamps[i].spotAngle=100;lamps[i].innerSpotAngle=85;
     lamps[i].shadows=LightShadows.Hard;lamps[i].shadowBias=.012f;lamps[i].shadowNormalBias=.015f;lamps[i].shadowNearPlane=.15f;lamps[i].shadowResolution=LightShadowResolution.VeryHigh;
     var c=lamps[i].GetComponentInParent<StorybookLightControl>();c.puzzle=p;
@@ -58,7 +64,7 @@ namespace BookTower.Puzzles
   {
    if(!puzzle||index<0||index>=lamps.Length)return;
    foreach(var light in lamps){light.intensity=0;light.enabled=false;}
-   LightIndex=index;puzzle.lantern=lamps[index];lamps[index].enabled=room==null||room.IsVisible;lamps[index].intensity=160;
+   LightIndex=index;puzzle.lantern=lamps[index];lamps[index].enabled=room==null||room.IsVisible;lamps[index].intensity=ProjectionIntensity;
    if(sound)BookTower.Audio.SfxDirector.PlayMechanism("mechanism_press",lamps[index].transform.position,.55f);
   }
   public void Drag(int index,Vector3 at){if(Recorded(index))return;at=new Vector3(Mathf.Clamp(at.x,-5.5f,5.5f),1,Mathf.Clamp(at.z,3,10));if(index==2)bodyAt=at;else tailAt=at;}
@@ -76,9 +82,9 @@ namespace BookTower.Puzzles
   public void Tick(float dt)
   {
    if(!puzzle)return;
-   foxBody.localPosition=Vector3.MoveTowards(foxBody.localPosition,bodyAt,dt*9);foxTail.localPosition=Vector3.MoveTowards(foxTail.localPosition,tailAt,dt*9);foxTail.localScale=new Vector3(tailFlipped?1:-1,1,1);
-   bool settled=!PaperShadowDrag.Holding&&Vector3.Distance(foxBody.localPosition,bodyAt)<.02f&&Vector3.Distance(foxTail.localPosition,tailAt)<.02f;
-   bool rabbitSettled=Vector3.Distance(puzzle.body.localPosition,puzzle.BodyPosition)<.02f&&Vector3.Distance(puzzle.ears.localPosition,puzzle.EarPosition)<.02f;
+   foxBody.localPosition=Vector3.MoveTowards(foxBody.localPosition,VisualPosition(2,bodyAt),dt*(FoxRecorded?3:9));foxTail.localPosition=Vector3.MoveTowards(foxTail.localPosition,VisualPosition(3,tailAt),dt*(FoxRecorded?3:9));foxTail.localScale=new Vector3(tailFlipped?1:-1,1,1);
+   bool settled=!PaperShadowDrag.Holding&&(FoxRecorded||(Vector3.Distance(foxBody.localPosition,bodyAt)<.02f&&Vector3.Distance(foxTail.localPosition,tailAt)<.02f));
+   bool rabbitSettled=RabbitRecorded||(Vector3.Distance(puzzle.body.localPosition,puzzle.BodyPosition)<.02f&&Vector3.Distance(puzzle.ears.localPosition,puzzle.EarPosition)<.02f);
    rabbitHold=!RabbitRecorded&&RabbitAligned&&settled&&rabbitSettled?rabbitHold+dt:0;
    foxHold=!FoxRecorded&&FoxAligned&&settled?foxHold+dt:0;
    if(rabbitHold>1.25f){RabbitRecorded=true;Stamp(puzzle.body,puzzle.ears,rabbitRecord);PaperUI.Notify("토끼의 그림자가 책장에 남았다.");}
@@ -87,7 +93,7 @@ namespace BookTower.Puzzles
   void Stamp(Transform a,Transform b,Renderer[] record)
   {
    foreach(var t in new[]{a,b})foreach(var r in t.GetComponentsInChildren<Renderer>())r.shadowCastingMode=ShadowCastingMode.Off;
-   foreach(var r in record){block.SetColor("_BaseColor",new Color(.70f,.36f,.10f));block.SetColor("_EmissionColor",new Color(.28f,.11f,.02f));r.SetPropertyBlock(block);}
+   foreach(var r in record){var ink=new Color(.70f,.36f,.10f);block.SetColor("_BaseColor",ink);block.SetColor("_Color",ink);block.SetColor("_EmissionColor",new Color(.28f,.11f,.02f));r.SetPropertyBlock(block);if(r is LineRenderer line){line.startColor=ink;line.endColor=ink;}}
    BookTower.Audio.SfxDirector.PlayMechanism("foil_move",a.position,.6f);
   }
   void LateUpdate()

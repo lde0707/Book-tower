@@ -1,0 +1,32 @@
+Unity 6000.3.10f1; source scene=Assets/Scenes/InGame.unity
+PLAYER capsule height=1.4 diameter=0.6 step=0.45 skin=0.02 center=(0.00, 0.70, 0.00); walk=3.8 run=5.9 jump=1.2
+PLAYER rendered bounds Center: (-5.52, 3.90, -230.51), Extents: (0.51, 0.88, 0.46)
+ROOM origin=(0.00, 0.00, -220.00) rotation=(0.00, 0.00, 0.00) bounds=Center: (0.08, 3.01, -219.85), Extents: (28.87, 3.67, 22.93) floor=0
+PIVOT Map/F0_표지/V3_제본현관/접는 다리와 빛/실제 접히는 페이지 localToRoom=(0.0000, 3.0400, -1.2000) rotation=(90.0000, 0.0000, 0.0000)
+PIVOT Map/F0_표지/V3_제본현관/접는 다리와 빛/위에서 내려오는 빛 localToRoom=(0.0000, 12.2000, 3.0000) rotation=(90.0000, 0.0000, 0.0000)
+PIVOT Map/F0_표지/V3_제본현관/접는 다리와 빛/골 아래 빛 받침 localToRoom=(0.0000, 0.3500, 3.0000) rotation=(0.0000, 0.0000, 0.0000)
+PIVOT Map/F0_표지/V3_제본현관/접는 다리와 빛/접히는 광원 종이 덮개 localToRoom=(1.3000, 9.0000, 3.0000) rotation=(0.0000, 0.0000, 0.0000)
+PIVOT Map/F0_표지/V3_제본현관/접는 다리와 빛/입구 은박 책장 localToRoom=(2.1000, 6.0000, 3.0000) rotation=(0.0000, 0.0000, 0.0000)
+PIVOT Map/F0_표지/V3_제본현관/접는 다리와 빛/건너편 은박 책장 localToRoom=(6.0000, 6.0000, 9.0000) rotation=(0.0000, 315.0000, 0.0000)
+OPTICAL 입구 은박 책장 (2.1000, 6.0000, -217.0000) (0.0000, 0.0000, 0.0000)
+OPTICAL 고정된 모서리 은박 (6.0000, 6.0000, -217.0000) (0.0000, 135.0000, 0.0000)
+OPTICAL 건너편 은박 책장 (6.0000, 6.0000, -211.0000) (0.0000, 315.0000, 0.0000)
+OPTICAL 골 아래 종이꽃 (0.0000, 0.3500, -217.0000) (270.0000, 0.0000, 0.0000)
+OPTICAL 옆길의 종이꽃 (-6.0000, 6.0000, -217.0000) (0.0000, 90.0000, 0.0000)
+OPTICAL 건너편 장식 종이꽃 (10.0000, 6.0000, -211.0000) (0.0000, 270.0000, 0.0000)
+OPTICAL 문을 깨우는 잎 문양 (0.0000, 6.0000, -211.0000) (0.0000, 90.0000, 0.0000)
+DOOR left=(-5.80, 0.00, 15.20) right=(5.80, 0.00, 15.20)
+LINK a=(28.00, 0.10, -208.80) b=(68.00, 4.10, -192.80) scale=(5.50, 0.20, 43.57) slope=5.304558 length=43.26662
+CAMERA 01-start: player=(0.0000, 3.1000, -230.5000) position=(0.4127, 4.7835, -235.2971) rotation=(358.0000, 0.0000, 0.0000) FOV=60.000 near=0.08 far=250 1920x1080, world render (overlay UI excluded)
+CAMERA 02-workbook: player=(-6.0000, 3.1000, -231.0000) position=(-2.1772, 5.7009, -233.9565) rotation=(9.0000, 315.0000, 0.0000) FOV=60.000 near=0.08 far=250 1920x1080, world render (overlay UI excluded)
+CAMERA 03-floor: player=(0.0000, 3.1000, -232.0000) position=(0.3797, 7.7714, -235.8543) rotation=(36.0000, 0.0000, 0.0000) FOV=60.000 near=0.08 far=250 1920x1080, world render (overlay UI excluded)
+CAMERA 04-ceiling: player=(0.0000, 3.1000, -230.0000) position=(0.2091, 3.4265, -231.1130) rotation=(305.0000, 0.0000, 0.0000) FOV=60.000 near=0.08 far=250 1920x1080, world render (overlay UI excluded)
+CAMERA 05-left: player=(0.0000, 3.1000, -226.0000) position=(4.7970, 4.7825, -225.5485) rotation=(358.0000, 270.0000, 0.0000) FOV=60.000 near=0.08 far=250 1920x1080, world render (overlay UI excluded)
+CAMERA 06-right: player=(0.0000, 3.1000, -226.0000) position=(-4.7971, 4.7825, -226.5526) rotation=(358.0000, 90.0000, 0.0000) FOV=60.000 near=0.08 far=250 1920x1080, world render (overlay UI excluded)
+CAMERA 07-rear: player=(0.0000, 3.1000, -226.0000) position=(-0.5500, 4.7825, -221.2030) rotation=(358.0000, 180.0000, 0.0000) FOV=60.000 near=0.08 far=250 1920x1080, world render (overlay UI excluded)
+CAMERA 08-open-door: player=(0.0000, 3.1000, -212.0000) position=(0.5500, 4.6152, -217.4857) rotation=(356.0000, 0.0000, 0.0000) FOV=60.000 near=0.08 far=250 1920x1080, world render (overlay UI excluded)
+CAMERA 09-back-corridor: player=(3.0000, 0.1500, -201.7000) position=(-1.8531, 1.5764, -202.5411) rotation=(354.0000, 90.0000, 0.0000) FOV=60.000 near=0.08 far=250 1920x1080, world render (overlay UI excluded)
+CAMERA 10-corner: player=(20.0000, 0.1500, -202.0000) position=(19.2508, 1.7222, -199.3378) rotation=(354.0000, 180.0000, 0.0000) FOV=60.000 near=0.08 far=250 1920x1080, world render (overlay UI excluded)
+CAMERA 11-link: player=(48.0000, 2.3000, -200.8000) position=(43.0953, 3.0954, -203.0860) rotation=(348.0000, 68.1986, 0.0000) FOV=60.000 near=0.08 far=250 1920x1080, world render (overlay UI excluded)
+CAMERA 12-1A-entry: player=(69.8570, 4.3000, -192.0572) position=(65.0373, 5.6785, -194.5705) rotation=(355.0000, 68.1986, 0.0000) FOV=60.000 near=0.08 far=250 1920x1080, world render (overlay UI excluded)
+PASS: capture and measurement complete; visual approval is separate.

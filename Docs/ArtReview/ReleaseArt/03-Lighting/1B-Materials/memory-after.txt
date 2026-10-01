@@ -1,0 +1,26 @@
+Referenced texture runtime bytes=130740517
+Assets/_BookTower/Textures/F0PaperIdentity/MulberryFiber.png: 2797152 bytes
+Assets/_BookTower/Generated/ReleaseMaterials/Textures/Paper_Normal.png: 2797152 bytes
+Assets/_BookTower/Generated/ReleaseMaterials/Textures/Paper_Mask.png: 2797152 bytes
+Assets/_BookTower/Generated/ReleaseMaterials/Textures/Brass_Color.png: 2797152 bytes
+Assets/_BookTower/Generated/ReleaseMaterials/Textures/Brass_Normal.png: 2797152 bytes
+Assets/_BookTower/Generated/ReleaseMaterials/Textures/Brass_Mask.png: 2797152 bytes
+Assets/_BookTower/Generated/ReleaseMaterials/Textures/Edge_Color.png: 2797152 bytes
+Assets/_BookTower/Generated/ReleaseMaterials/Textures/Edge_Normal.png: 2797152 bytes
+Assets/_BookTower/Generated/ReleaseMaterials/Textures/Edge_Mask.png: 2797152 bytes
+Assets/_BookTower/Generated/ReleaseMaterials/Textures/Cover_Color.png: 2797152 bytes
+Assets/_BookTower/Generated/ReleaseMaterials/Textures/Cover_Normal.png: 2797152 bytes
+Assets/_BookTower/Generated/ReleaseMaterials/Textures/Cover_Mask.png: 2797152 bytes
+Assets/_BookTower/Textures/F0PaperIdentity/MulberryFiberNormal.png: 2797152 bytes
+Assets/_BookTower/Textures/ReadingRoom1B/ReadingAtlas.png: 1399024 bytes
+Assets/_BookTower/Textures/ReadingRoom1B/RavenPortrait.png: 14675332 bytes
+Assets/_BookTower/Textures/ReadingRoom1B/Bookbinder.png: 2797136 bytes
+Assets/_BookTower/Generated/ReleaseMaterials/Textures/Cotton_Color.png: 2797152 bytes
+Assets/_BookTower/Generated/ReleaseMaterials/Textures/Cotton_Normal.png: 2797152 bytes
+Assets/_BookTower/Generated/ReleaseMaterials/Textures/Cotton_Mask.png: 2797152 bytes
+Assets/_BookTower/Generated/ReleaseMaterials/Textures/Spirit_Padded_BaseColor.png: 11185760 bytes
+Assets/_BookTower/Generated/ReleaseMaterials/Textures/Spirit_Padded_Normal.png: 11185760 bytes
+Assets/_BookTower/Generated/ReleaseMaterials/Textures/Spirit_Padded_MetallicSmoothness.png: 11185793 bytes
+Assets/_BookTower/Generated/ReleaseMaterials/Textures/Moa_Padded_BaseColor.png: 11185760 bytes
+Assets/_BookTower/Generated/ReleaseMaterials/Textures/Moa_Padded_Normal.png: 11185760 bytes
+Assets/_BookTower/Generated/ReleaseMaterials/Textures/Moa_Padded_MetallicSmoothness.png: 11185760 bytes

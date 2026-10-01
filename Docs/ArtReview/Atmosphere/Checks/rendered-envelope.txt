@@ -1,0 +1,7 @@
+1B-0: 1600x900, camera (170.49, 9.55, -115.79), euler (354.0, 0.0, 0.0), FOV 60, q=1
+1B-0 collision ray coverage 504/510, additional backfaces=6, unresolved=0; geometry sampling, not proof of all visible seams.
+1B-0 rendered envelope: 0 exposed magenta pixels at 960x540 (post and fog disabled).
+1B-180: 1600x900, camera (169.45, 9.55, -106.23), euler (354.0, 180.0, 0.0), FOV 60, q=1
+1B-180 collision ray coverage 510/510, additional backfaces=0, unresolved=0; geometry sampling, not proof of all visible seams.
+1B-180 rendered envelope: 0 exposed magenta pixels at 960x540 (post and fog disabled).
+PASS: automated finish checks; visual judgment recorded separately.

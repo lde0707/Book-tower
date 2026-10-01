@@ -1,0 +1,1 @@
+Bake gutter extension: 1618476 unpainted texels padded; 2575828 painted texels preserved byte-for-byte. Mesh, UVs, rig unchanged.

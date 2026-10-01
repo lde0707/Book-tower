@@ -1,0 +1,20 @@
+[
+  {
+    "method": "ReleaseArtFinishBuilder.SealAndReview",
+    "exit": 0,
+    "seconds": 38.2,
+    "log": "C:\\Users\\doun0\\Desktop\\File\\GitHub\\Book-tower\\Logs\\final-ReleaseArtFinishBuilder.SealAndReview.log"
+  },
+  {
+    "method": "ReadingEntranceVerifier.Run",
+    "exit": 0,
+    "seconds": 24.6,
+    "log": "C:\\Users\\doun0\\Desktop\\File\\GitHub\\Book-tower\\Logs\\final-ReadingEntranceVerifier.Run.log"
+  },
+  {
+    "method": "ReleaseArtBuild.Run",
+    "exit": 0,
+    "seconds": 54.9,
+    "log": "C:\\Users\\doun0\\Desktop\\File\\GitHub\\Book-tower\\Logs\\final-ReleaseArtBuild.Run.log"
+  }
+]

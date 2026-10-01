@@ -1,0 +1,6 @@
+PASS: 304 applied files match their validated SHA-256.
+Document broken links: 0.
+Latest verifier methods: 17, failures: 0.
+Standalone: 9 completed samples, process exit 0; no logged runtime Exception/Error.
+Main scene SHA-256: AC2750DAA26473E639CF9E3904AAD9B25F416EBD32CD0E818DFECE0F7EF7D8A5
+Earlier-stage dependencies were checked before the final rear-folio-only adjustment and matched. Authored URP settings match; build-populated prefilter/runtime-list caches were not copied.

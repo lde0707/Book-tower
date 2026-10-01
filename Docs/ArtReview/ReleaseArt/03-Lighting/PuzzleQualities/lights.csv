@@ -1,0 +1,170 @@
+path,room,type,intensity,range,color,shadows,bias,normal_bias,enabled,puzzle_owned,bake_type
+"StorybookReadingPassage/동화에서 기억으로 이어지는 회랑/꽃봉오리 종이등",,Point,2.6,6,"RGBA(1.000, 0.790, 0.510, 1.000)",None,0.05,0.4,True,False,Realtime
+"Lighting/Sun (탑 꼭대기 빛)",,Directional,1,10,"RGBA(1.000, 0.988, 0.957, 1.000)",Soft,0.02,0.2,True,False,Realtime
+"StorybookReadingPassage/열람실 앞 굽은 회랑/꽃봉오리 종이등",,Point,2.6,6,"RGBA(1.000, 0.790, 0.510, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/1A_접힘방향/V4_팝업북회랑/따뜻한 종이등 빛",1A,Point,2.8,23,"RGBA(1.000, 0.920, 0.810, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/F0_표지/V3_제본현관/F0_종이공간_완성아트/12_창빛과종이반사광/종이창_투광",F0,Spot,30,36,"RGBA(0.890, 0.910, 1.000, 1.000)",None,0.025,0.1,True,False,Realtime
+"Map/F0_표지/V3_제본현관/레퍼런스_입체제본장식/매달린종이등",F0,Point,0,12,"RGBA(1.000, 0.680, 0.370, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/F0_표지/V3_제본현관/매달린종이등",F0,Point,0,12,"RGBA(1.000, 0.680, 0.370, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/F0_표지/V3_제본현관/레퍼런스_입체제본장식/매달린종이등",F0,Point,0,12,"RGBA(1.000, 0.680, 0.370, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/F0_표지/V3_제본현관/F0_창빛과먼지/오른쪽_은은한반사광",F0,Spot,0,18,"RGBA(0.910, 0.910, 1.000, 1.000)",None,0.05,0.4,True,False,Realtime
+"StorybookReadingPassage/동화에서 기억으로 이어지는 회랑/꽃봉오리 종이등",,Point,2.6,6,"RGBA(1.000, 0.790, 0.510, 1.000)",None,0.05,0.4,True,False,Realtime
+"StorybookReadingPassage/열람실 앞 굽은 회랑/꽃봉오리 종이등",,Point,2.6,6,"RGBA(1.000, 0.790, 0.510, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/1A_접힘방향/V4_팝업북회랑/따뜻한 종이등 빛",1A,Point,2.8,15,"RGBA(1.000, 0.920, 0.810, 1.000)",None,0.05,0.4,True,False,Realtime
+"ReadingEntrancePassage/회랑의 은은한 등빛",,Point,4,9,"RGBA(1.000, 0.780, 0.510, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/F0_표지/V3_제본현관/F0_종이공간_완성아트/11_제본실과매달린종이등/매달린종이등",F0,Point,9,12,"RGBA(1.000, 0.550, 0.230, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/F0_표지/V3_제본현관/F0_종이공간_완성아트/11_제본실과매달린종이등/매달린종이등",F0,Point,9,12,"RGBA(1.000, 0.550, 0.230, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/1B_끊긴길/ReadingRoom1B/warm paper light",1B,Point,14.88,20,"RGBA(1.000, 0.759, 0.504, 1.000)",None,0.05,0.4,True,False,Realtime
+"StorybookReadingPassage/동화에서 기억으로 이어지는 회랑/꽃봉오리 종이등",,Point,2.6,6,"RGBA(1.000, 0.790, 0.510, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/F0_표지/V3_제본현관/F0_종이공간_완성아트/12_창빛과종이반사광/동쪽책등_부드러운반사",F0,Spot,45,22,"RGBA(0.880, 0.910, 1.000, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/F0_표지/F0_살아있는제본실/솔기 도착 반응 0",F0,Point,2,5,"RGBA(1.000, 0.750, 0.400, 1.000)",None,0.05,0.4,True,False,Realtime
+"StorybookReadingPassage/열람실 앞 굽은 회랑/꽃봉오리 종이등",,Point,2.6,6,"RGBA(1.000, 0.790, 0.510, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/1A_접힘방향/V4_팝업북회랑/따뜻한 종이등 빛",1A,Point,2.8,23,"RGBA(1.000, 0.920, 0.810, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/1B_끊긴길/ReadingRoom1B/warm paper light",1B,Point,18.6,23,"RGBA(1.000, 0.785, 0.524, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/F0_표지/V3_제본현관/창문투광",F0,Spot,0,34,"RGBA(1.000, 0.870, 0.680, 1.000)",Soft,0.015,0.035,True,False,Realtime
+"Map/F0_표지/V3_제본현관/매달린종이등",F0,Point,0,12,"RGBA(1.000, 0.680, 0.370, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/1B_끊긴길/ReadingRoom1B/warm paper light",1B,Point,6.2,9,"RGBA(1.000, 0.714, 0.433, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/F0_표지/V3_제본현관/접는 다리와 빛/문을 깨우는 잎 문양",F0,Point,0,4,"RGBA(1.000, 0.720, 0.300, 1.000)",None,0.05,0.4,True,False,Realtime
+"StorybookReadingPassage/동화에서 기억으로 이어지는 회랑/꽃봉오리 종이등",,Point,2.6,6,"RGBA(1.000, 0.790, 0.510, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/F0_표지/V3_제본현관/F0_종이공간_완성아트/12_창빛과종이반사광/종이창_투광",F0,Spot,155,36,"RGBA(1.000, 0.880, 0.730, 1.000)",Soft,0.02,0.045,True,False,Realtime
+"Map/F0_표지/V3_제본현관/창문투광",F0,Spot,0,34,"RGBA(0.830, 0.870, 1.000, 1.000)",None,0.015,0.035,True,False,Realtime
+"Map/F0_표지/V3_제본현관/실내반사광",F0,Point,0,22,"RGBA(1.000, 0.920, 0.800, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/F0_표지/V3_제본현관/F0_종이공간_완성아트/11_제본실과매달린종이등/매달린종이등",F0,Point,9,12,"RGBA(1.000, 0.550, 0.230, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/1B_끊긴길/ReadingRoom1B/04_DoorWindowPulley/warm paper light",1B,Point,0,30,"RGBA(0.420, 0.600, 1.000, 1.000)",None,0.05,0.4,True,True,Realtime
+"Map/F0_표지/V3_제본현관/매달린종이등",F0,Point,0,12,"RGBA(1.000, 0.680, 0.370, 1.000)",None,0.05,0.4,True,False,Realtime
+"StorybookReadingPassage/열람실 앞 굽은 회랑/꽃봉오리 종이등",,Point,2.6,6,"RGBA(1.000, 0.790, 0.510, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/1A_접힘방향/V4_팝업북회랑/따뜻한 종이등 빛",1A,Point,2.8,32,"RGBA(1.000, 0.920, 0.810, 1.000)",None,0.025,0.15,True,False,Realtime
+"Map/F0_표지/V3_제본현관/F0_개별공예소품/04_PaperLantern",F0,Point,0,5,"RGBA(1.000, 0.700, 0.400, 1.000)",None,0.05,0.4,True,False,Realtime
+"ReadingEntrancePassage/회랑의 은은한 등빛",,Point,4,9,"RGBA(1.000, 0.780, 0.510, 1.000)",None,0.05,0.4,True,False,Realtime
+"StorybookReadingPassage/열람실 앞 굽은 회랑/꽃봉오리 종이등",,Point,2.6,6,"RGBA(1.000, 0.790, 0.510, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/F0_표지/V3_제본현관/F0_종이공간_완성아트/12_창빛과종이반사광/후면표지_반사",F0,Spot,55,24,"RGBA(1.000, 0.920, 0.810, 1.000)",None,0.05,0.4,True,False,Realtime
+"StorybookReadingPassage/열람실 앞 굽은 회랑/꽃봉오리 종이등",,Point,2.6,6,"RGBA(1.000, 0.790, 0.510, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/1A_접힘방향/V4_팝업북회랑/토끼 그림자 극장/꽃잎 기억등/실제 그림자 투사 광원",1A,Spot,160,24,"RGBA(1.000, 0.910, 0.770, 1.000)",Hard,0.012,0.015,True,True,Realtime
+"Map/1A_다음열람실_닫힌통로/따뜻한 종이등 빛",,Point,5,15,"RGBA(1.000, 0.910, 0.770, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/1A_다음열람실_닫힌통로/따뜻한 종이등 빛",,Point,5,15,"RGBA(1.000, 0.910, 0.770, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/F0_표지/V3_제본현관/F0_종이공간_완성아트/11_제본실과매달린종이등/매달린종이등",F0,Point,9,12,"RGBA(1.000, 0.550, 0.230, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/1B_끊긴길/ReadingRoom1B/warm paper light",1B,Point,14.88,20,"RGBA(1.000, 0.759, 0.504, 1.000)",None,0.05,0.4,True,False,Realtime
+"StorybookReadingPassage/열람실 앞 굽은 회랑/꽃봉오리 종이등",,Point,2.6,6,"RGBA(1.000, 0.790, 0.510, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/F0_표지/V3_제본현관/접는 다리와 빛/골 아래 빛 받침/골 아래 종이꽃",F0,Point,0,4,"RGBA(1.000, 0.720, 0.300, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/F0_표지/V3_제본현관/창문투광",F0,Spot,0,34,"RGBA(0.830, 0.870, 1.000, 1.000)",None,0.015,0.035,True,False,Realtime
+"Map/잠금_1D/빛_출구",,Point,0,8,"RGBA(0.949, 0.784, 0.474, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/F0_표지/V3_제본현관/F0_창빛과먼지/기둥앞면_종이반사광",F0,Spot,0,19,"RGBA(1.000, 0.900, 0.760, 1.000)",None,0.05,0.4,True,False,Realtime
+"ReadingEntrancePassage/회랑의 은은한 등빛",,Point,4,9,"RGBA(1.000, 0.780, 0.510, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/1A_접힘방향/V4_팝업북회랑/따뜻한 종이등 빛",1A,Point,2.8,15,"RGBA(1.000, 0.920, 0.810, 1.000)",None,0.05,0.4,True,False,Realtime
+"ReadingEntrancePassage/회랑의 은은한 등빛",,Point,4,9,"RGBA(1.000, 0.780, 0.510, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/1A_접힘방향/V4_팝업북회랑/따뜻한 종이등 빛",1A,Point,2.8,15,"RGBA(1.000, 0.920, 0.810, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/1B_끊긴길/ReadingRoom1B/03_MemoryLantern/warm paper light",1B,Point,0.3,8,"RGBA(1.000, 0.700, 0.350, 1.000)",None,0.05,0.4,True,True,Realtime
+"Map/1A_접힘방향/V4_팝업북회랑/따뜻한 종이등 빛",1A,Point,2.8,15,"RGBA(1.000, 0.920, 0.810, 1.000)",None,0.05,0.4,True,False,Realtime
+"ReadingEntrancePassage/회랑의 은은한 등빛",,Point,4,9,"RGBA(1.000, 0.780, 0.510, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/1B_끊긴길/ReadingRoom1B/warm paper light",1B,Point,14.88,20,"RGBA(1.000, 0.759, 0.504, 1.000)",None,0.05,0.4,True,False,Realtime
+"StorybookReadingPassage/동화에서 기억으로 이어지는 회랑/꽃봉오리 종이등",,Point,2.6,6,"RGBA(1.000, 0.790, 0.510, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/잠금_1A/빛_출구",,Point,0,8,"RGBA(0.949, 0.784, 0.474, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/잠금_2E/빛_출구",,Point,0,8,"RGBA(0.949, 0.784, 0.474, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/1B_끊긴길/ReadingRoom1B/warm paper light",1B,Point,14.88,20,"RGBA(1.000, 0.759, 0.504, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/1B_끊긴길/ReadingRoom1B/warm paper light",1B,Point,21.7,35,"RGBA(0.649, 0.688, 0.881, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/F0_표지/V3_제본현관/F0_종이공간_완성아트/12_창빛과종이반사광/서쪽책등_부드러운반사",F0,Spot,65,21,"RGBA(1.000, 0.850, 0.700, 1.000)",None,0.05,0.4,True,False,Realtime
+"ReadingEntrancePassage/회랑의 은은한 등빛",,Point,4,9,"RGBA(1.000, 0.780, 0.510, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/1B_끊긴길/ReadingRoom1B/05_PaperChandelier/warm paper light",1B,Point,21.7,22,"RGBA(1.000, 0.720, 0.420, 1.000)",None,0.05,0.4,True,False,Realtime
+"ReadingRoom1B_Connections/sealed approach passage/warm paper light",,Point,6,15,"RGBA(1.000, 0.740, 0.450, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/1A_다음열람실_닫힌통로/따뜻한 종이등 빛",,Point,5,15,"RGBA(1.000, 0.910, 0.770, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/1B_끊긴길/ReadingRoom1B/warm paper light",1B,Point,18.6,23,"RGBA(1.000, 0.785, 0.524, 1.000)",None,0.05,0.4,True,False,Realtime
+"StorybookReadingPassage/동화에서 기억으로 이어지는 회랑/꽃봉오리 종이등",,Point,2.6,6,"RGBA(1.000, 0.790, 0.510, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/F0_표지/V3_제본현관/F0_종이공간_완성아트/11_제본실과매달린종이등/매달린종이등",F0,Point,9,12,"RGBA(1.000, 0.550, 0.230, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/V4_서문에서동화로/따뜻한 종이등 빛",,Point,5,15,"RGBA(1.000, 0.910, 0.770, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/V4_서문에서동화로/따뜻한 종이등 빛",,Point,5,15,"RGBA(1.000, 0.910, 0.770, 1.000)",None,0.05,0.4,True,False,Realtime
+"StorybookReadingPassage/동화에서 기억으로 이어지는 회랑/꽃봉오리 종이등",,Point,2.6,6,"RGBA(1.000, 0.790, 0.510, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/1A_접힘방향/V4_팝업북회랑/따뜻한 종이등 빛",1A,Point,30.8,32,"RGBA(1.000, 0.920, 0.810, 1.000)",None,0.025,0.15,True,False,Realtime
+"Map/잠금_1E/빛_출구",,Point,0,8,"RGBA(0.949, 0.784, 0.474, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/1A_다음열람실_닫힌통로/따뜻한 종이등 빛",,Point,5,15,"RGBA(1.000, 0.910, 0.770, 1.000)",None,0.05,0.4,True,False,Realtime
+"StorybookReadingPassage/열람실 앞 굽은 회랑/꽃봉오리 종이등",,Point,2.6,6,"RGBA(1.000, 0.790, 0.510, 1.000)",None,0.05,0.4,True,False,Realtime
+"StorybookReadingPassage/열람실 앞 굽은 회랑/꽃봉오리 종이등",,Point,2.6,6,"RGBA(1.000, 0.790, 0.510, 1.000)",None,0.05,0.4,True,False,Realtime
+"StorybookReadingPassage/열람실 앞 굽은 회랑/꽃봉오리 종이등",,Point,2.6,6,"RGBA(1.000, 0.790, 0.510, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/F0_표지/V3_제본현관/접는 다리와 빛/옆길의 종이꽃",F0,Point,0,4,"RGBA(1.000, 0.720, 0.300, 1.000)",None,0.05,0.4,True,False,Realtime
+"StorybookReadingPassage/동화에서 기억으로 이어지는 회랑/꽃봉오리 종이등",,Point,2.6,6,"RGBA(1.000, 0.790, 0.510, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/잠금_1C/빛_출구",,Point,0,8,"RGBA(0.949, 0.784, 0.474, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/F0_표지/V3_제본현관/F0_종이공간_완성아트/12_창빛과종이반사광/종이창_투광",F0,Spot,155,36,"RGBA(1.000, 0.880, 0.730, 1.000)",Soft,0.02,0.045,True,False,Realtime
+"StorybookReadingPassage/열람실 앞 굽은 회랑/꽃봉오리 종이등",,Point,2.6,6,"RGBA(1.000, 0.790, 0.510, 1.000)",None,0.05,0.4,True,False,Realtime
+"StorybookReadingPassage/열람실 앞 굽은 회랑/꽃봉오리 종이등",,Point,2.6,6,"RGBA(1.000, 0.790, 0.510, 1.000)",None,0.05,0.4,True,False,Realtime
+"ReadingEntrancePassage/회랑의 은은한 등빛",,Point,4,9,"RGBA(1.000, 0.780, 0.510, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/1A_접힘방향/V4_팝업북회랑/접힌 극장 옆날개/따뜻한 종이등 빛",1A,Point,2.8,15,"RGBA(1.000, 0.920, 0.810, 1.000)",None,0.05,0.4,True,False,Realtime
+"ReadingEntrancePassage/회랑의 은은한 등빛",,Point,4,9,"RGBA(1.000, 0.780, 0.510, 1.000)",None,0.05,0.4,True,False,Realtime
+"StorybookReadingPassage/열람실 앞 굽은 회랑/꽃봉오리 종이등",,Point,2.6,6,"RGBA(1.000, 0.790, 0.510, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/잠금_2C/빛_출구",,Point,0,8,"RGBA(0.949, 0.784, 0.474, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/1A_접힘방향/V4_팝업북회랑/따뜻한 종이등 빛",1A,Point,2.8,15,"RGBA(1.000, 0.920, 0.810, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/1A_접힘방향/V4_팝업북회랑/따뜻한 종이등 빛",1A,Point,11.2,23,"RGBA(1.000, 0.920, 0.810, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/잠금_2B/빛_출구",,Point,0,8,"RGBA(0.949, 0.784, 0.474, 1.000)",None,0.05,0.4,True,False,Realtime
+"StorybookReadingPassage/열람실 앞 굽은 회랑/꽃봉오리 종이등",,Point,2.6,6,"RGBA(1.000, 0.790, 0.510, 1.000)",None,0.05,0.4,True,False,Realtime
+"StorybookReadingPassage/열람실 앞 굽은 회랑/꽃봉오리 종이등",,Point,2.6,6,"RGBA(1.000, 0.790, 0.510, 1.000)",None,0.05,0.4,True,False,Realtime
+"ReadingEntrancePassage/회랑의 은은한 등빛",,Point,4,9,"RGBA(1.000, 0.780, 0.510, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/F0_표지/V3_제본현관/연속 외피 보강/다음 길의 등불",F0,Point,25,14,"RGBA(1.000, 0.730, 0.400, 1.000)",None,0.05,0.4,True,False,Realtime
+"ReadingRoom1B_Connections/sealed approach passage/warm paper light",,Point,6,15,"RGBA(1.000, 0.740, 0.450, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/F0_표지/V3_제본현관/F0_종이공간_완성아트/12_창빛과종이반사광/종이창_투광",F0,Spot,30,36,"RGBA(0.890, 0.910, 1.000, 1.000)",None,0.025,0.1,True,False,Realtime
+"Map/F0_표지/V3_제본현관/F0_창빛과먼지/후면기둥_반사광",F0,Spot,0,20,"RGBA(1.000, 0.860, 0.670, 1.000)",None,0.05,0.4,True,False,Realtime
+"StorybookReadingPassage/열람실 앞 굽은 회랑/꽃봉오리 종이등",,Point,2.6,6,"RGBA(1.000, 0.790, 0.510, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/1B_끊긴길/ReadingRoom1B/shadow-casting reading light",1B,Spot,68,35,"RGBA(0.480, 0.640, 1.000, 1.000)",Soft,0.025,0.06,True,False,Realtime
+"Map/F0_표지/V3_제본현관/접는 다리와 빛/위에서 내려오는 빛",F0,Spot,80,15,"RGBA(1.000, 0.800, 0.400, 1.000)",Soft,0.05,0.4,True,False,Realtime
+"Map/F0_표지/V3_제본현관/접는 다리와 빛/건너편 장식 종이꽃",F0,Point,0,4,"RGBA(1.000, 0.720, 0.300, 1.000)",None,0.05,0.4,True,False,Realtime
+"StorybookReadingPassage/동화에서 기억으로 이어지는 회랑/꽃봉오리 종이등",,Point,2.6,6,"RGBA(1.000, 0.790, 0.510, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/F0_표지/V3_제본현관/연속 외피 보강/다음 길의 등불",F0,Point,25,14,"RGBA(1.000, 0.730, 0.400, 1.000)",None,0.05,0.4,True,False,Realtime
+"StorybookReadingPassage/동화에서 기억으로 이어지는 회랑/꽃봉오리 종이등",,Point,2.6,6,"RGBA(1.000, 0.790, 0.510, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/1B_끊긴길/ReadingRoom1B/shadow-casting reading light",1B,Spot,60,35,"RGBA(1.000, 0.720, 0.420, 1.000)",Soft,0.025,0.06,True,False,Realtime
+"Map/F0_표지/F0_살아있는제본실/솔기 도착 반응 2",F0,Point,2,5,"RGBA(1.000, 0.750, 0.400, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/1B_끊긴길/ReadingRoom1B/warm paper light",1B,Point,18.6,23,"RGBA(1.000, 0.785, 0.524, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/F0_표지/V3_제본현관/창문투광",F0,Spot,0,34,"RGBA(1.000, 0.870, 0.680, 1.000)",Soft,0.015,0.035,True,False,Realtime
+"ReadingRoom1B_Connections/sealed approach passage/warm paper light",,Point,6,15,"RGBA(1.000, 0.740, 0.450, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/잠금_1B/빛_출구",,Point,0,8,"RGBA(0.949, 0.784, 0.474, 1.000)",None,0.05,0.4,True,False,Realtime
+"StorybookReadingPassage/동화에서 기억으로 이어지는 회랑/꽃봉오리 종이등",,Point,2.6,6,"RGBA(1.000, 0.790, 0.510, 1.000)",None,0.05,0.4,True,False,Realtime
+"StorybookReadingPassage/열람실 앞 굽은 회랑/꽃봉오리 종이등",,Point,2.6,6,"RGBA(1.000, 0.790, 0.510, 1.000)",None,0.05,0.4,True,False,Realtime
+"StorybookReadingPassage/동화에서 기억으로 이어지는 회랑/꽃봉오리 종이등",,Point,2.6,6,"RGBA(1.000, 0.790, 0.510, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/1A_접힘방향/ReleaseArt03_entrance-key",1A,Spot,60,25,"RGBA(1.000, 0.910, 0.770, 1.000)",Soft,0.025,0.06,True,False,Realtime
+"Map/F0_표지/V3_제본현관/문쪽반사광",F0,Point,0,27,"RGBA(1.000, 0.890, 0.730, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/잠금_3B/빛_출구",,Point,0,8,"RGBA(0.949, 0.784, 0.474, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/1A_접힘방향/V4_팝업북회랑/따뜻한 종이등 빛",1A,Point,11.2,23,"RGBA(1.000, 0.920, 0.810, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/V4_서문에서동화로/따뜻한 종이등 빛",,Point,5,15,"RGBA(1.000, 0.910, 0.770, 1.000)",None,0.05,0.4,True,False,Realtime
+"StorybookReadingPassage/열람실 앞 굽은 회랑/꽃봉오리 종이등",,Point,2.6,6,"RGBA(1.000, 0.790, 0.510, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/잠금_3A/빛_출구",,Point,0,8,"RGBA(0.949, 0.784, 0.474, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/1A_접힘방향/V4_팝업북회랑/따뜻한 종이등 빛",1A,Point,2.8,15,"RGBA(1.000, 0.920, 0.810, 1.000)",None,0.05,0.4,True,False,Realtime
+"StorybookReadingPassage/동화에서 기억으로 이어지는 회랑/꽃봉오리 종이등",,Point,2.6,6,"RGBA(1.000, 0.790, 0.510, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/1A_다음열람실_닫힌통로/따뜻한 종이등 빛",,Point,5,15,"RGBA(1.000, 0.910, 0.770, 1.000)",None,0.05,0.4,True,False,Realtime
+"StorybookReadingPassage/동화에서 기억으로 이어지는 회랑/꽃봉오리 종이등",,Point,2.6,6,"RGBA(1.000, 0.790, 0.510, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/1B_끊긴길/조명/빛_랜드마크_찢겨나간_간극",1B,Point,2.6,7.5,"RGBA(0.949, 0.784, 0.474, 1.000)",None,0.05,0.4,True,False,Realtime
+"ReadingEntrancePassage/회랑의 은은한 등빛",,Point,4,9,"RGBA(1.000, 0.780, 0.510, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/V4_서문에서동화로/따뜻한 종이등 빛",,Point,5,15,"RGBA(1.000, 0.910, 0.770, 1.000)",None,0.05,0.4,True,False,Realtime
+"StorybookReadingPassage/동화에서 기억으로 이어지는 회랑/꽃봉오리 종이등",,Point,2.6,6,"RGBA(1.000, 0.790, 0.510, 1.000)",None,0.05,0.4,True,False,Realtime
+"StorybookReadingPassage/동화에서 기억으로 이어지는 회랑/꽃봉오리 종이등",,Point,2.6,6,"RGBA(1.000, 0.790, 0.510, 1.000)",None,0.05,0.4,True,False,Realtime
+"StorybookReadingPassage/열람실 앞 굽은 회랑/꽃봉오리 종이등",,Point,2.6,6,"RGBA(1.000, 0.790, 0.510, 1.000)",None,0.05,0.4,True,False,Realtime
+"StorybookReadingPassage/동화에서 기억으로 이어지는 회랑/꽃봉오리 종이등",,Point,2.6,6,"RGBA(1.000, 0.790, 0.510, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/V4_서문에서동화로/따뜻한 종이등 빛",,Point,5,15,"RGBA(1.000, 0.910, 0.770, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/1B_끊긴길/조명/빛_출구",1B,Point,1.6,7,"RGBA(0.949, 0.784, 0.474, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/1B_끊긴길/ReadingRoom1B/05_PaperChandelier instance/warm paper light",1B,Point,21.7,22,"RGBA(1.000, 0.720, 0.420, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/1B_끊긴길/ReadingRoom1B/warm paper light",1B,Point,3.1,10,"RGBA(1.000, 0.720, 0.426, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/1B_끊긴길/ReadingRoom1B/warm paper light",1B,Point,6.2,9,"RGBA(1.000, 0.714, 0.433, 1.000)",None,0.05,0.4,True,False,Realtime
+"ReadingEntrancePassage/회랑의 은은한 등빛",,Point,4,9,"RGBA(1.000, 0.780, 0.510, 1.000)",None,0.05,0.4,True,False,Realtime
+"ReadingEntrancePassage/회랑의 은은한 등빛",,Point,4,9,"RGBA(1.000, 0.780, 0.510, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/1B_끊긴길/ReadingRoom1B/09_RecordAlcove/warm paper light",1B,Point,0,6,"RGBA(1.000, 0.800, 0.500, 1.000)",None,0.05,0.4,True,True,Realtime
+"Map/1A_접힘방향/V4_팝업북회랑/따뜻한 종이등 빛",1A,Point,30.8,32,"RGBA(1.000, 0.920, 0.810, 1.000)",None,0.025,0.15,True,False,Realtime
+"Map/F0_표지/V3_제본현관/F0_종이공간_완성아트/12_창빛과종이반사광/문과건너편_반사",F0,Spot,80,24,"RGBA(1.000, 0.920, 0.780, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/1A_접힘방향/V4_팝업북회랑/따뜻한 종이등 빛",1A,Point,2.8,15,"RGBA(1.000, 0.920, 0.810, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/F0_표지/V3_제본현관/접는 다리와 빛/골 아래 빛 받침",F0,Point,0,7,"RGBA(1.000, 0.800, 0.300, 1.000)",None,0.05,0.4,True,False,Realtime
+"StorybookReadingPassage/동화에서 기억으로 이어지는 회랑/꽃봉오리 종이등",,Point,2.6,6,"RGBA(1.000, 0.790, 0.510, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/잠금_F0/빛_출구",,Point,0,8,"RGBA(0.949, 0.784, 0.474, 1.000)",None,0.05,0.4,True,False,Realtime
+"StorybookReadingPassage/열람실 앞 굽은 회랑/꽃봉오리 종이등",,Point,2.6,6,"RGBA(1.000, 0.790, 0.510, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/F0_표지/V3_제본현관/연속 외피 보강/다음 길의 등불",F0,Point,25,14,"RGBA(1.000, 0.730, 0.400, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/1A_접힘방향/V4_팝업북회랑/따뜻한 종이등 빛",1A,Point,11.2,23,"RGBA(1.000, 0.920, 0.810, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/1A_접힘방향/V4_팝업북회랑/따뜻한 종이등 빛",1A,Point,2.8,15,"RGBA(1.000, 0.920, 0.810, 1.000)",None,0.05,0.4,True,False,Realtime
+"StorybookReadingPassage/동화에서 기억으로 이어지는 회랑/꽃봉오리 종이등",,Point,2.6,6,"RGBA(1.000, 0.790, 0.510, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/V4_서문에서동화로/따뜻한 종이등 빛",,Point,5,15,"RGBA(1.000, 0.910, 0.770, 1.000)",None,0.05,0.4,True,False,Realtime
+"StorybookReadingPassage/동화에서 기억으로 이어지는 회랑/꽃봉오리 종이등",,Point,2.6,6,"RGBA(1.000, 0.790, 0.510, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/1A_접힘방향/V4_팝업북회랑/따뜻한 종이등 빛",1A,Point,2.8,15,"RGBA(1.000, 0.920, 0.810, 1.000)",None,0.05,0.4,True,False,Realtime
+"ReadingEntrancePassage/회랑의 은은한 등빛",,Point,4,9,"RGBA(1.000, 0.780, 0.510, 1.000)",None,0.05,0.4,True,False,Realtime
+"ReadingEntrancePassage/회랑의 은은한 등빛",,Point,4,9,"RGBA(1.000, 0.780, 0.510, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/1A_접힘방향/V4_팝업북회랑/따뜻한 종이등 빛",1A,Point,2.8,15,"RGBA(1.000, 0.920, 0.810, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/F0_표지/F0_살아있는제본실/솔기 도착 반응 1",F0,Point,2,5,"RGBA(1.000, 0.750, 0.400, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/1A_접힘방향/V4_팝업북회랑/따뜻한 종이등 빛",1A,Point,11.2,23,"RGBA(1.000, 0.920, 0.810, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/F0_표지/V3_제본현관/F0_종이공간_완성아트/12_창빛과종이반사광/시작대지_장지반사",F0,Spot,55,22,"RGBA(1.000, 0.920, 0.820, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/1A_접힘방향/V4_팝업북회랑/접힌 극장 옆날개/따뜻한 종이등 빛",1A,Point,2.8,15,"RGBA(1.000, 0.920, 0.810, 1.000)",None,0.05,0.4,True,False,Realtime
+"StorybookReadingPassage/동화에서 기억으로 이어지는 회랑/꽃봉오리 종이등",,Point,2.6,6,"RGBA(1.000, 0.790, 0.510, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/1A_다음열람실_닫힌통로/따뜻한 종이등 빛",,Point,5,15,"RGBA(1.000, 0.910, 0.770, 1.000)",None,0.05,0.4,True,False,Realtime
+"Map/1B_끊긴길/ReadingRoom1B/warm paper light",1B,Point,18.6,23,"RGBA(1.000, 0.785, 0.524, 1.000)",None,0.05,0.4,True,False,Realtime
+"ReadingEntrancePassage/회랑의 은은한 등빛",,Point,4,9,"RGBA(1.000, 0.780, 0.510, 1.000)",None,0.05,0.4,True,False,Realtime
+"StorybookReadingPassage/열람실 앞 굽은 회랑/꽃봉오리 종이등",,Point,2.6,6,"RGBA(1.000, 0.790, 0.510, 1.000)",None,0.05,0.4,True,False,Realtime

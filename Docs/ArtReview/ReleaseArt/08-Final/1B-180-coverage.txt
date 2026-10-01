@@ -1,0 +1,1 @@
+No misses in 30 x 17 viewport sample.

@@ -90,6 +90,12 @@ namespace BookTower.Presentation
         {
             if (sun != null) sun.intensity = curSun * SunTrim;
 
+            if (PaperAtmosphereDirector.Instance && PaperAtmosphereDirector.Instance.OwnsAmbient)
+            {
+                // The room's directional paper bounce replaces the old uniform grey probe.
+                RenderSettings.fog = false;
+                return;
+            }
             RenderSettings.ambientMode = AmbientMode.Flat;
             RenderSettings.ambientLight = shadowTint * (curAmbient * AmbientTrim);
             // Keep runtime diffuse probes synchronized with the flat room ambient.

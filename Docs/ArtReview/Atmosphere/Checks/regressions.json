@@ -1,0 +1,75 @@
+[
+  {
+    "method": "ReleaseLightingReview.PuzzleQualities",
+    "exit": 0,
+    "seconds": 46.4,
+    "log": "C:\\Users\\doun0\\Desktop\\File\\GitHub\\Book-tower\\Logs\\atmosphere-ReleaseLightingReview.PuzzleQualities.log"
+  },
+  {
+    "method": "ReleaseFinishReview.CoverageOnly",
+    "exit": 0,
+    "seconds": 28.5,
+    "log": "C:\\Users\\doun0\\Desktop\\File\\GitHub\\Book-tower\\Logs\\atmosphere-ReleaseFinishReview.CoverageOnly.log"
+  },
+  {
+    "method": "ShadowDuetVerifier.Run",
+    "exit": 0,
+    "seconds": 39,
+    "log": "C:\\Users\\doun0\\Desktop\\File\\GitHub\\Book-tower\\Logs\\atmosphere-ShadowDuetVerifier.Run.log"
+  },
+  {
+    "method": "ReadingRoomVerifier.RunBatch",
+    "exit": 0,
+    "seconds": 56.2,
+    "log": "C:\\Users\\doun0\\Desktop\\File\\GitHub\\Book-tower\\Logs\\atmosphere-ReadingRoomVerifier.RunBatch.log"
+  },
+  {
+    "method": "ReadingEntranceVerifier.Run",
+    "exit": 0,
+    "seconds": 24.2,
+    "log": "C:\\Users\\doun0\\Desktop\\File\\GitHub\\Book-tower\\Logs\\atmosphere-ReadingEntranceVerifier.Run.log"
+  },
+  {
+    "method": "F0PlayVerifier.Run",
+    "exit": 0,
+    "seconds": 76.9,
+    "log": "C:\\Users\\doun0\\Desktop\\File\\GitHub\\Book-tower\\Logs\\atmosphere-F0PlayVerifier.Run.log"
+  },
+  {
+    "method": "FoyerTransitionVerifier.Run",
+    "exit": 0,
+    "seconds": 37.8,
+    "log": "C:\\Users\\doun0\\Desktop\\File\\GitHub\\Book-tower\\Logs\\atmosphere-FoyerTransitionVerifier.Run.log"
+  },
+  {
+    "method": "OpeningStoryVerifier.RunBatch",
+    "exit": 0,
+    "seconds": 99.8,
+    "log": "C:\\Users\\doun0\\Desktop\\File\\GitHub\\Book-tower\\Logs\\atmosphere-OpeningStoryVerifier.RunBatch.log"
+  },
+  {
+    "method": "RunSettingsVerifier.Run",
+    "exit": 0,
+    "seconds": 28.4,
+    "log": "C:\\Users\\doun0\\Desktop\\File\\GitHub\\Book-tower\\Logs\\atmosphere-RunSettingsVerifier.Run.log"
+  },
+  {
+    "method": "ReadingMusicVerifier.Run",
+    "exit": 0,
+    "seconds": 25.7,
+    "log": "C:\\Users\\doun0\\Desktop\\File\\GitHub\\Book-tower\\Logs\\atmosphere-ReadingMusicVerifier.Run.log"
+  },
+  {
+    "method": "ReleaseStructureTraversal.Run",
+    "exit": 0,
+    "seconds": 47,
+    "log": "C:\\Users\\doun0\\Desktop\\File\\GitHub\\Book-tower\\Logs\\atmosphere-ReleaseStructureTraversal.Run.log"
+  },
+  {
+    "method": "PaperAtmosphereBuild.Run",
+    "exit": 0,
+    "seconds": 22.6,
+    "log": "C:\\Users\\doun0\\Desktop\\File\\GitHub\\Book-tower\\Logs\\atmosphere-PaperAtmosphereBuild.Run.log",
+    "note": "Rebuilt after identical-result DepthAt initialization fix; 0 shader warnings. Render review repeated in atmosphere-pass4.log."
+  }
+]

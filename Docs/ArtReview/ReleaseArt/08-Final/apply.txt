@@ -1,0 +1,2 @@
+PASS: collision contract preserved; 128 mesh assets; 30 spatial material batches.
+Three-room craft pass plus bounded visual-only motion; optical object transforms unchanged.

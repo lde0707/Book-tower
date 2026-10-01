@@ -31,7 +31,7 @@ Shader "BookTower/ReadingPaper"
     float2 u=lerp(saturate(i.uv),frac(i.uv),_Repeat);u=_Rect.xy+u*_Rect.zw;
     half3 base=SAMPLE_TEXTURE2D(_BaseMap,sampler_BaseMap,u).rgb*_BaseColor.rgb;
     half3 n=normalize(i.normalWS);Light sun=GetMainLight(TransformWorldToShadowCoord(i.positionWS));
-    half3 light=max(SampleSH(n),half3(.16,.16,.19));
+    half3 light=max(SampleSH(n),half3(.018,.018,.02));
     light+=sun.color*saturate(dot(n,sun.direction))*sun.distanceAttenuation*sun.shadowAttenuation;
     #if defined(_ADDITIONAL_LIGHTS) || USE_CLUSTER_LIGHT_LOOP
     InputData inputData=(InputData)0;inputData.positionWS=i.positionWS;inputData.normalizedScreenSpaceUV=GetNormalizedScreenSpaceUV(i.positionCS);

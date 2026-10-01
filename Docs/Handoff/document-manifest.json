@@ -1,0 +1,778 @@
+{
+  "snapshot_date": "2026-10-02",
+  "source_markdown_count": 145,
+  "combined_sources": [
+    "START_HERE.md",
+    "AGENTS.md",
+    "Docs/Handoff/01_게임방향과_전체변경이력.md",
+    "Docs/Handoff/02_현재구현과_검증_기술인계.md",
+    "Docs/Handoff/03_노트북에서_이어하기.md",
+    "Docs/00_종이백룸_통합설계.md",
+    "Docs/01_기획서.md",
+    "Docs/02_아트컨셉.md",
+    "Docs/03_스토리보드.md",
+    "Docs/04_플레이어스펙.md",
+    "Docs/05_프로토타입_구간과_배경.md",
+    "Docs/06_레벨디자인.md",
+    "Docs/07_레벨별_진행표.md",
+    "Docs/08_구현현황.md",
+    "Docs/09_룸시스템.md",
+    "Docs/10_플레이_스토리보드.md",
+    "Docs/11_기믹_존재이유.md",
+    "Docs/12_프로토타입_공략.md",
+    "Docs/13_거대한_종이세계_재설계.md",
+    "Docs/14_실내형_맵_재설계.md",
+    "Docs/15_구역별_상호작용과_동적요소.md",
+    "Docs/16_F0_1A_공통퍼즐규칙_제안.md",
+    "Docs/17_종이_UI와_설정_FSM.md",
+    "Docs/18_구역별_배경음악.md",
+    "Docs/19_전방_스토리와_퍼즐_상세설계.md",
+    "Docs/20_F0_기믹_구현설계.md",
+    "Docs/21_F0_1A_스토리_실행흐름.md",
+    "Docs/24_그림자공방과_전방_난이도설계.md",
+    "Docs/25_방제작_레퍼런스_디테일점검표.md",
+    "Docs/26_UI정리와_추론형퍼즐_재설계.md",
+    "Docs/27_10개퍼즐게임_분석과_전방_기믹설계.md",
+    "Docs/28_1B_찢어진열람실_제작기록.md",
+    "Docs/29_완성아트_01_F0_바닥벽천장과_통로.md",
+    "Docs/30_완성아트_02_종이재질과_단면.md",
+    "Docs/31_완성아트_03_F0_1A_조명과_깊이.md",
+    "Docs/32_완성아트_04_문_작업책_그림자극장.md",
+    "Docs/33_완성아트_05_카메라와_목표가독성.md",
+    "Docs/34_완성아트_06_큰형태와_공간밀도.md",
+    "Docs/35_완성아트_07_종이와_환경의_움직임.md",
+    "Docs/36_완성아트_08_색보정과_최종검수.md",
+    "Docs/37_앞으로의_방제작_아트와_퍼즐_통합기준.md",
+    "Docs/38_공간깊이와_자연스러운_조명_연구.md",
+    "Docs/ArtReview/Atmosphere/README.md",
+    "Docs/ArtReview/ReleaseArt/08-Final/README.md"
+  ],
+  "source_documents": [
+    {
+      "path": "AGENTS.md",
+      "bytes": 1944,
+      "sha256": "9a94fb109c49690c4ca66e7ab30f7b3eeeac35e4ecaf97c43d1cc25100177f99"
+    },
+    {
+      "path": "ArtSource/Audio/Kenney/README.md",
+      "bytes": 1683,
+      "sha256": "bcae4495cddd87112a2d215679d7a446fc5c470ffa21b3e695c804aedbfc519c"
+    },
+    {
+      "path": "ArtSource/PaperHoodSpiritV1/README.md",
+      "bytes": 2902,
+      "sha256": "fb1a3cbf47d85f72230f47118c8373c5d9fb288521b47fd7c40ebef4dcc0dcc4"
+    },
+    {
+      "path": "ArtSource/ReadingRoom1B/README.md",
+      "bytes": 1801,
+      "sha256": "83932ffdee594c7a53547b5761225125aa163a94ba99e502aaabaa359e08acc9"
+    },
+    {
+      "path": "ArtSource/ReadingRoom1B/lantern-portrait-prompt.md",
+      "bytes": 1651,
+      "sha256": "dec327857c11d26467c96a4f1c9dc0c319c1911ac1d8bcf6c69831ab399f4d29"
+    },
+    {
+      "path": "ArtSource/TitleConcepts/README.md",
+      "bytes": 1273,
+      "sha256": "c7500075d48ae3d85adf29f2cd86ddd82858405db75e63aa232ab54e58cf4ea7"
+    },
+    {
+      "path": "Assets/ThirdParty/Quaternius/README.md",
+      "bytes": 1904,
+      "sha256": "0f576aa44e999b96e370f043ee6b2d9150733242a00a224dc3d52f22da8cdda9"
+    },
+    {
+      "path": "Assets/_BookTower/Art/PaperSpirit/README.md",
+      "bytes": 1526,
+      "sha256": "bdd20b2e8e53657d918ff9f72e5db4385072119c452dfb37e1b703ec5e56cd49"
+    },
+    {
+      "path": "Docs/00_종이백룸_통합설계.md",
+      "bytes": 17253,
+      "sha256": "4326a754477c3ee97b46bf8cd2e999e82ce61c82c7d3074ddc5562440d71d23f"
+    },
+    {
+      "path": "Docs/01_기획서.md",
+      "bytes": 1013,
+      "sha256": "c05c034c1e71f1cf41dba4ba72b7d659269a10399b4b0427391453673ee0bc24"
+    },
+    {
+      "path": "Docs/02_아트컨셉.md",
+      "bytes": 1942,
+      "sha256": "2019e1dc9a538b8c4a2cc97b828ff0d0818885244617ad50ec3f2d89a84d0ea5"
+    },
+    {
+      "path": "Docs/03_스토리보드.md",
+      "bytes": 1572,
+      "sha256": "601c8d5d177dce64328b60d86b702f070ebfdf82964d221e652f344e80d6e611"
+    },
+    {
+      "path": "Docs/04_플레이어스펙.md",
+      "bytes": 1261,
+      "sha256": "42c50721196f7056b04a224d51461068f60509f7847eb925d0bad272ea75a9e8"
+    },
+    {
+      "path": "Docs/05_프로토타입_구간과_배경.md",
+      "bytes": 626,
+      "sha256": "a905c7d0aab6f5e57bf67f809bc8c0540dcff1e30f270ea6dc8ec22052dfdb56"
+    },
+    {
+      "path": "Docs/06_레벨디자인.md",
+      "bytes": 1263,
+      "sha256": "9bac4737a3babe6185f184cfeef657238a210b3c37ee7f130ef9d5a8c64b2e3a"
+    },
+    {
+      "path": "Docs/07_레벨별_진행표.md",
+      "bytes": 1747,
+      "sha256": "1b15ae905b41f2c7fe1c2fdec6ad5768a13d220f3d2d41dc18107423445af3c5"
+    },
+    {
+      "path": "Docs/08_구현현황.md",
+      "bytes": 6724,
+      "sha256": "4c165277ebee44377b13faddcd428726275b44e66826506f1a338a0a8ff7111a"
+    },
+    {
+      "path": "Docs/09_룸시스템.md",
+      "bytes": 914,
+      "sha256": "3ef2b44c155980299cadfd976b0d1d8c7fadc72405fbcfc3699e2b4d0843ac48"
+    },
+    {
+      "path": "Docs/10_플레이_스토리보드.md",
+      "bytes": 916,
+      "sha256": "adfb60e50466f1b0da759140b5a36e0c6bd9a4867ce831519f35d86d0cd364e1"
+    },
+    {
+      "path": "Docs/11_기믹_존재이유.md",
+      "bytes": 1112,
+      "sha256": "616632d20e6131139b37c0f5e58e0e9f2276615bd46a7e48f07968a1ef16b1d3"
+    },
+    {
+      "path": "Docs/12_프로토타입_공략.md",
+      "bytes": 1107,
+      "sha256": "7f87be285a84fc35504dc166e88138795c05fc02a3899db384d51b55b808f3a9"
+    },
+    {
+      "path": "Docs/13_거대한_종이세계_재설계.md",
+      "bytes": 809,
+      "sha256": "d55ce4a700b57763f2f9c40087f9b6583df57ab5fa33915c709bb9bd12766b5f"
+    },
+    {
+      "path": "Docs/14_실내형_맵_재설계.md",
+      "bytes": 728,
+      "sha256": "2db418ebefa11b48906eac8903584897a3d4b944d40ff652da5ca0ae0a191f8e"
+    },
+    {
+      "path": "Docs/15_구역별_상호작용과_동적요소.md",
+      "bytes": 26369,
+      "sha256": "608a89feb31deadd587184e456c16a7a65510c62ea974d4d406b6c4c2da56c19"
+    },
+    {
+      "path": "Docs/16_F0_1A_공통퍼즐규칙_제안.md",
+      "bytes": 4195,
+      "sha256": "d897fec3329f054d41b26cf5b996992d57398b3d4338c8a4ea9a0125cd434346"
+    },
+    {
+      "path": "Docs/17_종이_UI와_설정_FSM.md",
+      "bytes": 9826,
+      "sha256": "7001d7f2ec62b48c9269c7c4448e9c14c0e5e26d581139596646da9a33ab004c"
+    },
+    {
+      "path": "Docs/18_구역별_배경음악.md",
+      "bytes": 2203,
+      "sha256": "576d701c930fd20ac13a24e0b5955d141f744e154058f79ae6bad25efbcfb6f6"
+    },
+    {
+      "path": "Docs/19_전방_스토리와_퍼즐_상세설계.md",
+      "bytes": 55696,
+      "sha256": "4fab9e18befae43a8884b4888d8e92b83abe538eb3f96290f9f7650510b1690d"
+    },
+    {
+      "path": "Docs/20_F0_기믹_구현설계.md",
+      "bytes": 21891,
+      "sha256": "728ec1e917363eca0b751687e061976aa48ddde9d90d441b7b7a53ae9286d895"
+    },
+    {
+      "path": "Docs/21_F0_1A_스토리_실행흐름.md",
+      "bytes": 11301,
+      "sha256": "3e658e13d935c9602e5ed4b71ed10d4b0686cd166b5e3b813b07e928c17cd157"
+    },
+    {
+      "path": "Docs/24_그림자공방과_전방_난이도설계.md",
+      "bytes": 13147,
+      "sha256": "a726fae278de79a327029282c9e98e56d553117dab951e212f3a40d99f7528fb"
+    },
+    {
+      "path": "Docs/25_방제작_레퍼런스_디테일점검표.md",
+      "bytes": 5942,
+      "sha256": "5b1293b152472d46f5bbc46f93945177b8ef1945c1cb406129f12e1ea762ec30"
+    },
+    {
+      "path": "Docs/26_UI정리와_추론형퍼즐_재설계.md",
+      "bytes": 10861,
+      "sha256": "6b4ed893ee50e15150a64c12a776f4ae1d8fec008a24c515bfadf5f5a35d0202"
+    },
+    {
+      "path": "Docs/27_10개퍼즐게임_분석과_전방_기믹설계.md",
+      "bytes": 61672,
+      "sha256": "00fcda80b3c0d50a6b501bfefa4e8b9a0a7da6e23db22661881cbc38d4f67a66"
+    },
+    {
+      "path": "Docs/28_1B_찢어진열람실_제작기록.md",
+      "bytes": 9356,
+      "sha256": "951b3e3e443618986027b64dd51b8324f26811942fef02bf733ec068c57c05cd"
+    },
+    {
+      "path": "Docs/29_완성아트_01_F0_바닥벽천장과_통로.md",
+      "bytes": 12449,
+      "sha256": "327dfd8d376227de349e76ed6215ba4707a2349038881ad54fc795fcedf8faff"
+    },
+    {
+      "path": "Docs/30_완성아트_02_종이재질과_단면.md",
+      "bytes": 10957,
+      "sha256": "c357474dfd09b848415fb762c6bf7a846b0a3d0fa4aa5b7d4572c6bdd4d6c93c"
+    },
+    {
+      "path": "Docs/31_완성아트_03_F0_1A_조명과_깊이.md",
+      "bytes": 11831,
+      "sha256": "81eb4ba00e21fe9a3f7e81a9c2d0d3f0f96a7c029e231e1de19a5f84e0a763da"
+    },
+    {
+      "path": "Docs/32_완성아트_04_문_작업책_그림자극장.md",
+      "bytes": 10751,
+      "sha256": "0a61a41c117c662a9502ded2d923cae499cb8af8987b7a6c33bf668f674b46ad"
+    },
+    {
+      "path": "Docs/33_완성아트_05_카메라와_목표가독성.md",
+      "bytes": 9272,
+      "sha256": "e51d40189b03314a1e316c2a76cb2c5142f5f2b8ca4ac8182de7108e62c4865d"
+    },
+    {
+      "path": "Docs/34_완성아트_06_큰형태와_공간밀도.md",
+      "bytes": 10001,
+      "sha256": "706fca699c8945f99e26e225b525d786577584a6c3c3b6529c1bb88abde0b783"
+    },
+    {
+      "path": "Docs/35_완성아트_07_종이와_환경의_움직임.md",
+      "bytes": 10396,
+      "sha256": "c52e29b86954dec986c4b89bcc872c060de9d6c2d45ea3651b97f9faa9bae98d"
+    },
+    {
+      "path": "Docs/36_완성아트_08_색보정과_최종검수.md",
+      "bytes": 13282,
+      "sha256": "501ea5577e5f6215658917170c59ae9c019ec61a5b2044861ef4632d199afb64"
+    },
+    {
+      "path": "Docs/37_앞으로의_방제작_아트와_퍼즐_통합기준.md",
+      "bytes": 17883,
+      "sha256": "89c965148cdf403cd967323ac0f6d0d2c2eadcc62b67b93374e943c0e897c3bc"
+    },
+    {
+      "path": "Docs/38_공간깊이와_자연스러운_조명_연구.md",
+      "bytes": 11186,
+      "sha256": "c92b55de6ad85d2847a35238a34eb881a72ec4f0aa7e00023d3d0e3791780993"
+    },
+    {
+      "path": "Docs/ArtReview/2026-09-24-direction-validation.md",
+      "bytes": 6208,
+      "sha256": "a78fffc1bd777f179c5a7627888b5ea85b2191923c23a80c8ca5c976a11e09ab"
+    },
+    {
+      "path": "Docs/ArtReview/2026-09-24-paper-assets.md",
+      "bytes": 3358,
+      "sha256": "79a7f704218f5c9d3a2c0e4faff200171678985ca2e80259457d3fd029f570cc"
+    },
+    {
+      "path": "Docs/ArtReview/2026-09-25-doorways-and-bridges.md",
+      "bytes": 3027,
+      "sha256": "c31f1749b4a73d039e800ad56a8c8081210fb9893ee6fcb5e29d69ddbfbbee62"
+    },
+    {
+      "path": "Docs/ArtReview/2026-09-25-sketchbook-redesign.md",
+      "bytes": 3487,
+      "sha256": "f759d50dd6091c3ed780e640b99f188d129d8a824b2cecd33e8667cb15f56b3d"
+    },
+    {
+      "path": "Docs/ArtReview/2026-09-25-v2-3d-blockout.md",
+      "bytes": 1936,
+      "sha256": "82ac846c76e8d0eb41e6447e7dfbd4142390085296bc60900b21dcda0965a3c7"
+    },
+    {
+      "path": "Docs/ArtReview/Animation/README.md",
+      "bytes": 1731,
+      "sha256": "23e810573448cc86cf610f2b81348f198b3cf70fe043dce6f02878af773c0cdb"
+    },
+    {
+      "path": "Docs/ArtReview/AnimationSmooth/README.md",
+      "bytes": 1918,
+      "sha256": "dfd9c60005d1fce84b6ffb62d51ce679e0c99d009d4d52149e9c06e805e099e5"
+    },
+    {
+      "path": "Docs/ArtReview/Atmosphere/README.md",
+      "bytes": 9477,
+      "sha256": "303b83c689f56a3780106f62f4bbd08c02ffffd762b6c758b556f1f6a6723ed0"
+    },
+    {
+      "path": "Docs/ArtReview/BindingPlay/README.md",
+      "bytes": 2431,
+      "sha256": "ba3549232ab4f39eb453980a29220b80c479c57ac8ed0e94809afbe41df0fe75"
+    },
+    {
+      "path": "Docs/ArtReview/BookSpinePillar/README.md",
+      "bytes": 1486,
+      "sha256": "7bd808faac9ece68d4d59ff71e9c425c4e2f1fc343bed3f91a277a7a790bb431"
+    },
+    {
+      "path": "Docs/ArtReview/ContinuousAwakening/README.md",
+      "bytes": 1407,
+      "sha256": "a9f19282e3e17c1aa1bb0ce20253ec3c7c2ea47e5d5c32ea7dd958012d65b77f"
+    },
+    {
+      "path": "Docs/ArtReview/Cutscene2D/BackgroundPrompts.md",
+      "bytes": 4922,
+      "sha256": "78061cb10165d3fd1654350b19e700b247f96c5c431cbd539915471b4c24e37e"
+    },
+    {
+      "path": "Docs/ArtReview/Cutscene2D/Play/README.md",
+      "bytes": 1011,
+      "sha256": "69528a376c44ab58c6b812ebc50811b64d1eacb3fb3d81244596a08863645970"
+    },
+    {
+      "path": "Docs/ArtReview/Cutscene2D/README.md",
+      "bytes": 6134,
+      "sha256": "249fa12c72fd1bc2008191099b737585a966eccf45483d4440de5ebe65f01b41"
+    },
+    {
+      "path": "Docs/ArtReview/Envelope/README.md",
+      "bytes": 1920,
+      "sha256": "760ca5bc5c68f7a24a614a18c485a23e5e8c3d63f42cec9cb5dfc68e85b21817"
+    },
+    {
+      "path": "Docs/ArtReview/F0Atmosphere/README.md",
+      "bytes": 1924,
+      "sha256": "b3e2956e416e04230d52db551816de871998eaf567be85c0f4b364dc001c2348"
+    },
+    {
+      "path": "Docs/ArtReview/F0CraftedProps/README.md",
+      "bytes": 2498,
+      "sha256": "7d3606e8c497d6b9c1e6081e42c7d4867f6268a31f77dc4406a6b35550e9254b"
+    },
+    {
+      "path": "Docs/ArtReview/F0EmbeddedOptics/README.md",
+      "bytes": 2689,
+      "sha256": "fcbf8627954d9588cb14c107c78f6c3f0df39e70a775ff206ae3e63415407a98"
+    },
+    {
+      "path": "Docs/ArtReview/F0Feedback/README.md",
+      "bytes": 2150,
+      "sha256": "47efd15ca3faed9000ecd034b359ebcd952e50ac019c72d196beea37852bf135"
+    },
+    {
+      "path": "Docs/ArtReview/F0PaperIdentityV1/Implementation/README.md",
+      "bytes": 6369,
+      "sha256": "d8c9e528d6230c285ca5842d464206eeeaa72bb517cf3f24bacda168c8981e15"
+    },
+    {
+      "path": "Docs/ArtReview/F0PaperIdentityV1/MATERIAL_PROMPT.md",
+      "bytes": 1506,
+      "sha256": "27d8515b86a1ebbe823a3ce9c52b3a8572d4acde7f6793b46699966aff8f4b88"
+    },
+    {
+      "path": "Docs/ArtReview/F0PaperIdentityV1/PROMPTS.md",
+      "bytes": 20820,
+      "sha256": "c2e0406c3ffe5442a0984eb8613f5546f4cab0b97bffd6d0f2ebdb77ca76c246"
+    },
+    {
+      "path": "Docs/ArtReview/F0PaperIdentityV1/README.md",
+      "bytes": 5155,
+      "sha256": "90711a27fc57d97c8c19486307dcdf391de6d745ece6982557764fb0958ebfeb"
+    },
+    {
+      "path": "Docs/ArtReview/F0ReferenceDetail/README.md",
+      "bytes": 2421,
+      "sha256": "3c5d835b5e551c4b119eb29c18485f693cb6d108ecb8c9ffd362bdb9fefa5785"
+    },
+    {
+      "path": "Docs/ArtReview/FirstPersonAwakening/README.md",
+      "bytes": 1893,
+      "sha256": "a2870885ae03f9f9764b4885b2cbe48f4c9a32281828ecb7a7985cd1e3dd8107"
+    },
+    {
+      "path": "Docs/ArtReview/FoldBridge/README.md",
+      "bytes": 3970,
+      "sha256": "6d18e448897f0cdd866bf1e4d0df12ffdbcd0a6b5bc3570efab979e91f7f8620"
+    },
+    {
+      "path": "Docs/ArtReview/FoyerPassageSeal/README.md",
+      "bytes": 1637,
+      "sha256": "aa61a82efc19f71ac684a1469e0dc49900496d4a50d053af85945ee11c35f519"
+    },
+    {
+      "path": "Docs/ArtReview/InteriorRoomsV3/F0-implementation.md",
+      "bytes": 3176,
+      "sha256": "356aea186980072e0fc888de68bd952a277852f74c0a5573009ef8ed12fdd2c9"
+    },
+    {
+      "path": "Docs/ArtReview/InteriorRoomsV3/README.md",
+      "bytes": 12505,
+      "sha256": "1c9f7fd0d4d6e00ccf77422fd33ffa4cfd14c64523e69c4f78c9f01352c3af2f"
+    },
+    {
+      "path": "Docs/ArtReview/MoaModelViewsV1/FlightV1/README.md",
+      "bytes": 2364,
+      "sha256": "3194b62f3ab9976e370ccc180a6009d3a33f7d480577ee19938539f145df0623"
+    },
+    {
+      "path": "Docs/ArtReview/MoaModelViewsV1/NaturalV2/README.md",
+      "bytes": 2037,
+      "sha256": "c4cbd5e8c5e1dc6a2e97feefa47de8396138f63c73f3f40285ffd361ae24372c"
+    },
+    {
+      "path": "Docs/ArtReview/MoaModelViewsV1/PROMPTS.md",
+      "bytes": 11969,
+      "sha256": "79848bc4e8f32bf1ce5dcc0f983dc2b645af1b793255d16860e403b9182e7270"
+    },
+    {
+      "path": "Docs/ArtReview/MoaModelViewsV1/README.md",
+      "bytes": 2521,
+      "sha256": "05316c4a289a6ae4293a5ad0f36f775aebf9d6667fe08dbb4b2810375fa190a6"
+    },
+    {
+      "path": "Docs/ArtReview/MoaModelViewsV1/SculptV3/README.md",
+      "bytes": 2198,
+      "sha256": "41bcf1aa2a0ee0f9b074b35c7216c545938b5609d8552bb73133882913ca3e46"
+    },
+    {
+      "path": "Docs/ArtReview/MoaModelViewsV1/UnityV3/OpeningDialogue.md",
+      "bytes": 2159,
+      "sha256": "35b14eda97c727159d441a17c362f5ab2f725f2044543cc3b5127085a0308a11"
+    },
+    {
+      "path": "Docs/ArtReview/MoaModelViewsV1/UnityV3/README.md",
+      "bytes": 3392,
+      "sha256": "c540b2e65073be6bf909a473f50ba2f72da808964d1ac2a08c8e28e7f0d86dba"
+    },
+    {
+      "path": "Docs/ArtReview/OpeningStory/README.md",
+      "bytes": 1615,
+      "sha256": "28730ff7a83648f942d7cba0e9626a5fe9e87843ab86aabcfeb4ef7ae5ec03eb"
+    },
+    {
+      "path": "Docs/ArtReview/PaperUI/extraction-prompt.md",
+      "bytes": 2227,
+      "sha256": "d84955018222bd952e5d460d155ddcf9e7d7f27aeb9eaf38d3cd853a71c24def"
+    },
+    {
+      "path": "Docs/ArtReview/PaperUI/pause-polish-review.md",
+      "bytes": 1016,
+      "sha256": "577cd02096362956975ec94ab5ac91cb1c5f48fc838852b73dd98845ae0d1e46"
+    },
+    {
+      "path": "Docs/ArtReview/PaperUI/story-panel-prompt.md",
+      "bytes": 1717,
+      "sha256": "b9565bfbdd51415aae52d125a2e373da4a9f98999488c9336c43bdd885b3ec24"
+    },
+    {
+      "path": "Docs/ArtReview/PuzzlePlacementV1/README.md",
+      "bytes": 11124,
+      "sha256": "9e69d4206a2f88715b12daac248b2173de849bc103dd077f87e6d446209453d1"
+    },
+    {
+      "path": "Docs/ArtReview/PuzzlePlacementV1/prompts.md",
+      "bytes": 12530,
+      "sha256": "7450046ed6c2a918e3ad0194598b8d5b3abb4afc89f81756fdedfce233e7b89c"
+    },
+    {
+      "path": "Docs/ArtReview/ReadingEntrance/README.md",
+      "bytes": 2389,
+      "sha256": "fc9b773681ec30d564a67d0c1407941ebe0c8997908de5f041ed2657c2e4a3da"
+    },
+    {
+      "path": "Docs/ArtReview/ReadingLanternV2/README.md",
+      "bytes": 2516,
+      "sha256": "7832c38474ad849fb14a4ff60ef160dff3b94e2c949ecf92121e472e17c8ad1a"
+    },
+    {
+      "path": "Docs/ArtReview/ReadingRoom1B/README.md",
+      "bytes": 3249,
+      "sha256": "1adc41127566befc57c3fb5776032eeac133c8e3bd6c5fa80f3c00fdc9da3aad"
+    },
+    {
+      "path": "Docs/ArtReview/RegionMusic/CalmV2/README.md",
+      "bytes": 1611,
+      "sha256": "b03f9fd032eca8be7aca943b405c34dc4f8bec823d00db9075041d3ad560b3df"
+    },
+    {
+      "path": "Docs/ArtReview/RegionMusic/FantasyLibraryV4/README.md",
+      "bytes": 2313,
+      "sha256": "cf5028e5d71c56061a35007721294468bf8717a113d477c6a7f3ee00aac494fa"
+    },
+    {
+      "path": "Docs/ArtReview/RegionMusic/PianoViolinV3/README.md",
+      "bytes": 1244,
+      "sha256": "876413284bbf8dfcbb556c0002940d15f509c2038373d1c2b71c0761e2f5302e"
+    },
+    {
+      "path": "Docs/ArtReview/RegionMusic/README.md",
+      "bytes": 1222,
+      "sha256": "352890943f059285b0b4c07ad4ea16aa6604303f3a4146868952f5c9b9b54e13"
+    },
+    {
+      "path": "Docs/ArtReview/ReleaseArt/02-Materials/README.md",
+      "bytes": 10144,
+      "sha256": "0f446f001f081be6ea26ce0bbba24a92d88b9d034aa6fc4f60ca30ca1535fd95"
+    },
+    {
+      "path": "Docs/ArtReview/ReleaseArt/03-Lighting/README.md",
+      "bytes": 10988,
+      "sha256": "f7873248e8bfbe11d2d4f52a751b7eaa15ae4fcea528c147ae3b0409595ce0f8"
+    },
+    {
+      "path": "Docs/ArtReview/ReleaseArt/04-HeroObjects/README.md",
+      "bytes": 818,
+      "sha256": "8f8ad8997ac380a44fbc1e68ae6ed18102fe8f71d727a5565971551ce2348c90"
+    },
+    {
+      "path": "Docs/ArtReview/ReleaseArt/05-Camera/README.md",
+      "bytes": 775,
+      "sha256": "42afa1d03b43615ce7a549cebd42c36e86d2eeba8ec8d3991ac5ac1ccf3679ee"
+    },
+    {
+      "path": "Docs/ArtReview/ReleaseArt/06-Composition/README.md",
+      "bytes": 742,
+      "sha256": "c51403ebc6b7280d4f6f3ab0d2e420f4cbb0b04363fa1ab50bbb3eaa0ed04483"
+    },
+    {
+      "path": "Docs/ArtReview/ReleaseArt/07-Motion/README.md",
+      "bytes": 1160,
+      "sha256": "e2d4ac6ca678fc1fdab01a4cf5621208de5b65db354770692137c556aeedffab"
+    },
+    {
+      "path": "Docs/ArtReview/ReleaseArt/08-Final/README.md",
+      "bytes": 14801,
+      "sha256": "970eaf519a572eeb1ca709848bb5c70195c28e74cac9ff02ecc6d3522bb6bfe0"
+    },
+    {
+      "path": "Docs/ArtReview/ReleaseArt/08-Final/performance.md",
+      "bytes": 2728,
+      "sha256": "ccaede284830c37391b2dd2132b73872347e1239cd54d66e2f3ea32c99df130a"
+    },
+    {
+      "path": "Docs/ArtReview/ReleaseArt/F0/01-Structure/README.md",
+      "bytes": 7442,
+      "sha256": "c71098dee4b8a8db9c6cda350a18ee91e077b8aeb7ae84e43fbdd6a8cf16f11e"
+    },
+    {
+      "path": "Docs/ArtReview/RoomRedesignV2/interaction-layout.md",
+      "bytes": 6646,
+      "sha256": "b8360ac8e7709fc13129ce01855f86d447a7ad0e5911b4595bcf0e896758dee5"
+    },
+    {
+      "path": "Docs/ArtReview/RoomRedesignV2/review-notes.md",
+      "bytes": 3847,
+      "sha256": "92029c4150ebfc1ae4d03c0866c815272ee268124446436d974465253c6f1d5f"
+    },
+    {
+      "path": "Docs/ArtReview/ShadowDuet/README.md",
+      "bytes": 2628,
+      "sha256": "1d10ed2bfd0326edaeba68bccd9e7bcc510f93085478ca971f09a2dcaa327ebb"
+    },
+    {
+      "path": "Docs/ArtReview/SpiritDetail/README.md",
+      "bytes": 1255,
+      "sha256": "2db1fe25514d83f6edc9ec7e84bf480b982d6bf35f4a701e125a916284da2d16"
+    },
+    {
+      "path": "Docs/ArtReview/SpiritGarmentV4/README.md",
+      "bytes": 1322,
+      "sha256": "9956f38a7eaf87b27acacfc590178e4e8c7f34c88d107c7d9830241deb196dc0"
+    },
+    {
+      "path": "Docs/ArtReview/SpiritHatV2/README.md",
+      "bytes": 2110,
+      "sha256": "b5a978bef8f76cb958cc78f6020d779c7e23be4b620b783c2a5c049147a48f36"
+    },
+    {
+      "path": "Docs/ArtReview/SpiritHemV5/README.md",
+      "bytes": 1048,
+      "sha256": "52b6a388de89cd7055d1d9e1407c71d86da2b9b395a02c75f84d38eac35c05b5"
+    },
+    {
+      "path": "Docs/ArtReview/SpiritLayersV3/README.md",
+      "bytes": 2288,
+      "sha256": "3d0dc5a8634bf737e0bd1ac8a5804d9ae54b2477e2fddb37def866f839b49b6d"
+    },
+    {
+      "path": "Docs/ArtReview/SpiritRedesignV1/AnimationV1/README.md",
+      "bytes": 3951,
+      "sha256": "bf9bf673a27a66b8a4662185fc0994ad66614ef38d6507ed262f00cd4b335d9d"
+    },
+    {
+      "path": "Docs/ArtReview/SpiritRedesignV1/HoodRefinement.md",
+      "bytes": 1890,
+      "sha256": "a0874bfb7c00be0c01efb358a57f4f33b0c5fd9f32cfe68a637a4c703ea10bca"
+    },
+    {
+      "path": "Docs/ArtReview/SpiritRedesignV1/HoodTurnaroundV1/README.md",
+      "bytes": 9366,
+      "sha256": "7127283d1ee3426d54826070de697e8baeb7a18aa6c3380a3f18fa63348e805c"
+    },
+    {
+      "path": "Docs/ArtReview/SpiritRedesignV1/README.md",
+      "bytes": 7038,
+      "sha256": "1acf577a37823f342272c68c45a07e40ebf699d416cbb310c6bf1493189a556d"
+    },
+    {
+      "path": "Docs/ArtReview/StoryInteractionFix/README.md",
+      "bytes": 1973,
+      "sha256": "92e419b6d23c94fc9dd5e3a2443162a21707286b59675b47e035080e7edda3a5"
+    },
+    {
+      "path": "Docs/ArtReview/Storybook1A/README.md",
+      "bytes": 2406,
+      "sha256": "1cf00d025962208df8ba8f0d278ba539888b3b730016315c42b93123ed8481a0"
+    },
+    {
+      "path": "Docs/ArtReview/StorybookReadingPassage/README.md",
+      "bytes": 1890,
+      "sha256": "4568a720e4413b17173dffb40c08b4754664c96d466b346d2315c6b70ed8956b"
+    },
+    {
+      "path": "Docs/ArtReview/StorybookWorkshop/README.md",
+      "bytes": 3401,
+      "sha256": "90ff37217dfbd7e9bb0e1d486289e32ae8d1e0258a20c924f0435eeb924d024b"
+    },
+    {
+      "path": "Docs/ArtReview/StorybookWorkshop/texture-provenance.md",
+      "bytes": 2359,
+      "sha256": "49a17a9995f90bfa218f3e8deccbdfc9aef40890a3f303017b3e6e3cd82fe459"
+    },
+    {
+      "path": "Docs/ArtReview/TurnaroundSpiritModelV1/README.md",
+      "bytes": 1760,
+      "sha256": "5c2b4bb79d22c92553584a5d998a004f3288e968604acb8bfb236b336d1adb69"
+    },
+    {
+      "path": "Docs/ArtReview/TurnaroundSpiritModelV2/README.md",
+      "bytes": 1116,
+      "sha256": "95d037204ed8963cc2b5aab3bf005902c5baceba78975fdad5a2dd3104b9520a"
+    },
+    {
+      "path": "Docs/ArtReview/TurnaroundSpiritModelV3/README.md",
+      "bytes": 1041,
+      "sha256": "1e8b2752808a7924aff7c0b38bc427123d2a47bf16339b6f454af9d872453288"
+    },
+    {
+      "path": "Docs/ArtReview/TurnaroundSpiritModelV4/README.md",
+      "bytes": 984,
+      "sha256": "789ba9947153b74c70f14256ecd6b48efcc698623a53af3ffd615246d66caaae"
+    },
+    {
+      "path": "Docs/ArtReview/TurnaroundSpiritModelV5/README.md",
+      "bytes": 1118,
+      "sha256": "b97c2ed17411ac94b566afc96c6b218962f0a9596498d502e2608b8da4eeda43"
+    },
+    {
+      "path": "Docs/ArtReview/TurnaroundSpiritModelV6/Animation/README.md",
+      "bytes": 2472,
+      "sha256": "4adc0f36e027ed681b291a2364bc5db9efbff5e3d09d9c6942a6de87a5161a0e"
+    },
+    {
+      "path": "Docs/ArtReview/TurnaroundSpiritModelV6/README.md",
+      "bytes": 967,
+      "sha256": "948a178e3af6263e6f14a3d47d63563301e6f6769363a668bc8de6aca143840d"
+    },
+    {
+      "path": "Docs/ArtReview/WalkingDialogue/README.md",
+      "bytes": 2782,
+      "sha256": "7835cfd3e1710607c4270e5a36189ce6d8104d1d2d04d1266173ae5f2ea420ee"
+    },
+    {
+      "path": "Docs/ArtReview/WorkBookGuide/README.md",
+      "bytes": 1385,
+      "sha256": "049e8ed2803fa10e32f09da0ceb8802ed758d8710bb781ab51de83a7d14ff539"
+    },
+    {
+      "path": "Docs/Blueprints/RoomRedesignV2/README.md",
+      "bytes": 3797,
+      "sha256": "1d1a78fa4d3daacb41b046753048c7e9895002c154de402749968bdf2e238be3"
+    },
+    {
+      "path": "Docs/Blueprints/RoomRedesignV2/build-order.md",
+      "bytes": 2996,
+      "sha256": "7cc1beb766c6663d0560a71ffce6363e244f31b5ff9af546fb2468bfe7473fad"
+    },
+    {
+      "path": "Docs/Handoff/01_게임방향과_전체변경이력.md",
+      "bytes": 20875,
+      "sha256": "a2ed1ac12969e347bf76a49c26ea104019ff70814137807ec108b81d8100273b"
+    },
+    {
+      "path": "Docs/Handoff/02_현재구현과_검증_기술인계.md",
+      "bytes": 24498,
+      "sha256": "2b4e53ea1186be004284d5dbd5497ebe8ae66d39f52b5930593a017d95cd37cc"
+    },
+    {
+      "path": "Docs/Handoff/03_노트북에서_이어하기.md",
+      "bytes": 12472,
+      "sha256": "e41ec21e85927fe0b01ede193b67130f857c52b04d59761e65b74ba4ee82c968"
+    },
+    {
+      "path": "Docs/Handoff/04_대화원문_인덱스.md",
+      "bytes": 1998,
+      "sha256": "880fbc2a91d9316ee0856f54ccc5bb18d7225eed6396e51a5b289ff78dd2c9b3"
+    },
+    {
+      "path": "Docs/Handoff/Conversation/2026-09-24.md",
+      "bytes": 27152,
+      "sha256": "54ba928f3762f23b4cd588f235893fbef00e5914f6dd29739187f0d9b8777ec8"
+    },
+    {
+      "path": "Docs/Handoff/Conversation/2026-09-25.md",
+      "bytes": 38423,
+      "sha256": "f32d42821cc3b9a05e03522b1a4b00e916dba6b6dc6bc7daf133f859c6641734"
+    },
+    {
+      "path": "Docs/Handoff/Conversation/2026-09-26.md",
+      "bytes": 78819,
+      "sha256": "0d1e773633dd70d48a45e9a2935bc509fb45627fb5e56d24545d3c732fbe2f26"
+    },
+    {
+      "path": "Docs/Handoff/Conversation/2026-09-27.md",
+      "bytes": 137248,
+      "sha256": "c8f35fbe6634fb9bccd4e6dd478235bc1e91054b26bbbd206c20c103ab0bcd78"
+    },
+    {
+      "path": "Docs/Handoff/Conversation/2026-09-28.md",
+      "bytes": 117007,
+      "sha256": "5673f8782e6e4928188a024b8ec44392a8f489a782237d39a9046e117693f41f"
+    },
+    {
+      "path": "Docs/Handoff/Conversation/2026-10-01.md",
+      "bytes": 24453,
+      "sha256": "9af2d1b8514aa2441111317ff26e2fb6e3f925be63183c361acd7eb6e54af659"
+    },
+    {
+      "path": "Docs/Handoff/Conversation/2026-10-02.md",
+      "bytes": 29695,
+      "sha256": "1f957b98575bb61c68d4169b7b7c88c1ff35c788780ae74cf89b2db710681846"
+    },
+    {
+      "path": "Docs/Maintenance/2026-09-26-cleanup.md",
+      "bytes": 33818,
+      "sha256": "fc22e35491411f6a1b8c48e2028ce665e76c42e74ed0cd7a66ef053047691afa"
+    },
+    {
+      "path": "README.md",
+      "bytes": 1269,
+      "sha256": "a7bd366b38a99eff35ca1dc1b8b5850c9f5a1118541d1de60a10d2d920e6ab7d"
+    },
+    {
+      "path": "START_HERE.md",
+      "bytes": 3937,
+      "sha256": "c62ad95a21550c08267babdf6907f4e5168adfafd52823564335abfd7565f649"
+    }
+  ],
+  "archive_scope": "All Git-visible original project Markdown + handoff index + combined context, no binary game media. Dates in original documents are preserved."
+}

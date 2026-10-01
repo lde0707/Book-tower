@@ -1,0 +1,19 @@
+Actual settings at segment start; GC counts are changes over each segment, not attribution of a spike.
+F0 q=1, 1920x1080, vSync=0, cap=-1, measuredSeconds=60
+F0 q=1, GC generations collected=9/9/9
+1A q=1, 1920x1080, vSync=0, cap=-1, measuredSeconds=60
+1A q=1, GC generations collected=14/14/14
+1B q=1, 1920x1080, vSync=0, cap=-1, measuredSeconds=60
+1B q=1, GC generations collected=8/8/8
+F0 q=0, 1920x1080, vSync=0, cap=-1, measuredSeconds=15
+F0 q=0, GC generations collected=3/3/3
+1A q=0, 1920x1080, vSync=0, cap=-1, measuredSeconds=15
+1A q=0, GC generations collected=3/3/3
+1B q=0, 1920x1080, vSync=0, cap=-1, measuredSeconds=15
+1B q=0, GC generations collected=4/4/4
+F0 q=2, 1920x1080, vSync=0, cap=-1, measuredSeconds=15
+F0 q=2, GC generations collected=2/2/2
+1A q=2, 1920x1080, vSync=0, cap=-1, measuredSeconds=15
+1A q=2, GC generations collected=4/4/4
+1B q=2, 1920x1080, vSync=0, cap=-1, measuredSeconds=15
+1B q=2, GC generations collected=2/2/2

@@ -1,0 +1,11 @@
+PASS: optical transforms and page collider unchanged
+01_시작_장지대지: renderers=5, triangles=34864
+02_건너편_장지대지: renderers=5, triangles=12528
+07_천장_겹표지: renderers=4, triangles=58108
+03_서벽_단서와창: renderers=2, triangles=1808
+04_동벽_서가와창: renderers=2, triangles=1808
+06_북벽_출구프레임: renderers=2, triangles=516
+13_출구뒤_연속장지복도: renderers=5, triangles=26300
+다음 길의 등불: renderers=2, triangles=756
+다음 길의 등불: renderers=2, triangles=756
+다음 길의 등불: renderers=2, triangles=756

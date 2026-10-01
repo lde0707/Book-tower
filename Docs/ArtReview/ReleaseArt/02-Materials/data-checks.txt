@@ -1,0 +1,14 @@
+PASS Spirit BaseColor: 1111857 painted pixels unchanged
+PASS Spirit Normal: 1111857 painted pixels unchanged
+PASS Spirit MetallicSmoothness: 1111857 painted pixels unchanged
+PASS Moa BaseColor: 2575828 painted pixels unchanged
+PASS Moa Normal: 2575828 painted pixels unchanged
+PASS Moa MetallicSmoothness: 2575828 painted pixels unchanged
+PASS Paper: metallic bytes=[0]; smoothness min/mean/max=0.0941/0.1173/0.1412
+PASS Cover: metallic bytes=[0]; smoothness min/mean/max=0.1686/0.2149/0.2627
+PASS Edge: metallic bytes=[0]; smoothness min/mean/max=0.0667/0.0876/0.1137
+PASS Cotton: metallic bytes=[0]; smoothness min/mean/max=0.0667/0.0878/0.1137
+PASS Brass: metallic bytes=[0, 255]; smoothness min/mean/max=0.2000/0.3813/0.4431
+PASS Foil: metallic bytes=[255]; smoothness min/mean/max=0.5686/0.6052/0.6588
+Foil is fully exposed metal in this generated map; no dust patch passed the current mask threshold. Brass has 17.30% non-metal oxidation coverage.
+Texture runtime accounting: before=111164838 bytes; after=144031836 bytes; increase=32866998 bytes (31.344 MiB, 29.566%). Editor-reported referenced textures, not measured standalone GPU VRAM.

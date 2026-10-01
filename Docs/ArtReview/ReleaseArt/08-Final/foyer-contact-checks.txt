@@ -1,0 +1,12 @@
+F0-0: 1600x900, camera (0.55, 5.37, -235.28), euler (5.0, 0.0, 0.0), FOV 60, q=1
+F0-0 collision ray coverage 510/510, additional backfaces=0, unresolved=0; geometry sampling, not proof of all visible seams.
+F0-90: 1600x900, camera (-4.78, 5.37, -231.05), euler (5.0, 90.0, 0.0), FOV 60, q=1
+F0-90 collision ray coverage 510/510, additional backfaces=0, unresolved=0; geometry sampling, not proof of all visible seams.
+F0-180: 1600x900, camera (-0.55, 5.37, -225.72), euler (5.0, 180.0, 0.0), FOV 60, q=1
+F0-180 collision ray coverage 510/510, additional backfaces=0, unresolved=0; geometry sampling, not proof of all visible seams.
+F0-270: 1600x900, camera (4.78, 5.37, -229.95), euler (5.0, 270.0, 0.0), FOV 60, q=1
+F0-270 collision ray coverage 510/510, additional backfaces=0, unresolved=0; geometry sampling, not proof of all visible seams.
+PASS: real CharacterController stopped at new folio face, x=-10.8, z=-18.64999.
+PASS: real CharacterController stopped at new folio face, x=0, z=-18.64999.
+PASS: real CharacterController stopped at new folio face, x=10.8, z=-18.64999.
+PASS: automated finish checks; visual judgment recorded separately.
