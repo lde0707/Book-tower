@@ -244,7 +244,7 @@ namespace BookTower.EditorTools
             foreach(int side in new[]{-1,1})Box(shell,"연속 통로 벽",V(side*(width*.5f+.38f),3.6f,0),V(.48f,7.5f,len+4),cream,true);
             Box(shell,"연속 통로 천장",V(0,7.1f,0),V(width+1.25f,.5f,len+4),cream,true);
             Box(shell,"연속 통로 하부",V(0,-.27f,0),V(width+1,.35f,len+4),butter,true);
-            for(float z=-len*.5f;z<=len*.5f;z+=2){var leaf=Obj(shell,"다음 방 안내 잎",OrganicLeaf(.7f,.27f),teal,V(0,.23f,z));leaf.localRotation=Quaternion.Euler(90,0,0);}
+            for(float z=-len*.5f;z<=len*.5f-7;z+=2){var leaf=Obj(shell,"다음 방 안내 잎",OrganicLeaf(.7f,.27f),teal,V(0,.23f,z));leaf.localRotation=Quaternion.Euler(90,0,0);}
         }
         static void SaveWorkshopMeshes()
         {

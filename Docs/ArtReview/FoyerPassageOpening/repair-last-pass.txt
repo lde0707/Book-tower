@@ -1,0 +1,1 @@
+Targeted roof and entrance repair. Entrance decoration triangles removed=0; raised entry leaves removed=5; duplicate ceiling instances removed=0. Existing puzzle transforms untouched.

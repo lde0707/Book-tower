@@ -17,12 +17,13 @@ namespace BookTower.EditorTools
   static void ModeChanged(PlayModeStateChange state){if(state==PlayModeStateChange.EnteredEditMode)QueuePreview();}
   static void PreviewInEditor()
   {
-   if(EditorApplication.isPlayingOrWillChangePlaymode)return;
+   if(EditorApplication.isPlayingOrWillChangePlaymode||Application.isBatchMode)return;
    var scene=UnityEngine.SceneManagement.SceneManager.GetSceneByPath("Assets/Scenes/InGame.unity");
-   if(!scene.IsValid()||!scene.isLoaded||scene.GetRootGameObjects().Any(x=>x.name==FoyerPassageCeiling.RootName))return;
+   if(!scene.IsValid()||!scene.isLoaded||scene.GetRootGameObjects().Any(x=>x.name==FoyerPassageCeiling.RootName||x.name=="FoyerPassageCeiling"))return;
    var prefab=AssetDatabase.LoadAssetAtPath<GameObject>(Prefab);if(!prefab)return;
-   bool dirty=scene.isDirty;PrefabUtility.InstantiatePrefab(prefab,scene);EditorSceneManager.MarkSceneDirty(scene);
-   if(!dirty)EditorSceneManager.SaveScene(scene);
+   var instance=(GameObject)PrefabUtility.InstantiatePrefab(prefab,scene);instance.name=FoyerPassageCeiling.RootName;
+   // Preview must not silently save a user's open scene on every asset import.
+   EditorSceneManager.MarkSceneDirty(scene);
   }
   static void Box(Transform p,string name,Vector3 at,Vector3 size,Material m,bool solid=true)
   {var o=GameObject.CreatePrimitive(PrimitiveType.Cube);o.name=name;o.transform.SetParent(p,false);o.transform.localPosition=at;o.transform.localScale=size;o.GetComponent<Renderer>().sharedMaterial=m;if(!solid)Object.DestroyImmediate(o.GetComponent<Collider>());}

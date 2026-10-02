@@ -1,0 +1,4 @@
+PASS: Exact left-light solution still matches
+Near match screen error: body=0.10200, tail=0.09651; legacy max tolerance=0.10
+PASS: Reproduced visually near alignment rejected by old rule
+PASS

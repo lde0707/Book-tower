@@ -15,10 +15,14 @@ namespace BookTower.Puzzles
   public Vector3[] bodyProbes,tailProbes,bodyTargets,tailTargets;
   public const float RabbitX=-2.7f,FoxX=2.8f;
   public const float ProjectionIntensity=115;
+  // Screen-space metres: allow hand-placement / shadow-edge imprecision, while
+  // requiring the whole outline (not just its centre) to agree with the drawing.
+  public const float FoxContourTolerance=.22f,FoxAverageTolerance=.14f;
   public static readonly Vector3 FoxBodySolution=new(-.2222222f,1,12.5f/1.8f),FoxTailSolution=new(-1.28f,1,5);
   StorybookLightPuzzle puzzle;Room room;
   Vector3 bodyAt=new(3.2f,1,8.6f),tailAt=new(-4.4f,1,6.2f);
   float rabbitHold,foxHold;bool tailFlipped;
+  bool foxWasAligned,foxWasHeld;float nextFoxAlignmentNotice;
   Renderer[] art;MaterialPropertyBlock block;
   public int LightIndex{get;private set;}=1;
   public bool RabbitRecorded{get;private set;}
@@ -76,9 +80,28 @@ namespace BookTower.Puzzles
    return s+(position-s)*((StorybookLightPuzzle.ScreenDistance-s.z)/dz);
   }
   public bool RabbitAligned=>puzzle&&puzzle.LampOn&&puzzle.Flipped&&Mathf.Abs(puzzle.BodyRatio-1.5f)<.08f&&Mathf.Abs(puzzle.EarRatio-3)<.12f&&Mathf.Abs(Project(puzzle.BodyPosition).x-RabbitX)<.18f&&Mathf.Abs(Project(puzzle.EarPosition).x-RabbitX)<.18f;
-  public bool FoxAligned=>puzzle&&puzzle.LampOn&&tailFlipped&&ProjectionError(foxBody,bodyProbes,bodyTargets)<.10f&&ProjectionError(foxTail,tailProbes,tailTargets)<.10f;
+  public bool FoxAligned=>puzzle&&puzzle.LampOn&&tailFlipped&&MatchesContour(foxBody,bodyProbes,bodyTargets)&&MatchesContour(foxTail,tailProbes,tailTargets);
+  bool MatchesContour(Transform part,Vector3[] probes,Vector3[] targets)
+  {
+   float worst=MeasureProjection(part,probes,targets,out float average);
+   return worst<=FoxContourTolerance&&average<=FoxAverageTolerance;
+  }
   public float ProjectionError(Transform part,Vector3[] probes,Vector3[] targets)
-  {float error=0;for(int i=0;i<probes.Length;i++){var local=puzzle.stage.InverseTransformPoint(part.TransformPoint(probes[i]));error=Mathf.Max(error,Vector3.Distance(Project(local),targets[i]));}return error;}
+   =>MeasureProjection(part,probes,targets,out _);
+  float MeasureProjection(Transform part,Vector3[] probes,Vector3[] targets,out float average)
+  {
+   average=float.PositiveInfinity;
+   if(!puzzle||!puzzle.stage||!puzzle.lantern||!part||probes==null||targets==null||probes.Length<3||probes.Length!=targets.Length)return float.PositiveInfinity;
+   float worst=0,sum=0;
+   for(int i=0;i<probes.Length;i++)
+   {
+    var local=puzzle.stage.InverseTransformPoint(part.TransformPoint(probes[i]));
+    float error=Vector3.SqrMagnitude(Project(local)-targets[i]);
+    if(!float.IsFinite(error))return float.PositiveInfinity;
+    worst=Mathf.Max(worst,error);sum+=error;
+   }
+   average=Mathf.Sqrt(sum/probes.Length);return Mathf.Sqrt(worst);
+  }
   public void Tick(float dt)
   {
    if(!puzzle)return;
@@ -86,7 +109,15 @@ namespace BookTower.Puzzles
    bool settled=!PaperShadowDrag.Holding&&(FoxRecorded||(Vector3.Distance(foxBody.localPosition,bodyAt)<.02f&&Vector3.Distance(foxTail.localPosition,tailAt)<.02f));
    bool rabbitSettled=RabbitRecorded||(Vector3.Distance(puzzle.body.localPosition,puzzle.BodyPosition)<.02f&&Vector3.Distance(puzzle.ears.localPosition,puzzle.EarPosition)<.02f);
    rabbitHold=!RabbitRecorded&&RabbitAligned&&settled&&rabbitSettled?rabbitHold+dt:0;
-   foxHold=!FoxRecorded&&FoxAligned&&settled?foxHold+dt:0;
+   bool foxAligned=!FoxRecorded&&FoxAligned;
+   bool held=PaperShadowDrag.Holding;
+   if(foxAligned&&(held&&!foxWasHeld||!foxWasAligned&&Time.unscaledTime>=nextFoxAlignmentNotice))
+   {
+    PaperUI.Notify(held?"여우 그림자가 맞았다 · 마우스를 놓으면 책장에 기록된다.":"여우 그림자가 맞았다 · 잠시 그대로 두면 책장에 기록된다.");
+    nextFoxAlignmentNotice=Time.unscaledTime+2;
+   }
+   foxWasAligned=foxAligned;foxWasHeld=held;
+   foxHold=foxAligned&&settled?foxHold+dt:0;
    if(rabbitHold>1.25f){RabbitRecorded=true;Stamp(puzzle.body,puzzle.ears,rabbitRecord);PaperUI.Notify("토끼의 그림자가 책장에 남았다.");}
    if(foxHold>1.25f){FoxRecorded=true;Stamp(foxBody,foxTail,foxRecord);PaperUI.Notify("여우의 그림자가 책장에 남았다.");}
   }

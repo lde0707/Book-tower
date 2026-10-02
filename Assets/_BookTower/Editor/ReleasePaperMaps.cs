@@ -11,6 +11,12 @@ namespace BookTower.EditorTools
  {
   public const string Folder="Assets/_BookTower/Generated/ReleaseMaterials/Textures";
   const int N=1024;
+  // Reimport a revised spirit atlas without regenerating unrelated room/bird maps.
+  public static void RefreshSpiritAtlas()
+  {
+   PadAtlas("Spirit","Assets/_BookTower/Art/PaperHoodSpirit/Spirit_");
+   foreach(string map in new[]{"BaseColor","Normal","MetallicSmoothness"})AssetDatabase.ImportAsset(Folder+"/Spirit_Padded_"+map+".png",ImportAssetOptions.ForceUpdate);
+  }
   public static void Generate()
   {
    Directory.CreateDirectory(Folder);

@@ -1,5 +1,7 @@
 # 1A 세 빛·두 동물 그림자 공방
 
+> 2026-10-02 후속: 여우의 실제 조작 허용 범위와 정렬·놓기 안내는 [여우 정렬 판정 수정](../ShadowFoxAlignment/README.md)을 따른다. 아래 휠 전용 이동 설명은 과거 구현이며 현재는 마우스 두 축과 WASD로 함께 이동한다.
+
 2026-09-28 사용자 요청 구현. 원본 InGame 씬의 기존 방과 연결 통로는 보존하고, StorybookLightPuzzle.Awake에서 Resources/ShadowDuet.prefab을 극장에 배치한다. 기존 토끼 윤곽은 왼쪽, 새 여우 윤곽은 오른쪽에 놓는다.
 
 ## 변경

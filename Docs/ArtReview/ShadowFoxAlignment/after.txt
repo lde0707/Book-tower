@@ -1,0 +1,18 @@
+PASS: Exact left-light solution still matches
+Near match screen error: body=0.10200, tail=0.09651; legacy max tolerance=0.10
+PASS: Visible near match under left light is accepted
+PASS: Missing contour data fails closed
+PASS: Dark projector cannot record
+PASS: Mirrored tail rejected
+PASS: Shifted body rejected
+PASS: Wrong tail size rejected
+PASS: Folded contour rejects wrong light after lateral compensation: 1
+PASS: Folded contour rejects wrong light after lateral compensation: 2
+PASS: Aim reaches fox tail at matching placement
+PASS: Actual mouse click holds fox cutout
+PASS: Held paper remains adjustable before release
+PASS: Matched held paper tells player to release
+PASS: Releasing visible near match records fox first without opening exit
+PASS: Fox-first then rabbit completes both memories
+PASS: Completed pair reaches existing P2 gate
+PASS

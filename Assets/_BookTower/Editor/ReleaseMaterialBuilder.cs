@@ -57,7 +57,7 @@ namespace BookTower.EditorTools
    m.name=key;m.SetFloat("_BumpScale",family=="Foil"?.7f:family=="Brass"?.55f:family=="Cotton"?.8f:.8f);m.SetFloat("_Smoothness",1);m.SetFloat("_Metallic",0);m.SetFloat("_SmoothnessTextureChannel",0);
    m.EnableKeyword("_NORMALMAP");m.EnableKeyword("_METALLICSPECGLOSSMAP");m.DisableKeyword("_SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A");
    if(family=="Spirit"||family=="Moa")
-   {m.SetTexture("_BaseMap",Tex(family,"Padded_BaseColor"));m.SetTexture("_BumpMap",Tex(family,"Padded_Normal"));m.SetTexture("_MetallicGlossMap",Tex(family,"Padded_MetallicSmoothness"));m.SetFloat("_BumpScale",family=="Spirit"?.12f:.20f);m.SetFloat("_Smoothness",.7f);}
+   {m.SetTexture("_BaseMap",Tex(family,"Padded_BaseColor"));m.SetTexture("_BumpMap",Tex(family,"Padded_Normal"));m.SetTexture("_MetallicGlossMap",Tex(family,"Padded_MetallicSmoothness"));m.SetFloat("_BumpScale",family=="Spirit"?.32f:.20f);m.SetFloat("_Smoothness",.7f);}
    else if(family=="Mural")
    {m.SetTexture("_BumpMap",Tex("Paper","Normal"));m.SetFloat("_BumpScale",.3f);m.SetTexture("_MetallicGlossMap",null);m.DisableKeyword("_METALLICSPECGLOSSMAP");m.SetFloat("_Smoothness",.12f);}
    else

@@ -10,7 +10,15 @@ namespace BookTower.Rooms
         static void Loaded(Scene scene,LoadSceneMode mode)
         {
             if(scene.name!="InGame")return;
-            foreach(var root in scene.GetRootGameObjects())if(root.name==RootName)return;
+            GameObject existing=null;
+            foreach(var root in scene.GetRootGameObjects())
+            {
+                // Older editor previews kept the asset filename and accumulated copies.
+                if(root.name!=RootName&&root.name!="FoyerPassageCeiling")continue;
+                if(!existing){existing=root;root.name=RootName;}
+                else {root.SetActive(false);Object.Destroy(root);}
+            }
+            if(existing)return;
             var asset=Resources.Load<GameObject>("FoyerPassageCeiling");
             if(asset){var instance=Object.Instantiate(asset);instance.name=RootName;SceneManager.MoveGameObjectToScene(instance,scene);}
         }

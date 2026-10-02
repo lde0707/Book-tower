@@ -1,0 +1,325 @@
+{
+  "base": "TurnaroundSpiritModelV6",
+  "mesh": [
+    {
+      "part": "Spirit_Hood_continuous_folded_hat",
+      "vertices": 11265,
+      "fixed_edge_vertices": 256,
+      "max_change_m": 0.0070000000000002135
+    },
+    {
+      "part": "Spirit_Cape_back_long_layer_0",
+      "vertices": 1625,
+      "fixed_edge_vertices": 344,
+      "max_change_m": 0.0025000000000000573
+    },
+    {
+      "part": "Spirit_Cape_back_long_layer_1",
+      "vertices": 1625,
+      "fixed_edge_vertices": 344,
+      "max_change_m": 0.002500000000000053
+    },
+    {
+      "part": "Spirit_Cape_back_long_layer_2",
+      "vertices": 1625,
+      "fixed_edge_vertices": 344,
+      "max_change_m": 0.0025000000000000373
+    },
+    {
+      "part": "Spirit_Cape_back_long_mantle",
+      "vertices": 4095,
+      "fixed_edge_vertices": 528,
+      "max_change_m": 0.002500000000000052
+    },
+    {
+      "part": "Spirit_Cape_front_left",
+      "vertices": 2205,
+      "fixed_edge_vertices": 360,
+      "max_change_m": 0.002500000000000056
+    },
+    {
+      "part": "Spirit_Cape_front_left_broad_fold_0",
+      "vertices": 1147,
+      "fixed_edge_vertices": 256,
+      "max_change_m": 0.002500000000000056
+    },
+    {
+      "part": "Spirit_Cape_front_left_broad_fold_1",
+      "vertices": 1147,
+      "fixed_edge_vertices": 256,
+      "max_change_m": 0.002500000000000052
+    },
+    {
+      "part": "Spirit_Cape_front_right",
+      "vertices": 2205,
+      "fixed_edge_vertices": 360,
+      "max_change_m": 0.0025000000000000512
+    },
+    {
+      "part": "Spirit_Cape_front_right_broad_fold_0",
+      "vertices": 1147,
+      "fixed_edge_vertices": 256,
+      "max_change_m": 0.002500000000000051
+    },
+    {
+      "part": "Spirit_Cape_front_right_broad_fold_1",
+      "vertices": 1147,
+      "fixed_edge_vertices": 256,
+      "max_change_m": 0.002500000000000057
+    },
+    {
+      "part": "Spirit_Cape_inner_ankle_length",
+      "vertices": 3277,
+      "fixed_edge_vertices": 552,
+      "max_change_m": 0.002500000000000019
+    },
+    {
+      "part": "Spirit_Cape_lower_left",
+      "vertices": 2205,
+      "fixed_edge_vertices": 360,
+      "max_change_m": 0.0025000000000000473
+    },
+    {
+      "part": "Spirit_Cape_lower_left_broad_fold_0",
+      "vertices": 1147,
+      "fixed_edge_vertices": 256,
+      "max_change_m": 0.0025000000000000517
+    },
+    {
+      "part": "Spirit_Cape_lower_left_broad_fold_1",
+      "vertices": 1147,
+      "fixed_edge_vertices": 256,
+      "max_change_m": 0.0025000000000000556
+    },
+    {
+      "part": "Spirit_Cape_lower_right",
+      "vertices": 2205,
+      "fixed_edge_vertices": 360,
+      "max_change_m": 0.00250000000000005
+    },
+    {
+      "part": "Spirit_Cape_lower_right_broad_fold_0",
+      "vertices": 1147,
+      "fixed_edge_vertices": 256,
+      "max_change_m": 0.0025000000000000504
+    },
+    {
+      "part": "Spirit_Cape_lower_right_broad_fold_1",
+      "vertices": 1147,
+      "fixed_edge_vertices": 256,
+      "max_change_m": 0.0025000000000000556
+    },
+    {
+      "part": "Spirit_Hood_fold_facet_0",
+      "vertices": 299,
+      "fixed_edge_vertices": 128,
+      "max_change_m": 0.0025000000000000512
+    },
+    {
+      "part": "Spirit_Hood_fold_facet_1",
+      "vertices": 299,
+      "fixed_edge_vertices": 128,
+      "max_change_m": 0.00250000000000007
+    },
+    {
+      "part": "Spirit_Hood_fold_facet_2",
+      "vertices": 299,
+      "fixed_edge_vertices": 128,
+      "max_change_m": 0.0025000000000000547
+    },
+    {
+      "part": "Spirit_Hood_fold_facet_3",
+      "vertices": 299,
+      "fixed_edge_vertices": 128,
+      "max_change_m": 0.0025000000000000486
+    },
+    {
+      "part": "Spirit_Hood_fold_facet_4",
+      "vertices": 299,
+      "fixed_edge_vertices": 128,
+      "max_change_m": 0.0025000000000000625
+    },
+    {
+      "part": "Spirit_Hood_fold_facet_5",
+      "vertices": 299,
+      "fixed_edge_vertices": 128,
+      "max_change_m": 0.0025000000000000642
+    },
+    {
+      "part": "Spirit_Hood_fold_facet_6",
+      "vertices": 299,
+      "fixed_edge_vertices": 128,
+      "max_change_m": 0.0025000000000000785
+    },
+    {
+      "part": "Spirit_Hood_fold_facet_7",
+      "vertices": 299,
+      "fixed_edge_vertices": 128,
+      "max_change_m": 0.002500000000000067
+    },
+    {
+      "part": "Spirit_Hood_fold_facet_8",
+      "vertices": 299,
+      "fixed_edge_vertices": 128,
+      "max_change_m": 0.0025000000000000504
+    },
+    {
+      "part": "Spirit_Hood_page_overlap_0",
+      "vertices": 1152,
+      "fixed_edge_vertices": 512,
+      "max_change_m": 0.0025000000000000746
+    },
+    {
+      "part": "Spirit_Hood_page_overlap_1",
+      "vertices": 1152,
+      "fixed_edge_vertices": 512,
+      "max_change_m": 0.0025000000000000326
+    },
+    {
+      "part": "Spirit_Hood_page_overlap_2",
+      "vertices": 1152,
+      "fixed_edge_vertices": 512,
+      "max_change_m": 0.002500000000000056
+    },
+    {
+      "part": "Spirit_Hood_page_overlap_3",
+      "vertices": 1152,
+      "fixed_edge_vertices": 512,
+      "max_change_m": 0.002500000000000135
+    },
+    {
+      "part": "Spirit_Scarf_tail_-1",
+      "vertices": 527,
+      "fixed_edge_vertices": 176,
+      "max_change_m": 0.002500000000000022
+    },
+    {
+      "part": "Spirit_Scarf_tail_1",
+      "vertices": 527,
+      "fixed_edge_vertices": 176,
+      "max_change_m": 0.0025000000000000512
+    },
+    {
+      "part": "Spirit_Scarf_wrap_0",
+      "vertices": 1456,
+      "fixed_edge_vertices": 448,
+      "max_change_m": 0.0025000000000000356
+    },
+    {
+      "part": "Spirit_Scarf_wrap_1",
+      "vertices": 1456,
+      "fixed_edge_vertices": 448,
+      "max_change_m": 0.0025000000000000478
+    },
+    {
+      "part": "Spirit_Scarf_wrap_2",
+      "vertices": 1456,
+      "fixed_edge_vertices": 448,
+      "max_change_m": 0.002500000000000048
+    },
+    {
+      "part": "Spirit_Sleeve_-1",
+      "vertices": 1296,
+      "fixed_edge_vertices": 192,
+      "max_change_m": 0.002500000000000008
+    },
+    {
+      "part": "Spirit_Sleeve_1",
+      "vertices": 1296,
+      "fixed_edge_vertices": 192,
+      "max_change_m": 0.002500000000000008
+    }
+  ],
+  "materials": [
+    {
+      "name": "Ivory handmade paper",
+      "changes": [
+        [
+          "fiber_normal",
+          0.8500000238418579,
+          0.23999999463558197
+        ],
+        [
+          "bump",
+          0.37400001287460327,
+          0.07479999959468842
+        ],
+        [
+          "bump",
+          0.31200000643730164,
+          0.06240000203251839
+        ],
+        [
+          "bump",
+          0.33799999952316284,
+          0.1284399926662445
+        ]
+      ]
+    },
+    {
+      "name": "Soft fibrous garment paper",
+      "changes": [
+        [
+          "fiber_normal",
+          0.47999998927116394,
+          0.23999999463558197
+        ],
+        [
+          "bump",
+          0.21119999885559082,
+          0.04224000126123428
+        ]
+      ]
+    },
+    {
+      "name": "Soft ivory face",
+      "changes": [
+        [
+          "fiber_normal",
+          0.11999999731779099,
+          0.10000000149011612
+        ],
+        [
+          "bump",
+          0.052799999713897705,
+          0.01056000031530857
+        ],
+        [
+          "bump",
+          0.15600000321865082,
+          0.031200001016259193
+        ],
+        [
+          "bump",
+          0.16899999976158142,
+          0.06421999633312225
+        ]
+      ]
+    },
+    {
+      "name": "Warm paper inner layers",
+      "changes": [
+        [
+          "fiber_normal",
+          0.47999998927116394,
+          0.23999999463558197
+        ],
+        [
+          "bump",
+          0.21119999885559082,
+          0.04224000126123428
+        ],
+        [
+          "bump",
+          0.23999999463558197,
+          0.04800000041723251
+        ],
+        [
+          "bump",
+          0.25999999046325684,
+          0.09879999607801437
+        ]
+      ]
+    }
+  ]
+}

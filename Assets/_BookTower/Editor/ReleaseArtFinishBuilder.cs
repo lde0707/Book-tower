@@ -146,8 +146,12 @@ namespace BookTower.EditorTools
     {
      var g=Batch(root,"Side story alcove "+side+" "+bay,V(side*28,0,-12+bay*20));g.localEulerAngles=V(0,side*90,0);
      for(int l=0;l<3;l++){var frame=Group(g,"Nested page edge",V(0,l*.05f,l*.15f));Arch(frame,8.1f-l*.22f,5.4f,3.5f,.23f,l==0?teal:paper,.3f);}
-     for(int i=0;i<6;i++){var leaf=Group(g,"Faint crayon relief",V((i%2==0?-1:1)*2.7f,1.5f+i*.75f,.35f));Sprig(leaf,.7f,teal);}
-     Box(g,"Layered shelf lip",V(0,1.5f,-.2f),V(7.2f,.23f,1.25f),paper,.10f);
+     // The southwest alcove is the F0 entrance, not a display shelf.
+     if(side!=-1||bay!=0)
+     {
+      for(int i=0;i<6;i++){var leaf=Group(g,"Faint crayon relief",V((i%2==0?-1:1)*2.7f,1.5f+i*.75f,.35f));Sprig(leaf,.7f,teal);}
+      Box(g,"Layered shelf lip",V(0,1.5f,-.2f),V(7.2f,.23f,1.25f),paper,.10f);
+     }
     }
    }
    // High swept bands break the flat roof silhouette without entering the projection cone.

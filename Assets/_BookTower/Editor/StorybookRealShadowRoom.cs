@@ -128,7 +128,7 @@ namespace BookTower.EditorTools
 
             // Entry-to-theatre guidance follows the new open room, not the retired partitions.
             Vector3[] route={V(-31,.22f,-12.8f),V(-13,.22f,-12.8f),V(-10,.22f,0),V(3,.22f,12),V(13,.22f,20),V(24.5f,.22f,26)};
-            for(int i=0;i<route.Length-1;i++){var d=route[i+1]-route[i];for(float k=0;k<d.magnitude;k+=1.9f){var leaf=Obj(interior,"별빛을 따라가는 바닥 잎",OrganicLeaf(.65f,.24f),teal,route[i]+d.normalized*k);leaf.rotation=Quaternion.LookRotation(d)*Quaternion.Euler(90,0,0);}}
+            for(int i=0;i<route.Length-1;i++){var d=route[i+1]-route[i];for(float k=0;k<d.magnitude;k+=1.9f){var at=route[i]+d.normalized*k;if(at.x < -20 && at.z > -16 && at.z < -8)continue;var leaf=Obj(interior,"별빛을 따라가는 바닥 잎",OrganicLeaf(.65f,.24f),teal,at);leaf.rotation=Quaternion.LookRotation(d)*Quaternion.Euler(90,0,0);}}
         }
     }
 }

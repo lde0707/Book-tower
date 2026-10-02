@@ -1,0 +1,10 @@
+PASS: W reaches walk speed 3.8
+PASS: Left Shift reaches run speed 5.9
+PASS: Right Shift also runs
+PASS: Releasing Shift returns to walk
+PASS: Release movement stops smoothly
+PASS: Space enters real upward jump
+PASS: One quiet jump source starts on takeoff
+PASS: Jump lands on floor
+PASS: Pause clears run and movement input
+PASS: movement, Shift run, jump audio, ten-clip FSM and pause.

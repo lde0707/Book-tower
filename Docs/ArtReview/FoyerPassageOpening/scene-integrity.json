@@ -1,0 +1,95 @@
+{
+  "main_scene_before_sha256": "a4c1f89738aae9dfb36fe588f3e7802e3c94b0392eaacf2717d9e2d367aab060",
+  "main_scene_after_sha256": "49acbdb2626268d9b7fa74bfebff5dcd0f06140cf2b517c292b0ac1e4d8d26fc",
+  "existing_monobehaviour_blocks_unchanged": true,
+  "validated_assets": [
+    {
+      "path": "Assets/_BookTower/Generated/FoyerOpeningRepair/Entrance_Craft_batch_1A_CrayonTeal.asset",
+      "sha256": "9ff3a6076c1e779386a1daa2f44482c34213e364a1a72f26d72a3a17ad3d7171"
+    },
+    {
+      "path": "Assets/_BookTower/Generated/FoyerOpeningRepair/Entrance_Craft_batch_1A_CrayonTeal.asset.meta",
+      "sha256": "7737e8e654fe501e341ead3285e93981ce02e1817ed9c52e58fcfa11e3b4d2e1"
+    },
+    {
+      "path": "Assets/_BookTower/Generated/FoyerOpeningRepair/Entrance_Craft_batch_DeckledIvory.asset",
+      "sha256": "410aa283adfecba1db433528cfb19429866e9114631bef8378b15e134f4d8b78"
+    },
+    {
+      "path": "Assets/_BookTower/Generated/FoyerOpeningRepair/Entrance_Craft_batch_DeckledIvory.asset.meta",
+      "sha256": "20808d18992c66ef59aff74e2d8e906ee12481a46fdd7e8b6549f6230640dc21"
+    },
+    {
+      "path": "Assets/_BookTower/Generated/FoyerOpeningRepair/Seal_00.asset",
+      "sha256": "7423b534914725a7ce700d2b3f65e4ea60b11fd162365f2adf1dec6793a71cb9"
+    },
+    {
+      "path": "Assets/_BookTower/Generated/FoyerOpeningRepair/Seal_00.asset.meta",
+      "sha256": "a2fb21dcf4ec4491233e9d144ec8713d43a4e3b6e758244d14e25537f0cbe203"
+    },
+    {
+      "path": "Assets/_BookTower/Generated/FoyerOpeningRepair/Seal_01.asset",
+      "sha256": "1a37de8655c5dcc876aed844c7b34b08dfc82085b6342e29a0d9de5453ed5e57"
+    },
+    {
+      "path": "Assets/_BookTower/Generated/FoyerOpeningRepair/Seal_01.asset.meta",
+      "sha256": "7d9fcd9f3c0a36681d9d139cde118979afd678e0953453b395b527350d70c5d2"
+    },
+    {
+      "path": "Assets/_BookTower/Generated/FoyerOpeningRepair/Seal_02.asset",
+      "sha256": "f977f35e9e94ed1fc0006b2a5eb614143b21133f7d0c5bb7d0ec5e6d24c37e6b"
+    },
+    {
+      "path": "Assets/_BookTower/Generated/FoyerOpeningRepair/Seal_02.asset.meta",
+      "sha256": "242d72ed2ff6675c9f7437b517bea032ff3ebd2d2cfca4c9ceef77689b89032b"
+    },
+    {
+      "path": "Assets/_BookTower/Generated/FoyerOpeningRepair/Seal_03.asset",
+      "sha256": "29a3102b53a388ccfa57f29800e1cab42df773d7dfb37adf345b7308b90bbaba"
+    },
+    {
+      "path": "Assets/_BookTower/Generated/FoyerOpeningRepair/Seal_03.asset.meta",
+      "sha256": "48799d6aa44223fc52202ce4b76bd5540e75c727252d7b543fe4013355fb8038"
+    },
+    {
+      "path": "Assets/_BookTower/Generated/FoyerOpeningRepair/Seal_04.asset",
+      "sha256": "566ddbf93e0f8615e2beb026425eef27c8ba0f0aa8910fd2f54c47f1052fcee6"
+    },
+    {
+      "path": "Assets/_BookTower/Generated/FoyerOpeningRepair/Seal_04.asset.meta",
+      "sha256": "929db1c46d305e44977959ccc13903783ca526e6a94714e8ff1939cf21a211ad"
+    },
+    {
+      "path": "Assets/_BookTower/Generated/FoyerOpeningRepair/Seal_05.asset",
+      "sha256": "e390c20f504450096b36da883b85da306841f580ccfa3db4330c58da61615389"
+    },
+    {
+      "path": "Assets/_BookTower/Generated/FoyerOpeningRepair/Seal_05.asset.meta",
+      "sha256": "67b47b8db407f1f14b1f30dbbe36a61074590cc4c1df00f43a726e503ee7d2f1"
+    },
+    {
+      "path": "Assets/_BookTower/Generated/FoyerOpeningRepair/Seal_06.asset",
+      "sha256": "65eb811d12d825e012663982c09111d2c3a72ca926bda003fa43746dd5328f53"
+    },
+    {
+      "path": "Assets/_BookTower/Generated/FoyerOpeningRepair/Seal_06.asset.meta",
+      "sha256": "a5a143656b0f6ba7fd1013d6fd8828783e76c76458aedd76ad27b11646af3db4"
+    },
+    {
+      "path": "Assets/_BookTower/Generated/FoyerOpeningRepair/Seal_07.asset",
+      "sha256": "65eb811d12d825e012663982c09111d2c3a72ca926bda003fa43746dd5328f53"
+    },
+    {
+      "path": "Assets/_BookTower/Generated/FoyerOpeningRepair/Seal_07.asset.meta",
+      "sha256": "205e74f961f1c27cc5585d2dbcf597c03cf0867c71c1766bf86f233e9006f2fc"
+    },
+    {
+      "path": "Assets/_BookTower/Generated/FoyerOpeningRepair.meta",
+      "sha256": "c7445669be5d631e10263473efa33a359f8711a13f68c8b388a74df7c94156b4"
+    },
+    {
+      "path": "Assets/Scenes/InGame.unity",
+      "sha256": "49acbdb2626268d9b7fa74bfebff5dcd0f06140cf2b517c292b0ac1e4d8d26fc"
+    }
+  ]
+}

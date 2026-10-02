@@ -82,7 +82,7 @@ namespace BookTower.EditorTools
                 for(int j=0;j<=24;j++)for(int k=0;k<2;k++){float ang=Mathf.PI*j/24;v.Add(V(Mathf.Cos(ang)*width*.5f,3.5f+Mathf.Sin(ang)*width*.5f,z+k*4.12f));uv.Add(new Vector2(ang*width,z+k*4.12f)*.4f);if(j>0&&k==0){int q=(j-1)*2;tri.AddRange(new[]{q,q+1,q+2,q+1,q+3,q+2});}}
                 Obj(g,"휘어진 책장 천장",Mesh(v,uv,tri),cream,Vector3.zero);
                 if(((int)(z+length*.5f)/4)%2==0){Arch(g,V(0,0,z),width*.5f-.65f,3.5f,0);Hanging(g,V(0,4.6f,z+1),6,.38f);}
-                Stroke(g,"붉은 리본에서 청록 줄기로",new[]{V(-.3f,.15f,z),V(.2f,.15f,z+2),V(0,.15f,z+4)},t<.5f?coral:teal,.038f);
+                if(z+2 < length*.5f-7)Stroke(g,"붉은 리본에서 청록 줄기로",new[]{V(-.3f,.15f,z),V(.2f,.15f,z+2),V(0,.15f,z+4)},t<.5f?coral:teal,.038f);
             }
         }
         static void Validate()
