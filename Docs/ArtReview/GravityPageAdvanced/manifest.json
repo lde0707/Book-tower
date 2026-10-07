@@ -1,0 +1,278 @@
+{
+  "generator": "Built-in ImageGen",
+  "date": "2026-10-02",
+  "imageCount": 30,
+  "conceptOnly": true,
+  "images": [
+    {
+      "id": "01-support-handoff-01",
+      "pattern": 1,
+      "step": 1,
+      "title": "받침을 먼저 넘겨라",
+      "caption": "다리를 여는 데 쓴 페이지가 출구에도 필요하다.",
+      "file": "01-support-handoff-01.png",
+      "source": "C:\\Users\\doun0\\.codex\\generated_images\\01a0fa34-0047-7031-9f8d-95b742fae894\\exec-9079ca15-9f7f-458c-9d4f-e61fea23cc36.png"
+    },
+    {
+      "id": "01-support-handoff-02",
+      "pattern": 1,
+      "step": 2,
+      "title": "받침을 먼저 넘겨라",
+      "caption": "받침 없이 페이지를 떼면 다리가 다시 접힌다.",
+      "file": "01-support-handoff-02.png",
+      "source": "C:\\Users\\doun0\\.codex\\generated_images\\01a0fa34-0047-7031-9f8d-95b742fae894\\exec-e6b7e49c-c64f-42e5-9783-cd2be50ea800.png"
+    },
+    {
+      "id": "01-support-handoff-03",
+      "pattern": 1,
+      "step": 3,
+      "title": "받침을 먼저 넘겨라",
+      "caption": "A가 다리를 붙잡는 동안 반대편 받침을 가져온다.",
+      "file": "01-support-handoff-03.png",
+      "source": "C:\\Users\\doun0\\.codex\\generated_images\\01a0fa34-0047-7031-9f8d-95b742fae894\\exec-0e0c2f2c-bee5-4cae-af2e-711a64c35503.png"
+    },
+    {
+      "id": "01-support-handoff-04",
+      "pattern": 1,
+      "step": 4,
+      "title": "받침을 먼저 넘겨라",
+      "caption": "받침 B를 끼운 뒤에 페이지를 회수한다.",
+      "file": "01-support-handoff-04.png",
+      "source": "C:\\Users\\doun0\\.codex\\generated_images\\01a0fa34-0047-7031-9f8d-95b742fae894\\exec-dc261656-2c2d-4147-b16f-1ab07600b76a.png"
+    },
+    {
+      "id": "01-support-handoff-05",
+      "pattern": 1,
+      "step": 5,
+      "title": "받침을 먼저 넘겨라",
+      "caption": "페이지를 출구 쪽으로 옮겨 A를 건너게 한다.",
+      "file": "01-support-handoff-05.png",
+      "source": "C:\\Users\\doun0\\.codex\\generated_images\\01a0fa34-0047-7031-9f8d-95b742fae894\\exec-1c1e98ce-f031-422a-9645-39f743089f1d.png"
+    },
+    {
+      "id": "01-support-handoff-06",
+      "pattern": 1,
+      "step": 6,
+      "title": "받침을 먼저 넘겨라",
+      "caption": "A는 출구를 열고, B는 다리를 남긴다.",
+      "file": "01-support-handoff-06.png",
+      "source": "C:\\Users\\doun0\\.codex\\generated_images\\01a0fa34-0047-7031-9f8d-95b742fae894\\exec-4bb17117-faaa-429b-9a6c-322de8d3327a.png"
+    },
+    {
+      "id": "02-size-routing-01",
+      "pattern": 2,
+      "step": 1,
+      "title": "같은 힘, 다른 길",
+      "caption": "큰 상자는 왼쪽, 작은 공은 오른쪽에 놓아야 한다.",
+      "file": "02-size-routing-01.png",
+      "source": "C:\\Users\\doun0\\.codex\\generated_images\\01a0fa34-0047-7031-9f8d-95b742fae894\\exec-28ba2eec-329e-4b09-84a7-7a0e643ea07c.png"
+    },
+    {
+      "id": "02-size-routing-02",
+      "pattern": 2,
+      "step": 2,
+      "title": "같은 힘, 다른 길",
+      "caption": "오른쪽으로 당기면 두 물건이 함께 움직인다.",
+      "file": "02-size-routing-02.png",
+      "source": "C:\\Users\\doun0\\.codex\\generated_images\\01a0fa34-0047-7031-9f8d-95b742fae894\\exec-5acb0484-cb33-43e0-8492-03be5609307f.png"
+    },
+    {
+      "id": "02-size-routing-03",
+      "pattern": 2,
+      "step": 3,
+      "title": "같은 힘, 다른 길",
+      "caption": "힘을 왼쪽으로 바꿔 A를 격자 안으로 넣는다.",
+      "file": "02-size-routing-03.png",
+      "source": "C:\\Users\\doun0\\.codex\\generated_images\\01a0fa34-0047-7031-9f8d-95b742fae894\\exec-bacf63bc-b6c1-4093-af34-705a4c0b2463.png"
+    },
+    {
+      "id": "02-size-routing-04",
+      "pattern": 2,
+      "step": 4,
+      "title": "같은 힘, 다른 길",
+      "caption": "격자를 닫아 큰 상자만 빠져나오지 못하게 한다.",
+      "file": "02-size-routing-04.png",
+      "source": "C:\\Users\\doun0\\.codex\\generated_images\\01a0fa34-0047-7031-9f8d-95b742fae894\\exec-d1e6487b-377b-4048-b33b-2bc101f2a758.png"
+    },
+    {
+      "id": "02-size-routing-05",
+      "pattern": 2,
+      "step": 5,
+      "title": "같은 힘, 다른 길",
+      "caption": "공은 구멍을 지나고, 상자는 격자에 걸린다.",
+      "file": "02-size-routing-05.png",
+      "source": "C:\\Users\\doun0\\.codex\\generated_images\\01a0fa34-0047-7031-9f8d-95b742fae894\\exec-52aecd76-46c8-4e10-89ad-1ca035096e71.png"
+    },
+    {
+      "id": "02-size-routing-06",
+      "pattern": 2,
+      "step": 6,
+      "title": "같은 힘, 다른 길",
+      "caption": "양쪽 받침을 유지한 채 페이지를 가져간다.",
+      "file": "02-size-routing-06.png",
+      "source": "C:\\Users\\doun0\\.codex\\generated_images\\01a0fa34-0047-7031-9f8d-95b742fae894\\exec-c9b34e46-d1a0-48ab-b6b7-49b8ea26c39b.png"
+    },
+    {
+      "id": "03-counterweight-01",
+      "pattern": 3,
+      "step": 1,
+      "title": "들어 올리려면 놓아라",
+      "caption": "왼쪽 추는 3칸, 오른쪽 화물은 2칸 무게다.",
+      "file": "03-counterweight-01.png",
+      "source": "C:\\Users\\doun0\\.codex\\generated_images\\01a0fa34-0047-7031-9f8d-95b742fae894\\exec-e630c8c9-ab11-4087-8bb5-1df4ff4d0ad0.png"
+    },
+    {
+      "id": "03-counterweight-02",
+      "pattern": 3,
+      "step": 2,
+      "title": "들어 올리려면 놓아라",
+      "caption": "승강대가 위에 있어도 바닥의 짐은 실을 수 없다.",
+      "file": "03-counterweight-02.png",
+      "source": "C:\\Users\\doun0\\.codex\\generated_images\\01a0fa34-0047-7031-9f8d-95b742fae894\\exec-1592516f-39c6-4419-a1e1-705e9f555049.png"
+    },
+    {
+      "id": "03-counterweight-03",
+      "pattern": 3,
+      "step": 3,
+      "title": "들어 올리려면 놓아라",
+      "caption": "A를 올리면 연결된 오른쪽 승강대가 내려온다.",
+      "file": "03-counterweight-03.png",
+      "source": "C:\\Users\\doun0\\.codex\\generated_images\\01a0fa34-0047-7031-9f8d-95b742fae894\\exec-adb1cd5e-873c-4092-8d35-dc7dd4cf1bdb.png"
+    },
+    {
+      "id": "03-counterweight-04",
+      "pattern": 3,
+      "step": 4,
+      "title": "들어 올리려면 놓아라",
+      "caption": "내려온 승강대에 B를 굴려 싣는다.",
+      "file": "03-counterweight-04.png",
+      "source": "C:\\Users\\doun0\\.codex\\generated_images\\01a0fa34-0047-7031-9f8d-95b742fae894\\exec-d68b77c3-cfde-4f60-8b31-22ae7012dac0.png"
+    },
+    {
+      "id": "03-counterweight-05",
+      "pattern": 3,
+      "step": 5,
+      "title": "들어 올리려면 놓아라",
+      "caption": "페이지를 떼면 무거운 A가 내려가며 B를 올린다.",
+      "file": "03-counterweight-05.png",
+      "source": "C:\\Users\\doun0\\.codex\\generated_images\\01a0fa34-0047-7031-9f8d-95b742fae894\\exec-6d9487f2-9f5f-472c-b514-f7d090d6e20b.png"
+    },
+    {
+      "id": "03-counterweight-06",
+      "pattern": 3,
+      "step": 6,
+      "title": "들어 올리려면 놓아라",
+      "caption": "승강대를 고정하고 짐을 내린 뒤 페이지도 회수한다.",
+      "file": "03-counterweight-06.png",
+      "source": "C:\\Users\\doun0\\.codex\\generated_images\\01a0fa34-0047-7031-9f8d-95b742fae894\\exec-200b3958-6648-4480-97fe-e295892d3d2f.png"
+    },
+    {
+      "id": "04-moving-source-01",
+      "pattern": 4,
+      "step": 1,
+      "title": "움직이는 아래 방향",
+      "caption": "매달린 채로는 낮은 출구 통로를 지나지 못한다.",
+      "file": "04-moving-source-01.png",
+      "source": "C:\\Users\\doun0\\.codex\\generated_images\\01a0fa34-0047-7031-9f8d-95b742fae894\\exec-fbcca096-4110-4c20-8657-eef3ebed9db7.png"
+    },
+    {
+      "id": "04-moving-source-02",
+      "pattern": 4,
+      "step": 2,
+      "title": "움직이는 아래 방향",
+      "caption": "받침 없는 곳에서 페이지를 돌리면 짐을 놓친다.",
+      "file": "04-moving-source-02.png",
+      "source": "C:\\Users\\doun0\\.codex\\generated_images\\01a0fa34-0047-7031-9f8d-95b742fae894\\exec-ffbefba3-9a67-4300-9c6a-1c20e270050e.png"
+    },
+    {
+      "id": "04-moving-source-03",
+      "pattern": 4,
+      "step": 3,
+      "title": "움직이는 아래 방향",
+      "caption": "위로 당긴 화물을 받침 S 바로 위에 멈춘다.",
+      "file": "04-moving-source-03.png",
+      "source": "C:\\Users\\doun0\\.codex\\generated_images\\01a0fa34-0047-7031-9f8d-95b742fae894\\exec-0fe8716d-a388-4477-9010-7f777b066133.png"
+    },
+    {
+      "id": "04-moving-source-04",
+      "pattern": 4,
+      "step": 4,
+      "title": "움직이는 아래 방향",
+      "caption": "S에 짐을 내려놓은 뒤 페이지를 세운다.",
+      "file": "04-moving-source-04.png",
+      "source": "C:\\Users\\doun0\\.codex\\generated_images\\01a0fa34-0047-7031-9f8d-95b742fae894\\exec-0763e503-4f1b-462b-8e4c-3102ec0bc667.png"
+    },
+    {
+      "id": "04-moving-source-05",
+      "pattern": 4,
+      "step": 5,
+      "title": "움직이는 아래 방향",
+      "caption": "받침의 문을 열어 A를 낮은 통로로 보낸다.",
+      "file": "04-moving-source-05.png",
+      "source": "C:\\Users\\doun0\\.codex\\generated_images\\01a0fa34-0047-7031-9f8d-95b742fae894\\exec-ba85383b-e7f2-4059-b715-66500871b568.png"
+    },
+    {
+      "id": "04-moving-source-06",
+      "pattern": 4,
+      "step": 6,
+      "title": "움직이는 아래 방향",
+      "caption": "C에 내려놓으면 페이지를 떼어도 화물이 남는다.",
+      "file": "04-moving-source-06.png",
+      "source": "C:\\Users\\doun0\\.codex\\generated_images\\01a0fa34-0047-7031-9f8d-95b742fae894\\exec-ca25a681-5a35-408a-b681-5b25f0ac77b3.png"
+    },
+    {
+      "id": "05-two-pages-three-loads-01",
+      "pattern": 5,
+      "step": 1,
+      "title": "두 장으로 세 길",
+      "caption": "다리와 승강대, 출구를 두 장으로 유지해야 한다.",
+      "file": "05-two-pages-three-loads-01.png",
+      "source": "C:\\Users\\doun0\\.codex\\generated_images\\01a0fa34-0047-7031-9f8d-95b742fae894\\exec-8e2bb93b-b7bd-435b-a7b4-3142de4ad085.png"
+    },
+    {
+      "id": "05-two-pages-three-loads-02",
+      "pattern": 5,
+      "step": 2,
+      "title": "두 장으로 세 길",
+      "caption": "P로 다리를 열고 Q로 승강대를 올린다.",
+      "file": "05-two-pages-three-loads-02.png",
+      "source": "C:\\Users\\doun0\\.codex\\generated_images\\01a0fa34-0047-7031-9f8d-95b742fae894\\exec-41d86742-a274-4cad-ac8c-e83cbdda489f.png"
+    },
+    {
+      "id": "05-two-pages-three-loads-03",
+      "pattern": 5,
+      "step": 3,
+      "title": "두 장으로 세 길",
+      "caption": "K를 가져와 승강대의 하중을 받친다.",
+      "file": "05-two-pages-three-loads-03.png",
+      "source": "C:\\Users\\doun0\\.codex\\generated_images\\01a0fa34-0047-7031-9f8d-95b742fae894\\exec-9d411c6f-fdbe-49b1-bb15-621736158443.png"
+    },
+    {
+      "id": "05-two-pages-three-loads-04",
+      "pattern": 5,
+      "step": 4,
+      "title": "두 장으로 세 길",
+      "caption": "K가 승강대를 지지하므로 Q를 출구에 쓸 수 있다.",
+      "file": "05-two-pages-three-loads-04.png",
+      "source": "C:\\Users\\doun0\\.codex\\generated_images\\01a0fa34-0047-7031-9f8d-95b742fae894\\exec-d79d29ee-0bdf-4968-bb1d-1ddb66537e37.png"
+    },
+    {
+      "id": "05-two-pages-three-loads-05",
+      "pattern": 5,
+      "step": 5,
+      "title": "두 장으로 세 길",
+      "caption": "C가 줄을 당겨 A의 안전 걸쇠를 잠근다.",
+      "file": "05-two-pages-three-loads-05.png",
+      "source": "C:\\Users\\doun0\\.codex\\generated_images\\01a0fa34-0047-7031-9f8d-95b742fae894\\exec-33a0adf5-f931-423e-8877-bb1c9b2c2a5f.png"
+    },
+    {
+      "id": "05-two-pages-three-loads-06",
+      "pattern": 5,
+      "step": 6,
+      "title": "두 장으로 세 길",
+      "caption": "A는 걸쇠, B는 받침, C는 바닥이 지지한다.",
+      "file": "05-two-pages-three-loads-06.png",
+      "source": "C:\\Users\\doun0\\.codex\\generated_images\\01a0fa34-0047-7031-9f8d-95b742fae894\\exec-f9675544-b3d1-4214-b032-152d5821436f.png"
+    }
+  ]
+}

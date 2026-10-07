@@ -115,6 +115,8 @@ namespace BookTower.Interaction
             }
 
             GameObject go = Current.gameObject;
+            var gravity=go.GetComponentInParent<BookTower.Puzzles.GravityPageControl>();
+            if(gravity!=null){gravity.TryUse(transform.position);return;}
             var reading=go.GetComponentInParent<BookTower.Puzzles.ReadingRoomControl>();
             if(reading!=null){reading.TryUse(transform.position);return;}
             var workshop=go.GetComponentInParent<BookTower.Puzzles.StorybookLightControl>();

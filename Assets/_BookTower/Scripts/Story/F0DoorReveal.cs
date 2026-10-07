@@ -14,7 +14,7 @@ namespace BookTower.Story
    bool first=true;Bounds bounds=default;Transform basis=null;
    foreach(var door in openingDoors)
    {
-    if(!door||door.puzzle!=bridge)continue;basis=door.left.parent;
+    if(!door||door.puzzle!=EntrancePuzzle)continue;basis=door.left.parent;
     var l=door.left.localRotation;var r=door.right.localRotation;
     for(int a=0;a<=180;a+=15){door.left.localRotation=Quaternion.Euler(0,Mathf.Min(a,170),0);door.right.localRotation=Quaternion.Euler(0,-Mathf.Min(a,170),0);
      foreach(var leaf in new[]{door.left,door.right})foreach(var renderer in leaf.GetComponentsInChildren<Renderer>()){if(first){bounds=renderer.bounds;first=false;}else bounds.Encapsulate(renderer.bounds);}}

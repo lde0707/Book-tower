@@ -1,0 +1,13 @@
+Exact duplicate removed from rendering/collision; original retained: Map/1D_다급한발자국/V2_블록아웃/주동선_4 == Map/1D_다급한발자국/V2_블록아웃/주동선_3
+Exact duplicate removed from rendering/collision; original retained: Map/2C_숨겨진틈/V2_블록아웃/주동선_3 == Map/2C_숨겨진틈/V2_블록아웃/주동선_2
+Exact duplicate removed from rendering/collision; original retained: Map/3B_삼중조건의문/V2_블록아웃/주동선_4 == Map/3B_삼중조건의문/V2_블록아웃/주동선_3
+Exact duplicate removed from rendering/collision; original retained: Map/2D_엇갈린기록/V2_블록아웃/주동선_3 == Map/2D_엇갈린기록/V2_블록아웃/주동선_2
+Exact duplicate removed from rendering/collision; original retained: Map/3A_복원의방/V2_블록아웃/주동선_2 == Map/3A_복원의방/V2_블록아웃/주동선_3
+Exact duplicate removed from rendering/collision; original retained: Map/3A_복원의방/V2_블록아웃/주동선_4 == Map/3A_복원의방/V2_블록아웃/주동선_5
+Exact duplicate removed from rendering/collision; original retained: Map/1E_첫번째봉인/V2_블록아웃/주동선_4 == Map/1E_첫번째봉인/V2_블록아웃/주동선_5
+Exact duplicate removed from rendering/collision; original retained: Map/1E_첫번째봉인/V2_블록아웃/주동선_3 == Map/1E_첫번째봉인/V2_블록아웃/주동선_2
+Exact duplicate removed from rendering/collision; original retained: Map/1C_교차그림자/V2_블록아웃/주동선_4 == Map/1C_교차그림자/V2_블록아웃/주동선_3
+Exact duplicate removed from rendering/collision; original retained: Map/2C_숨겨진틈/V2_블록아웃/주동선_5 == Map/2C_숨겨진틈/V2_블록아웃/주동선_4
+Exact duplicate removed from rendering/collision; original retained: Map/2B_따라접기/V2_블록아웃/주동선_3 == Map/2B_따라접기/V2_블록아웃/주동선_2
+PASS: 1596 fitted surfaces; added=0; same-object primitive replacements=0. Exact original render mesh, non-convex, no enlargement. Cargo physics, old floors, bridges, door and passage geometry preserved.
+F0 chamber local z=7; 1B console z=-8.8; alcove spacing=1.4 and depth=1.05; F0 left arch moved 1m outward. No old geometry deleted.

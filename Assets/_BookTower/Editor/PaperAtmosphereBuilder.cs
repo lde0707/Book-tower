@@ -38,6 +38,7 @@ namespace BookTower.EditorTools
             EditorSceneManager.SaveScene(scene, "Logs/AtmosphereBackups/InGame-" + DateTime.Now.ToString("yyyyMMdd-HHmmss") + ".unity", true);
             var rooms = Object.FindObjectsByType<Room>(FindObjectsSortMode.None).Where(ReleaseLightingReview.Target).ToArray();
             var owned = ReleaseLightingReview.PuzzleLights();
+            Physics.SyncTransforms();
             string contract = Contract(owned);
             foreach (var room in rooms) { var old = room.transform.Find(Root); if (old) Object.DestroyImmediate(old.gameObject); }
             var lights = Object.FindObjectsByType<Light>(FindObjectsInactive.Include, FindObjectsSortMode.None);
@@ -131,7 +132,7 @@ namespace BookTower.EditorTools
             l.transform.LookAt(root.TransformPoint(toward)); l.type = LightType.Spot; l.intensity = intensity; l.color = color; l.range = range;
             l.spotAngle = angle; l.innerSpotAngle = angle * .32f; l.shadows = LightShadows.None;
         }
-        static string Contract(HashSet<Light> lights) => string.Join("|", Object.FindObjectsByType<Collider>(FindObjectsInactive.Include, FindObjectsSortMode.None).Select(c => $"{c.GetInstanceID()}:{c.bounds}:{c.enabled}").Concat(lights.OrderBy(l => l.GetInstanceID()).Select(l => $"{l.GetInstanceID()}:{l.transform.localToWorldMatrix}:{l.intensity}:{l.color}:{l.range}:{l.shadows}")));
+        static string Contract(HashSet<Light> lights) => string.Join("|", Object.FindObjectsByType<Collider>(FindObjectsInactive.Include, FindObjectsSortMode.None).OrderBy(c => c.GetInstanceID()).Select(c => $"{c.GetInstanceID()}:{c.bounds}:{c.enabled}").Concat(lights.OrderBy(l => l.GetInstanceID()).Select(l => $"{l.GetInstanceID()}:{l.transform.localToWorldMatrix}:{l.intensity}:{l.color}:{l.range}:{l.shadows}")));
         static Texture2D BakeBlockers(Light light, Room room, string name)
         {
             const int size = 64; var tex = new Texture2D(size, size, TextureFormat.RFloat, false, true) { name = name, wrapMode = TextureWrapMode.Clamp, filterMode = FilterMode.Bilinear };
@@ -144,6 +145,8 @@ namespace BookTower.EditorTools
                 foreach (var hit in Physics.RaycastAll(light.transform.position + ray * .45f, ray, light.range - .45f, ~0, QueryTriggerInteraction.Ignore))
                 {
                     if (hit.collider.GetComponentInParent<Room>() != room || hit.collider.GetComponentInParent<BookTower.Puzzles.FoldBridgePuzzle>() || hit.collider.GetComponentInParent<BookTower.PlayerSystem.PlayerController>()) continue;
+                    var gravity=hit.collider.GetComponentInParent<BookTower.Puzzles.GravityPagePuzzle>();
+                    if(gravity&&(hit.collider.attachedRigidbody||(gravity.completedPage&&hit.collider.transform.IsChildOf(gravity.completedPage))))continue;
                     distance = Mathf.Min(distance, hit.distance + .45f);
                 }
                 pixels[y * size + x] = new Color(distance / light.range, 0, 0, 1);

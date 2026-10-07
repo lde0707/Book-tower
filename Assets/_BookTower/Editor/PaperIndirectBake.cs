@@ -20,17 +20,22 @@ namespace BookTower.EditorTools
         static readonly Dictionary<MeshRenderer, ReceiveGI> receive = new();
         static double started, lastLog;
         static bool completed;
+        public static string OutputOverride;
+        public static bool ForceCpu;
+        static string Output=>string.IsNullOrEmpty(OutputOverride)?PaperAtmosphereReview.Output:OutputOverride;
         public static void Run()
         {
             EditorSceneManager.OpenScene("Assets/Scenes/InGame.unity");
             var scene = EditorSceneManager.GetActiveScene();
             EditorSceneManager.SaveScene(scene, "Logs/AtmosphereBackups/BeforeIndirect.unity", true);
-            Directory.CreateDirectory(PaperAtmosphereReview.Output);
+            Directory.CreateDirectory(Output);
             var dynamic = new HashSet<Renderer>();
             void Exclude(Transform t) { if (t) foreach (var r in t.GetComponentsInChildren<Renderer>(true)) dynamic.Add(r); }
             foreach (var p in Object.FindObjectsByType<FoldBridgePuzzle>(FindObjectsSortMode.None)) Exclude(p.transform);
             foreach (var p in Object.FindObjectsByType<StorybookLightPuzzle>(FindObjectsSortMode.None)) { Exclude(p.body); Exclude(p.ears); if (p.Duet) { Exclude(p.Duet.foxBody); Exclude(p.Duet.foxTail); } }
             foreach (var p in Object.FindObjectsByType<ReadingRoomPuzzle>(FindObjectsSortMode.None)) { Exclude(p.lantern); Exclude(p.shutter); Exclude(p.door); Exclude(p.servicePanel); }
+            foreach(var p in Object.FindObjectsByType<GravityPagePuzzle>(FindObjectsSortMode.None))
+            {foreach(var body in p.cargo)Exclude(body.transform);Exclude(p.exitLeaf);Exclude(p.completedPage);Exclude(p.arrow);}
             int contributors = 0;
             foreach (var r in Object.FindObjectsByType<MeshRenderer>(FindObjectsInactive.Include, FindObjectsSortMode.None))
             {
@@ -66,7 +71,7 @@ namespace BookTower.EditorTools
             string path = PaperAtmosphereBuilder.Folder + "/IndirectSettings.lighting";
             var settings = AssetDatabase.LoadAssetAtPath<LightingSettings>(path);
             if (!settings) { settings = new LightingSettings(); AssetDatabase.CreateAsset(settings, path); }
-            settings.bakedGI = true; settings.realtimeGI = false; settings.lightmapper = LightingSettings.Lightmapper.ProgressiveGPU;
+            settings.bakedGI = true; settings.realtimeGI = false; settings.lightmapper = ForceCpu?LightingSettings.Lightmapper.ProgressiveCPU:LightingSettings.Lightmapper.ProgressiveGPU;
             settings.mixedBakeMode = MixedLightingMode.IndirectOnly; settings.lightmapResolution = 2; settings.lightmapMaxSize = 1024;
             settings.directSampleCount = 32; settings.indirectSampleCount = 128; settings.environmentSampleCount = 64; settings.maxBounces = 3;
             settings.lightProbeSampleCountMultiplier = 2; settings.indirectScale = 1;
@@ -74,7 +79,7 @@ namespace BookTower.EditorTools
             RenderSettings.ambientMode = AmbientMode.Trilight; RenderSettings.ambientSkyColor = new(.08f, .10f, .13f);
             RenderSettings.ambientEquatorColor = new(.055f, .049f, .043f); RenderSettings.ambientGroundColor = new(.025f, .018f, .012f);
             AssetDatabase.SaveAssets(); EditorSceneManager.MarkSceneDirty(scene);
-            File.WriteAllText(PaperAtmosphereReview.Output + "/indirect-bake.txt", $"Requested: {contributors} static transport meshes, {sources} environment sources, {positions.Count} irradiance probes. Optical lights excluded; 3 bounces, 128 indirect samples x probe multiplier 2.\n");
+            File.WriteAllText(Output + "/indirect-bake.txt", $"Requested: {contributors} static transport meshes, {sources} environment sources, {positions.Count} irradiance probes. Dynamic puzzle geometry excluded; 3 bounces, 128 indirect samples x probe multiplier 2.\n");
             started = lastLog = EditorApplication.timeSinceStartup; completed = false;
             Lightmapping.bakeCompleted += Complete; EditorApplication.update += Tick;
             if (!Lightmapping.BakeAsync()) Fail("Unity refused to start the indirect bake");
@@ -105,7 +110,7 @@ namespace BookTower.EditorTools
                     }
                 }
                 EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene()); EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene()); AssetDatabase.SaveAssets();
-                File.AppendAllText(PaperAtmosphereReview.Output + "/indirect-bake.txt", $"PASS: {LightmapSettings.lightProbes.count} baked probes, {LightmapSettings.lightmaps.Length} lightmap atlases; {EditorApplication.timeSinceStartup - started:F1}s.\nLighting data: {AssetDatabase.GetAssetPath(Lightmapping.lightingDataAsset)}\n" + text);
+                File.AppendAllText(Output + "/indirect-bake.txt", $"PASS: {LightmapSettings.lightProbes.count} baked probes, {LightmapSettings.lightmaps.Length} lightmap atlases; {EditorApplication.timeSinceStartup - started:F1}s.\nLighting data: {AssetDatabase.GetAssetPath(Lightmapping.lightingDataAsset)}\n" + text);
                 EditorApplication.Exit(0);
             }
             catch (Exception e) { Fail(e.ToString()); }
@@ -113,7 +118,7 @@ namespace BookTower.EditorTools
         static void Fail(string message)
         {
             EditorApplication.update -= Tick; Lightmapping.bakeCompleted -= Complete;
-            File.AppendAllText(PaperAtmosphereReview.Output + "/indirect-bake.txt", "FAIL: " + message + "\n");
+            File.AppendAllText(Output + "/indirect-bake.txt", "FAIL: " + message + "\n");
             // Unsaved bake preparation does not replace the saved playable scene.
             EditorApplication.Exit(1);
         }

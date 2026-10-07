@@ -23,6 +23,8 @@ namespace BookTower.Rooms
 
         public string FromRoomId => fromRoomId;
         public string ToRoomId => toRoomId;
+        public Vector3 FromPoint => fromPoint;
+        public Vector3 ToPoint => toPoint;
 
         /// <summary>이 점에서 경사로까지의 거리. t 는 시작(0)~끝(1) 사이의 위치.</summary>
         public float DistanceTo(Vector3 p, out float t)

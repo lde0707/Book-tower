@@ -1,0 +1,2 @@
+PASS: 1970 fitted surfaces; added=344; same-object primitive replacements=20. Exact original render mesh, non-convex, no enlargement. Cargo physics, old floors, bridges, door and passage geometry preserved.
+F0 chamber local z=7; 1B console z=-8.8; alcove spacing=1.4 and depth=1.05; F0 left arch moved 1m outward. No old geometry deleted.

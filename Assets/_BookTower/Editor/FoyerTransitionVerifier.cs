@@ -32,9 +32,9 @@ namespace BookTower.EditorTools
    Check(story&&ui,"Actual scene story and UI present");
    while(!story.Completed(OpeningStoryData.Promise)){ui.AdvanceStoryText();yield return .12f;}
    yield return .2f;
-   var doors=Object.FindObjectsByType<BindingDoor>(FindObjectsSortMode.None).Where(d=>d.puzzle==story.bridge).ToArray();Check(doors.Length>0&&!doors.Any(d=>d.IsOpen),"F0 bound door initially closed");
+   var doors=Object.FindObjectsByType<BindingDoor>(FindObjectsSortMode.None).Where(d=>d.puzzle==story.EntrancePuzzle).ToArray();Check(doors.Length>0&&!doors.Any(d=>d.IsOpen),"F0 bound door initially closed");
    original=InputSystem.settings;var options=Object.Instantiate(original);options.backgroundBehavior=InputSettings.BackgroundBehavior.IgnoreFocus;options.editorInputBehaviorInPlayMode=InputSettings.EditorInputBehaviorInPlayMode.AllDeviceInputAlwaysGoesToGameView;options.updateMode=InputSettings.UpdateMode.ProcessEventsInDynamicUpdate;InputSystem.settings=options;keys=InputSystem.AddDevice<Keyboard>();keys.MakeCurrent();
-   var at=story.player.transform.position;story.bridge.Solve();InputSystem.QueueStateEvent(keys,new KeyboardState(Key.W,Key.Space));
+   var at=story.player.transform.position;story.EntrancePuzzle.Solve();InputSystem.QueueStateEvent(keys,new KeyboardState(Key.W,Key.Space));
    Check(story.WaitingForFoyerDoor&&!GameFlow.Instance.AcceptsPlayerInput&&!story.player.enabled,"Puzzle solved synchronously locks locomotion");
    while(!doors.All(d=>d.IsOpen)){Check(story.ActiveSequence!=OpeningStoryData.Return,"No story before actual door completion");yield return .1f;if(doors.Any(d=>d.OpeningProgress>0)&&!doors.All(d=>d.IsOpen)){VerifyFrame(story);if(doors.Any(d=>d.OpeningProgress>.5f)&&!captured){Capture(story);captured=true;}}Check(Vector3.Distance(at,story.player.transform.position)<.005f,"Walking/jumping cannot move player during door animation");}
    yield return .05f;Check(story.ActiveSequence==OpeningStoryData.Return&&!story.WaitingForFoyerDoor,"Fully opened door immediately starts Return story");

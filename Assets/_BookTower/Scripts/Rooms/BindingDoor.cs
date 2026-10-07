@@ -14,9 +14,9 @@ namespace BookTower.Rooms
         void Update()
         {
             if(puzzle==null || puzzle.State != PuzzleBase.PuzzleState.Solved)return;
-            if(puzzle is FoldBridgePuzzle){anticipation+=Time.deltaTime;if(anticipation<.95f)return;}
+            if((puzzle is FoldBridgePuzzle || puzzle is GravityPagePuzzle)){anticipation+=Time.deltaTime;if(anticipation<.95f)return;}
             if(!sounded){sounded=true;BookTower.Audio.SfxDirector.PlayMechanism("binding_door_open",(left.position+right.position)*.5f+Vector3.up*4,.9f);}
-            opened=Mathf.MoveTowards(opened,1,Time.deltaTime*(puzzle is FoldBridgePuzzle?1/3.2f:.55f));
+            opened=Mathf.MoveTowards(opened,1,Time.deltaTime*((puzzle is FoldBridgePuzzle || puzzle is GravityPagePuzzle)?1/3.2f:.55f));
             float eased=opened*opened*(3-2*opened);
             left.localRotation=Quaternion.Euler(0,170*eased,0);
             right.localRotation=Quaternion.Euler(0,-170*eased,0);

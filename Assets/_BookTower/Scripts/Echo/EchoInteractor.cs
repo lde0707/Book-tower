@@ -44,6 +44,8 @@ namespace BookTower.EchoSystem
             if (!InteractionRay.Cast(ray, out RaycastHit hit, 1000f, rayMask)) return;
 
             var resolved=InteractionTargetProxy.Resolve(hit.collider);
+            var gravity=resolved?resolved.GetComponentInParent<BookTower.Puzzles.GravityPageControl>():hit.collider.GetComponentInParent<BookTower.Puzzles.GravityPageControl>();
+            if(gravity!=null){gravity.TryUse(transform.position);return;}
             var reading=resolved?resolved.GetComponentInParent<BookTower.Puzzles.ReadingRoomControl>():hit.collider.GetComponentInParent<BookTower.Puzzles.ReadingRoomControl>();
             if(reading!=null){reading.TryUse(transform.position);return;}
             var workshop=resolved?resolved.GetComponentInParent<BookTower.Puzzles.StorybookLightControl>():hit.collider.GetComponentInParent<BookTower.Puzzles.StorybookLightControl>();

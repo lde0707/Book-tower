@@ -16,11 +16,9 @@ namespace BookTower.UI
    ribbon=Cut(181,284,44,115);knob=Cut(1101,378,41,41);check=Cut(896,656,51,49,5);
    rule=Cut(587,154,908,10,6);dot=Cut(590,743,24,25);headerLeaf=Cut(207,73,54,78);
    track=Cut(1200,391,141,14,6);fill=Cut(900,391,170,14,6);
+   // PaperUIView's existing _LeafCrop shader owns the corner mask. Runtime
+   // OverrideGeometry is rejected for this atlas sprite in Unity 6.
    footerLeaf=Cut(1445,626,99,157);
-   // Avoid the adjacent dropdown corner without changing the source image.
-   var points=new[]{new Vector2(42,0),new Vector2(99,0),new Vector2(99,157),new Vector2(0,157),new Vector2(0,95),new Vector2(42,35)};
-   for(int i=0;i<points.Length;i++)points[i]=new Vector2((Mathf.Clamp(points[i].x,.05f,98.95f)-49.5f)/100,(78.5f-Mathf.Clamp(points[i].y,.05f,156.95f))/100);
-   footerLeaf.OverrideGeometry(points,new ushort[]{0,1,5,1,2,5,2,3,5,3,4,5});
    categories=new[]{Cut(250,218,53,39),Cut(250,320,54,51),Cut(249,425,56,47),Cut(251,525,51,57)};
   }
   Sprite Cut(int x,int y,int width,int height,int border=0){var s=Sprite.Create(atlas,new Rect(x,atlas.height-y-height,width,height),new Vector2(.5f,.5f),100,0,SpriteMeshType.FullRect,new Vector4(border,border,border,border));owned.Add(s);return s;}

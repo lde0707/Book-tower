@@ -17,6 +17,8 @@ namespace BookTower.Story
         public PaperCamera storyCamera;
         public Room foyer, theatreRoom;
         public FoldBridgePuzzle bridge;
+        public PuzzleBase primaryPuzzle;
+        public PuzzleBase EntrancePuzzle => primaryPuzzle ? primaryPuzzle : bridge;
         public PuzzleBase theatrePuzzle;
         public PaperCompanion companion;
         public AudioClip rustle, nameMotif;
@@ -51,7 +53,7 @@ namespace BookTower.Story
             // All room/camera/UI Start methods must finish before taking ownership.
             yield return null;
             ui = PaperUI.Instance;
-            if (!ui || !ui.CutsceneView || !player || !storyCamera || !companion || !foyer || !theatreRoom || !bridge || !theatrePuzzle)
+            if (!ui || !ui.CutsceneView || !player || !storyCamera || !companion || !foyer || !theatreRoom || !EntrancePuzzle || !theatrePuzzle)
             { Debug.LogError("[OpeningStory] Missing scene reference; story disabled without blocking gameplay."); enabled = false; yield break; }
             companion.player = player;
             BindWorkbenchInteraction();
@@ -107,7 +109,7 @@ namespace BookTower.Story
         { if (!completed.Contains(id) && ActiveSequence != id && !pending.Contains(id)) pending.Enqueue(id); }
         void OnSolved(MonoBehaviour solved)
         {
-            if (solved == bridge)
+            if (solved == EntrancePuzzle)
             {
                 SetWorkBookGuide(false);
                 // The door animation owns the transition. Do not wait for walking/grounding
@@ -126,7 +128,7 @@ namespace BookTower.Story
         }
         void OnNoteRead(string id)
         {
-            if (id == WorkNote) {completed.Add("F0.Book.Read");SetWorkBookGuide(false);ui.Objective("Goal.F0.Light", "은박에 빛을 이어 문 옆 잎 문양 깨우기");}
+            if (id == WorkNote) {completed.Add("F0.Book.Read");SetWorkBookGuide(false);ui.Objective("Goal.F0.Light", "중력 페이지로 기록 상자를 같은 문양의 자리까지 보내기");}
             if (id == ShadowNote) completed.Add("F0.Clue.NextRoom");
         }
         void Update()
@@ -138,7 +140,7 @@ namespace BookTower.Story
                 GameFlow.EnsureExists().BeginCutscene();
                 UpdateDoorReveal();
                 bool ready=true;
-                foreach(var door in openingDoors)if(door&&door.isActiveAndEnabled&&door.puzzle==bridge&&!door.IsOpen){ready=false;break;}
+                foreach(var door in openingDoors)if(door&&door.isActiveAndEnabled&&door.puzzle==EntrancePuzzle&&!door.IsOpen){ready=false;break;}
                 if(ready){EndDoorReveal();WaitingForFoyerDoor=false;player.enabled=doorPlayerWasEnabled;Begin(OpeningStoryData.Return);}
                 return;
             }
@@ -161,9 +163,9 @@ namespace BookTower.Story
             {
                 if (!completed.Contains("F0.FirstWalk") && Vector3.Distance(spawn, player.transform.position) > 1.2f)
                 { completed.Add("F0.FirstWalk"); if(workGuideActive)Bark("종이새", "왼쪽 작업대야. 빛이 머무는 펼쳐진 책, 보여?"); }
-                if (bridge.BridgeDown && bridge.IsSettled && barkDelay <= 0 && !Completed("F0.Bridge"))
+                if (!primaryPuzzle && bridge && bridge.BridgeDown && bridge.IsSettled && barkDelay <= 0 && !Completed("F0.Bridge"))
                 { completed.Add("F0.Bridge"); Bark("나", "이제 같이 건널 수 있겠다."); }
-                if (bridge.ShutterOpen && barkDelay <= 0 && !Completed("F0.Light"))
+                if (!primaryPuzzle && bridge && bridge.ShutterOpen && barkDelay <= 0 && !Completed("F0.Light"))
                 { completed.Add("F0.Light"); Bark("종이새", "빛이… 아직 여기 남아 있었네."); }
             }
         }
@@ -228,7 +230,7 @@ namespace BookTower.Story
               if(PaperSettingsRuntime.Values.prompts) PaperUI.Notify("마우스로 둘러보기 · 이동 키로 걷기 · " + (UnityEngine.InputSystem.Key)PaperSettingsRuntime.Values.keys[5] + " / 좌클릭으로 책 읽기"); }
             else if (id == OpeningStoryData.Return)
             { ui.Objective("Goal.F0.Exit", "열린 문 너머로 종이새와 함께 가기"); Bark("종이새", "저 안쪽이 낯설지 않아. 조금 더 가 보자."); }
-            else if (id == OpeningStoryData.Theatre) ui.Objective("Goal.1A", "토끼와 여우의 그림자 속에서 새의 기억 찾기");
+            else if (id == OpeningStoryData.Theatre) ui.Objective("Goal.1A", "끊어진 운반로를 돌아 이야기책을 제자리로 돌려놓기");
             else if (id == OpeningStoryData.Name)
             { ui.Objective("Goal.Moa", "모아와 함께 다음 장의 빛을 찾아가기"); Bark("모아", "내 이름을 다시 들으니까… 집이 조금 가까워진 것 같아.", 6); }
         }
