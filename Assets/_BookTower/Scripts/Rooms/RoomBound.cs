@@ -27,14 +27,9 @@ namespace BookTower.Rooms
         [Tooltip("이 방들 중 하나가 '지금 방'일 때만 보인다")]
         [SerializeField] private string[] roomIds = new string[0];
 
-        private Renderer[] renderers;
-        private Light[] lights;
+        private RoomVisibility visibility;
 
-        private void Awake()
-        {
-            renderers = GetComponentsInChildren<Renderer>(true);
-            lights = GetComponentsInChildren<Light>(true);
-        }
+        private void Awake() => visibility = new RoomVisibility(this);
 
         private void OnEnable() { All.Add(this); }
         private void OnDisable() { All.Remove(this); }
@@ -47,15 +42,6 @@ namespace BookTower.Rooms
             return false;
         }
 
-        public void SetVisible(bool on)
-        {
-            if (renderers != null)
-                foreach (Renderer r in renderers)
-                    if (r != null) r.enabled = on;
-
-            if (lights != null)
-                foreach (Light l in lights)
-                    if (l != null) l.enabled = on;
-        }
+        public void SetVisible(bool on) => visibility?.SetVisible(on);
     }
 }

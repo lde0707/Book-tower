@@ -1,0 +1,339 @@
+ROOM 1A: renderers=1279, materials=31, batchingStatic=0
+  shader Universal Render Pipeline/Lit: 1278
+  shader BookTower/CrayonAtlasRepeat: 1
+  light 따뜻한 종이등 빛: Point, intensity=2.8, range=15, shadows=None, mode=Mixed
+  light 따뜻한 종이등 빛: Point, intensity=2.8, range=15, shadows=None, mode=Mixed
+  light 따뜻한 종이등 빛: Point, intensity=2.8, range=15, shadows=None, mode=Mixed
+  light 따뜻한 종이등 빛: Point, intensity=2.8, range=15, shadows=None, mode=Mixed
+  light 따뜻한 종이등 빛: Point, intensity=2.8, range=15, shadows=None, mode=Mixed
+  light 따뜻한 종이등 빛: Point, intensity=2.8, range=15, shadows=None, mode=Mixed
+  light 따뜻한 종이등 빛: Point, intensity=2.8, range=15, shadows=None, mode=Mixed
+  light 따뜻한 종이등 빛: Point, intensity=2.8, range=15, shadows=None, mode=Mixed
+  light 따뜻한 종이등 빛: Point, intensity=2.8, range=15, shadows=None, mode=Mixed
+  light 따뜻한 종이등 빛: Point, intensity=2.8, range=15, shadows=None, mode=Mixed
+  light 따뜻한 종이등 빛: Point, intensity=20.02, range=32, shadows=None, mode=Mixed
+  light 따뜻한 종이등 빛: Point, intensity=11.2, range=23, shadows=None, mode=Mixed
+  light 따뜻한 종이등 빛: Point, intensity=11.2, range=23, shadows=None, mode=Mixed
+  light 따뜻한 종이등 빛: Point, intensity=20.02, range=32, shadows=None, mode=Mixed
+  light 따뜻한 종이등 빛: Point, intensity=11.2, range=23, shadows=None, mode=Mixed
+  light 따뜻한 종이등 빛: Point, intensity=11.2, range=23, shadows=None, mode=Mixed
+  light 따뜻한 종이등 빛: Point, intensity=2.8, range=32, shadows=None, mode=Mixed
+  light 따뜻한 종이등 빛: Point, intensity=2.8, range=23, shadows=None, mode=Mixed
+  light 따뜻한 종이등 빛: Point, intensity=2.8, range=23, shadows=None, mode=Mixed
+  light 따뜻한 종이등 빛: Point, intensity=2.8, range=15, shadows=None, mode=Mixed
+  light 따뜻한 종이등 빛: Point, intensity=2.8, range=15, shadows=None, mode=Mixed
+  light ReleaseArt03_entrance-key: Spot, intensity=85, range=25, shadows=Soft, mode=Mixed
+  light 운반실 작업등: Point, intensity=4, range=18, shadows=Soft, mode=Mixed
+  light Teal alcove paper return: Spot, intensity=44, range=24, shadows=None, mode=Mixed
+  light Entry page warm return: Spot, intensity=40, range=24, shadows=None, mode=Mixed
+  component LevelNote: 1
+  component Room: 1
+  component PaperAtmosphere: 1
+  component StorybookPaperMotion: 1
+  component UniversalAdditionalLightData: 25
+  component Interactable: 9
+  component ReadableNote: 3
+  component InteractionTargetProxy: 1
+  component PaperRoomMotion: 3
+  component GravityPagePuzzle: 1
+  component GravityPageControl: 6
+ROOM 1B: renderers=2248, materials=38, batchingStatic=0
+  shader Universal Render Pipeline/Lit: 2209
+  shader BookTower/ReadingPaper: 36
+  shader BookTower/WindowHaze: 3
+  light warm paper light: Point, intensity=24.955, range=22, shadows=None, mode=Mixed
+  light warm paper light: Point, intensity=24.955, range=22, shadows=None, mode=Mixed
+  light warm paper light: Point, intensity=3.1, range=10, shadows=None, mode=Mixed
+  light warm paper light: Point, intensity=17.112, range=20, shadows=None, mode=Mixed
+  light warm paper light: Point, intensity=17.112, range=20, shadows=None, mode=Mixed
+  light warm paper light: Point, intensity=17.112, range=20, shadows=None, mode=Mixed
+  light warm paper light: Point, intensity=17.112, range=20, shadows=None, mode=Mixed
+  light warm paper light: Point, intensity=0, range=6, shadows=None, mode=Realtime
+  light warm paper light: Point, intensity=0, range=30, shadows=None, mode=Realtime
+  light warm paper light: Point, intensity=24.955, range=35, shadows=None, mode=Mixed
+  light warm paper light: Point, intensity=21.39, range=23, shadows=None, mode=Mixed
+  light warm paper light: Point, intensity=21.39, range=23, shadows=None, mode=Mixed
+  light warm paper light: Point, intensity=21.39, range=23, shadows=None, mode=Mixed
+  light warm paper light: Point, intensity=21.39, range=23, shadows=None, mode=Mixed
+  light warm paper light: Point, intensity=6.2, range=9, shadows=None, mode=Mixed
+  light warm paper light: Point, intensity=6.2, range=9, shadows=None, mode=Mixed
+  light shadow-casting reading light: Spot, intensity=72, range=35, shadows=Soft, mode=Mixed
+  light shadow-casting reading light: Spot, intensity=81.60001, range=35, shadows=Soft, mode=Mixed
+  light 운반실 작업등: Point, intensity=4, range=18, shadows=Soft, mode=Mixed
+  light Shelf reflected honey light: Spot, intensity=46, range=25, shadows=None, mode=Mixed
+  light Vault diffuse blue return: Spot, intensity=70, range=30, shadows=None, mode=Mixed
+  component LevelNote: 2
+  component Room: 1
+  component PaperAtmosphere: 1
+  component FoldGroup: 1
+  component UniversalAdditionalLightData: 19
+  component Interactable: 9
+  component ReadableNote: 3
+  component PaperRoomMotion: 3
+  component GravityPagePuzzle: 1
+  component GravityPageControl: 6
+ROOM 1C: renderers=1074, materials=35, batchingStatic=470
+  shader Universal Render Pipeline/Lit: 830
+  shader Universal Render Pipeline/Unlit: 244
+  light 빛_랜드마크_반사페이지: Point, intensity=2.6, range=7.5, shadows=None, mode=Realtime
+  light 빛_출구: Point, intensity=1.6, range=7, shadows=None, mode=Realtime
+  light 운반실 작업등: Point, intensity=4, range=18, shadows=Soft, mode=Realtime
+  component LevelNote: 12
+  component Room: 1
+  component RoomWall: 287
+  component PencilOutline: 259
+  component UniversalAdditionalLightData: 3
+  component FoldGroup: 1
+  component GravityPagePuzzle: 1
+  component Interactable: 7
+  component GravityPageControl: 6
+  component ReadableNote: 1
+ROOM 1D: renderers=1069, materials=35, batchingStatic=453
+  shader Universal Render Pipeline/Lit: 815
+  shader Universal Render Pipeline/Unlit: 254
+  light 빛_조각_1: Point, intensity=1.9, range=5.5, shadows=None, mode=Realtime
+  light 빛_조각_2: Point, intensity=1.9, range=5.5, shadows=None, mode=Realtime
+  light 빛_조각_3_레드헤링: Point, intensity=1.9, range=5.5, shadows=None, mode=Realtime
+  light 빛_랜드마크_발자국그림: Point, intensity=2.6, range=7.5, shadows=None, mode=Realtime
+  light 빛_출구: Point, intensity=1.6, range=7, shadows=None, mode=Realtime
+  light 운반실 작업등: Point, intensity=4, range=18, shadows=Soft, mode=Realtime
+  component LevelNote: 11
+  component Room: 1
+  component PencilOutline: 265
+  component RoomWall: 242
+  component UniversalAdditionalLightData: 6
+  component GravityPagePuzzle: 1
+  component Interactable: 7
+  component GravityPageControl: 6
+  component ReadableNote: 1
+ROOM 1E: renderers=1323, materials=34, batchingStatic=641
+  shader Universal Render Pipeline/Lit: 1033
+  shader Universal Render Pipeline/Unlit: 290
+  light 빛_출구: Point, intensity=1.6, range=7, shadows=None, mode=Realtime
+  light 운반실 작업등: Point, intensity=4, range=18, shadows=Soft, mode=Realtime
+  component LevelNote: 14
+  component Room: 1
+  component PencilOutline: 310
+  component RoomWall: 450
+  component UniversalAdditionalLightData: 2
+  component FoldGroup: 1
+  component GravityPagePuzzle: 1
+  component Interactable: 7
+  component GravityPageControl: 6
+  component ReadableNote: 1
+ROOM 2A: renderers=1080, materials=34, batchingStatic=484
+  shader Universal Render Pipeline/Lit: 811
+  shader Universal Render Pipeline/Unlit: 269
+  light 빛_주름_활성: Point, intensity=1.5, range=5.5, shadows=None, mode=Realtime
+  light 빛_랜드마크_빛나는주름: Point, intensity=2.6, range=7.5, shadows=None, mode=Realtime
+  light 빛_출구: Point, intensity=1.6, range=7, shadows=None, mode=Realtime
+  light 운반실 작업등: Point, intensity=4, range=18, shadows=Soft, mode=Realtime
+  component LevelNote: 9
+  component Room: 1
+  component EchoCrease: 2
+  component PencilOutline: 293
+  component RoomWall: 223
+  component UniversalAdditionalLightData: 4
+  component GravityPagePuzzle: 1
+  component Interactable: 7
+  component GravityPageControl: 6
+  component ReadableNote: 1
+ROOM 2B: renderers=1052, materials=35, batchingStatic=464
+  shader Universal Render Pipeline/Lit: 816
+  shader Universal Render Pipeline/Unlit: 236
+  light 빛_출구: Point, intensity=1.6, range=7, shadows=None, mode=Realtime
+  light 운반실 작업등: Point, intensity=4, range=18, shadows=Soft, mode=Realtime
+  component LevelNote: 14
+  component Room: 1
+  component PencilOutline: 261
+  component RoomWall: 215
+  component UniversalAdditionalLightData: 2
+  component FoldGroup: 1
+  component GravityPagePuzzle: 1
+  component Interactable: 7
+  component GravityPageControl: 6
+  component ReadableNote: 1
+ROOM 2C: renderers=1279, materials=36, batchingStatic=587
+  shader Universal Render Pipeline/Lit: 961
+  shader Universal Render Pipeline/Unlit: 318
+  light 빛_고정표식_못자국: Point, intensity=2.8, range=9.5, shadows=None, mode=Realtime
+  light 빛_랜드마크_두겹페이지: Point, intensity=2.6, range=7.5, shadows=None, mode=Realtime
+  light 빛_출구: Point, intensity=1.6, range=7, shadows=None, mode=Realtime
+  light 운반실 작업등: Point, intensity=4, range=18, shadows=Soft, mode=Realtime
+  component LevelNote: 14
+  component Room: 1
+  component PencilOutline: 367
+  component RoomWall: 252
+  component UniversalAdditionalLightData: 4
+  component FoldGroup: 1
+  component GravityPagePuzzle: 1
+  component Interactable: 7
+  component GravityPageControl: 6
+  component ReadableNote: 1
+ROOM 2D: renderers=1004, materials=36, batchingStatic=400
+  shader Universal Render Pipeline/Lit: 756
+  shader Universal Render Pipeline/Unlit: 248
+  light 빛_랜드마크_나란한기록: Point, intensity=2.6, range=7.5, shadows=None, mode=Realtime
+  light 빛_출구: Point, intensity=1.6, range=7, shadows=None, mode=Realtime
+  light 운반실 작업등: Point, intensity=4, range=18, shadows=Soft, mode=Realtime
+  component LevelNote: 16
+  component Room: 1
+  component PencilOutline: 264
+  component RoomWall: 149
+  component UniversalAdditionalLightData: 3
+  component GravityPagePuzzle: 1
+  component Interactable: 7
+  component GravityPageControl: 6
+  component ReadableNote: 1
+ROOM 2E: renderers=1083, materials=35, batchingStatic=477
+  shader Universal Render Pipeline/Lit: 826
+  shader Universal Render Pipeline/Unlit: 257
+  light 빛_주름_1_가장오래됨: Point, intensity=1.5, range=5.5, shadows=None, mode=Realtime
+  light 빛_주름_2: Point, intensity=1.5, range=5.5, shadows=None, mode=Realtime
+  light 빛_주름_3: Point, intensity=1.5, range=5.5, shadows=None, mode=Realtime
+  light 빛_주름_4: Point, intensity=1.5, range=5.5, shadows=None, mode=Realtime
+  light 빛_주름_5_가장최근: Point, intensity=1.5, range=5.5, shadows=None, mode=Realtime
+  light 빛_랜드마크_사방의주름: Point, intensity=2.6, range=7.5, shadows=None, mode=Realtime
+  light 빛_출구: Point, intensity=1.6, range=7, shadows=None, mode=Realtime
+  light 운반실 작업등: Point, intensity=4, range=18, shadows=Soft, mode=Realtime
+  component LevelNote: 4
+  component Room: 1
+  component RoomWall: 209
+  component PencilOutline: 275
+  component UniversalAdditionalLightData: 8
+  component GravityPagePuzzle: 1
+  component Interactable: 7
+  component GravityPageControl: 6
+  component ReadableNote: 1
+ROOM 2F: renderers=1080, materials=35, batchingStatic=459
+  shader Universal Render Pipeline/Lit: 816
+  shader Universal Render Pipeline/Unlit: 264
+  light 빛_출구: Point, intensity=1.6, range=7, shadows=None, mode=Realtime
+  light 운반실 작업등: Point, intensity=4, range=18, shadows=Soft, mode=Realtime
+  component LevelNote: 8
+  component Room: 1
+  component PencilOutline: 294
+  component RoomWall: 194
+  component UniversalAdditionalLightData: 2
+  component GravityPagePuzzle: 1
+  component Interactable: 7
+  component GravityPageControl: 6
+  component ReadableNote: 1
+ROOM 3A: renderers=1061, materials=31, batchingStatic=402
+  shader Universal Render Pipeline/Lit: 801
+  shader Universal Render Pipeline/Unlit: 260
+  light 빛_복원대: Point, intensity=2.8, range=9.5, shadows=None, mode=Realtime
+  light 빛_조각_p1: Point, intensity=1.9, range=5.5, shadows=None, mode=Realtime
+  light 빛_조각_p2: Point, intensity=1.9, range=5.5, shadows=None, mode=Realtime
+  light 빛_조각_p3: Point, intensity=1.9, range=5.5, shadows=None, mode=Realtime
+  light 빛_조각_p4: Point, intensity=1.9, range=5.5, shadows=None, mode=Realtime
+  light 빛_조각_p5: Point, intensity=1.9, range=5.5, shadows=None, mode=Realtime
+  light 빛_조각_p6: Point, intensity=1.9, range=5.5, shadows=None, mode=Realtime
+  light 빛_조각_p7: Point, intensity=1.9, range=5.5, shadows=None, mode=Realtime
+  light 빛_출구: Point, intensity=1.6, range=7, shadows=None, mode=Realtime
+  light 운반실 작업등: Point, intensity=4, range=18, shadows=Soft, mode=Realtime
+  component LevelNote: 6
+  component Room: 1
+  component RoomWall: 152
+  component PencilOutline: 277
+  component UniversalAdditionalLightData: 10
+  component GravityPagePuzzle: 1
+  component Interactable: 7
+  component GravityPageControl: 6
+  component ReadableNote: 1
+ROOM 3B: renderers=1078, materials=30, batchingStatic=396
+  shader Universal Render Pipeline/Lit: 790
+  shader Universal Render Pipeline/Unlit: 288
+  light 빛_열쇠구멍: Point, intensity=2.8, range=9.5, shadows=None, mode=Realtime
+  light 빛_출구: Point, intensity=1.6, range=7, shadows=None, mode=Realtime
+  light 운반실 작업등: Point, intensity=4, range=18, shadows=Soft, mode=Realtime
+  component LevelNote: 24
+  component Room: 1
+  component PencilOutline: 300
+  component RoomWall: 150
+  component UniversalAdditionalLightData: 3
+  component FoldGroup: 1
+  component GravityPagePuzzle: 1
+  component Interactable: 7
+  component GravityPageControl: 6
+  component ReadableNote: 1
+ROOM 3C: renderers=836, materials=29, batchingStatic=387
+  shader Universal Render Pipeline/Lit: 611
+  shader Universal Render Pipeline/Unlit: 225
+  light 빛_빛_점화대: Point, intensity=2.8, range=9.5, shadows=None, mode=Realtime
+  light 운반실 작업등: Point, intensity=4, range=18, shadows=Soft, mode=Realtime
+  component LevelNote: 11
+  component Room: 1
+  component RoomWall: 191
+  component PencilOutline: 256
+  component UniversalAdditionalLightData: 2
+  component GravityPagePuzzle: 1
+  component Interactable: 7
+  component GravityPageControl: 6
+  component ReadableNote: 1
+ROOM F0: renderers=475, materials=44, batchingStatic=0
+  shader Universal Render Pipeline/Lit: 469
+  shader BookTower/WindowHaze: 6
+  light 창문투광: Spot, intensity=0, range=34, shadows=Soft, mode=Realtime
+  light 창문투광: Spot, intensity=0, range=34, shadows=Soft, mode=Realtime
+  light 창문투광: Spot, intensity=0, range=34, shadows=None, mode=Realtime
+  light 창문투광: Spot, intensity=0, range=34, shadows=None, mode=Realtime
+  light 문쪽반사광: Point, intensity=0, range=27, shadows=None, mode=Realtime
+  light 매달린종이등: Point, intensity=0, range=12, shadows=None, mode=Realtime
+  light 매달린종이등: Point, intensity=0, range=12, shadows=None, mode=Realtime
+  light 매달린종이등: Point, intensity=0, range=12, shadows=None, mode=Realtime
+  light 실내반사광: Point, intensity=0, range=22, shadows=None, mode=Realtime
+  light 매달린종이등: Point, intensity=0, range=12, shadows=None, mode=Realtime
+  light 매달린종이등: Point, intensity=0, range=12, shadows=None, mode=Realtime
+  light 04_PaperLantern: Point, intensity=0, range=5, shadows=None, mode=Realtime
+  light 기둥앞면_종이반사광: Spot, intensity=0, range=19, shadows=None, mode=Realtime
+  light 오른쪽_은은한반사광: Spot, intensity=0, range=18, shadows=None, mode=Realtime
+  light 후면기둥_반사광: Spot, intensity=0, range=20, shadows=None, mode=Realtime
+  light 매달린종이등: Point, intensity=12, range=12, shadows=None, mode=Mixed
+  light 매달린종이등: Point, intensity=12, range=12, shadows=None, mode=Mixed
+  light 매달린종이등: Point, intensity=12, range=12, shadows=None, mode=Mixed
+  light 매달린종이등: Point, intensity=12, range=12, shadows=None, mode=Mixed
+  light 매달린종이등: Point, intensity=12, range=12, shadows=None, mode=Mixed
+  light 종이창_투광: Spot, intensity=310, range=36, shadows=Soft, mode=Mixed
+  light 종이창_투광: Spot, intensity=310, range=36, shadows=Soft, mode=Mixed
+  light 종이창_투광: Spot, intensity=38, range=36, shadows=None, mode=Mixed
+  light 종이창_투광: Spot, intensity=38, range=36, shadows=None, mode=Mixed
+  light 시작대지_장지반사: Spot, intensity=39.6, range=22, shadows=None, mode=Mixed
+  light 서쪽책등_부드러운반사: Spot, intensity=46.8, range=21, shadows=None, mode=Mixed
+  light 동쪽책등_부드러운반사: Spot, intensity=32.4, range=22, shadows=None, mode=Mixed
+  light 문과건너편_반사: Spot, intensity=57.6, range=24, shadows=None, mode=Mixed
+  light 후면표지_반사: Spot, intensity=39.6, range=24, shadows=None, mode=Mixed
+  light 다음 길의 등불: Point, intensity=25, range=14, shadows=None, mode=Mixed
+  light 다음 길의 등불: Point, intensity=25, range=14, shadows=None, mode=Mixed
+  light 다음 길의 등불: Point, intensity=25, range=14, shadows=None, mode=Mixed
+  light Reflected window light on rear cover -1: Spot, intensity=95, range=18, shadows=None, mode=Mixed
+  light Reflected window light on rear cover 1: Spot, intensity=95, range=18, shadows=None, mode=Mixed
+  light 운반실 작업등: Point, intensity=4, range=18, shadows=Soft, mode=Mixed
+  light Warm paper return below window: Spot, intensity=48, range=25, shadows=None, mode=Mixed
+  light Cool east paper return: Spot, intensity=32, range=23, shadows=None, mode=Mixed
+  component LevelNote: 1
+  component Room: 1
+  component PaperAtmosphere: 1
+  component BindingDoor: 1
+  component UniversalAdditionalLightData: 33
+  component Volume: 1
+  component Interactable: 10
+  component ReadableNote: 4
+  component BindingPlayground: 1
+  component PaperRoomMotion: 3
+  component GravityPagePuzzle: 1
+  component GravityPageControl: 6
+ROOM HD: renderers=1232, materials=35, batchingStatic=622
+  shader Universal Render Pipeline/Lit: 996
+  shader Universal Render Pipeline/Unlit: 236
+  light 빛_랜드마크_축소된탑: Point, intensity=2.6, range=7.5, shadows=None, mode=Realtime
+  light 운반실 작업등: Point, intensity=4, range=18, shadows=Soft, mode=Realtime
+  component LevelNote: 9
+  component Room: 1
+  component RoomWall: 458
+  component PencilOutline: 249
+  component UniversalAdditionalLightData: 2
+  component GravityPagePuzzle: 1
+  component Interactable: 7
+  component GravityPageControl: 6
+  component ReadableNote: 1

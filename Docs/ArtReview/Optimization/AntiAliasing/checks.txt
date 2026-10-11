@@ -1,0 +1,78 @@
+PASS visibility hides rendering without disabling collision
+PASS repeated hide preserves authored disabled light
+PASS visibility restores latest local renderer/light states
+PASS 16 replacement puzzles present
+PASS no active legacy puzzle
+PASS F0 rejects out-of-range interaction
+PASS F0 accepts direction
+PASS F0 disallows timing-dependent mid-flight change
+PASS F0 pause freezes cargo
+PASS F0 undo during movement
+PASS F0 undo restores positions
+PASS F0 undo survives interpolation and physics tick
+PASS F0 route direction 2
+F0 step 2: (-3.60, 6.00, 0.00)
+PASS F0 route direction 3
+F0 step 3: (3.60, 6.00, 0.00)
+PASS F0 route direction 0
+F0 step 0: (3.60, 1.20, 0.00)
+PASS F0 actual physics solves all destinations: 0.000
+PASS F0 preserved binding door opens from gravity solve
+PASS E keeps cardinal camera snap, actual=90
+PASS movement releases camera observation
+PERF F0 [normal]: 1920x1080, q=1, uncapped, 263 frames/15s; mean=57.24 ms, p95=58.53 ms, drawcalls=2328, peak memory=582 MiB; CPU=57.27, GPU=56.30
+PASS F0 puzzle rendering remains dynamic
+BATCH F0: 228 / 475
+PERF F0 [msaa2]: 1920x1080, q=1, uncapped, 301 frames/15s; mean=49.97 ms, p95=55.32 ms, drawcalls=2338, peak memory=582 MiB; CPU=50.03, GPU=49.03
+PERF F0 [smaa-depth]: 1920x1080, q=1, uncapped, 513 frames/15s; mean=29.29 ms, p95=33.49 ms, drawcalls=2330, peak memory=581 MiB; CPU=29.27, GPU=28.47
+PASS 1A rejects out-of-range interaction
+PASS 1A accepts direction
+PASS 1A disallows timing-dependent mid-flight change
+PASS 1A pause freezes cargo
+PASS 1A undo during movement
+PASS 1A undo restores positions
+PASS 1A undo survives interpolation and physics tick
+PASS 1A route direction 2
+1A step 2: (0.80, 3.20, 0.00)
+PASS 1A route direction 1
+1A step 1: (-0.80, 3.20, 0.00)
+PASS 1A route direction 2
+1A step 2: (-0.80, 4.00, 0.00)
+PASS 1A route direction 3
+1A step 3: (0.00, 4.00, 0.00)
+PASS 1A route direction 0
+1A step 0: (0.00, 0.80, 0.00)
+PASS 1A actual physics solves all destinations: 0.000
+PERF 1A [normal]: 1920x1080, q=1, uncapped, 418 frames/15s; mean=35.95 ms, p95=37.53 ms, drawcalls=4788, peak memory=595 MiB; CPU=35.95, GPU=35.07
+PASS 1A puzzle rendering remains dynamic
+BATCH 1A: 942 / 1279
+PERF 1A [msaa2]: 1920x1080, q=1, uncapped, 466 frames/15s; mean=32.25 ms, p95=34.09 ms, drawcalls=4815, peak memory=593 MiB; CPU=32.24, GPU=31.27
+PERF 1A [smaa-depth]: 1920x1080, q=1, uncapped, 780 frames/15s; mean=19.24 ms, p95=21.20 ms, drawcalls=4773, peak memory=594 MiB; CPU=19.23, GPU=18.24
+PASS 1B rejects out-of-range interaction
+PASS 1B accepts direction
+PASS 1B disallows timing-dependent mid-flight change
+PASS 1B pause freezes cargo
+PASS 1B undo during movement
+PASS 1B undo restores positions
+PASS 1B undo survives interpolation and physics tick
+PASS 1B route direction 1
+1B step 1: (-4.00, 1.00, 0.00); (-5.00, 1.00, 0.00)
+PASS 1B route direction 2
+1B step 2: (-4.00, 9.00, 0.00); (-5.00, 9.00, 0.00)
+PASS 1B route direction 3
+1B step 3: (1.00, 9.00, 0.00); (0.00, 9.00, 0.00)
+PASS 1B route direction 0
+1B step 0: (1.00, 6.00, 0.00); (0.00, 9.00, 0.00)
+PASS 1B route direction 3
+1B step 3: (5.00, 6.00, 0.00); (1.00, 9.00, 0.00)
+PASS 1B route direction 0
+1B step 0: (5.00, 1.00, 0.00); (1.00, 6.00, 0.00)
+PASS 1B actual physics solves all destinations: 0.000,0.000
+PERF 1B [normal]: 1920x1080, q=1, uncapped, 297 frames/15s; mean=50.55 ms, p95=55.54 ms, drawcalls=5390, peak memory=604 MiB; CPU=50.66, GPU=49.72
+PASS 1B puzzle rendering remains dynamic
+BATCH 1B: 1926 / 2247
+PERF 1B [msaa2]: 1920x1080, q=1, uncapped, 333 frames/15s; mean=45.17 ms, p95=47.09 ms, drawcalls=5365, peak memory=602 MiB; CPU=45.19, GPU=44.20
+PERF 1B [smaa-depth]: 1920x1080, q=1, uncapped, 579 frames/15s; mean=25.93 ms, p95=27.74 ms, drawcalls=5433, peak memory=607 MiB; CPU=25.93, GPU=24.78
+PERFORMANCE ONLY: full collision and passage regression skipped.
+Machine: Intel(R) Core(TM) Ultra 5 225H; Intel(R) Arc(TM) 130T GPU (16GB); Unity 6000.3.10f1; editor=False
+RESULT: PASS; failures=0. Visual quality and first-time enjoyment require separate review.

@@ -56,7 +56,9 @@ Shader "BookTower/InteriorAtmosphere"
                     float3 lo=min(aa,bb),hi=max(aa,bb);
                     float enter=max(max(lo.x,max(lo.y,lo.z)),0);
                     float leave=min(min(hi.x,min(hi.y,hi.z)),lengthToSurface);
-                    if(leave<=enter) continue;
+                    // Near surfaces have exactly zero density and shaft contribution.
+                    // Keep the same integration grid for all remaining samples.
+                    if(leave<=enter || leave<=_PaperAirSettings[room].y) continue;
                     int steps=max(8,_PaperAirSteps);
                     float dt=(leave-enter)/steps;
                     float jitter=frac(52.9829189*frac(dot(input.positionCS.xy,float2(.06711056,.00583715))));
@@ -65,6 +67,7 @@ Shader "BookTower/InteriorAtmosphere"
                         float dist=enter+(s+.2+.6*jitter)*dt;
                         float3 p=origin+ray*dist;
                         float clear=smoothstep(_PaperAirSettings[room].y,_PaperAirSettings[room].y+8,dist);
+                        if(clear<=0) continue;
                         float height=saturate((p.y-_PaperAirSettings[room].z)/12);
                         float density=_PaperAirSettings[room].x*clear*lerp(.75,1.25,height);
                         float alpha=1-exp(-density*dt);
@@ -83,7 +86,9 @@ Shader "BookTower/InteriorAtmosphere"
                             float blocker=DepthAt(b,buv*.5+.5)*_PaperBeamPosition[b].w;
                             float visibility=1-smoothstep(blocker-.25,blocker+.15,length(delta));
                             float falloff=pow(saturate(1-axial/_PaperBeamPosition[b].w),1.4);
-                            float phase=.6+.4*pow(saturate(dot(-ray,_PaperBeamDirection[b].xyz)),4);
+                            float facing=saturate(dot(-ray,_PaperBeamDirection[b].xyz));
+                            float facing2=facing*facing;
+                            float phase=.6+.4*facing2*facing2;
                             float beam=_PaperBeamColor[b].a*edge*falloff*visibility*phase*clear;
                             scatter+=transmission*_PaperBeamColor[b].rgb*beam*dt;
                         }

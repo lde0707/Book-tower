@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Unity.Profiling;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 using BookTower.Rooms;
 using BookTower.PlayerSystem;
 using BookTower.CameraSystem;
@@ -18,23 +20,91 @@ namespace BookTower.Puzzles
         void RestoreInput(){if(qaKeys!=null)InputSystem.RemoveDevice(qaKeys);if(qaMouse!=null)InputSystem.RemoveDevice(qaMouse);}
         IEnumerator Measure(Room room,PlayerController player,PaperCamera camera)
         {
+            var originalSettings = PaperSettingsRuntime.Values.Copy();
+            var renderer = Camera.main.GetUniversalAdditionalCameraData().scriptableRenderer as UniversalRenderer;
+            var originalDepthMode = renderer.depthPrimingMode;
+            try
+            {
+                yield return MeasureSample(room, camera, "normal");
+                if (Environment.GetCommandLineArgs().Contains("-gravityMSAAReference"))
+                    yield return MeasureSample(room, camera, "msaa4");
+                if (Environment.GetCommandLineArgs().Contains("-gravityQualityAblation"))
+                {
+                    yield return MeasureSample(room, camera, "msaa4");
+                    yield return MeasureSample(room, camera, "msaa2");
+                    yield return MeasureSample(room, camera, "smaa-depth");
+                }
+                if (!Environment.GetCommandLineArgs().Contains("-gravityRenderAblation")) yield break;
+                var atmosphere = BookTower.Presentation.PaperAtmosphereDirector.Instance;
+                if (atmosphere)
+                {
+                    bool original = atmosphere.effectsEnabled;
+                    atmosphere.effectsEnabled = false;
+                    try { yield return MeasureSample(room, camera, "no-air"); }
+                    finally { atmosphere.effectsEnabled = original; }
+                }
+                var lights = FindObjectsByType<Light>(FindObjectsSortMode.None);
+                var shadows = lights.Select(l => l.shadows).ToArray();
+                try
+                {
+                    foreach (var light in lights) light.shadows = LightShadows.None;
+                    yield return MeasureSample(room, camera, "no-shadows");
+                }
+                finally { for (int i = 0; i < lights.Length; i++) if (lights[i]) lights[i].shadows = shadows[i]; }
+            }
+            finally
+            {
+                PaperSettingsRuntime.Instance.Apply(originalSettings, false);
+                renderer.depthPrimingMode = originalDepthMode;
+            }
+        }
+        IEnumerator MeasureSample(Room room, PaperCamera camera, string mode)
+        {
             var settings=PaperSettingsRuntime.Values.Copy();settings.vsync=false;settings.fps=-1;settings.quality=1;settings.autoCamera=false;
             PaperSettingsRuntime.Instance.Apply(settings,false);camera.SetAim(0,-14);
+            var pipeline = GraphicsSettings.currentRenderPipeline as UniversalRenderPipelineAsset;
+            var renderer = Camera.main.GetUniversalAdditionalCameraData().scriptableRenderer as UniversalRenderer;
+            if (mode == "msaa4") pipeline.msaaSampleCount = 4;
+            if (mode == "msaa2") pipeline.msaaSampleCount = 2;
+            if (mode == "smaa-depth")
+            {
+                pipeline.msaaSampleCount = 1;
+                renderer.depthPrimingMode = DepthPrimingMode.Forced;
+            }
             yield return new WaitForSecondsRealtime(3);
-            var frames=new List<float>();var cpu=new List<double>();var gpu=new List<double>();
-            var draw=ProfilerRecorder.StartNew(ProfilerCategory.Render,"Draw Calls Count",1);
-            var memory=ProfilerRecorder.StartNew(ProfilerCategory.Memory,"Total Used Memory",1);
-            long calls=0,maxMemory=0;var timing=new FrameTiming[1];
+            var frames=new List<float>(4096);var cpu=new List<double>(4096);var gpu=new List<double>(4096);
+            using var draw=ProfilerRecorder.StartNew(ProfilerCategory.Render,"Draw Calls Count",1);
+            using var memory=ProfilerRecorder.StartNew(ProfilerCategory.Memory,"Total Used Memory",1);
+            using var allocations=ProfilerRecorder.StartNew(ProfilerCategory.Memory,"GC Allocated In Frame",1);
+            long calls=0,maxMemory=0,allocated=0;var timing=new FrameTiming[1];
             float start=Time.realtimeSinceStartup;
             while(Time.realtimeSinceStartup-start<15)
             {
                 FrameTimingManager.CaptureFrameTimings();yield return null;
                 frames.Add(Time.unscaledDeltaTime*1000);
                 if(draw.Valid)calls+=draw.LastValue;if(memory.Valid)maxMemory=Math.Max(maxMemory,memory.LastValue);
+                if(allocations.Valid)allocated+=allocations.LastValue;
                 if(FrameTimingManager.GetLatestTimings(1,timing)>0){if(timing[0].cpuFrameTime>0)cpu.Add(timing[0].cpuFrameTime);if(timing[0].gpuFrameTime>0)gpu.Add(timing[0].gpuFrameTime);}
             }
-            draw.Dispose();memory.Dispose();frames.Sort();
-            log.AppendLine($"PERF {room.RoomId}: {Screen.width}x{Screen.height}, q=1, uncapped, {frames.Count} frames/15s; mean={frames.Average():F2} ms, p95={frames[(int)((frames.Count-1)*.95f)]:F2} ms, drawcalls={calls/Math.Max(1,frames.Count)}, peak memory={maxMemory/1048576} MiB; CPU={(cpu.Count>0?cpu.Average().ToString("F2"):"unavailable")}, GPU={(gpu.Count>0?gpu.Average().ToString("F2"):"unavailable")}");Flush();
+            frames.Sort();
+            log.AppendLine($"PERF {room.RoomId} [{mode}]: {Screen.width}x{Screen.height}, q=1, uncapped, {frames.Count} frames/15s; mean={frames.Average():F2} ms, p95={frames[(int)((frames.Count-1)*.95f)]:F2} ms, drawcalls={calls/Math.Max(1,frames.Count)}, peak memory={maxMemory/1048576} MiB; CPU={(cpu.Count>0?cpu.Average().ToString("F2"):"unavailable")}, GPU={(gpu.Count>0?gpu.Average().ToString("F2"):"unavailable")}");Flush();
+            yield return CaptureRenderedFrame(room.RoomId+"-perf-"+mode);
+            log.AppendLine($"GC {room.RoomId} [{mode}]: {(allocations.Valid?(allocated/Math.Max(1,frames.Count)).ToString():"unavailable")} bytes/frame");Flush();
+            if(mode=="normal")
+            {
+                var meshes=room.GetComponentsInChildren<MeshRenderer>();
+                Check(!room.GetComponentsInChildren<GravityPagePuzzle>().SelectMany(p=>p.GetComponentsInChildren<MeshRenderer>()).Any(r=>r.isPartOfStaticBatch), room.RoomId+" puzzle rendering remains dynamic");
+                log.AppendLine($"BATCH {room.RoomId}: {meshes.Count(r=>r.isPartOfStaticBatch)} / {meshes.Length}");Flush();
+            }
+        }
+        IEnumerator CaptureRenderedFrame(string name)
+        {
+            // Capture the actual backbuffer, including its MSAA/SMAA configuration.
+            // Rendering into a separate single-sample texture would invalidate AA comparisons.
+            yield return new WaitForEndOfFrame();
+            var frame = ScreenCapture.CaptureScreenshotAsTexture();
+            try { System.IO.File.WriteAllBytes(System.IO.Path.Combine(output, name+".png"), frame.EncodeToPNG()); }
+            finally { Destroy(frame); }
         }
         IEnumerator VerifyPassages(PlayerController player,PaperCamera camera)
         {

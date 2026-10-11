@@ -39,6 +39,8 @@ namespace BookTower.Puzzles
         IEnumerator Start()
         {
             Directory.CreateDirectory(output);Application.logMessageReceived+=OnLog;
+            VerifyVisibilityContract();
+            VerifySettingsContract();
             IsolateInput();
             yield return null;yield return null;
             var ui=PaperUI.Instance;var story=FindFirstObjectByType<BookTower.Story.OpeningStoryDirector>();
@@ -51,9 +53,11 @@ namespace BookTower.Puzzles
             Check(puzzles.Length==16,"16 replacement puzzles present");
             Check(!FindObjectsByType<PuzzleBase>(FindObjectsSortMode.None).Any(p=>p is not GravityPagePuzzle&&p.enabled),"no active legacy puzzle");
             PaperSettingsRuntime.Instance.Apply(new PaperSettings{autoCamera=false},false);
+            bool performanceOnly = Environment.GetCommandLineArgs().Contains("-gravityPerfOnly");
             foreach(var puzzle in puzzles)
             {
                 var room=puzzle.GetComponentInParent<Room>();string id=room.RoomId;
+                if (performanceOnly && id is not ("F0" or "1A" or "1B")) continue;
                 var control=puzzle.GetComponentsInChildren<GravityPageControl>().First(c=>c.command==0);
                 var at=control.transform.position+new Vector3(0,-1.4f,-3f);
                 at.y=(id=="F0"?3:room.FloorY)+.2f;
@@ -113,8 +117,12 @@ namespace BookTower.Puzzles
                 if(!Application.isEditor&&(id is "F0" or "1A" or "1B"))yield return Measure(room,player,camera);
             }
             Time.timeScale=1;
-            yield return VerifyStructureCollision(player,camera);
-            yield return VerifyPassages(player,camera);
+            if (!performanceOnly)
+            {
+                yield return VerifyStructureCollision(player,camera);
+                yield return VerifyPassages(player,camera);
+            }
+            else log.AppendLine("PERFORMANCE ONLY: full collision and passage regression skipped.");
             log.AppendLine($"Machine: {SystemInfo.processorType}; {SystemInfo.graphicsDeviceName}; Unity {Application.unityVersion}; editor={Application.isEditor}");
             log.AppendLine($"RESULT: {(failures==0?"PASS":"FAIL")}; failures={failures}. Visual quality and first-time enjoyment require separate review.");Flush();
             Application.logMessageReceived-=OnLog;

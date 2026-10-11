@@ -36,6 +36,7 @@ namespace BookTower.Interaction
 
         [SerializeField] private bool animatePosition = true;
         private Transform player;
+        private BookTower.Rooms.Room owningRoom;
         private Light nearbyLight;
         private Vector3 restPos;
         private float baseIntensity;
@@ -65,6 +66,7 @@ namespace BookTower.Interaction
         private void Start()
         {
             restPos = transform.localPosition;
+            owningRoom = GetComponentInParent<BookTower.Rooms.Room>();
 
             // 이 물체를 비추라고 둔 등을 찾는다. level_layout.py 가
             // 조각·주름 위에 같은 이름으로 등을 하나씩 얹어 둔다.
@@ -83,6 +85,18 @@ namespace BookTower.Interaction
 
         private void Update()
         {
+            if (owningRoom && !owningRoom.IsVisible)
+            {
+                InRange = false;
+                IsTarget = false;
+                if (rangeBlend != 0 || targetBlend != 0)
+                {
+                    rangeBlend = targetBlend = 0;
+                    if (animatePosition) transform.localPosition = restPos;
+                    if (nearbyLight) nearbyLight.intensity = baseIntensity;
+                }
+                return;
+            }
             if (player == null)
             {
                 var pc = FindFirstObjectByType<PlayerSystem.PlayerController>();
@@ -90,7 +104,9 @@ namespace BookTower.Interaction
                 player = pc.transform;
             }
 
-            InRange = Vector3.Distance(player.position, transform.position) <= range;
+            InRange = (player.position - transform.position).sqrMagnitude <= range * range;
+            // Once settled at rest, no native transform/light write is needed.
+            if (!InRange && !IsTarget && rangeBlend == 0 && targetBlend == 0) return;
 
             // 즉시 켜고 끄면 눈에 거슬린다. 부드럽게 오간다.
             rangeBlend = Mathf.MoveTowards(rangeBlend, InRange ? 1f : 0f, Time.deltaTime * 4f);

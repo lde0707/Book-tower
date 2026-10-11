@@ -42,7 +42,7 @@ namespace BookTower.EditorTools
                 string path=Path.GetFullPath("Builds/GravityPage/AFoldOfLight.exe");Directory.CreateDirectory(Path.GetDirectoryName(path));
                 PlayerSettings.SetScriptingBackend(NamedBuildTarget.Standalone,ScriptingImplementation.Mono2x);
                 PlayerSettings.enableFrameTimingStats=true;PlayerSettings.runInBackground=true;
-                var result=BuildPipeline.BuildPlayer(new BuildPlayerOptions{scenes=new[]{"Assets/Scenes/InGame.unity"},locationPathName=path,target=BuildTarget.StandaloneWindows64,options=BuildOptions.None});
+                var result=BuildPipeline.BuildPlayer(new BuildPlayerOptions{scenes=new[]{"Assets/Scenes/InGame.unity"},locationPathName=path,target=BuildTarget.StandaloneWindows64,options=BuildOptions.CompressWithLz4HC});
                 Directory.CreateDirectory("Docs/ArtReview/GravityImplemented");
                 File.WriteAllText("Docs/ArtReview/GravityImplemented/build.txt",$"{result.summary.result}; bytes={result.summary.totalSize}; time={result.summary.totalTime}; errors={result.summary.totalErrors}; warnings={result.summary.totalWarnings}\n{path}");
                 EditorApplication.Exit(result.summary.result==BuildResult.Succeeded?0:1);

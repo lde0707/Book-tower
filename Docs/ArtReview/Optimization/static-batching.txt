@@ -1,0 +1,6 @@
+F0: batchable=241, excluded=603, vertices=881670
+1A: batchable=944, excluded=497, vertices=331302
+1B: batchable=1932, excluded=1349, vertices=1264802
+VERIFIED F0: 228 batched renderers
+VERIFIED 1A: 942 batched renderers
+VERIFIED 1B: 1927 batched renderers

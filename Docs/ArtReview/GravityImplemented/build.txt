@@ -1,2 +1,2 @@
-Succeeded; bytes=617487136; time=00:01:00.3341634; errors=0; warnings=8
+Succeeded; bytes=381951919; time=00:01:23.0068864; errors=0; warnings=8
 C:\Users\doun0\OneDrive\바탕 화면\File\GitHub\Book-tower\Builds\GravityPage\AFoldOfLight.exe

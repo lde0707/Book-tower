@@ -21,29 +21,29 @@ PASS: Settings button enters Settings state
 PASS: Tab 0 shares same 120 x 120 leaf
 PASS: Slider geometry stays inside track
 PASS: Four extracted category icons and one active ribbon
-PASS: Footer safe margins: 기본값 복원
-PASS: Footer safe margins: 취소
-PASS: Footer safe margins: 적용
+PASS: Footer safe margins and current 56px height: 기본값 복원
+PASS: Footer safe margins and current 56px height: 취소
+PASS: Footer safe margins and current 56px height: 적용
 PASS: Tab 1 shares same 120 x 120 leaf
 PASS: Slider geometry stays inside track
 PASS: Four extracted category icons and one active ribbon
-PASS: Footer safe margins: 기본값 복원
-PASS: Footer safe margins: 취소
-PASS: Footer safe margins: 적용
+PASS: Footer safe margins and current 56px height: 기본값 복원
+PASS: Footer safe margins and current 56px height: 취소
+PASS: Footer safe margins and current 56px height: 적용
 PASS: Tab 2 shares same 120 x 120 leaf
 PASS: Slider geometry stays inside track
 PASS: Slider geometry stays inside track
 PASS: Slider geometry stays inside track
 PASS: Slider geometry stays inside track
 PASS: Four extracted category icons and one active ribbon
-PASS: Footer safe margins: 기본값 복원
-PASS: Footer safe margins: 취소
-PASS: Footer safe margins: 적용
+PASS: Footer safe margins and current 56px height: 기본값 복원
+PASS: Footer safe margins and current 56px height: 취소
+PASS: Footer safe margins and current 56px height: 적용
 PASS: Tab 3 shares same 120 x 120 leaf
 PASS: Four extracted category icons and one active ribbon
-PASS: Footer safe margins: 기본값 복원
-PASS: Footer safe margins: 취소
-PASS: Footer safe margins: 적용
+PASS: Footer safe margins and current 56px height: 기본값 복원
+PASS: Footer safe margins and current 56px height: 취소
+PASS: Footer safe margins and current 56px height: 적용
 PASS: Dropdown opens dedicated FSM choice state
 PASS: Dropdown selection edits draft and closes popup
 PASS: Escape/back dismisses dropdown
@@ -64,13 +64,7 @@ PASS: Rebound gameplay input reaches reader (frames 16, key 32, phase Playing, b
 PASS: Display change waits for confirmation while paused
 PASS: Unscaled display timer rolls back automatically
 PASS: Display confirmation commits selected mode
-PASS: Sound preview plays during pause
-PASS: Restore defaults applies bindings and text scale
-PASS: Readable story note exists in F0
-PASS: Reading state blocks gameplay
-PASS: Read next page without world interaction
-PASS: Close reading restores Gameplay state
-PASS: Collected reading appears in journal state
-PASS: Quit has confirmation state
-PASS: Quit cancel returns to pause safely
-PASS: UI state machine and settings integration
+FAIL: System.Exception: Sound preview plays during pause
+  at BookTower.EditorTools.PaperUIVerifier.Check (System.Boolean value, System.String text) [0x00020] in C:\Users\doun0\OneDrive\바탕 화면\File\GitHub\Book-tower\Assets\_BookTower\Editor\PaperUIVerifier.cs:30 
+  at BookTower.EditorTools.PaperUIVerifier+<Verify>d__22.MoveNext () [0x012ca] in C:\Users\doun0\OneDrive\바탕 화면\File\GitHub\Book-tower\Assets\_BookTower\Editor\PaperUIVerifier.cs:64 
+  at BookTower.EditorTools.PaperUIVerifier.Tick () [0x00045] in C:\Users\doun0\OneDrive\바탕 화면\File\GitHub\Book-tower\Assets\_BookTower\Editor\PaperUIVerifier.cs:28 

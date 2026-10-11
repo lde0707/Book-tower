@@ -1,0 +1,75 @@
+PASS 16 replacement puzzles present
+PASS no active legacy puzzle
+PASS F0 rejects out-of-range interaction
+PASS F0 accepts direction
+PASS F0 disallows timing-dependent mid-flight change
+PASS F0 pause freezes cargo
+PASS F0 undo during movement
+PASS F0 undo restores positions
+PASS F0 undo survives interpolation and physics tick
+PASS F0 route direction 2
+F0 step 2: (-3.60, 6.00, 0.00)
+PASS F0 route direction 3
+F0 step 3: (3.60, 6.00, 0.00)
+PASS F0 route direction 0
+F0 step 0: (3.60, 1.20, 0.00)
+PASS F0 actual physics solves all destinations: 0.000
+PASS F0 preserved binding door opens from gravity solve
+PASS E keeps cardinal camera snap, actual=90
+PASS movement releases camera observation
+PERF F0 [normal]: 1920x1080, q=1, uncapped, 275 frames/15s; mean=54.62 ms, p95=62.32 ms, drawcalls=3015, peak memory=585 MiB; CPU=54.70, GPU=53.86
+PASS F0 puzzle rendering remains dynamic
+BATCH F0: 0 / 475
+PERF F0 [no-air]: 1920x1080, q=1, uncapped, 291 frames/15s; mean=51.69 ms, p95=56.42 ms, drawcalls=3011, peak memory=582 MiB; CPU=51.62, GPU=50.84
+PERF F0 [no-shadows]: 1920x1080, q=1, uncapped, 412 frames/15s; mean=36.46 ms, p95=40.49 ms, drawcalls=886, peak memory=581 MiB; CPU=36.48, GPU=35.55
+PASS 1A rejects out-of-range interaction
+PASS 1A accepts direction
+PASS 1A disallows timing-dependent mid-flight change
+PASS 1A pause freezes cargo
+PASS 1A undo during movement
+PASS 1A undo restores positions
+PASS 1A undo survives interpolation and physics tick
+PASS 1A route direction 2
+1A step 2: (0.80, 3.20, 0.00)
+PASS 1A route direction 1
+1A step 1: (-0.80, 3.20, 0.00)
+PASS 1A route direction 2
+1A step 2: (-0.80, 4.00, 0.00)
+PASS 1A route direction 3
+1A step 3: (0.00, 4.00, 0.00)
+PASS 1A route direction 0
+1A step 0: (0.00, 0.80, 0.00)
+PASS 1A actual physics solves all destinations: 0.000
+PERF 1A [normal]: 1920x1080, q=1, uncapped, 412 frames/15s; mean=36.42 ms, p95=38.06 ms, drawcalls=5821, peak memory=595 MiB; CPU=36.43, GPU=35.53
+PASS 1A puzzle rendering remains dynamic
+BATCH 1A: 0 / 1279
+PERF 1A [no-air]: 1920x1080, q=1, uncapped, 428 frames/15s; mean=35.12 ms, p95=36.93 ms, drawcalls=5804, peak memory=597 MiB; CPU=35.12, GPU=34.26
+PERF 1A [no-shadows]: 1920x1080, q=1, uncapped, 555 frames/15s; mean=27.03 ms, p95=28.71 ms, drawcalls=3482, peak memory=590 MiB; CPU=27.03, GPU=26.15
+PASS 1B rejects out-of-range interaction
+PASS 1B accepts direction
+PASS 1B disallows timing-dependent mid-flight change
+PASS 1B pause freezes cargo
+PASS 1B undo during movement
+PASS 1B undo restores positions
+PASS 1B undo survives interpolation and physics tick
+PASS 1B route direction 1
+1B step 1: (-4.00, 1.00, 0.00); (-5.00, 1.00, 0.00)
+PASS 1B route direction 2
+1B step 2: (-4.00, 9.00, 0.00); (-5.00, 9.00, 0.00)
+PASS 1B route direction 3
+1B step 3: (1.00, 9.00, 0.00); (0.00, 9.00, 0.00)
+PASS 1B route direction 0
+1B step 0: (1.00, 6.00, 0.00); (0.00, 9.00, 0.00)
+PASS 1B route direction 3
+1B step 3: (5.00, 6.00, 0.00); (1.00, 9.00, 0.00)
+PASS 1B route direction 0
+1B step 0: (5.00, 1.00, 0.00); (1.00, 6.00, 0.00)
+PASS 1B actual physics solves all destinations: 0.000,0.000
+PERF 1B [normal]: 1920x1080, q=1, uncapped, 301 frames/15s; mean=49.93 ms, p95=51.76 ms, drawcalls=8713, peak memory=608 MiB; CPU=49.96, GPU=49.02
+PASS 1B puzzle rendering remains dynamic
+BATCH 1B: 0 / 2248
+PERF 1B [no-air]: 1920x1080, q=1, uncapped, 340 frames/15s; mean=44.25 ms, p95=46.16 ms, drawcalls=8706, peak memory=606 MiB; CPU=44.24, GPU=43.38
+PERF 1B [no-shadows]: 1920x1080, q=1, uncapped, 444 frames/15s; mean=33.81 ms, p95=35.22 ms, drawcalls=3271, peak memory=596 MiB; CPU=33.80, GPU=32.91
+PERFORMANCE ONLY: full collision and passage regression skipped.
+Machine: Intel(R) Core(TM) Ultra 5 225H; Intel(R) Arc(TM) 130T GPU (16GB); Unity 6000.3.10f1; editor=False
+RESULT: PASS; failures=0. Visual quality and first-time enjoyment require separate review.

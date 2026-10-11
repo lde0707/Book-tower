@@ -1,0 +1,72 @@
+PASS visibility hides rendering without disabling collision
+PASS repeated hide preserves authored disabled light
+PASS visibility restores latest local renderer/light states
+PASS 16 replacement puzzles present
+PASS no active legacy puzzle
+PASS F0 rejects out-of-range interaction
+PASS F0 accepts direction
+PASS F0 disallows timing-dependent mid-flight change
+PASS F0 pause freezes cargo
+PASS F0 undo during movement
+PASS F0 undo restores positions
+PASS F0 undo survives interpolation and physics tick
+PASS F0 route direction 2
+F0 step 2: (-3.60, 6.00, 0.00)
+PASS F0 route direction 3
+F0 step 3: (3.60, 6.00, 0.00)
+PASS F0 route direction 0
+F0 step 0: (3.60, 1.20, 0.00)
+PASS F0 actual physics solves all destinations: 0.000
+PASS F0 preserved binding door opens from gravity solve
+PASS E keeps cardinal camera snap, actual=90
+PASS movement releases camera observation
+PERF F0 [normal]: 1920x1080, q=1, uncapped, 275 frames/15s; mean=54.58 ms, p95=62.50 ms, drawcalls=2343, peak memory=580 MiB; CPU=54.75, GPU=53.84
+PASS F0 puzzle rendering remains dynamic
+BATCH F0: 228 / 475
+PASS 1A rejects out-of-range interaction
+PASS 1A accepts direction
+PASS 1A disallows timing-dependent mid-flight change
+PASS 1A pause freezes cargo
+PASS 1A undo during movement
+PASS 1A undo restores positions
+PASS 1A undo survives interpolation and physics tick
+PASS 1A route direction 2
+1A step 2: (0.80, 3.20, 0.00)
+PASS 1A route direction 1
+1A step 1: (-0.80, 3.20, 0.00)
+PASS 1A route direction 2
+1A step 2: (-0.80, 4.00, 0.00)
+PASS 1A route direction 3
+1A step 3: (0.00, 4.00, 0.00)
+PASS 1A route direction 0
+1A step 0: (0.00, 0.80, 0.00)
+PASS 1A actual physics solves all destinations: 0.000
+PERF 1A [normal]: 1920x1080, q=1, uncapped, 441 frames/15s; mean=34.05 ms, p95=37.73 ms, drawcalls=4807, peak memory=589 MiB; CPU=34.06, GPU=33.32
+PASS 1A puzzle rendering remains dynamic
+BATCH 1A: 942 / 1279
+PASS 1B rejects out-of-range interaction
+PASS 1B accepts direction
+PASS 1B disallows timing-dependent mid-flight change
+PASS 1B pause freezes cargo
+PASS 1B undo during movement
+PASS 1B undo restores positions
+PASS 1B undo survives interpolation and physics tick
+PASS 1B route direction 1
+1B step 1: (-4.00, 1.00, 0.00); (-5.00, 1.00, 0.00)
+PASS 1B route direction 2
+1B step 2: (-4.00, 9.00, 0.00); (-5.00, 9.00, 0.00)
+PASS 1B route direction 3
+1B step 3: (1.00, 9.00, 0.00); (0.00, 9.00, 0.00)
+PASS 1B route direction 0
+1B step 0: (1.00, 6.00, 0.00); (0.00, 9.00, 0.00)
+PASS 1B route direction 3
+1B step 3: (5.00, 6.00, 0.00); (1.00, 9.00, 0.00)
+PASS 1B route direction 0
+1B step 0: (5.00, 1.00, 0.00); (1.00, 6.00, 0.00)
+PASS 1B actual physics solves all destinations: 0.000,0.000
+PERF 1B [normal]: 1920x1080, q=1, uncapped, 324 frames/15s; mean=46.39 ms, p95=53.09 ms, drawcalls=5394, peak memory=598 MiB; CPU=46.39, GPU=45.67
+PASS 1B puzzle rendering remains dynamic
+BATCH 1B: 1926 / 2247
+PERFORMANCE ONLY: full collision and passage regression skipped.
+Machine: Intel(R) Core(TM) Ultra 5 225H; Intel(R) Arc(TM) 130T GPU (16GB); Unity 6000.3.10f1; editor=False
+RESULT: PASS; failures=0. Visual quality and first-time enjoyment require separate review.

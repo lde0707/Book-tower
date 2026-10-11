@@ -15,6 +15,8 @@ namespace BookTower.Presentation
         public bool indirectEnabled = true;
         PaperAtmosphere[] profiles;
         RoomManager rooms;
+        Room cachedRoom;
+        PaperAtmosphere currentProfile;
         SphericalHarmonicsL2 blended;
         bool initialized;
         readonly Vector4[] minimum = new Vector4[3], maximum = new Vector4[3], air = new Vector4[3], settings = new Vector4[3];
@@ -22,10 +24,26 @@ namespace BookTower.Presentation
         static readonly int[] depthIds = { Shader.PropertyToID("_PaperBeamDepth0"), Shader.PropertyToID("_PaperBeamDepth1"), Shader.PropertyToID("_PaperBeamDepth2"), Shader.PropertyToID("_PaperBeamDepth3"), Shader.PropertyToID("_PaperBeamDepth4"), Shader.PropertyToID("_PaperBeamDepth5") };
         public int ActiveVolumes { get; private set; }
         public int ActiveShafts { get; private set; }
-        public bool OwnsAmbient => isActiveAndEnabled && indirectEnabled && rooms && rooms.Current && rooms.Current.GetComponent<PaperAtmosphere>();
+        public bool OwnsAmbient => isActiveAndEnabled && indirectEnabled && CurrentProfile;
+        PaperAtmosphere CurrentProfile
+        {
+            get
+            {
+                var room = rooms ? rooms.Current : null;
+                if (cachedRoom != room)
+                {
+                    cachedRoom = room;
+                    currentProfile = room ? room.GetComponent<PaperAtmosphere>() : null;
+                }
+                return currentProfile;
+            }
+        }
         void OnEnable()
         {
             Instance = this;
+            cachedRoom = null;
+            currentProfile = null;
+            initialized = false;
             profiles = FindObjectsByType<PaperAtmosphere>(FindObjectsSortMode.None);
             rooms = FindFirstObjectByType<RoomManager>();
         }
@@ -37,15 +55,25 @@ namespace BookTower.Presentation
         }
         void LateUpdate()
         {
-            var current = rooms && rooms.Current ? rooms.Current.GetComponent<PaperAtmosphere>() : null;
+            var current = CurrentProfile;
             if (current && indirectEnabled)
             {
                 var target = current.Indirect();
                 float k = initialized ? 1 - Mathf.Exp(-2.2f * Time.deltaTime) : 1;
-                for (int c = 0; c < 3; c++) for (int i = 0; i < 9; i++) blended[c, i] = Mathf.Lerp(blended[c, i], target[c, i], k);
+                bool changed = !initialized || RenderSettings.ambientMode != AmbientMode.Custom;
+                for (int c = 0; c < 3; c++) for (int i = 0; i < 9; i++)
+                {
+                    float next = Mathf.Lerp(blended[c, i], target[c, i], k);
+                    if (Mathf.Abs(next - target[c, i]) < .000001f) next = target[c, i];
+                    changed |= next != blended[c, i];
+                    blended[c, i] = next;
+                }
                 initialized = true;
-                RenderSettings.ambientMode = AmbientMode.Custom;
-                RenderSettings.ambientProbe = blended;
+                if (changed)
+                {
+                    RenderSettings.ambientMode = AmbientMode.Custom;
+                    RenderSettings.ambientProbe = blended;
+                }
             }
             else initialized = false;
 

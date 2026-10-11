@@ -59,6 +59,19 @@ Shader "BookTower/ReadingPaper"
    ENDHLSL
   }
   Pass {
+   Name "DepthNormals" Tags {"LightMode"="DepthNormalsOnly"} ZWrite On
+   HLSLPROGRAM
+   #pragma vertex PaperDepthVertex
+   #pragma fragment PaperDepthFragment
+   #pragma multi_compile_fragment _ _GBUFFER_NORMALS_OCT
+   #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+   CBUFFER_START(UnityPerMaterial)
+   float4 _Rect; half4 _BaseColor; float _Emission,_Repeat;
+   CBUFFER_END
+   #include "PaperDepthNormals.hlsl"
+   ENDHLSL
+  }
+  Pass {
    Name "ShadowCaster" Tags {"LightMode"="ShadowCaster"} ZWrite On ColorMask 0
    HLSLPROGRAM
    #pragma vertex vertShadow

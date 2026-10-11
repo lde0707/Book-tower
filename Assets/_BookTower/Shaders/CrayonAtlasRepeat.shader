@@ -57,6 +57,17 @@ Shader "BookTower/CrayonAtlasRepeat"
    half4 fragDepth():SV_Target{return 0;}
    ENDHLSL
   }
+  Pass
+  {
+   Name "DepthNormals" Tags {"LightMode"="DepthNormalsOnly"} ZWrite On
+   HLSLPROGRAM
+   #pragma vertex PaperDepthVertex
+   #pragma fragment PaperDepthFragment
+   #pragma multi_compile_fragment _ _GBUFFER_NORMALS_OCT
+   #define PAPER_FLIP_BACKFACE_NORMALS
+   #include "PaperDepthNormals.hlsl"
+   ENDHLSL
+  }
   UsePass "BookTower/ReadingPaper/ShadowCaster"
  }
 }

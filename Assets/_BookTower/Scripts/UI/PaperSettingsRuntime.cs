@@ -30,7 +30,7 @@ namespace BookTower.UI
    Current=settings.Copy();Current.Validate();
    if(display&&!Application.isBatchMode)Screen.SetResolution(Current.width,Current.height,Current.windowMode==0?FullScreenMode.ExclusiveFullScreen:Current.windowMode==1?FullScreenMode.FullScreenWindow:FullScreenMode.Windowed);
    QualitySettings.vSyncCount=Current.vsync?1:0;Application.targetFrameRate=Current.fps;
-   if(pipeline){pipeline.renderScale=new[]{.75f,1f,1.15f}[Current.quality];pipeline.shadowDistance=new[]{25f,45f,70f}[Current.quality];pipeline.msaaSampleCount=Current.quality==0?2:4;}
+   if(pipeline)PaperRenderQuality.Apply(pipeline,Current.quality);
    if(color)color.postExposure.Override(.35f+(Current.brightness-50)/50f);
    if(bloom){bloom.intensity.overrideState=Current.reduceFlash;bloom.intensity.value=0;}
    AudioListener.volume=(!focused&&Current.muteBackground)?0:Current.master;

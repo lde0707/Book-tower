@@ -15,8 +15,28 @@ namespace BookTower.UI
   public bool invertY,vsync=true,muteBackground=true,prompts=true,colorAssist=true,shake,reduceFlash=true,autoCamera;
   public int windowMode=1,width=1920,height=1080,quality=1,fps=60,textSize=1;
   public int[] keys={(int)Key.W,(int)Key.S,(int)Key.A,(int)Key.D,(int)Key.Space,(int)Key.F,(int)Key.Q,(int)Key.E,(int)Key.LeftShift};
-  public PaperSettings Copy()=>JsonUtility.FromJson<PaperSettings>(JsonUtility.ToJson(this));
-  public bool Same(PaperSettings other)=>other!=null&&JsonUtility.ToJson(this)==JsonUtility.ToJson(other);
+  // Copy/equality run while the settings UI is open. JSON belongs only at the storage boundary.
+  public PaperSettings Copy()
+  {
+   var copy=(PaperSettings)MemberwiseClone();
+   copy.keys=keys==null?null:(int[])keys.Clone();
+   return copy;
+  }
+  public bool Same(PaperSettings other)=>other!=null&&
+   version==other.version&&dialogueSpeed==other.dialogueSpeed&&reduceStoryMotion==other.reduceStoryMotion&&
+   sensitivity.Equals(other.sensitivity)&&brightness.Equals(other.brightness)&&master.Equals(other.master)&&
+   music.Equals(other.music)&&effects.Equals(other.effects)&&ambience.Equals(other.ambience)&&
+   invertY==other.invertY&&vsync==other.vsync&&muteBackground==other.muteBackground&&prompts==other.prompts&&
+   colorAssist==other.colorAssist&&shake==other.shake&&reduceFlash==other.reduceFlash&&autoCamera==other.autoCamera&&
+   windowMode==other.windowMode&&width==other.width&&height==other.height&&quality==other.quality&&
+   fps==other.fps&&textSize==other.textSize&&SameKeys(keys,other.keys);
+  static bool SameKeys(int[] a,int[] b)
+  {
+   if(ReferenceEquals(a,b))return true;
+   if(a==null||b==null||a.Length!=b.Length)return false;
+   for(int i=0;i<a.Length;i++)if(a[i]!=b[i])return false;
+   return true;
+  }
   public bool DisplayDiffers(PaperSettings other)=>windowMode!=other.windowMode||width!=other.width||height!=other.height;
   public void Validate()
   {

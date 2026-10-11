@@ -44,15 +44,15 @@ namespace BookTower.Rooms
         [Tooltip("가장자리 여백. 1.18이면 18% 여유")]
         [SerializeField] private float camPad = 1.18f;
 
-        private Renderer[] renderers;
+        private RoomVisibility visibility;
         private RoomWall[] walls;
-        private Light[] lights;
-        private bool visible = true;
+        private bool yawApplied, lastDiorama;
+        private int lastYaw;
 
         public string RoomId => roomId;
         public int CamYaw => camYaw;
         public float CamPad => camPad;
-        public bool IsVisible => visible;
+        public bool IsVisible => visibility == null || visibility.IsVisible;
         public float FloorY => floorY;
         public float SunIntensity => sunIntensity;
         public float Ambient => ambient;
@@ -64,9 +64,8 @@ namespace BookTower.Rooms
 
         private void Awake()
         {
-            renderers = GetComponentsInChildren<Renderer>(true);
+            visibility = new RoomVisibility(this);
             walls = GetComponentsInChildren<RoomWall>(true);
-            lights = GetComponentsInChildren<Light>(true);
         }
 
         /// <summary>
@@ -89,24 +88,21 @@ namespace BookTower.Rooms
 
         public void SetVisible(bool on)
         {
-            if (renderers == null) return;
-            visible = on;
-
-            foreach (Renderer r in renderers)
-                if (r != null) r.enabled = on;
-
-            // 강조광도 같이 꺼야 한다. Light 는 Renderer 가 아니라서
-            // 위 반복문이 건드리지 못하고, 안 끄면 숨긴 방의 등이
-            // 지금 방까지 밝혀서 그림자 대비가 무너진다.
-            if (lights != null)
-                foreach (Light l in lights)
-                    if (l != null) l.enabled = on;
+            if (visibility == null || visibility.IsVisible == on) return;
+            visibility.SetVisible(on);
+            yawApplied = false;
         }
 
         /// <summary>카메라 각도가 바뀌면 가리는 벽도 바뀐다.</summary>
         public void ApplyYaw(int yawStep)
         {
             if (walls == null) return;
+            var camera = Camera.main;
+            bool diorama = camera && camera.orthographic;
+            if (yawApplied && lastYaw == yawStep && lastDiorama == diorama) return;
+            yawApplied = true;
+            lastYaw = yawStep;
+            lastDiorama = diorama;
             foreach (RoomWall w in walls)
                 if (w != null) w.ApplyYaw(yawStep);
         }

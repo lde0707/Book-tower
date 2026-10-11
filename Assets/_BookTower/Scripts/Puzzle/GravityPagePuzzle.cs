@@ -7,7 +7,7 @@ using BookTower.UI;
 namespace BookTower.Puzzles
 {
     // Gravity acts on the marked archive cargo, not the player. Rails constrain depth.
-    public sealed class GravityPagePuzzle : PuzzleBase
+    public sealed partial class GravityPagePuzzle : PuzzleBase
     {
         public Rigidbody[] cargo;
         public Transform[] destinations;
@@ -30,18 +30,17 @@ namespace BookTower.Puzzles
         readonly Stack<(Vector3[] positions,int direction)> history = new();
         Room room;
         bool initialized, suspended;
-        float stillTime, moveTime, leafProgress, pageProgress;
-        Vector3 leafStart;
-        Vector3 pageStart;Quaternion pageRotation;
+        float stillTime, moveTime;
         static readonly Vector3[] axes = { Vector3.down, Vector3.left, Vector3.up, Vector3.right };
 
         void Start()
         {
+            if (!ValidateConfiguration()) { enabled = false; return; }
             room = GetComponentInParent<Room>();
             initial = Snapshot(); pausedVelocity = new Vector3[cargo.Length];
+            priorFixedPositions = new Vector3[cargo.Length];
             foreach (var body in cargo) { body.useGravity = false; body.isKinematic = true; body.interpolation=RigidbodyInterpolation.None; }
-            if (exitLeaf) leafStart = exitLeaf.localPosition;
-            if(completedPage){pageStart=completedPage.localPosition;pageRotation=completedPage.localRotation;}
+            InitializePresentation();
             initialized = true; UpdateArrow();
         }
         Vector3[] Snapshot()
@@ -58,7 +57,7 @@ namespace BookTower.Puzzles
             if(Moving){PaperUI.Notify("기록이 멈추면 다음 방향을 고를 수 있어. 되돌리기는 지금도 가능해.");return false;}
             Activate(); history.Push((Snapshot(),Direction)); Direction = direction; Moves++;
             Moving = true; stillTime = moveTime = 0; suspended = false;
-            priorFixedPositions=Snapshot();
+            for (int i = 0; i < cargo.Length; i++) priorFixedPositions[i] = cargo[i].position;
             foreach (var body in cargo)
             {
                 body.constraints=RigidbodyConstraints.FreezePositionZ|RigidbodyConstraints.FreezeRotation|
@@ -143,25 +142,22 @@ namespace BookTower.Puzzles
             if(!initialized||Moving||Moves==0)return false;
             Matched=0;
             for(int i=0;i<cargo.Length;i++)
-                if(Vector3.Distance(cargo[i].position,destinations[i].position)<tolerance)Matched++;
+                if((cargo[i].position-destinations[i].position).sqrMagnitude<tolerance*tolerance)Matched++;
             return Matched==cargo.Length;
         }
         protected override void Update()
         {
             if(!initialized)return;
-            base.Update();
-            if(State==PuzzleState.Solved&&completedPage)
-            {
-                pageProgress=PaperSettingsRuntime.Values.reduceStoryMotion?1:Mathf.MoveTowards(pageProgress,1,Time.deltaTime/.7f);
-                var turn=Quaternion.Euler(0,90*Mathf.SmoothStep(0,1,pageProgress),0);
-                completedPage.SetLocalPositionAndRotation(completedPageHinge+turn*(pageStart-completedPageHinge),turn*pageRotation);
-            }
-            if(State==PuzzleState.Solved&&exitLeaf)
-            {
-                leafProgress=Mathf.MoveTowards(leafProgress,1,Time.deltaTime/3f);
-                exitLeaf.localPosition=leafStart+Vector3.up*(7f*Mathf.SmoothStep(0,1,leafProgress));
-                if(leafProgress>.98f)foreach(var c in exitLeaf.GetComponentsInChildren<Collider>())c.enabled=false;
-            }
+            if (!room || room.IsVisible) base.Update();
+            if (State == PuzzleState.Solved) UpdateSolvedPresentation();
+        }
+        bool ValidateConfiguration()
+        {
+            bool valid = cargo != null && cargo.Length > 0 && destinations != null &&
+                destinations.Length == cargo.Length && railSpacing > 0 && tolerance > 0 && acceleration > 0;
+            if (valid) for (int i = 0; i < cargo.Length; i++) valid &= cargo[i] && destinations[i];
+            if (!valid) Debug.LogError($"[GravityPage] Invalid cargo/destination or motion configuration: {name}", this);
+            return valid;
         }
         void UpdateArrow(){if(arrow)arrow.localRotation=Quaternion.Euler(0,0,-Direction*90f);}
         protected override void OnActivated(){PaperUI.Notify(lesson);}
