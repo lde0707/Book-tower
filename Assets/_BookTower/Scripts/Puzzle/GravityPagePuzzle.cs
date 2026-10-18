@@ -36,6 +36,7 @@ namespace BookTower.Puzzles
         void Start()
         {
             if (!ValidateConfiguration()) { enabled = false; return; }
+            GravityPageRailPhysics.Configure(this);
             room = GetComponentInParent<Room>();
             initial = Snapshot(); pausedVelocity = new Vector3[cargo.Length];
             priorFixedPositions = new Vector3[cargo.Length];

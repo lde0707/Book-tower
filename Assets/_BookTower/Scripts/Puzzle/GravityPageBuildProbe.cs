@@ -43,6 +43,15 @@ namespace BookTower.Puzzles
             VerifySettingsContract();
             IsolateInput();
             yield return null;yield return null;
+            yield return VerifyWallSliding();
+            if (Environment.GetCommandLineArgs().Contains("-gravityRailOnly"))
+            {
+                log.AppendLine($"RESULT: {(failures == 0 ? "PASS" : "FAIL")}; failures={failures}"); Flush();
+                Application.logMessageReceived -= OnLog; RestoreInput();
+                if (Finished != null) Finished(failures == 0);
+                else Application.Quit(failures == 0 ? 0 : 1);
+                yield break;
+            }
             var ui=PaperUI.Instance;var story=FindFirstObjectByType<BookTower.Story.OpeningStoryDirector>();
             if(story){if(story.companion)story.companion.transform.SetParent(null,true);story.enabled=false;}
             if(ui){ui.EndStory();ui.Resume();}GameFlow.EnsureExists().Resume();
@@ -66,6 +75,12 @@ namespace BookTower.Puzzles
                 GameFlow.Instance.Resume();Time.timeScale=1;
                 yield return new WaitForSecondsRealtime(.8f);
                 room.SetVisible(true);
+                int cargoMask = 1 << LayerMask.NameToLayer(GravityPageRailPhysics.CargoLayer);
+                Check(puzzle.cargo.All(b => b.GetComponent<Collider>().gameObject.layer == LayerMask.NameToLayer(GravityPageRailPhysics.CargoLayer)), id + " cargo uses dedicated rail collision layer");
+                var railMeshes = puzzle.GetComponentsInChildren<MeshCollider>().Where(c => c.name == "고정 선반").ToArray();
+                Check(railMeshes.Length > 0 && railMeshes.All(c => c.enabled && (c.excludeLayers.value & cargoMask) != 0 &&
+                    c.GetComponent<BoxCollider>().enabled && c.GetComponent<BoxCollider>().excludeLayers.value == ~cargoMask),
+                    id + " flat rails affect only cargo; fitted shelf meshes remain for player");
                 if(id is "F0" or "1A" or "1B" or "1C" or "HD")Capture(id+"-start");
                 Check(!control.TryUse(control.transform.position+Vector3.one*100),id+" rejects out-of-range interaction");
                 var initial=puzzle.cargo.Select(b=>b.position).ToArray();

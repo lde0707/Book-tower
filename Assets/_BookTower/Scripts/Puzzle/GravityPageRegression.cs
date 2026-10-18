@@ -26,6 +26,8 @@ namespace BookTower.Puzzles
             try
             {
                 yield return MeasureSample(room, camera, "normal");
+                if (Environment.GetCommandLineArgs().Contains("-gravityNativeReference"))
+                    yield return MeasureSample(room, camera, "native-reference");
                 if (Environment.GetCommandLineArgs().Contains("-gravityMSAAReference"))
                     yield return MeasureSample(room, camera, "msaa4");
                 if (Environment.GetCommandLineArgs().Contains("-gravityQualityAblation"))
@@ -64,6 +66,12 @@ namespace BookTower.Puzzles
             PaperSettingsRuntime.Instance.Apply(settings,false);camera.SetAim(0,-14);
             var pipeline = GraphicsSettings.currentRenderPipeline as UniversalRenderPipelineAsset;
             var renderer = Camera.main.GetUniversalAdditionalCameraData().scriptableRenderer as UniversalRenderer;
+            if (mode == "native-reference")
+            {
+                pipeline.renderScale = 1f;
+                pipeline.upscalingFilter = UpscalingFilterSelection.Auto;
+                pipeline.supportsCameraOpaqueTexture = true;
+            }
             if (mode == "msaa4") pipeline.msaaSampleCount = 4;
             if (mode == "msaa2") pipeline.msaaSampleCount = 2;
             if (mode == "smaa-depth")
@@ -87,7 +95,7 @@ namespace BookTower.Puzzles
                 if(FrameTimingManager.GetLatestTimings(1,timing)>0){if(timing[0].cpuFrameTime>0)cpu.Add(timing[0].cpuFrameTime);if(timing[0].gpuFrameTime>0)gpu.Add(timing[0].gpuFrameTime);}
             }
             frames.Sort();
-            log.AppendLine($"PERF {room.RoomId} [{mode}]: {Screen.width}x{Screen.height}, q=1, uncapped, {frames.Count} frames/15s; mean={frames.Average():F2} ms, p95={frames[(int)((frames.Count-1)*.95f)]:F2} ms, drawcalls={calls/Math.Max(1,frames.Count)}, peak memory={maxMemory/1048576} MiB; CPU={(cpu.Count>0?cpu.Average().ToString("F2"):"unavailable")}, GPU={(gpu.Count>0?gpu.Average().ToString("F2"):"unavailable")}");Flush();
+            log.AppendLine($"PERF {room.RoomId} [{mode}]: {Screen.width}x{Screen.height}, q=1, scale={pipeline.renderScale:F2}, uncapped, {frames.Count} frames/15s; mean={frames.Average():F2} ms, p95={frames[(int)((frames.Count-1)*.95f)]:F2} ms, drawcalls={calls/Math.Max(1,frames.Count)}, peak memory={maxMemory/1048576} MiB; CPU={(cpu.Count>0?cpu.Average().ToString("F2"):"unavailable")}, GPU={(gpu.Count>0?gpu.Average().ToString("F2"):"unavailable")}");Flush();
             yield return CaptureRenderedFrame(room.RoomId+"-perf-"+mode);
             log.AppendLine($"GC {room.RoomId} [{mode}]: {(allocations.Valid?(allocated/Math.Max(1,frames.Count)).ToString():"unavailable")} bytes/frame");Flush();
             if(mode=="normal")
