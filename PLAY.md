@@ -3,7 +3,7 @@
 <!-- WINDOWS-RELEASE-START -->
 ## Windows에서 바로 플레이
 
-**[접힌 빛 — A Fold of Light · Windows 실행 파일 다운로드](https://github.com/lde0707/Book-tower/releases/tag/portfolio-windows-2026-11-14)**
+**[접힌 빛 — A Fold of Light · Windows 실행 파일 다운로드](https://github.com/lde0707/portfolio-game-builds/releases/tag/afoldoflight-2026-11-14)**
 
 종이 세계의 빛·그림자와 접힘을 활용하는 3D 퍼즐 탐험 게임.
 
