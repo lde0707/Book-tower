@@ -1,37 +1,60 @@
 # 접힌 빛 — A Fold of Light
 
-<!-- WINDOWS-RELEASE-START -->
-## Windows에서 바로 플레이
+**빛의 경로, 그림자의 윤곽, 기억등의 상태를 조합해 책 속 공간의 길을 여는 3D 퍼즐 게임입니다.**
 
-**[접힌 빛 — A Fold of Light · Windows 실행 파일 다운로드](https://github.com/lde0707/portfolio-game-builds/releases/tag/afoldoflight-2026-11-14)**
+3인 팀 · 개발 중 · 3D 퍼즐 탐험 · Unity 6000.3.10f1 · C#
 
-종이 세계의 빛·그림자와 접힘을 활용하는 3D 퍼즐 탐험 게임.
+[Windows 실행 파일](https://github.com/lde0707/portfolio-game-builds/releases/tag/afoldoflight-2026-11-14) · [QA 엑셀](https://leedoeon.vercel.app/qa/reports/booktower.xlsx) · [QA 포트폴리오](https://leedoeon.vercel.app/qa/index.html)
 
-1. 위 Releases 페이지의 `AFoldOfLight-Windows-x64.zip`을 내려받습니다. `Source code` 파일은 실행 파일이 아닙니다.
-2. ZIP 전체를 한 폴더에 압축 해제합니다.
-3. `AFoldOfLight.exe`를 실행합니다. Unity 설치는 필요 없습니다.
+<img src="Portfolio/gameplay.webp" alt="접힌 빛 — A Fold of Light 실제 게임 화면" width="900">
 
-`AFoldOfLight_Data`, `UnityPlayer.dll`, 나머지 동봉 폴더를 함께 유지해야 합니다. Windows 64비트용이며 모바일·macOS에서는 실행되지 않습니다.
+## 내가 맡은 역할
 
-**조작:** WASD 이동 / Space 점프·활공 / 마우스 조준. 상호작용은 화면 안내를 따르세요.
+공간·퍼즐 진행 구조 기획을 담당했습니다.
 
-[실행·검증 범위](PLAY.md) · [QA 포트폴리오](https://leedoeon.vercel.app/qa/index.html)
-<!-- WINDOWS-RELEASE-END -->
+## 게임의 주요 흐름
 
-작은 종이 정령이 거대한 책 속 실내를 탐색하며 접힘·그림자·기억을 복원하는 3D 퍼즐 게임.
+타이틀 → 시작 대사 → 이동·시점 → 제본 다리
 
-- 최신 기획: [종이 백룸 통합 설계](Docs/00_종이백룸_통합설계.md)
-- 실제 적용 범위: [구현 현황](Docs/08_구현현황.md)
-- 아트: [아트 컨셉](Docs/02_아트컨셉.md)
-- 조작: [플레이어 스펙](Docs/04_플레이어스펙.md)
-- 현재 F0·1A 공략: [플레이 확인 방법](Docs/12_프로토타입_공략.md)
-- 정리 기록: [사용 종료 콘텐츠](Docs/Maintenance/2026-09-26-cleanup.md)
+## 실행 방법
 
-Unity 6000.3.10f1 / URP. 시작 씬은 Assets/Scenes/InGame.unity.
-마우스로 중앙 조준, WASD 이동, F/좌클릭 상호작용, Q/E 월드 축 관찰 고정, 이동 시 해제.
+### Unity 없이 플레이
 
-F0·1A의 신규 배경과 통로가 적용되어 있다. 나머지 방과 새 문장 수집·회상·엔딩은 통합 설계의 목표이며 전부 구현된 상태는 아니다.
+1. 위 **Windows 실행 파일** 링크에서 `AFoldOfLight-Windows-x64.zip`을 받습니다.
+2. ZIP **전체를 압축 해제**합니다.
+3. `AFoldOfLight.exe`를 실행합니다.
 
-전체 배치의 기반은 Tools/level_layout.py다. 현재 씬에는 별도 F0·1A 모델링 패스가 추가되므로 전체 재생성 뒤 각 패스를 적용하고 검증한다. 과거 ArtReview 문서는 당시의 기록이며 최신 설계보다 우선하지 않는다.
+Windows 64비트용입니다. EXE와 `Data` 폴더·`UnityPlayer.dll`을 함께 유지하세요. GitHub의 `Source code` 압축 파일은 게임 실행 패키지가 아닙니다.
 
-[2026-11-14 실제 플레이·수정 재검증](PLAYTEST.md)
+**기본 조작:** WASD 이동 / 마우스 시점 / Space 점프 / F 상호작용 / Esc 일시정지
+
+<details>
+<summary>Unity에서 소스 열기</summary>
+
+1. Unity Hub에서 저장소 루트를 프로젝트로 추가합니다.
+2. **Unity 6000.3.10f1**으로 엽니다.
+3. `Assets/Scenes/InGame.unity` 씬을 열고 Play를 실행합니다.
+4. 실행 파일을 만들 때 Windows Build Support를 설치하고 기존 Build Settings의 씬 구성으로 Windows x64를 빌드합니다.
+
+</details>
+
+## QA 테스트
+
+Windows 빌드에 실제 키보드·마우스 입력을 보내 확인한 내용입니다. 세부 조건과 관찰값은 **QA 엑셀의 플레이 재검증 시트**에서 볼 수 있습니다.
+
+| 확인 기능 | 테스트 조건 | 관찰 결과 |
+|---|---|---|
+| 첫 방 진입·조작 | 시작 대사 후 이동·시점·점프 | 첫 방에서 조작 정상 확인 |
+| 제본 다리 | F 입력 후 다시 입력 | 다리 내림·올림과 상태 전환 확인 |
+| 일시정지 | 정지 중 이동 입력 후 복귀 | 위치 유지, 복귀 후 다리 재조작 가능 |
+
+**검증 범위:** 실제 입력 검증은 첫 방까지입니다. 1A·1B 퍼즐 및 연결 통로는 별도 내부 기능 검사 결과이며, 실제 입력 완주 결과와 구분합니다.
+
+[실제 입력 검증 기록](PLAYTEST.md) · [실행·검증 안내](PLAY.md)
+
+## 소스와 상세 문서
+
+- [게임 흐름](Assets/_BookTower/Scripts/Core/GameFlow.cs)
+- [제본 다리 제어](Assets/_BookTower/Scripts/Interaction/FoldBridgeControl.cs)
+- [퍼즐 판정](Assets/_BookTower/Scripts/Puzzle/FoldBridgePuzzle.cs)
+- [기존 개발·설계 기록](README-DEV-NOTES.md)
