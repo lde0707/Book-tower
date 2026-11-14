@@ -1,0 +1,12 @@
+{
+  "result": "PASS",
+  "title_pixels_stationary": true,
+  "world_frame_difference_rgb": [
+    2.452493169398907,
+    2.550129022465088,
+    2.324070279295689
+  ],
+  "reduced_motion_frames_identical": true,
+  "scene_sha256": "a3409651c04c3b6491f54911c3813a925a4d0ece0dea9f9e406c5e9f7c21b1a5",
+  "native_module_sha256": "5dfd862e0a03867a24d5d6b36621d048a32eb1e474d02a0fb5267d1cbe639c06"
+}

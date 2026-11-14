@@ -1,0 +1,43 @@
+PASS launch opens title before story
+PASS generated title illustration loaded from project asset
+PASS title freezes gameplay and blocks input
+PASS title frees pointer
+PASS opening story waits for Start
+PASS title avoids rendering hidden 3D world
+PASS dedicated title music plays while world is paused
+PASS start selected for keyboard navigation
+PASS title key cannot move player
+PASS down arrow navigates to Settings
+PASS Enter opens title Settings
+PASS unchanged Settings returns to title
+PASS dirty title settings asks before discarding
+PASS discard returns to title and keeps gameplay paused
+PASS Escape opens quit confirmation
+PASS quit confirmation selects Cancel, not hidden title menu
+PASS quit button within viewport: 이야기 시작
+PASS quit button within viewport: 설정
+PASS quit button within viewport: 나가기
+PASS quit button within viewport: 나가기
+PASS quit cancel restores title
+PASS title-1920x1080 button within viewport: 이야기 시작
+PASS title-1920x1080 button within viewport: 설정
+PASS title-1920x1080 button within viewport: 나가기
+PASS title-1280x720 button within viewport: 이야기 시작
+PASS title-1280x720 button within viewport: 설정
+PASS title-1280x720 button within viewport: 나가기
+PASS title-1280x1024 button within viewport: 이야기 시작
+PASS title-1280x1024 button within viewport: 설정
+PASS title-1280x1024 button within viewport: 나가기
+PASS title-2560x1080 button within viewport: 이야기 시작
+PASS title-2560x1080 button within viewport: 설정
+PASS title-2560x1080 button within viewport: 나가기
+PASS title-large-text button within viewport: 이야기 시작
+PASS title-large-text button within viewport: 설정
+PASS title-large-text button within viewport: 나가기
+PASS large text and reduced motion keep title usable
+PASS Start enters actual game or opening story
+PASS Start restores world camera layers
+PASS Start stops title music
+PASS opening story starts only after title is dismissed
+PASS in-game Settings still returns to pause menu
+RESULT: PASS; failures=0; editor=False

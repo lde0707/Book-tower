@@ -76,7 +76,7 @@ namespace BookTower.Interaction
             if(BookTower.CameraSystem.PaperCamera.AimActive && camera!=null &&
                 InteractionRay.Cast(BookTower.CameraSystem.PaperCamera.AimRay(camera),out var hit,100f))
             {
-                var candidate=InteractionTargetProxy.Resolve(hit.collider);
+                var candidate=InteractionTargetProxy.Resolve(hit.collider,hit.point);
                 if(candidate!=null && candidate.isActiveAndEnabled && candidate.InRange && Visible(candidate)) best=candidate;
             }
 

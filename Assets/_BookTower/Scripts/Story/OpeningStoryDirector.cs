@@ -93,17 +93,15 @@ namespace BookTower.Story
             workNote=work;
             var lamp=new GameObject("작업책에 머무는 황금빛");lamp.transform.SetParent(work.transform,false);lamp.transform.localPosition=Vector3.up*1.15f;
             workBookLight=lamp.AddComponent<Light>();workBookLight.type=LightType.Point;workBookLight.color=new Color(1,.77f,.36f);workBookLight.range=4.2f;workBookLight.intensity=6;workBookLight.shadows=LightShadows.None;workBookLight.enabled=false;
-            Collider nearest=null;float distance=6f;
+            var target=work.GetComponent<BookTower.Interaction.Interactable>();
             foreach(var collider in foyer.GetComponentsInChildren<Collider>())
             {
-                if(collider.name!="두꺼운제본상판")continue;
-                float d=Vector3.Distance(collider.bounds.center,work.transform.position);
-                if(d<distance){nearest=collider;distance=d;}
+                if(collider.name!="두꺼운제본상판"&&collider.name!="장식_DarkBinding")continue;
+                if(Vector3.Distance(collider.bounds.ClosestPoint(work.transform.position),work.transform.position)>2)continue;
+                var proxy=collider.GetComponent<BookTower.Interaction.InteractionTargetProxy>();
+                if(!proxy)proxy=collider.gameObject.AddComponent<BookTower.Interaction.InteractionTargetProxy>();
+                proxy.target=target;proxy.maximumHitDistance=3;
             }
-            if(!nearest)return;
-            var proxy=nearest.GetComponent<BookTower.Interaction.InteractionTargetProxy>();
-            if(!proxy)proxy=nearest.gameObject.AddComponent<BookTower.Interaction.InteractionTargetProxy>();
-            proxy.target=work.GetComponent<BookTower.Interaction.Interactable>();
         }
         void Queue(string id)
         { if (!completed.Contains(id) && ActiveSequence != id && !pending.Contains(id)) pending.Enqueue(id); }
@@ -128,7 +126,7 @@ namespace BookTower.Story
         }
         void OnNoteRead(string id)
         {
-            if (id == WorkNote) {completed.Add("F0.Book.Read");SetWorkBookGuide(false);ui.Objective("Goal.F0.Light", "중력 페이지로 기록 상자를 같은 문양의 자리까지 보내기");}
+            if (id == WorkNote) {completed.Add("F0.Book.Read");SetWorkBookGuide(false);ui.Objective("Goal.F0.Light", "은박에 빛을 이어 문 옆 잎 문양 깨우기");}
             if (id == ShadowNote) completed.Add("F0.Clue.NextRoom");
         }
         void Update()
@@ -230,7 +228,7 @@ namespace BookTower.Story
               if(PaperSettingsRuntime.Values.prompts) PaperUI.Notify("마우스로 둘러보기 · 이동 키로 걷기 · " + (UnityEngine.InputSystem.Key)PaperSettingsRuntime.Values.keys[5] + " / 좌클릭으로 책 읽기"); }
             else if (id == OpeningStoryData.Return)
             { ui.Objective("Goal.F0.Exit", "열린 문 너머로 종이새와 함께 가기"); Bark("종이새", "저 안쪽이 낯설지 않아. 조금 더 가 보자."); }
-            else if (id == OpeningStoryData.Theatre) ui.Objective("Goal.1A", "끊어진 운반로를 돌아 이야기책을 제자리로 돌려놓기");
+            else if (id == OpeningStoryData.Theatre) ui.Objective("Goal.1A", "토끼와 여우의 그림자 속에서 새의 기억 찾기");
             else if (id == OpeningStoryData.Name)
             { ui.Objective("Goal.Moa", "모아와 함께 다음 장의 빛을 찾아가기"); Bark("모아", "내 이름을 다시 들으니까… 집이 조금 가까워진 것 같아.", 6); }
         }

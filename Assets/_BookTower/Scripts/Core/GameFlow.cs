@@ -34,7 +34,7 @@ namespace BookTower.Core
 
         private void Start()
         {
-            SetPhase(GamePhase.Playing);
+            if (phase == GamePhase.Boot) SetPhase(GamePhase.Playing);
         }
 
         private void OnDestroy()

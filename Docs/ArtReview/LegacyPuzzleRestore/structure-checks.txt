@@ -1,0 +1,23 @@
+PASS scene has no missing scripts
+PASS no active gravity puzzle
+PASS 16 gravity rooms retained inactive for recovery
+PASS F0 optical bridge and light surfaces restored
+PASS 1A real projected shadow stage restored
+PASS 1B lantern and original progression restored
+PASS opening story and memory rewards point to legacy puzzles
+PASS F0 door listens to optical bridge
+PASS active workbooks no longer teach gravity cargo rules
+RESTORED P6: FoldCombinationPuzzle; active=True; enabled=True
+RESTORED P8: FoldCombinationPuzzle; active=True; enabled=True
+RESTORED P1: FoldBridgePuzzle; active=True; enabled=True
+RESTORED P5: PieceAssemblyPuzzle; active=True; enabled=True
+RESTORED P15: SurfaceAnamorphosis; active=True; enabled=True
+RESTORED P4: FoldCombinationPuzzle; active=True; enabled=True
+RESTORED P3: FoldCombinationPuzzle; active=True; enabled=False
+RESTORED P13: PieceAssemblyPuzzle; active=True; enabled=True
+RESTORED P14: FoldCombinationPuzzle; active=True; enabled=True
+RESTORED P11: SequencePuzzle; active=True; enabled=True
+RESTORED P9: FoldCombinationPuzzle; active=True; enabled=True
+RESTORED P2: FoldCombinationPuzzle; active=True; enabled=True
+PASS refreshed atmosphere architecture masks=4; puzzle lights and indirect probe bake retained
+RESULT: PASS

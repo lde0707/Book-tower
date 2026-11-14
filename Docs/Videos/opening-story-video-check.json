@@ -1,0 +1,28 @@
+{
+  "result": "PASS",
+  "source": "Unity Editor play mode, actual opening story",
+  "story_beats": 8,
+  "source_frames": 904,
+  "source_fps": 30,
+  "source_seconds": 30.133333333333333,
+  "speed": 1.5,
+  "audio_streams": 0,
+  "video": {
+    "ffmpeg_version": "9.0.2-essentials_build-www.gyan.dev built with gcc 16.2.0 (Rev3, Built by MSYS2 project)",
+    "codec": "h264",
+    "pix_fmt": "yuv420p(progressive)",
+    "fps": 30.0,
+    "source_size": [
+      1920,
+      1080
+    ],
+    "size": [
+      1920,
+      1080
+    ],
+    "rotate": 0,
+    "duration": 20.1
+  },
+  "bytes": 3950255,
+  "full_video_decode": "PASS"
+}

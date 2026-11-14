@@ -1,0 +1,1 @@
+PASS final player title UI, gameplay, and three real Quit confirmations; five process exit codes=0; no native crash; guard HRESULT=0

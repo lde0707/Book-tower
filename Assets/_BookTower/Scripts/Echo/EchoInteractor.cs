@@ -43,7 +43,7 @@ namespace BookTower.EchoSystem
             // 숨겨진 방의 콜라이더에 가로막히지 않게 보이는 것만 고른다
             if (!InteractionRay.Cast(ray, out RaycastHit hit, 1000f, rayMask)) return;
 
-            var resolved=InteractionTargetProxy.Resolve(hit.collider);
+            var resolved=InteractionTargetProxy.Resolve(hit.collider,hit.point);
             var gravity=resolved?resolved.GetComponentInParent<BookTower.Puzzles.GravityPageControl>():hit.collider.GetComponentInParent<BookTower.Puzzles.GravityPageControl>();
             if(gravity!=null){gravity.TryUse(transform.position);return;}
             var reading=resolved?resolved.GetComponentInParent<BookTower.Puzzles.ReadingRoomControl>():hit.collider.GetComponentInParent<BookTower.Puzzles.ReadingRoomControl>();

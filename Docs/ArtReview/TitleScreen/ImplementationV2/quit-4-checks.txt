@@ -1,0 +1,11 @@
+PASS launch opens title before story
+PASS generated title illustration loaded from project asset
+PASS separate paper plaques, glowing leaf and animation shader loaded
+PASS title freezes gameplay and blocks input
+PASS title frees pointer
+PASS opening story waits for Start
+PASS title avoids rendering hidden 3D world
+PASS dedicated title music plays while world is paused
+PASS actual title Quit click opens confirmation
+EXPECT_APPLICATION_QUIT: confirm real Quit; parent process must observe exit code 0
+PASS parent observed real confirmed Quit; native guard and UIA release; exit code=0

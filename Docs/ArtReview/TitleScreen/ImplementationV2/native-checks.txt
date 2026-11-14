@@ -1,0 +1,4 @@
+PASS live accessibility requests reach original window procedure
+PASS closing accessibility requests are suppressed after plugin unload
+PASS unrelated window messages still reach original procedure
+PASS native window destruction completes

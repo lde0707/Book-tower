@@ -1,0 +1,19 @@
+Model: original grid ordering + explicit board bounds; not Unity physics
+Input SHA256: 93cae8b3ca88a492d74a7f43c395b9dfe15e74aa2d512dc2ed6317dfcb9feb99
+PASS F0: cargo=1 route=3 shortest=3 visited=6
+PASS 1A: cargo=1 route=5 shortest=5 visited=13
+PASS 1B: cargo=2 route=6 shortest=6 visited=27
+PASS 1C: cargo=2 route=7 shortest=7 visited=21
+PASS 1D: cargo=2 route=7 shortest=7 visited=44
+PASS 1E: cargo=3 route=8 shortest=8 visited=133
+PASS 2A: cargo=1 route=5 shortest=5 visited=14
+PASS 2B: cargo=2 route=8 shortest=8 visited=52
+PASS 2C: cargo=3 route=9 shortest=9 visited=142
+PASS 2D: cargo=2 route=9 shortest=9 visited=77
+PASS 2E: cargo=2 route=9 shortest=9 visited=50
+PASS 2F: cargo=3 route=8 shortest=8 visited=78
+PASS 3A: cargo=3 route=10 shortest=10 visited=169
+PASS 3B: cargo=3 route=11 shortest=11 visited=333
+PASS 3C: cargo=1 route=3 shortest=3 visited=6
+PASS HD: cargo=3 route=12 shortest=12 visited=137
+RESULT: PASS; levels=16; failures=0

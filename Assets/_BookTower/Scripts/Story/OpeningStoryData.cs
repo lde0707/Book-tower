@@ -36,7 +36,7 @@ namespace BookTower.Story
             Theatre => new[] {
                 new StoryBeat(StoryShot.CompareWing, "종이새", "잠깐… 이 그림들, 본 적 있어.\n집에 가는 길에 들르던 작은 극장이야."),
                 new StoryBeat(StoryShot.CompareWing, "나", "토끼도 있고, 여우도 있네.\n그런데 이야기가 중간에서 끊긴 것 같아."),
-                new StoryBeat(StoryShot.CompareWing, "종이새", "책이 제자리로 돌아오면 이야기가 이어졌어.\n나는 앞에 앉아서 듣고… 누가 날 불러 줬는데."),
+                new StoryBeat(StoryShot.CompareWing, "종이새", "등불이 켜지면 저 벽에 친구들이 나타났어.\n나는 앞에 앉아서 보고… 누가 날 불러 줬는데."),
                 new StoryBeat(StoryShot.CompareWing, "나", "그때 장면을 다시 볼 수 있으면 기억날지도 몰라.\n여기 남은 것들을 같이 살펴보자."),
             },
             Name => new[] {

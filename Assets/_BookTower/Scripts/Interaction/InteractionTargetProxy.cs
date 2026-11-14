@@ -7,11 +7,15 @@ namespace BookTower.Interaction
     public sealed class InteractionTargetProxy : MonoBehaviour
     {
         public Interactable target;
-        public static Interactable Resolve(Collider collider)
+        public float maximumHitDistance;
+        public static Interactable Resolve(Collider collider, Vector3? hitPoint = null)
         {
             if(!collider)return null;
             var proxy=collider.GetComponent<InteractionTargetProxy>();
-            return proxy&&proxy.target?proxy.target:collider.GetComponentInParent<Interactable>();
+            if(proxy&&proxy.target&&(proxy.maximumHitDistance<=0||
+                (hitPoint.HasValue&&Vector3.Distance(hitPoint.Value,proxy.target.transform.position)<=proxy.maximumHitDistance)))
+                return proxy.target;
+            return collider.GetComponentInParent<Interactable>();
         }
     }
 }

@@ -12,7 +12,7 @@ using BookTower.Interaction;
 using BookTower.PlayerSystem;
 namespace BookTower.UI
 {
- public enum PaperScreen{Playing,Paused,Settings,Reading,Rebinding,ConfirmDisplay,ConfirmDiscard,ConfirmQuit,Journal,Choosing,Story}
+ public enum PaperScreen{Playing,Paused,Settings,Reading,Rebinding,ConfirmDisplay,ConfirmDiscard,ConfirmQuit,Journal,Choosing,Story,Title}
  [DefaultExecutionOrder(-200)] public sealed partial class PaperUI:MonoBehaviour
  {
   public static PaperUI Instance {get;private set;}
@@ -42,23 +42,23 @@ namespace BookTower.UI
    if(!BookTower.Audio.RegionMusicPlayer.Attach(gameObject))Loop(musicClip,PaperAudioBus.Music,.07f);Loop(ambienceClip,PaperAudioBus.Ambience,.035f);
   }
   void Loop(AudioClip clip,PaperAudioBus bus,float volume){if(!clip)return;var go=new GameObject(bus.ToString());go.transform.SetParent(transform);var s=go.AddComponent<AudioSource>();s.clip=clip;s.loop=true;s.volume=volume;PaperAudioLevel.Bind(s,bus);s.Play();}
-  void Start(){Switch(new PlayingState());}
+  void Start(){if(ShouldShowTitle)ShowTitle();else Switch(new PlayingState());}
   void OnApplicationFocus(bool focused){if(!focused&&PaperSettingsRuntime.Values.muteBackground&&preview)preview.Stop();}
   void OnEnable(){GameEvents.PieceCollected+=Collected;}
   void OnDisable(){GameEvents.PieceCollected-=Collected;}
-  void OnDestroy(){if(pausePaper)Destroy(pausePaper);if(textPaper)Destroy(textPaper);skin?.Dispose();if(leafInk)Destroy(leafInk);if(Instance==this){if(ScreenState==PaperScreen.ConfirmDisplay&&PaperSettingsRuntime.Instance)PaperSettingsRuntime.Instance.Apply(PaperSettingsRuntime.Instance.Saved);Instance=null;Time.timeScale=1;AudioListener.pause=false;}}
+  void OnDestroy(){RestoreTitleCamera();if(pausePaper)Destroy(pausePaper);if(textPaper)Destroy(textPaper);skin?.Dispose();if(leafInk)Destroy(leafInk);if(Instance==this){if(ScreenState==PaperScreen.ConfirmDisplay&&PaperSettingsRuntime.Instance)PaperSettingsRuntime.Instance.Apply(PaperSettingsRuntime.Instance.Saved);Instance=null;Time.timeScale=1;AudioListener.pause=false;}}
   void Update(){if(Machine==null)return;if(Keyboard.current!=null&&Keyboard.current.escapeKey.wasPressedThisFrame)Back();Machine.Tick(Time.unscaledDeltaTime);UpdateHud();}
   void Switch(UIState state){Machine.Change(state);}
-  void EnterScreen(){bool story=ScreenState==PaperScreen.Story;bool playing=ScreenState==PaperScreen.Playing||(story&&WalkingStory);GameFlow.EnsureExists().SetPhase(playing?GamePhase.Playing:story?GamePhase.Cutscene:GamePhase.Paused);bool pauseAudio=!playing&&!story;if(!pauseAudio)AudioListener.pause=false;PaperAudioLevel.AllowMusicDuringReading(ScreenState==PaperScreen.Reading);AudioListener.pause=pauseAudio;if(story)ResetStoryInput();Cursor.lockState=playing?CursorLockMode.Locked:CursorLockMode.None;Cursor.visible=!playing;Draw();}
+  void EnterScreen(){bool story=ScreenState==PaperScreen.Story;bool playing=ScreenState==PaperScreen.Playing||(story&&WalkingStory);GameFlow.EnsureExists().SetPhase(playing?GamePhase.Playing:story?GamePhase.Cutscene:GamePhase.Paused);bool pauseAudio=!playing&&!story;if(!pauseAudio)AudioListener.pause=false;PaperAudioLevel.AllowMusicDuringReading(ScreenState==PaperScreen.Reading);AudioListener.pause=pauseAudio;if(story)ResetStoryInput();Cursor.lockState=playing?CursorLockMode.Locked:CursorLockMode.None;Cursor.visible=!playing;Draw();RefreshTitlePresentation();}
   public void Pause(){if(ScreenState==PaperScreen.Playing||ScreenState==PaperScreen.Story)Switch(new PausedState());}
   public void Resume(){if(StoryActive)Switch(new StoryState());else Switch(new PlayingState());}
   public void OpenSettings(){Draft=PaperSettingsRuntime.Instance.Saved.Copy();status="";Switch(new SettingsState());}
   public void SelectTab(int index){Tab=Mathf.Clamp(index,0,3);Draw();}
-  public void Back(){BookTower.Audio.SfxDirector.PlayUi(true);switch(ScreenState){case PaperScreen.Story:Pause();break;case PaperScreen.Playing:if(GameFlow.Instance.Phase==GamePhase.Playing)Pause();break;case PaperScreen.Paused:Resume();break;case PaperScreen.Settings:if(Dirty)Switch(new ConfirmationState(PaperScreen.ConfirmDiscard));else Switch(new PausedState());break;case PaperScreen.Choosing:Switch(new SettingsState());break;case PaperScreen.Rebinding:Switch(new SettingsState());break;case PaperScreen.ConfirmDisplay:RejectDisplay();break;case PaperScreen.ConfirmDiscard:Switch(new SettingsState());break;case PaperScreen.ConfirmQuit:Switch(new PausedState());break;case PaperScreen.Reading:CloseReading();break;case PaperScreen.Journal:Switch(new PausedState());break;}}
+  public void Back(){BookTower.Audio.SfxDirector.PlayUi(true);switch(ScreenState){case PaperScreen.Title:Switch(new ConfirmationState(PaperScreen.ConfirmQuit));break;case PaperScreen.Story:Pause();break;case PaperScreen.Playing:if(GameFlow.Instance.Phase==GamePhase.Playing)Pause();break;case PaperScreen.Paused:Resume();break;case PaperScreen.Settings:if(Dirty)Switch(new ConfirmationState(PaperScreen.ConfirmDiscard));else ReturnToMenu();break;case PaperScreen.Choosing:Switch(new SettingsState());break;case PaperScreen.Rebinding:Switch(new SettingsState());break;case PaperScreen.ConfirmDisplay:RejectDisplay();break;case PaperScreen.ConfirmDiscard:Switch(new SettingsState());break;case PaperScreen.ConfirmQuit:ReturnToMenu();break;case PaperScreen.Reading:CloseReading();break;case PaperScreen.Journal:Switch(new PausedState());break;}}
   public void ApplySettings(){if(!Dirty){status="변경된 설정이 없습니다.";Draw();return;}Draft.Validate();if(Draft.DisplayDiffers(PaperSettingsRuntime.Instance.Saved)){PaperSettingsRuntime.Instance.Apply(Draft);deadline=Time.unscaledTime+15;Switch(new ConfirmationState(PaperScreen.ConfirmDisplay));}else CommitDraft();}
   public void CommitDraft(){if(PaperSettingsRuntime.Instance.Commit(Draft,out string error)){Draft=PaperSettingsRuntime.Instance.Saved.Copy();status="설정을 저장했습니다.";}else status=error;Switch(new SettingsState());Draw();}
   public void RejectDisplay(){PaperSettingsRuntime.Instance.Apply(PaperSettingsRuntime.Instance.Saved);Draft=PaperSettingsRuntime.Instance.Saved.Copy();status="이전 설정으로 되돌렸습니다.";Switch(new SettingsState());}
-  public void Discard(){PaperSettingsRuntime.Instance.Apply(PaperSettingsRuntime.Instance.Saved);Draft=PaperSettingsRuntime.Instance.Saved.Copy();Switch(new PausedState());}
+  public void Discard(){PaperSettingsRuntime.Instance.Apply(PaperSettingsRuntime.Instance.Saved);Draft=PaperSettingsRuntime.Instance.Saved.Copy();ReturnToMenu();}
   public void Defaults(){Draft=new PaperSettings();status="기본값입니다. 적용을 눌러 저장하세요.";Draw();}
   public void BeginBind(int action){bindAction=action;deadline=Time.unscaledTime+.2f;Switch(new RebindingState());}
   public bool TryBind(Key key){if(key==Key.None||key==Key.Escape){status="이 키는 메뉴용으로 예약되어 있습니다.";return false;}if(Draft.keys.Where((k,i)=>i!=bindAction).Contains((int)key)){status="다른 동작에서 사용하는 키입니다.";Draw();return false;}Draft.keys[bindAction]=(int)key;status="키를 변경했습니다. 적용을 눌러 저장하세요.";Switch(new SettingsState());return true;}

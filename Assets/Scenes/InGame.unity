@@ -15268,7 +15268,7 @@ Transform:
   m_GameObject: {fileID: 8372249}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.789999, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -42759,7 +42759,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &24979049
 Transform:
   m_ObjectHideFlags: 0
@@ -51849,7 +51849,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &31031248
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59091,8 +59091,8 @@ MonoBehaviour:
   ambient: 0.82
   fog: 0
   shadowStrength: 0.62
-  goal: "\uD568\uAED8 \uC6C0\uC9C1\uC774\uB294 \uAE30\uB85D \xB7 \uB450 \uC0C1\uC790\uB97C
-    \uAC01\uC790\uC758 \uC790\uB9AC\uB85C \uBCF4\uB0B4\uAE30"
+  goal: "\uC8FC\uB984 5\uAC1C\uB97C \uC624\uB798\uB41C \uC21C\uC11C\uB300\uB85C \uAE68\uC6B4\uB2E4.
+    \uB9C8\uBAA8 \uC815\uB3C4\uAC00 \uADFC\uAC70\uB2E4"
   camYaw: 0
   camPad: 0.95
 --- !u!114 &33997533
@@ -69385,7 +69385,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &39946284
 Transform:
   m_ObjectHideFlags: 0
@@ -87124,7 +87124,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &50785520
 Transform:
   m_ObjectHideFlags: 0
@@ -116193,7 +116193,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44b3ad6c2a9e4f82809d044ae82f00fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BookTower.Rooms.RampGate
-  puzzle: {fileID: 116829194}
+  puzzle: {fileID: 1004431254}
   closedAngle: 90
   openSeconds: 1.1
   lockedBridge: {fileID: 45814826}
@@ -121491,7 +121491,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &71480015
 Transform:
   m_ObjectHideFlags: 0
@@ -121520,7 +121520,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61759319adc6ced47b481a9eb4182fd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BookTower.Puzzles.ReadingRoomControl
-  puzzle: {fileID: 0}
+  puzzle: {fileID: 716536704}
   action: 1
 --- !u!114 &71480017
 MonoBehaviour:
@@ -141468,7 +141468,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &82894382
 Transform:
   m_ObjectHideFlags: 0
@@ -141513,7 +141513,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb64ab369521b6f4295b453d674974ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BookTower.Interaction.FoldBridgeControl
-  puzzle: {fileID: 0}
+  puzzle: {fileID: 1350009204}
   seal: 0
   opticalControl: 1
 --- !u!114 &82894385
@@ -143526,7 +143526,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &83882172
 Transform:
   m_ObjectHideFlags: 0
@@ -146517,7 +146517,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &85802510
 Transform:
   m_ObjectHideFlags: 0
@@ -146565,7 +146565,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb64ab369521b6f4295b453d674974ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BookTower.Interaction.FoldBridgeControl
-  puzzle: {fileID: 0}
+  puzzle: {fileID: 1350009204}
   seal: 0
   opticalControl: 2
 --- !u!114 &85802513
@@ -170560,7 +170560,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44b3ad6c2a9e4f82809d044ae82f00fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BookTower.Rooms.RampGate
-  puzzle: {fileID: 535067762}
+  puzzle: {fileID: 779428106}
   closedAngle: 90
   openSeconds: 1.1
   lockedBridge: {fileID: 325759191}
@@ -179842,7 +179842,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &108285389
 Transform:
   m_ObjectHideFlags: 0
@@ -180168,7 +180168,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &108634133
 Transform:
   m_ObjectHideFlags: 0
@@ -192225,7 +192225,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &116829194
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -204513,8 +204513,8 @@ MonoBehaviour:
   ambient: 0.82
   fog: 0
   shadowStrength: 0.62
-  goal: "\uD06C\uAE30\uAC00 \uB2E4\uB978 \uAE30\uB85D \xB7 \uC881\uC740 \uAE38\uACFC
-    \uB113\uC740 \uAE38 \uB098\uB204\uAE30"
+  goal: "\uAE30\uB85D 4\uC7A5\uC744 \uC8FC\uB984\uC758 \uAE30\uC5B5\uACFC \uB300\uC870\uD55C\uB2E4.
+    \uD558\uB098\uB9CC \uC5B4\uAE0B\uB098 \uC788\uB2E4"
   camYaw: 0
   camPad: 0.95
 --- !u!114 &123160886
@@ -213101,8 +213101,8 @@ MonoBehaviour:
   ambient: 0.3
   fog: 0.001
   shadowStrength: 0.62
-  goal: "\uD568\uAED8 \uC6C0\uC9C1\uC774\uB294 \uAE30\uB85D \xB7 \uB450 \uC0C1\uC790\uB97C
-    \uAC01\uC790\uC758 \uC790\uB9AC\uB85C \uBCF4\uB0B4\uAE30"
+  goal: "\uBAA8\uC544\uC640 \uB9C8\uC9C0\uB9C9 \uC7A5\uC73C\uB85C \xB7 \uB2EB\uD78C
+    \uC5F4\uB78C\uC2E4\uC5D0 \uBE5B \uB418\uB3CC\uB9AC\uAE30"
   camYaw: 1
   camPad: 0.95
 --- !u!114 &128006187
@@ -222561,7 +222561,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &133716890
 Transform:
   m_ObjectHideFlags: 0
@@ -222597,7 +222597,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e9a911e064901549b8002b6b2e2caf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BookTower.Interaction.PaperShadowHandle
-  puzzle: {fileID: 0}
+  puzzle: {fileID: 774080416}
   isEar: 1
   extraPart: 0
 --- !u!65 &133716892
@@ -240894,8 +240894,8 @@ MonoBehaviour:
   ambient: 0.82
   fog: 0
   shadowStrength: 0.62
-  goal: "\uADC0\uD658 \uC6B4\uBC18\uB85C \xB7 \uC138 \uAE30\uB85D\uC758 \uC774\uB3D9
-    \uC21C\uC11C\uB97C \uD568\uAED8 \uACC4\uD68D\uD558\uAE30"
+  goal: "\uD070 \uC811\uC774\uBA74\uC744 \uC811\uC5B4 \uBC29\uC744 \uACFC\uAC70\uC758
+    \uBAA8\uC591\uC73C\uB85C \uD3EC\uAC20\uB2E4. \uBABB \uC790\uAD6D\uC774 \uAE30\uC900\uC810\uC774\uB2E4"
   camYaw: 0
   camPad: 0.95
 --- !u!114 &143557350
@@ -247847,7 +247847,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &147051583
 Transform:
   m_ObjectHideFlags: 0
@@ -247877,7 +247877,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61759319adc6ced47b481a9eb4182fd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BookTower.Puzzles.ReadingRoomControl
-  puzzle: {fileID: 0}
+  puzzle: {fileID: 716536704}
   action: 4
 --- !u!114 &147051585
 MonoBehaviour:
@@ -283966,7 +283966,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &167313485
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -318709,7 +318709,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &187312921
 Transform:
   m_ObjectHideFlags: 0
@@ -358701,7 +358701,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &210805257
 Transform:
   m_ObjectHideFlags: 0
@@ -359434,7 +359434,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &211155963
 Transform:
   m_ObjectHideFlags: 0
@@ -388200,6 +388200,7 @@ GameObject:
   - component: {fileID: 229059783}
   - component: {fileID: 229059781}
   - component: {fileID: 229059782}
+  - component: {fileID: 229059780}
   m_Layer: 0
   m_Name: "P8_\uD37C\uC990"
   m_TagString: Untagged
@@ -388207,6 +388208,26 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &229059780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 229059779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f862a729839adfe4187ba396e0c0de1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BookTower.Puzzles.FoldCombinationPuzzle
+  puzzleId: P8
+  targetSeconds: 240
+  activateRadius: 41
+  logToConsole: 1
+  group: {fileID: 229059781}
+  lightWorkshop: {fileID: 0}
+  answer: 03000000
+  requireSettled: 1
 --- !u!114 &229059781
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -403020,7 +403041,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &237603335
 Transform:
   m_ObjectHideFlags: 0
@@ -403050,7 +403071,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61759319adc6ced47b481a9eb4182fd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BookTower.Puzzles.ReadingRoomControl
-  puzzle: {fileID: 0}
+  puzzle: {fileID: 716536704}
   action: 5
 --- !u!114 &237603337
 MonoBehaviour:
@@ -413127,7 +413148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44b3ad6c2a9e4f82809d044ae82f00fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BookTower.Rooms.RampGate
-  puzzle: {fileID: 705092691}
+  puzzle: {fileID: 1350009204}
   closedAngle: 90
   openSeconds: 1.1
   lockedBridge: {fileID: 624345743}
@@ -434262,8 +434283,9 @@ MonoBehaviour:
   ambient: 0.48
   fog: 0.0012
   shadowStrength: 0.9
-  goal: "\uCC9C\uC7A5\uC744 \uAE38\uB85C \xB7 \uAE30\uB85D \uC0C1\uC790\uB97C \uAC19\uC740
-    \uBB38\uC591\uC758 \uC790\uB9AC\uB85C \uBCF4\uB0B4\uAE30"
+  goal: "\uC885\uC774 \uB36E\uAC1C\uB85C \uBE5B\uC744 \uAE68\uC6B0\uACE0, \uC740\uBC15
+    \uCC45\uC7A5\uC73C\uB85C \uB2E4\uB9AC\uB97C \uC6B0\uD68C\uD574 \uBB38\uC591\uC5D0
+    \uBE5B\uC744 \uBCF4\uB0B8\uB2E4."
   camYaw: 0
   camPad: 0.95
 --- !u!114 &256234941
@@ -471324,7 +471346,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &278525533
 Transform:
   m_ObjectHideFlags: 0
@@ -504429,7 +504451,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &297830738
 Transform:
   m_ObjectHideFlags: 0
@@ -524795,7 +524817,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &309069775
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -529786,7 +529808,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &311980959
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -575387,24 +575409,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BookTower.UI.ReadableNote
   id: 1A.Book.Scale
-  title: "\uB3CC\uC544\uC62C \uC790\uB9AC\uB97C \uB0A8\uAE30\uB294 \uBC95"
+  title: "\uC791\uC740 \uBAB8, \uD070 \uADF8\uB9BC\uC790"
   pages:
-  - "\uAEBE\uC778 \uC6B4\uBC18\uB85C \xB7 \uB9C9\uD78C \uAE38\uC744 \uB3CC\uC544
-    \uC774\uC57C\uAE30\uCC45 \uB3CC\uB824\uB193\uAE30"
-  - "\uD654\uC0B4\uD45C\uAC00 \uAC00\uB9AC\uD0A4\uB294 \uCABD\uC774 \uC6B4\uBC18\uC2E4\uC758
-    \uC544\uB798\uAC00 \uB41C\uB2E4. \uD45C\uC2DC\uB41C \uAE30\uB85D \uC0C1\uC790\uB4E4\uC740
-    \uD568\uAED8 \uB5A8\uC5B4\uC9C0\uACE0, \uBCBD\uACFC \uC120\uBC18\uC5D0 \uB2FF\uC73C\uBA74
-    \uBA48\uCD98\uB2E4. \uC0AC\uB78C\uC740 \uD3C9\uC18C\uCC98\uB7FC \uAC77\uB294\uB2E4."
-  - "\uC0C1\uC790\uC640 \uAC19\uC740 \uBB38\uC591\uC758 \uBE48 \uC790\uB9AC\uAC00
-    \uBAA9\uC801\uC9C0\uB2E4. \uB3C4\uCC29\uD55C \uC0C1\uC790\uB3C4 \uBC29\uD5A5\uC744
-    \uBC14\uAFB8\uBA74 \uB2E4\uC2DC \uC6C0\uC9C1\uC778\uB2E4. \uBAA8\uB4E0 \uAE30\uB85D\uC774
-    \uB3D9\uC2DC\uC5D0 \uC81C\uC790\uB9AC\uC5D0 \uC788\uC5B4\uC57C \uBB38\uC774 \uC5F4\uB9B0\uB2E4."
-  - "\uAE38\uC774 \uB9C9\uD788\uBA74 \uB2E4\uB978 \uBA74\uC744 \uBC14\uB2E5\uC73C\uB85C
-    \uC368 \uBCF4\uC790. \uC6C0\uC9C1\uC784\uC774 \uBA48\uCD94\uBA74 \uB2E4\uC74C
-    \uBC29\uD5A5\uC744 \uACE0\uB97C \uC218 \uC788\uB2E4."
-  - "\uC798\uBABB \uC62E\uACA8\uB3C4 \uAD1C\uCC2E\uB2E4. \uC911\uB825 \uD398\uC774\uC9C0\uC758
-    \uB418\uB3CC\uB9AC\uAE30\uB85C \uD55C \uBC88 \uC804, \uCC98\uC74C \uBC30\uCE58\uB85C
-    \uBAA8\uB4E0 \uAE30\uB85D\uC744 \uB3CC\uB9B4 \uC218 \uC788\uB2E4."
+  - "\uB4F1 \uC55E\uC758 \uC624\uB9BC\uC744 \uC9C1\uC811 \uC7A1\uC544 \uC6C0\uC9C1\uC5EC
+    \uBCF4\uC790. \uB4F1\uC5D0 \uAC00\uAE4C\uC6B0\uBA74 \uADF8\uB9BC\uC790\uAC00
+    \uCEE4\uC9C0\uACE0, \uBCBD\uC5D0 \uAC00\uAE4C\uC6B0\uBA74 \uC791\uC544\uC9C4\uB2E4."
+  - "\uC88C\uD074\uB9AD\uC744 \uB204\uB978 \uCC44 \uB04C\uAC70\uB098 F\uB85C \uC7A1\uACE0
+    \uB2E4\uC2DC F\uB85C \uB193\uB294\uB2E4. \uADC0\uB97C \uC7A1\uC740 \uCC44 \uD720
+    \uB610\uB294 \uC6B0\uD074\uB9AD\uC744 \uB204\uB974\uBA74 \uC55E\uB4A4\uAC00 \uBC14\uB010\uB2E4."
+  - "\uD1A0\uB07C \uBAB8\uD1B5\uACFC \uADC0\uC758 \uD06C\uAE30\uBFD0 \uC544\uB2C8\uB77C
+    \uC606\uC73C\uB85C \uC5B4\uAE0B\uB09C \uC704\uCE58\uB3C4 \uB9DE\uCD98\uB2E4.
+    \uC190\uC744 \uB193\uACE0 \uC2E4\uC81C \uADF8\uB9BC\uC790\uAC00 \uBCBD\uC758
+    \uC120\uC5D0 \uB4E4\uC5B4\uC624\uB294\uC9C0 \uC0B4\uD3B4\uBCF4\uC790."
 --- !u!114 &335047824
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -583354,6 +583370,7 @@ GameObject:
   m_Component:
   - component: {fileID: 339135943}
   - component: {fileID: 339135942}
+  - component: {fileID: 339135941}
   m_Layer: 0
   m_Name: "P11_\uD37C\uC990"
   m_TagString: Untagged
@@ -583361,6 +583378,29 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &339135941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 339135940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d75487954eafc441875a5e67cad6982, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BookTower.Puzzles.SequencePuzzle
+  puzzleId: P11
+  targetSeconds: 360
+  activateRadius: 40
+  logToConsole: 1
+  order:
+  - {fileID: 921931957}
+  - {fileID: 523338084}
+  - {fileID: 1383326339}
+  - {fileID: 916633664}
+  - {fileID: 2128672890}
+  resetSeconds: 8
 --- !u!114 &339135942
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -651886,7 +651926,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &382840301
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -659818,7 +659858,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &387687854
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -662717,7 +662757,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &389290199
 Transform:
   m_ObjectHideFlags: 0
@@ -672613,6 +672653,7 @@ GameObject:
   m_Component:
   - component: {fileID: 395308299}
   - component: {fileID: 395308298}
+  - component: {fileID: 395308297}
   m_Layer: 0
   m_Name: "P13_\uD37C\uC990"
   m_TagString: Untagged
@@ -672620,6 +672661,32 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &395308297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 395308296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07a728331ffd7a84ea7044b55b823d4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BookTower.Puzzles.PieceAssemblyPuzzle
+  puzzleId: P13
+  targetSeconds: 480
+  activateRadius: 52
+  logToConsole: 1
+  requiredPieceIds:
+  - P13_1
+  - P13_2
+  - P13_3
+  - P13_4
+  - P13_5
+  - P13_6
+  - P13_7
+  assemblyRange: 4.5
+  partialFeedbackOnly: 1
 --- !u!114 &395308298
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -692486,8 +692553,8 @@ MonoBehaviour:
   ambient: 0.43
   fog: 0.0012
   shadowStrength: 0.62
-  goal: "\uAEBE\uC778 \uC6B4\uBC18\uB85C \xB7 \uB9C9\uD78C \uAE38\uC744 \uB3CC\uC544
-    \uC774\uC57C\uAE30\uCC45 \uB3CC\uB824\uB193\uAE30"
+  goal: "\uD1A0\uB07C\uC758 \uC774\uB984 \uB418\uCC3E\uAE30 \xB7 \uC885\uC774 \uC624\uB9BC\uC744
+    \uC7A1\uC544 \uADF8\uB9BC\uC790 \uB9DE\uCD94\uAE30"
   camYaw: 0
   camPad: 0.95
 --- !u!114 &407582613
@@ -706529,7 +706596,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &415789199
 Transform:
   m_ObjectHideFlags: 0
@@ -706577,7 +706644,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5e4709077730534db139b6321cd0e31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BookTower.Info.AssemblyPoint
-  puzzle: {fileID: 0}
+  puzzle: {fileID: 1004431254}
   range: 4.5
 --- !u!114 &415789202
 MonoBehaviour:
@@ -734480,7 +734547,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &432573838
 Transform:
   m_ObjectHideFlags: 0
@@ -755319,7 +755386,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &445679017
 Transform:
   m_ObjectHideFlags: 0
@@ -757553,8 +757620,8 @@ MonoBehaviour:
   ambient: 0.92
   fog: 0
   shadowStrength: 0.62
-  goal: "\uADC0\uD658 \uC6B4\uBC18\uB85C \xB7 \uC138 \uAE30\uB85D\uC758 \uC774\uB3D9
-    \uC21C\uC11C\uB97C \uD568\uAED8 \uACC4\uD68D\uD558\uAE30"
+  goal: "\uD769\uC5B4\uC9C4 \uC870\uAC01 7\uAC1C\uB97C \uBAA8\uC544 \uBCF5\uC6D0\uB300\uC5D0\uC11C
+    \uADF8\uC744\uC74C \uAC01\uB3C4 \uC21C\uC73C\uB85C \uB9DE\uCD98\uB2E4"
   camYaw: 0
   camPad: 0.95
 --- !u!114 &446443185
@@ -813303,7 +813370,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &480845950
 Transform:
   m_ObjectHideFlags: 0
@@ -845315,7 +845382,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &501094573
 Transform:
   m_ObjectHideFlags: 0
@@ -853506,7 +853573,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &505856114
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -872981,7 +873048,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &519156730
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -880374,7 +880441,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &523338084
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -899400,7 +899467,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &535067762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -916835,7 +916902,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &545639459
 Transform:
   m_ObjectHideFlags: 0
@@ -928062,9 +928129,9 @@ MonoBehaviour:
   storyCamera: {fileID: 1955983549}
   foyer: {fileID: 256234940}
   theatreRoom: {fileID: 407582612}
-  bridge: {fileID: 0}
-  primaryPuzzle: {fileID: 705092691}
-  theatrePuzzle: {fileID: 1617876799}
+  bridge: {fileID: 1350009204}
+  primaryPuzzle: {fileID: 0}
+  theatrePuzzle: {fileID: 774080412}
   companion: {fileID: 1071001909}
   rustle: {fileID: 8300000, guid: ecfd4cd050fc1f04e8ea845e4c866459, type: 3}
   nameMotif: {fileID: 8300000, guid: 49da6d95468666c458654b795d88c2c7, type: 3}
@@ -928715,7 +928782,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &552997407
 Transform:
   m_ObjectHideFlags: 0
@@ -931921,7 +931988,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &555194633
 Transform:
   m_ObjectHideFlags: 0
@@ -950668,7 +950735,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &566594082
 Transform:
   m_ObjectHideFlags: 0
@@ -975429,7 +975496,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &580390979
 Transform:
   m_ObjectHideFlags: 0
@@ -977489,7 +977556,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &581526099
 Transform:
   m_ObjectHideFlags: 0
@@ -986227,7 +986294,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44b3ad6c2a9e4f82809d044ae82f00fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BookTower.Rooms.RampGate
-  puzzle: {fileID: 1617876799}
+  puzzle: {fileID: 774080412}
   closedAngle: 90
   openSeconds: 1.1
   lockedBridge: {fileID: 512766596}
@@ -994608,24 +994675,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BookTower.UI.ReadableNote
   id: 1A.Book.Theatre
-  title: "\uB3CC\uC544\uC62C \uC790\uB9AC\uB97C \uB0A8\uAE30\uB294 \uBC95"
+  title: "\uBE5B\uC758 \uAC70\uB9AC"
   pages:
-  - "\uAEBE\uC778 \uC6B4\uBC18\uB85C \xB7 \uB9C9\uD78C \uAE38\uC744 \uB3CC\uC544
-    \uC774\uC57C\uAE30\uCC45 \uB3CC\uB824\uB193\uAE30"
-  - "\uD654\uC0B4\uD45C\uAC00 \uAC00\uB9AC\uD0A4\uB294 \uCABD\uC774 \uC6B4\uBC18\uC2E4\uC758
-    \uC544\uB798\uAC00 \uB41C\uB2E4. \uD45C\uC2DC\uB41C \uAE30\uB85D \uC0C1\uC790\uB4E4\uC740
-    \uD568\uAED8 \uB5A8\uC5B4\uC9C0\uACE0, \uBCBD\uACFC \uC120\uBC18\uC5D0 \uB2FF\uC73C\uBA74
-    \uBA48\uCD98\uB2E4. \uC0AC\uB78C\uC740 \uD3C9\uC18C\uCC98\uB7FC \uAC77\uB294\uB2E4."
-  - "\uC0C1\uC790\uC640 \uAC19\uC740 \uBB38\uC591\uC758 \uBE48 \uC790\uB9AC\uAC00
-    \uBAA9\uC801\uC9C0\uB2E4. \uB3C4\uCC29\uD55C \uC0C1\uC790\uB3C4 \uBC29\uD5A5\uC744
-    \uBC14\uAFB8\uBA74 \uB2E4\uC2DC \uC6C0\uC9C1\uC778\uB2E4. \uBAA8\uB4E0 \uAE30\uB85D\uC774
-    \uB3D9\uC2DC\uC5D0 \uC81C\uC790\uB9AC\uC5D0 \uC788\uC5B4\uC57C \uBB38\uC774 \uC5F4\uB9B0\uB2E4."
-  - "\uAE38\uC774 \uB9C9\uD788\uBA74 \uB2E4\uB978 \uBA74\uC744 \uBC14\uB2E5\uC73C\uB85C
-    \uC368 \uBCF4\uC790. \uC6C0\uC9C1\uC784\uC774 \uBA48\uCD94\uBA74 \uB2E4\uC74C
-    \uBC29\uD5A5\uC744 \uACE0\uB97C \uC218 \uC788\uB2E4."
-  - "\uC798\uBABB \uC62E\uACA8\uB3C4 \uAD1C\uCC2E\uB2E4. \uC911\uB825 \uD398\uC774\uC9C0\uC758
-    \uB418\uB3CC\uB9AC\uAE30\uB85C \uD55C \uBC88 \uC804, \uCC98\uC74C \uBC30\uCE58\uB85C
-    \uBAA8\uB4E0 \uAE30\uB85D\uC744 \uB3CC\uB9B4 \uC218 \uC788\uB2E4."
+  - "\uB4F1 \uC55E\uC758 \uC624\uB9BC\uC744 \uC9C1\uC811 \uC7A1\uC544 \uC6C0\uC9C1\uC5EC
+    \uBCF4\uC790. \uB4F1\uC5D0 \uAC00\uAE4C\uC6B0\uBA74 \uADF8\uB9BC\uC790\uAC00
+    \uCEE4\uC9C0\uACE0, \uBCBD\uC5D0 \uAC00\uAE4C\uC6B0\uBA74 \uC791\uC544\uC9C4\uB2E4."
+  - "\uC88C\uD074\uB9AD\uC744 \uB204\uB978 \uCC44 \uB04C\uAC70\uB098 F\uB85C \uC7A1\uACE0
+    \uB2E4\uC2DC F\uB85C \uB193\uB294\uB2E4. \uADC0\uB97C \uC7A1\uC740 \uCC44 \uD720
+    \uB610\uB294 \uC6B0\uD074\uB9AD\uC744 \uB204\uB974\uBA74 \uC55E\uB4A4\uAC00 \uBC14\uB010\uB2E4."
+  - "\uD1A0\uB07C \uBAB8\uD1B5\uACFC \uADC0\uC758 \uD06C\uAE30\uBFD0 \uC544\uB2C8\uB77C
+    \uC606\uC73C\uB85C \uC5B4\uAE0B\uB09C \uC704\uCE58\uB3C4 \uB9DE\uCD98\uB2E4.
+    \uC190\uC744 \uB193\uACE0 \uC2E4\uC81C \uADF8\uB9BC\uC790\uAC00 \uBCBD\uC758
+    \uC120\uC5D0 \uB4E4\uC5B4\uC624\uB294\uC9C0 \uC0B4\uD3B4\uBCF4\uC790."
 --- !u!114 &591687063
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1012833,7 +1012894,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &603139546
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1072731,7 +1072792,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &638974871
 Transform:
   m_ObjectHideFlags: 0
@@ -1072775,7 +1072836,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb64ab369521b6f4295b453d674974ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BookTower.Interaction.FoldBridgeControl
-  puzzle: {fileID: 0}
+  puzzle: {fileID: 1350009204}
   seal: 0
   opticalControl: 0
 --- !u!114 &638974874
@@ -1082775,7 +1082836,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &645422520
 Transform:
   m_ObjectHideFlags: 0
@@ -1082804,7 +1082865,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61759319adc6ced47b481a9eb4182fd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BookTower.Puzzles.ReadingRoomControl
-  puzzle: {fileID: 0}
+  puzzle: {fileID: 716536704}
   action: 7
 --- !u!114 &645422522
 MonoBehaviour:
@@ -1091152,7 +1091213,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &650855421
 Transform:
   m_ObjectHideFlags: 0
@@ -1116268,7 +1116329,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &665382909
 Transform:
   m_ObjectHideFlags: 0
@@ -1174093,7 +1174154,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &698557989
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1177064,8 +1177125,9 @@ MonoBehaviour:
   ambient: 0.92
   fog: 0
   shadowStrength: 0.62
-  goal: "\uADC0\uD658 \uC6B4\uBC18\uB85C \xB7 \uC138 \uAE30\uB85D\uC758 \uC774\uB3D9
-    \uC21C\uC11C\uB97C \uD568\uAED8 \uACC4\uD68D\uD558\uAE30"
+  goal: "\uC138 \uC811\uC774\uBA74\uC744 \uB9DE\uCDB0 \uBE5B\uC744 \uC5F4\uC1E0\uAD6C\uBA4D\uC73C\uB85C
+    \uBCF4\uB0B8\uB2E4. \uAC00\uB85C\uB9C9\uC9C0 \uB9D0\uACE0 \uAEBE\uC5B4\uC57C
+    \uD55C\uB2E4"
   camYaw: 0
   camPad: 0.95
 --- !u!114 &700196935
@@ -1185418,7 +1185480,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &705092691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1206390,6 +1206452,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 716536703}
+  - component: {fileID: 716536704}
   m_Layer: 0
   m_Name: ReadingRoom1B
   m_TagString: Untagged
@@ -1206808,6 +1206871,39 @@ Transform:
   - {fileID: 1313735839}
   m_Father: {fileID: 128006185}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &716536704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 716536702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53728a4c7f32454409d489d18fae037e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BookTower.Puzzles.ReadingRoomPuzzle
+  legacyPuzzle: {fileID: 779428106}
+  lantern: {fileID: 1011632930}
+  chargingSocket: {fileID: 841547264}
+  recordSocket: {fileID: 1818600392}
+  exitSocket: {fileID: 1852898978}
+  windowChargeSocket: {fileID: 901058889}
+  servicePanel: {fileID: 1409343393}
+  crank: {fileID: 237603335}
+  shutter: {fileID: 867681403}
+  latch: {fileID: 645422520}
+  door: {fileID: 665898704}
+  leftRing: {fileID: 734310432}
+  rightRing: {fileID: 480845950}
+  chargeRibbon: {fileID: 389290199}
+  pulley: {fileID: 415159209}
+  exitFlower: {fileID: 2040285169}
+  doorBlocker: {fileID: 301135786}
+  serviceBlocker: {fileID: 1409343390}
+  lanternLight: {fileID: 566769516}
+  windowLight: {fileID: 1373307869}
+  recordLight: {fileID: 291147186}
 --- !u!1 &716547186
 GameObject:
   m_ObjectHideFlags: 0
@@ -1235514,7 +1235610,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &734310432
 Transform:
   m_ObjectHideFlags: 0
@@ -1250162,7 +1250258,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &743112003
 Transform:
   m_ObjectHideFlags: 0
@@ -1250191,7 +1250287,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61759319adc6ced47b481a9eb4182fd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BookTower.Puzzles.ReadingRoomControl
-  puzzle: {fileID: 0}
+  puzzle: {fileID: 716536704}
   action: 3
 --- !u!114 &743112005
 MonoBehaviour:
@@ -1255352,7 +1255448,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &745972920
 Transform:
   m_ObjectHideFlags: 0
@@ -1255385,7 +1255481,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e9a911e064901549b8002b6b2e2caf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BookTower.Interaction.PaperShadowHandle
-  puzzle: {fileID: 0}
+  puzzle: {fileID: 774080416}
   isEar: 0
   extraPart: 0
 --- !u!65 &745972922
@@ -1274542,7 +1274638,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &757209263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1299029,7 +1299125,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &771035135
 Transform:
   m_ObjectHideFlags: 0
@@ -1304754,6 +1304850,8 @@ GameObject:
   - component: {fileID: 774080415}
   - component: {fileID: 774080413}
   - component: {fileID: 774080414}
+  - component: {fileID: 774080412}
+  - component: {fileID: 774080416}
   m_Layer: 0
   m_Name: "P2_\uD37C\uC990"
   m_TagString: Untagged
@@ -1304761,6 +1304859,26 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &774080412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774080411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f862a729839adfe4187ba396e0c0de1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BookTower.Puzzles.FoldCombinationPuzzle
+  puzzleId: P2
+  targetSeconds: 480
+  activateRadius: 90
+  logToConsole: 1
+  group: {fileID: 774080413}
+  lightWorkshop: {fileID: 774080416}
+  answer: 020000000100000003000000
+  requireSettled: 1
 --- !u!114 &774080413
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1304807,6 +1304925,31 @@ Transform:
   m_Children: []
   m_Father: {fileID: 501094573}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &774080416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774080411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 839894e4964847f49934a599a11721b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BookTower.Puzzles.StorybookLightPuzzle
+  body: {fileID: 745972920}
+  ears: {fileID: 133716890}
+  bodyShadow: {fileID: 0}
+  earShadow: {fileID: 0}
+  bodyPickup: {fileID: 0}
+  earPickup: {fileID: 0}
+  drawer: {fileID: 1597333000}
+  rabbitPopup: {fileID: 1719268879}
+  rewardStar: {fileID: 1936469183}
+  toyStar: {fileID: 120532148}
+  lantern: {fileID: 1968493820}
+  stage: {fileID: 211155963}
+  realShadows: 1
 --- !u!1 &774134782
 GameObject:
   m_ObjectHideFlags: 0
@@ -1307700,7 +1307843,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &775913419
 Transform:
   m_ObjectHideFlags: 0
@@ -1309699,24 +1309842,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BookTower.UI.ReadableNote
   id: F0.Book.Work
-  title: "\uC81C\uBCF8\uC0AC\uC758 \uC6B4\uBC18 \uAE30\uB85D"
+  title: "\uC81C\uBCF8\uC0AC\uC758 \uC791\uC5C5\uCC45"
   pages:
-  - "\uCC9C\uC7A5\uC744 \uAE38\uB85C \xB7 \uAE30\uB85D \uC0C1\uC790\uB97C \uAC19\uC740
-    \uBB38\uC591\uC758 \uC790\uB9AC\uB85C \uBCF4\uB0B4\uAE30"
-  - "\uD654\uC0B4\uD45C\uAC00 \uAC00\uB9AC\uD0A4\uB294 \uCABD\uC774 \uC6B4\uBC18\uC2E4\uC758
-    \uC544\uB798\uAC00 \uB41C\uB2E4. \uD45C\uC2DC\uB41C \uAE30\uB85D \uC0C1\uC790\uB4E4\uC740
-    \uD568\uAED8 \uB5A8\uC5B4\uC9C0\uACE0, \uBCBD\uACFC \uC120\uBC18\uC5D0 \uB2FF\uC73C\uBA74
-    \uBA48\uCD98\uB2E4. \uC0AC\uB78C\uC740 \uD3C9\uC18C\uCC98\uB7FC \uAC77\uB294\uB2E4."
-  - "\uC0C1\uC790\uC640 \uAC19\uC740 \uBB38\uC591\uC758 \uBE48 \uC790\uB9AC\uAC00
-    \uBAA9\uC801\uC9C0\uB2E4. \uB3C4\uCC29\uD55C \uC0C1\uC790\uB3C4 \uBC29\uD5A5\uC744
-    \uBC14\uAFB8\uBA74 \uB2E4\uC2DC \uC6C0\uC9C1\uC778\uB2E4. \uBAA8\uB4E0 \uAE30\uB85D\uC774
-    \uB3D9\uC2DC\uC5D0 \uC81C\uC790\uB9AC\uC5D0 \uC788\uC5B4\uC57C \uBB38\uC774 \uC5F4\uB9B0\uB2E4."
-  - "\uAE38\uC774 \uB9C9\uD788\uBA74 \uB2E4\uB978 \uBA74\uC744 \uBC14\uB2E5\uC73C\uB85C
-    \uC368 \uBCF4\uC790. \uC6C0\uC9C1\uC784\uC774 \uBA48\uCD94\uBA74 \uB2E4\uC74C
-    \uBC29\uD5A5\uC744 \uACE0\uB97C \uC218 \uC788\uB2E4."
-  - "\uC798\uBABB \uC62E\uACA8\uB3C4 \uAD1C\uCC2E\uB2E4. \uC911\uB825 \uD398\uC774\uC9C0\uC758
-    \uB418\uB3CC\uB9AC\uAE30\uB85C \uD55C \uBC88 \uC804, \uCC98\uC74C \uBC30\uCE58\uB85C
-    \uBAA8\uB4E0 \uAE30\uB85D\uC744 \uB3CC\uB9B4 \uC218 \uC788\uB2E4."
+  - "\uC81C\uBCF8\uC0AC\uC758 \uBE5B \uC791\uC5C5 \uAE30\uB85D\n\uC740\uBC15 \uC18D\uC9C0\uB97C
+    \uB300\uBA74 \uBE5B\uC774 \uBC29\uD5A5\uC744 \uBC14\uAFBC\uB2E4. \uC885\uC774
+    \uC704\uC5D0\uC11C\uB294 \uBA48\uCD94\uC9C0\uB9CC, \uC740\uBC15\uC5D0\uC11C\uB294
+    \uB2E4\uC2DC \uAE38\uC744 \uCC3E\uB294\uB2E4."
+  - "\uB9D0\uB9AC\uB294 \uCC45, \uB4F1\uBD88\uC758 \uC548\uCABD, \uC11C\uAC00\uC5D0
+    \uD3BC\uCE5C \uCC45.\n\uC791\uC5C5\uC2E4\uC758 \uAC19\uC740 \uC740\uBC15\uC744
+    \uC37C\uB2E4. \uBD89\uC740 \uCC45\uAC08\uD53C\uC5D0 \uC774\uC5B4\uC9C4 \uC2E4\uC744
+    \uAC10\uC73C\uBA74 \uCC45\uC758 \uBA74\uC774 \uB3CC\uC544\uAC04\uB2E4."
+  - "\uBE5B\uC774 \uBA4E\uC740 \uC790\uB9AC\uB97C \uB530\uB77C\uAC00 \uBCFC \uAC83.\n\uAE38\uC774
+    \uC774\uC5B4\uC9C0\uBA74 \uBB38 \uC606 \uC78E\uC774 \uD3BC\uCCD0\uC9C4\uB2E4.
+    \uB9C8\uC9C0\uB9C9 \uC81C\uBCF8 \uAC78\uC1E0\uB294 \uC190\uC73C\uB85C \uD480\uC5B4\uC57C
+    \uD55C\uB2E4."
 --- !u!114 &777003868
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1312891,6 +1313030,7 @@ GameObject:
   - component: {fileID: 779428109}
   - component: {fileID: 779428107}
   - component: {fileID: 779428108}
+  - component: {fileID: 779428106}
   m_Layer: 0
   m_Name: "P3_\uD37C\uC990"
   m_TagString: Untagged
@@ -1312898,6 +1313038,26 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &779428106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 779428105}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f862a729839adfe4187ba396e0c0de1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BookTower.Puzzles.FoldCombinationPuzzle
+  puzzleId: P3
+  targetSeconds: 240
+  activateRadius: 44
+  logToConsole: 1
+  group: {fileID: 779428107}
+  lightWorkshop: {fileID: 0}
+  answer: 01000000
+  requireSettled: 1
 --- !u!114 &779428107
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1315756,7 +1315916,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &781310329
 Transform:
   m_ObjectHideFlags: 0
@@ -1319910,7 +1320070,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &783429473
 Transform:
   m_ObjectHideFlags: 0
@@ -1336776,7 +1336936,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &794113126
 Transform:
   m_ObjectHideFlags: 0
@@ -1418918,7 +1419078,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &841132587
 Transform:
   m_ObjectHideFlags: 0
@@ -1419659,7 +1419819,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &841547264
 Transform:
   m_ObjectHideFlags: 0
@@ -1446364,7 +1446524,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &856547112
 Transform:
   m_ObjectHideFlags: 0
@@ -1446412,7 +1446572,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5e4709077730534db139b6321cd0e31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BookTower.Info.AssemblyPoint
-  puzzle: {fileID: 0}
+  puzzle: {fileID: 395308297}
   range: 4.5
 --- !u!114 &856547115
 MonoBehaviour:
@@ -1458187,7 +1458347,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &863996692
 Transform:
   m_ObjectHideFlags: 0
@@ -1459079,7 +1459239,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &864384271
 Transform:
   m_ObjectHideFlags: 0
@@ -1459109,7 +1459269,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61759319adc6ced47b481a9eb4182fd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BookTower.Puzzles.ReadingRoomControl
-  puzzle: {fileID: 0}
+  puzzle: {fileID: 716536704}
   action: 0
 --- !u!114 &864384273
 MonoBehaviour:
@@ -1466593,8 +1466753,8 @@ MonoBehaviour:
   ambient: 0.82
   fog: 0
   shadowStrength: 0.62
-  goal: "\uD06C\uAE30\uAC00 \uB2E4\uB978 \uAE30\uB85D \xB7 \uC881\uC740 \uAE38\uACFC
-    \uB113\uC740 \uAE38 \uB098\uB204\uAE30"
+  goal: "\uC794\uC0C1\uC774 \uB0A8\uAE34 \uADF8\uB9BC\uC790 \uBAA8\uC591\uC744 \uBCF4\uACE0
+    \uC811\uC774\uBA74 \uAC01\uB3C4\uB97C \uC5ED\uC0B0\uD55C\uB2E4"
   camYaw: 0
   camPad: 0.95
 --- !u!114 &868531139
@@ -1469704,7 +1469864,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &870105706
 Transform:
   m_ObjectHideFlags: 0
@@ -1475266,7 +1475426,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &873487378
 Transform:
   m_ObjectHideFlags: 0
@@ -1509480,8 +1509640,8 @@ MonoBehaviour:
   ambient: 0.82
   fog: 0
   shadowStrength: 0.62
-  goal: "\uAEBE\uC778 \uC6B4\uBC18\uB85C \xB7 \uB9C9\uD78C \uAE38\uC744 \uB3CC\uC544
-    \uC774\uC57C\uAE30\uCC45 \uB3CC\uB824\uB193\uAE30"
+  goal: "\uBE5B\uC744 \uBA38\uAE08\uC740 \uC8FC\uB984\uC744 \uD074\uB9AD\uD574 \uACFC\uAC70\uB97C
+    \uC7AC\uC0DD\uD55C\uB2E4"
   camYaw: 0
   camPad: 0.95
 --- !u!114 &892867957
@@ -1522383,7 +1522543,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &901058889
 Transform:
   m_ObjectHideFlags: 0
@@ -1527838,7 +1527998,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &904416279
 Transform:
   m_ObjectHideFlags: 0
@@ -1549442,7 +1549602,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &916633664
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1555676,7 +1555836,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &920328526
 Transform:
   m_ObjectHideFlags: 0
@@ -1555706,7 +1555866,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61759319adc6ced47b481a9eb4182fd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BookTower.Puzzles.ReadingRoomControl
-  puzzle: {fileID: 0}
+  puzzle: {fileID: 716536704}
   action: 9
 --- !u!114 &920328528
 MonoBehaviour:
@@ -1557879,7 +1558039,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &921931957
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1566699,7 +1566859,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &927460219
 Transform:
   m_ObjectHideFlags: 0
@@ -1629854,7 +1630014,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &965280167
 Transform:
   m_ObjectHideFlags: 0
@@ -1661488,22 +1661648,12 @@ MonoBehaviour:
   id: F0.Book.Shadow
   title: "\uC791\uC740 \uBAB8, \uD070 \uC790\uB9AC"
   pages:
-  - "\uCC9C\uC7A5\uC744 \uAE38\uB85C \xB7 \uAE30\uB85D \uC0C1\uC790\uB97C \uAC19\uC740
-    \uBB38\uC591\uC758 \uC790\uB9AC\uB85C \uBCF4\uB0B4\uAE30"
-  - "\uD654\uC0B4\uD45C\uAC00 \uAC00\uB9AC\uD0A4\uB294 \uCABD\uC774 \uC6B4\uBC18\uC2E4\uC758
-    \uC544\uB798\uAC00 \uB41C\uB2E4. \uD45C\uC2DC\uB41C \uAE30\uB85D \uC0C1\uC790\uB4E4\uC740
-    \uD568\uAED8 \uB5A8\uC5B4\uC9C0\uACE0, \uBCBD\uACFC \uC120\uBC18\uC5D0 \uB2FF\uC73C\uBA74
-    \uBA48\uCD98\uB2E4. \uC0AC\uB78C\uC740 \uD3C9\uC18C\uCC98\uB7FC \uAC77\uB294\uB2E4."
-  - "\uC0C1\uC790\uC640 \uAC19\uC740 \uBB38\uC591\uC758 \uBE48 \uC790\uB9AC\uAC00
-    \uBAA9\uC801\uC9C0\uB2E4. \uB3C4\uCC29\uD55C \uC0C1\uC790\uB3C4 \uBC29\uD5A5\uC744
-    \uBC14\uAFB8\uBA74 \uB2E4\uC2DC \uC6C0\uC9C1\uC778\uB2E4. \uBAA8\uB4E0 \uAE30\uB85D\uC774
-    \uB3D9\uC2DC\uC5D0 \uC81C\uC790\uB9AC\uC5D0 \uC788\uC5B4\uC57C \uBB38\uC774 \uC5F4\uB9B0\uB2E4."
-  - "\uAE38\uC774 \uB9C9\uD788\uBA74 \uB2E4\uB978 \uBA74\uC744 \uBC14\uB2E5\uC73C\uB85C
-    \uC368 \uBCF4\uC790. \uC6C0\uC9C1\uC784\uC774 \uBA48\uCD94\uBA74 \uB2E4\uC74C
-    \uBC29\uD5A5\uC744 \uACE0\uB97C \uC218 \uC788\uB2E4."
-  - "\uC798\uBABB \uC62E\uACA8\uB3C4 \uAD1C\uCC2E\uB2E4. \uC911\uB825 \uD398\uC774\uC9C0\uC758
-    \uB418\uB3CC\uB9AC\uAE30\uB85C \uD55C \uBC88 \uC804, \uCC98\uC74C \uBC30\uCE58\uB85C
-    \uBAA8\uB4E0 \uAE30\uB85D\uC744 \uB3CC\uB9B4 \uC218 \uC788\uB2E4."
+  - "\uC791\uC740 \uBAB8\uC774 \uD070 \uC790\uB9AC\uB97C \uCC44\uC6B8 \uB54C\uB3C4
+    \uC788\uB2E4."
+  - "\uB4F1 \uAC00\uAE4C\uC774\uC5D0 \uB193\uC778 \uC791\uC740 \uD1A0\uB07C\uB294
+    \uBCBD\uC5D0 \uCEE4\uB2E4\uB780 \uADF8\uB9BC\uC790\uB97C \uB0A8\uAE34\uB2E4.\n\uB2E4\uC74C
+    \uC7A5\uC5D0\uB294 \uAC19\uC740 \uD1A0\uB07C\uAC00 \uC11C\uB85C \uB2E4\uB978
+    \uD06C\uAE30\uB85C \uADF8\uB824\uC838 \uC788\uB2E4."
 --- !u!114 &984509758
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1664379,7 +1664529,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &986396910
 Transform:
   m_ObjectHideFlags: 0
@@ -1665534,7 +1665684,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &987226423
 Transform:
   m_ObjectHideFlags: 0
@@ -1665563,7 +1665713,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61759319adc6ced47b481a9eb4182fd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BookTower.Puzzles.ReadingRoomControl
-  puzzle: {fileID: 0}
+  puzzle: {fileID: 716536704}
   action: 10
 --- !u!114 &987226425
 MonoBehaviour:
@@ -1693946,6 +1694096,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1004431256}
   - component: {fileID: 1004431255}
+  - component: {fileID: 1004431254}
   m_Layer: 0
   m_Name: "P5_\uD37C\uC990"
   m_TagString: Untagged
@@ -1693953,6 +1694104,27 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1004431254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1004431253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07a728331ffd7a84ea7044b55b823d4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BookTower.Puzzles.PieceAssemblyPuzzle
+  puzzleId: P5
+  targetSeconds: 240
+  activateRadius: 42
+  logToConsole: 1
+  requiredPieceIds:
+  - P5_a
+  - P5_b
+  assemblyRange: 4.5
+  partialFeedbackOnly: 1
 --- !u!114 &1004431255
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1696506,8 +1696678,7 @@ MonoBehaviour:
   ambient: 0.92
   fog: 0
   shadowStrength: 0.62
-  goal: "\uCC9C\uC7A5\uC744 \uAE38\uB85C \xB7 \uAE30\uB85D \uC0C1\uC790\uB97C \uAC19\uC740
-    \uBB38\uC591\uC758 \uC790\uB9AC\uB85C \uBCF4\uB0B4\uAE30"
+  goal: "\uC810\uD654\uB300\uC5D0\uC11C \uBE5B\uC744 \uCF20\uB2E4"
   camYaw: 0
   camPad: 0.95
 --- !u!114 &1005643530
@@ -1706263,7 +1706434,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1011632930
 Transform:
   m_ObjectHideFlags: 0
@@ -1770849,7 +1771020,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1048687630
 Transform:
   m_ObjectHideFlags: 0
@@ -1825830,7 +1826001,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1081418673
 Transform:
   m_ObjectHideFlags: 0
@@ -1825880,8 +1826051,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BookTower.Puzzles.MemoryBeacon
   prerequisites:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 395308297}
+  - {fileID: 1330541340}
   glow: {fileID: 1816769407}
 --- !u!114 &1081418676
 MonoBehaviour:
@@ -1830499,8 +1830670,8 @@ MonoBehaviour:
   ambient: 0.78
   fog: 0
   shadowStrength: 0.62
-  goal: "\uADC0\uD658 \uC6B4\uBC18\uB85C \xB7 \uC138 \uAE30\uB85D\uC758 \uC774\uB3D9
-    \uC21C\uC11C\uB97C \uD568\uAED8 \uACC4\uD68D\uD558\uAE30"
+  goal: "\uC911\uCCA9\uB41C \uACF5\uAC04\uC5D0\uC11C \uC811\uC774\uBA74\uC744 \uC870\uC791\uD574
+    \uBC14\uAE65 \uCE35\uC704\uC758 \uAE38\uC744 \uB9CC\uB4E0\uB2E4"
   camYaw: 0
   camPad: 0.95
 --- !u!114 &1084005197
@@ -1842709,6 +1842880,7 @@ GameObject:
   - component: {fileID: 1090809233}
   - component: {fileID: 1090809231}
   - component: {fileID: 1090809232}
+  - component: {fileID: 1090809230}
   m_Layer: 0
   m_Name: "P4_\uD37C\uC990"
   m_TagString: Untagged
@@ -1842716,6 +1842888,26 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1090809230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1090809229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f862a729839adfe4187ba396e0c0de1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BookTower.Puzzles.FoldCombinationPuzzle
+  puzzleId: P4
+  targetSeconds: 300
+  activateRadius: 40
+  logToConsole: 1
+  group: {fileID: 1090809231}
+  lightWorkshop: {fileID: 0}
+  answer: 0200000001000000
+  requireSettled: 1
 --- !u!114 &1090809231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1872095,7 +1872287,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44b3ad6c2a9e4f82809d044ae82f00fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BookTower.Rooms.RampGate
-  puzzle: {fileID: 31031248}
+  puzzle: {fileID: 1927741895}
   closedAngle: 90
   openSeconds: 1.1
   lockedBridge: {fileID: 2145018488}
@@ -1905825,7 +1906017,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1127055226
 Transform:
   m_ObjectHideFlags: 0
@@ -1915704,7 +1915896,7 @@ Transform:
   m_GameObject: {fileID: 1132636736}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 13.400002, z: 0}
+  m_LocalPosition: {x: 0, y: 10.2, z: 0}
   m_LocalScale: {x: 92, y: 0.3, z: 80.64}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1958746,8 +1958938,8 @@ MonoBehaviour:
   ambient: 0.72
   fog: 0
   shadowStrength: 0.62
-  goal: "\uADC0\uD658 \uC6B4\uBC18\uB85C \xB7 \uC138 \uAE30\uB85D\uC758 \uC774\uB3D9
-    \uC21C\uC11C\uB97C \uD568\uAED8 \uACC4\uD68D\uD558\uAE30"
+  goal: "\uC811\uC774\uBA74 3\uAC1C\uC758 \uADF8\uB9BC\uC790\uB97C \uD569\uCCD0 \uD45C\uC9C0\uC5D0\uC11C
+    \uBCF8 \uBB38\uC591\uC744 \uB9CC\uB4E0\uB2E4"
   camYaw: 0
   camPad: 0.95
 --- !u!114 &1156539096
@@ -1974288,9 +1974480,6 @@ MonoBehaviour:
     \uBC29\uD5A5\uC774 \uBC14\uB010\uB2E4."
   - "\uAE00\uBCF4\uB2E4 \uBA3C\uC800, \uC885\uC774\uC758 \uCC22\uAE34 \uBAA8\uC11C\uB9AC\uC640
     \uC81C\uBCF8 \uAD6C\uBA4D\uC744 \uB9DE\uCDB0 \uBCFC \uAC83."
-  - "\uC774 \uBB38\uC740 \uBC16\uC5D0\uC11C \uC7A0\uAE34 \uAC83\uC774 \uC544\uB2C8\uC5C8\uB2E4.
-    \uC548\uCABD\uC5D0\uC11C \uAE30\uB85D\uC744 \uBD99\uC7A1\uC544 \uB450\uB824 \uD55C
-    \uD754\uC801\uC774\uB2E4."
 --- !u!114 &1165374393
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1984316,7 +1984505,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1171373663
 Transform:
   m_ObjectHideFlags: 0
@@ -1991158,24 +1991347,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BookTower.UI.ReadableNote
   id: 1B.Entry
-  title: "\uB3CC\uC544\uC62C \uC790\uB9AC\uB97C \uB0A8\uAE30\uB294 \uBC95"
+  title: "\uBCF4\uC874 \uACE0\uB9AC"
   pages:
-  - "\uD568\uAED8 \uC6C0\uC9C1\uC774\uB294 \uAE30\uB85D \xB7 \uB450 \uC0C1\uC790\uB97C
-    \uAC01\uC790\uC758 \uC790\uB9AC\uB85C \uBCF4\uB0B4\uAE30"
-  - "\uD654\uC0B4\uD45C\uAC00 \uAC00\uB9AC\uD0A4\uB294 \uCABD\uC774 \uC6B4\uBC18\uC2E4\uC758
-    \uC544\uB798\uAC00 \uB41C\uB2E4. \uD45C\uC2DC\uB41C \uAE30\uB85D \uC0C1\uC790\uB4E4\uC740
-    \uD568\uAED8 \uB5A8\uC5B4\uC9C0\uACE0, \uBCBD\uACFC \uC120\uBC18\uC5D0 \uB2FF\uC73C\uBA74
-    \uBA48\uCD98\uB2E4. \uC0AC\uB78C\uC740 \uD3C9\uC18C\uCC98\uB7FC \uAC77\uB294\uB2E4."
-  - "\uC0C1\uC790\uC640 \uAC19\uC740 \uBB38\uC591\uC758 \uBE48 \uC790\uB9AC\uAC00
-    \uBAA9\uC801\uC9C0\uB2E4. \uB3C4\uCC29\uD55C \uC0C1\uC790\uB3C4 \uBC29\uD5A5\uC744
-    \uBC14\uAFB8\uBA74 \uB2E4\uC2DC \uC6C0\uC9C1\uC778\uB2E4. \uBAA8\uB4E0 \uAE30\uB85D\uC774
-    \uB3D9\uC2DC\uC5D0 \uC81C\uC790\uB9AC\uC5D0 \uC788\uC5B4\uC57C \uBB38\uC774 \uC5F4\uB9B0\uB2E4."
-  - "\uAE38\uC774 \uB9C9\uD788\uBA74 \uB2E4\uB978 \uBA74\uC744 \uBC14\uB2E5\uC73C\uB85C
-    \uC368 \uBCF4\uC790. \uC6C0\uC9C1\uC784\uC774 \uBA48\uCD94\uBA74 \uB2E4\uC74C
-    \uBC29\uD5A5\uC744 \uACE0\uB97C \uC218 \uC788\uB2E4."
-  - "\uC798\uBABB \uC62E\uACA8\uB3C4 \uAD1C\uCC2E\uB2E4. \uC911\uB825 \uD398\uC774\uC9C0\uC758
-    \uB418\uB3CC\uB9AC\uAE30\uB85C \uD55C \uBC88 \uC804, \uCC98\uC74C \uBC30\uCE58\uB85C
-    \uBAA8\uB4E0 \uAE30\uB85D\uC744 \uB3CC\uB9B4 \uC218 \uC788\uB2E4."
+  - "\uBE5B\uC744 \uB2F4\uACE0 \uB450 \uAC78\uC1E0\uB97C \uC7A0\uAC00 \uC62E\uAE34\uB2E4.
+    \uAC19\uC740 \uD648\uC774 \uC788\uB294 \uBC1B\uCE68\uC5D0 \uB0B4\uB824\uB193\uACE0,
+    \uB450 \uAC78\uC1E0\uB97C \uC5F4\uC5B4 \uBE5B\uC744 \uAC74\uB128\uB2E4."
+  - "\uD574\uB294 \uBE5B\uC744 \uB2F4\uB294 \uC790\uB9AC, \uCC45\uC740 \uAE30\uB85D\uC744
+    \uAE68\uC6B0\uB294 \uC790\uB9AC, \uBB38\uC740 \uBE5B\uC744 \uAE30\uB2E4\uB9AC\uB294
+    \uC790\uB9AC. \uAC78\uC5B4\uAC00\uB294 \uB3D9\uC548 \uBE5B\uC740 \uB2F3\uC9C0
+    \uC54A\uB294\uB2E4."
 --- !u!114 &1175491934
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2001827,7 +2002007,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3df92b4a8870431e8ac083c5aff39005, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BookTower.Rooms.SolveBridge
-  puzzle: {fileID: 535067762}
+  puzzle: {fileID: 779428106}
   openY: 0
   riseSeconds: 1.2
 --- !u!114 &1182932755
@@ -2036894,7 +2037074,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1204831769
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2046014,7 +2046194,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!108 &1210917053
 Light:
   m_ObjectHideFlags: 0
@@ -2046391,7 +2046571,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1211285488
 Transform:
   m_ObjectHideFlags: 0
@@ -2059976,7 +2060156,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1219300753
 Transform:
   m_ObjectHideFlags: 0
@@ -2094585,7 +2094765,7 @@ MonoBehaviour:
   - {x: 0, y: 2.5, z: 14.85}
   - {x: 0, y: 6.1, z: 14.85}
   - {x: 0, y: 9.7, z: 14.85}
-  puzzle: {fileID: 0}
+  puzzle: {fileID: 1350009204}
 --- !u!1 &1241133067
 GameObject:
   m_ObjectHideFlags: 0
@@ -2103210,8 +2103390,8 @@ MonoBehaviour:
   ambient: 0.72
   fog: 0
   shadowStrength: 0.62
-  goal: "\uD568\uAED8 \uC6C0\uC9C1\uC774\uB294 \uAE30\uB85D \xB7 \uB450 \uC0C1\uC790\uB97C
-    \uAC01\uC790\uC758 \uC790\uB9AC\uB85C \uBCF4\uB0B4\uAE30"
+  goal: "\uBC14\uB2E5\uC758 \uC870\uAC01\uC744 \uC8FC\uC6CC \uBC1C\uC790\uAD6D \uADF8\uB9BC\uC5D0
+    \uB9DE\uCD98\uB2E4. \uC14B \uC911 \uD558\uB098\uB294 \uAC00\uC9DC\uB2E4"
   camYaw: 0
   camPad: 0.95
 --- !u!114 &1246310721
@@ -2167534,7 +2167714,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1285901563
 Transform:
   m_ObjectHideFlags: 0
@@ -2198005,7 +2198185,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1304121509
 Transform:
   m_ObjectHideFlags: 0
@@ -2230002,7 +2230182,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1322624917
 Transform:
   m_ObjectHideFlags: 0
@@ -2243759,6 +2243939,7 @@ GameObject:
   - component: {fileID: 1330541343}
   - component: {fileID: 1330541341}
   - component: {fileID: 1330541342}
+  - component: {fileID: 1330541340}
   m_Layer: 0
   m_Name: "P14_\uD37C\uC990"
   m_TagString: Untagged
@@ -2243766,6 +2243947,26 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1330541340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1330541339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f862a729839adfe4187ba396e0c0de1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BookTower.Puzzles.FoldCombinationPuzzle
+  puzzleId: P14
+  targetSeconds: 480
+  activateRadius: 45
+  logToConsole: 1
+  group: {fileID: 1330541341}
+  lightWorkshop: {fileID: 0}
+  answer: 020000000000000001000000
+  requireSettled: 1
 --- !u!114 &1330541341
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2259918,7 +2260119,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1340207646
 Transform:
   m_ObjectHideFlags: 0
@@ -2263082,7 +2263283,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1342239529
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2278177,6 +2278378,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1350009203}
   - component: {fileID: 1350009202}
+  - component: {fileID: 1350009204}
   m_Layer: 0
   m_Name: "P1_\uD37C\uC990"
   m_TagString: Untagged
@@ -2278215,6 +2278417,52 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1937793248}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1350009204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1350009200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3310d10eaf9b8764cb4b0b98e954e21f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BookTower.Puzzles.FoldBridgePuzzle
+  puzzleId: P1
+  targetSeconds: 180
+  activateRadius: 70
+  logToConsole: 1
+  shutter: {fileID: 665176206}
+  entranceMirror: {fileID: 2144909417}
+  farMirror: {fileID: 309069779}
+  lightSurfaces:
+  - {fileID: 2144909413}
+  - {fileID: 1739380947}
+  - {fileID: 309069775}
+  - {fileID: 580390984}
+  - {fileID: 1801367813}
+  - {fileID: 108634138}
+  - {fileID: 2137509930}
+  lightSegments:
+  - {fileID: 166477286}
+  - {fileID: 2079265642}
+  - {fileID: 993534766}
+  - {fileID: 635071380}
+  - {fileID: 1412745395}
+  - {fileID: 1507010709}
+  - {fileID: 1925027895}
+  - {fileID: 217038341}
+  hinge: {fileID: 1304121509}
+  source: {fileID: 566594082}
+  receiver: {fileID: 1210917054}
+  sealVisual: {fileID: 552997407}
+  pageCollider: {fileID: 1693534175}
+  beam: {fileID: 1092864913}
+  connection: {fileID: 315028311}
+  receiverLight: {fileID: 1210917053}
+  roomSpace: {fileID: 256234939}
+  foldSound: {fileID: 8300000, guid: cd40cbfc51d73c34fb417971f4aa6531, type: 3}
 --- !u!1 &1350017537
 GameObject:
   m_ObjectHideFlags: 0
@@ -2330883,7 +2331131,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1383326339
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2354827,7 +2355075,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1397281480
 Transform:
   m_ObjectHideFlags: 0
@@ -2361370,7 +2361618,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44b3ad6c2a9e4f82809d044ae82f00fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BookTower.Rooms.RampGate
-  puzzle: {fileID: 757209263}
+  puzzle: {fileID: 229059780}
   closedAngle: 90
   openSeconds: 1.1
   lockedBridge: {fileID: 458891162}
@@ -2389968,6 +2390216,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1419122932}
+  - component: {fileID: 1419122933}
   m_Layer: 0
   m_Name: "P15_\uC65C\uC0C1"
   m_TagString: Untagged
@@ -2390002,6 +2390251,64 @@ Transform:
   - {fileID: 746377504}
   m_Father: {fileID: 446443183}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1419122933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1419122931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b15762d362357d42ab1c926629b1ce9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BookTower.Puzzles.SurfaceAnamorphosis
+  puzzleId: P15
+  targetSeconds: 240
+  activateRadius: 100
+  logToConsole: 1
+  panel: {fileID: 1865668894}
+  beacon: {fileID: 1081418675}
+  room: {fileID: 446443184}
+  fragments:
+  - {fileID: 1485961234}
+  - {fileID: 101093552}
+  - {fileID: 594742714}
+  - {fileID: 1938808977}
+  - {fileID: 1678203360}
+  - {fileID: 1331511730}
+  - {fileID: 1460725640}
+  - {fileID: 1930199654}
+  - {fileID: 959600758}
+  - {fileID: 1482166702}
+  - {fileID: 849527617}
+  - {fileID: 746377504}
+  unfolded:
+  - {x: 6.578187, y: 0.11500001, z: 7.5649652}
+  - {x: -8.603152, y: 0.11500001, z: 1.540968}
+  - {x: 12.249649, y: 0.11500001, z: -4.483034}
+  - {x: -5.863408, y: 0.11500001, z: 10.492968}
+  - {x: 9.057675, y: 0.11500001, z: 4.4689655}
+  - {x: -11.9871, y: 0.11500001, z: -1.5550346}
+  - {x: 6.0002284, y: 10.009998, z: -3.7176766}
+  - {x: -9, y: 10.009998, z: -9.741676}
+  - {x: 12, y: 10.009998, z: -15.7656765}
+  - {x: -6, y: 1.4134412, z: 22.100002}
+  - {x: 9, y: 10.009998, z: -6.813677}
+  - {x: -12, y: 2.5311916, z: 22.100002}
+  aligned:
+  - {x: 0.57818705, y: 0.11500001, z: 15.564965}
+  - {x: 0.39684758, y: 0.11500001, z: 16.540968}
+  - {x: 0.2496492, y: 0.11500001, z: 17.516966}
+  - {x: 0.13659185, y: 0.11500001, z: 18.492968}
+  - {x: 0.057675615, y: 0.11500001, z: 19.468966}
+  - {x: 0.012900435, y: 0.11500001, z: 20.444965}
+  - {x: 0.00022823994, y: 10.009998, z: 4.2823234}
+  - {x: 0, y: 10.009998, z: 5.2583237}
+  - {x: 0, y: 10.009998, z: 6.234324}
+  - {x: 0, y: 1.4134412, z: 22.100002}
+  - {x: 0, y: 10.009998, z: 8.186323}
+  - {x: 0, y: 2.5311916, z: 22.100002}
 --- !u!1 &1419133562
 GameObject:
   m_ObjectHideFlags: 0
@@ -2421236,8 +2421543,7 @@ MonoBehaviour:
   ambient: 0.82
   fog: 0
   shadowStrength: 0.62
-  goal: "\uADC0\uD658 \uC6B4\uBC18\uB85C \xB7 \uC138 \uAE30\uB85D\uC758 \uC774\uB3D9
-    \uC21C\uC11C\uB97C \uD568\uAED8 \uACC4\uD68D\uD558\uAE30"
+  goal: "\uD1B5\uB85C \uB05D\uC758 \uC794\uC0C1\uC744 \uC7AC\uC0DD\uD55C\uB2E4"
   camYaw: 0
   camPad: 0.95
 --- !u!114 &1438313027
@@ -2423973,24 +2424279,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BookTower.UI.ReadableNote
   id: 1A.Book.Lamp
-  title: "\uB3CC\uC544\uC62C \uC790\uB9AC\uB97C \uB0A8\uAE30\uB294 \uBC95"
+  title: "\uB2E4\uC74C \uC7A5\uC758 \uAE30\uC5B5\uB4F1"
   pages:
-  - "\uAEBE\uC778 \uC6B4\uBC18\uB85C \xB7 \uB9C9\uD78C \uAE38\uC744 \uB3CC\uC544
-    \uC774\uC57C\uAE30\uCC45 \uB3CC\uB824\uB193\uAE30"
-  - "\uD654\uC0B4\uD45C\uAC00 \uAC00\uB9AC\uD0A4\uB294 \uCABD\uC774 \uC6B4\uBC18\uC2E4\uC758
-    \uC544\uB798\uAC00 \uB41C\uB2E4. \uD45C\uC2DC\uB41C \uAE30\uB85D \uC0C1\uC790\uB4E4\uC740
-    \uD568\uAED8 \uB5A8\uC5B4\uC9C0\uACE0, \uBCBD\uACFC \uC120\uBC18\uC5D0 \uB2FF\uC73C\uBA74
-    \uBA48\uCD98\uB2E4. \uC0AC\uB78C\uC740 \uD3C9\uC18C\uCC98\uB7FC \uAC77\uB294\uB2E4."
-  - "\uC0C1\uC790\uC640 \uAC19\uC740 \uBB38\uC591\uC758 \uBE48 \uC790\uB9AC\uAC00
-    \uBAA9\uC801\uC9C0\uB2E4. \uB3C4\uCC29\uD55C \uC0C1\uC790\uB3C4 \uBC29\uD5A5\uC744
-    \uBC14\uAFB8\uBA74 \uB2E4\uC2DC \uC6C0\uC9C1\uC778\uB2E4. \uBAA8\uB4E0 \uAE30\uB85D\uC774
-    \uB3D9\uC2DC\uC5D0 \uC81C\uC790\uB9AC\uC5D0 \uC788\uC5B4\uC57C \uBB38\uC774 \uC5F4\uB9B0\uB2E4."
-  - "\uAE38\uC774 \uB9C9\uD788\uBA74 \uB2E4\uB978 \uBA74\uC744 \uBC14\uB2E5\uC73C\uB85C
-    \uC368 \uBCF4\uC790. \uC6C0\uC9C1\uC784\uC774 \uBA48\uCD94\uBA74 \uB2E4\uC74C
-    \uBC29\uD5A5\uC744 \uACE0\uB97C \uC218 \uC788\uB2E4."
-  - "\uC798\uBABB \uC62E\uACA8\uB3C4 \uAD1C\uCC2E\uB2E4. \uC911\uB825 \uD398\uC774\uC9C0\uC758
-    \uB418\uB3CC\uB9AC\uAE30\uB85C \uD55C \uBC88 \uC804, \uCC98\uC74C \uBC30\uCE58\uB85C
-    \uBAA8\uB4E0 \uAE30\uB85D\uC744 \uB3CC\uB9B4 \uC218 \uC788\uB2E4."
+  - "\uBE5B\uC744 \uC62E\uAE38 \uB54C\uB294 \uB450 \uACE0\uB9AC\uB97C \uBA3C\uC800
+    \uC7A0\uAE00 \uAC83."
+  - "\uADF8\uB298\uC9C4 \uAE30\uB85D\uB300\uC5D0 \uBE5B\uC744 \uBA3C\uC800 \uB098\uB204\uACE0,
+    \uCC3D\uBB38\uC744 \uC5F0 \uB4A4 \uB2E4\uC2DC \uCC44\uC6B8 \uAC83."
 --- !u!114 &1440048988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2441886,7 +2442180,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1449962391
 Transform:
   m_ObjectHideFlags: 0
@@ -2469328,7 +2469622,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1466413901
 Transform:
   m_ObjectHideFlags: 0
@@ -2469372,7 +2469666,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb64ab369521b6f4295b453d674974ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BookTower.Interaction.FoldBridgeControl
-  puzzle: {fileID: 0}
+  puzzle: {fileID: 1350009204}
   seal: 0
   opticalControl: 0
 --- !u!114 &1466413904
@@ -2519010,8 +2519304,9 @@ MonoBehaviour:
   ambient: 0.72
   fog: 0
   shadowStrength: 0.62
-  goal: "\uD06C\uAE30\uAC00 \uB2E4\uB978 \uAE30\uB85D \xB7 \uC881\uC740 \uAE38\uACFC
-    \uB113\uC740 \uAE38 \uB098\uB204\uAE30"
+  goal: "\uB0A8\uBD81 \uB450 \uBC29\uC758 \uC811\uC774\uBA74\uC744 \uAC01\uAC01 \uB9DE\uCDB0
+    \uADF8\uB9BC\uC790\uB97C \uAD50\uCC28\uC2DC\uD0A8\uB2E4. \uAC00\uC6B4\uB370 \uBC18\uC0AC
+    \uD398\uC774\uC9C0\uC5D0\uC11C \uB458 \uB2E4 \uBCF4\uC778\uB2E4"
   camYaw: 0
   camPad: 0.95
 --- !u!114 &1495265695
@@ -2526038,7 +2526333,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1498985378
 Transform:
   m_ObjectHideFlags: 0
@@ -2529304,7 +2529599,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BookTower.Rooms.BindingDoor
   left: {fileID: 699850328}
   right: {fileID: 1843349933}
-  puzzle: {fileID: 705092691}
+  puzzle: {fileID: 1350009204}
 --- !u!1 &1500801185
 GameObject:
   m_ObjectHideFlags: 0
@@ -2603821,7 +2604116,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1546985759
 Transform:
   m_ObjectHideFlags: 0
@@ -2603851,7 +2604146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61759319adc6ced47b481a9eb4182fd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BookTower.Puzzles.ReadingRoomControl
-  puzzle: {fileID: 0}
+  puzzle: {fileID: 716536704}
   action: 8
 --- !u!114 &1546985761
 MonoBehaviour:
@@ -2638004,7 +2638299,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1568849853
 Transform:
   m_ObjectHideFlags: 0
@@ -2673935,7 +2674230,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1589598367
 Transform:
   m_ObjectHideFlags: 0
@@ -2691124,24 +2691419,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BookTower.UI.ReadableNote
   id: f0-binder
-  title: "\uB3CC\uC544\uC62C \uC790\uB9AC\uB97C \uB0A8\uAE30\uB294 \uBC95"
+  title: "\uC81C\uBCF8 \uD604\uAD00\uC758 \uBA54\uBAA8"
   pages:
-  - "\uCC9C\uC7A5\uC744 \uAE38\uB85C \xB7 \uAE30\uB85D \uC0C1\uC790\uB97C \uAC19\uC740
-    \uBB38\uC591\uC758 \uC790\uB9AC\uB85C \uBCF4\uB0B4\uAE30"
-  - "\uD654\uC0B4\uD45C\uAC00 \uAC00\uB9AC\uD0A4\uB294 \uCABD\uC774 \uC6B4\uBC18\uC2E4\uC758
-    \uC544\uB798\uAC00 \uB41C\uB2E4. \uD45C\uC2DC\uB41C \uAE30\uB85D \uC0C1\uC790\uB4E4\uC740
-    \uD568\uAED8 \uB5A8\uC5B4\uC9C0\uACE0, \uBCBD\uACFC \uC120\uBC18\uC5D0 \uB2FF\uC73C\uBA74
-    \uBA48\uCD98\uB2E4. \uC0AC\uB78C\uC740 \uD3C9\uC18C\uCC98\uB7FC \uAC77\uB294\uB2E4."
-  - "\uC0C1\uC790\uC640 \uAC19\uC740 \uBB38\uC591\uC758 \uBE48 \uC790\uB9AC\uAC00
-    \uBAA9\uC801\uC9C0\uB2E4. \uB3C4\uCC29\uD55C \uC0C1\uC790\uB3C4 \uBC29\uD5A5\uC744
-    \uBC14\uAFB8\uBA74 \uB2E4\uC2DC \uC6C0\uC9C1\uC778\uB2E4. \uBAA8\uB4E0 \uAE30\uB85D\uC774
-    \uB3D9\uC2DC\uC5D0 \uC81C\uC790\uB9AC\uC5D0 \uC788\uC5B4\uC57C \uBB38\uC774 \uC5F4\uB9B0\uB2E4."
-  - "\uAE38\uC774 \uB9C9\uD788\uBA74 \uB2E4\uB978 \uBA74\uC744 \uBC14\uB2E5\uC73C\uB85C
-    \uC368 \uBCF4\uC790. \uC6C0\uC9C1\uC784\uC774 \uBA48\uCD94\uBA74 \uB2E4\uC74C
-    \uBC29\uD5A5\uC744 \uACE0\uB97C \uC218 \uC788\uB2E4."
-  - "\uC798\uBABB \uC62E\uACA8\uB3C4 \uAD1C\uCC2E\uB2E4. \uC911\uB825 \uD398\uC774\uC9C0\uC758
-    \uB418\uB3CC\uB9AC\uAE30\uB85C \uD55C \uBC88 \uC804, \uCC98\uC74C \uBC30\uCE58\uB85C
-    \uBAA8\uB4E0 \uAE30\uB85D\uC744 \uB3CC\uB9B4 \uC218 \uC788\uB2E4."
+  - "\uB204\uAD70\uAC00 \uB3CC\uC544\uC62C \uC218 \uC788\uB3C4\uB85D, \uC774 \uCC45\uC758
+    \uB9C8\uC9C0\uB9C9 \uC7A5\uC740 \uBE44\uC6CC \uB450\uC5C8\uB2E4."
+  - "\uC78A\uD78C \uAE30\uB85D\uC740 \uC77D\uC5B4 \uC904 \uC774\uB97C \uAE30\uB2E4\uB9B0\uB2E4."
 --- !u!114 &1599995521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2696464,7 +2696746,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1602724113
 Transform:
   m_ObjectHideFlags: 0
@@ -2698767,7 +2699049,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1604074503
 Transform:
   m_ObjectHideFlags: 0
@@ -2702685,7 +2702967,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1606823688
 Transform:
   m_ObjectHideFlags: 0
@@ -2702713,7 +2702995,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71bddc5137409e54b8660117b27b6503, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BookTower.Puzzles.StorybookLightControl
-  puzzle: {fileID: 0}
+  puzzle: {fileID: 774080416}
   action: 5
 --- !u!114 &1606823690
 MonoBehaviour:
@@ -2721596,7 +2721878,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1617664172
 Transform:
   m_ObjectHideFlags: 0
@@ -2722238,7 +2722520,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1617876799
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2726351,7 +2726633,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1620636721
 Transform:
   m_ObjectHideFlags: 0
@@ -2726399,7 +2726681,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb64ab369521b6f4295b453d674974ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BookTower.Interaction.FoldBridgeControl
-  puzzle: {fileID: 0}
+  puzzle: {fileID: 1350009204}
   seal: 0
   opticalControl: 3
 --- !u!114 &1620636724
@@ -2828145,7 +2828427,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1682277693
 Transform:
   m_ObjectHideFlags: 0
@@ -2865021,7 +2865303,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1704537340
 Transform:
   m_ObjectHideFlags: 0
@@ -2865065,7 +2865347,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb64ab369521b6f4295b453d674974ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BookTower.Interaction.FoldBridgeControl
-  puzzle: {fileID: 0}
+  puzzle: {fileID: 1350009204}
   seal: 1
   opticalControl: 0
 --- !u!114 &1704537343
@@ -2881422,7 +2881704,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1713958329
 Transform:
   m_ObjectHideFlags: 0
@@ -2881451,7 +2881733,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61759319adc6ced47b481a9eb4182fd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BookTower.Puzzles.ReadingRoomControl
-  puzzle: {fileID: 0}
+  puzzle: {fileID: 716536704}
   action: 2
 --- !u!114 &1713958331
 MonoBehaviour:
@@ -2925134,7 +2925416,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1739380943
 Transform:
   m_ObjectHideFlags: 0
@@ -2932057,7 +2932339,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44b3ad6c2a9e4f82809d044ae82f00fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BookTower.Rooms.RampGate
-  puzzle: {fileID: 698557989}
+  puzzle: {fileID: 395308297}
   closedAngle: 90
   openSeconds: 1.1
   lockedBridge: {fileID: 216939187}
@@ -2965656,7 +2965938,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44b3ad6c2a9e4f82809d044ae82f00fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BookTower.Rooms.RampGate
-  puzzle: {fileID: 1204831769}
+  puzzle: {fileID: 339135941}
   closedAngle: 90
   openSeconds: 1.1
   lockedBridge: {fileID: 758514698}
@@ -2970652,7 +2970934,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1767163825
 Transform:
   m_ObjectHideFlags: 0
@@ -2981779,7 +2982061,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1773824261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3005114,7 +3005396,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44b3ad6c2a9e4f82809d044ae82f00fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BookTower.Rooms.RampGate
-  puzzle: {fileID: 1773824261}
+  puzzle: {fileID: 1330541340}
   closedAngle: 90
   openSeconds: 1.1
   lockedBridge: {fileID: 242396393}
@@ -3011172,7 +3011454,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1792000893
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3027694,7 +3027976,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1801367808
 Transform:
   m_ObjectHideFlags: 0
@@ -3056219,7 +3056501,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1818600392
 Transform:
   m_ObjectHideFlags: 0
@@ -3076529,7 +3076811,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1830618220
 Transform:
   m_ObjectHideFlags: 0
@@ -3114866,7 +3115148,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1852898978
 Transform:
   m_ObjectHideFlags: 0
@@ -3137240,7 +3137522,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1865668894
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3147085,7 +3147367,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1870957564
 Transform:
   m_ObjectHideFlags: 0
@@ -3150275,7 +3150557,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1872502725
 Transform:
   m_ObjectHideFlags: 0
@@ -3150305,7 +3150587,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61759319adc6ced47b481a9eb4182fd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BookTower.Puzzles.ReadingRoomControl
-  puzzle: {fileID: 0}
+  puzzle: {fileID: 716536704}
   action: 6
 --- !u!114 &1872502727
 MonoBehaviour:
@@ -3230220,7 +3230502,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1919623290
 Transform:
   m_ObjectHideFlags: 0
@@ -3231443,7 +3231725,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1920424800
 Transform:
   m_ObjectHideFlags: 0
@@ -3231473,7 +3231755,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71bddc5137409e54b8660117b27b6503, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BookTower.Puzzles.StorybookLightControl
-  puzzle: {fileID: 0}
+  puzzle: {fileID: 774080416}
   action: 6
 --- !u!114 &1920424802
 MonoBehaviour:
@@ -3243469,6 +3243751,7 @@ GameObject:
   - component: {fileID: 1927741898}
   - component: {fileID: 1927741896}
   - component: {fileID: 1927741897}
+  - component: {fileID: 1927741895}
   m_Layer: 0
   m_Name: "P9_\uD37C\uC990"
   m_TagString: Untagged
@@ -3243476,6 +3243759,26 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1927741895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1927741894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f862a729839adfe4187ba396e0c0de1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BookTower.Puzzles.FoldCombinationPuzzle
+  puzzleId: P9
+  targetSeconds: 300
+  activateRadius: 47
+  logToConsole: 1
+  group: {fileID: 1927741896}
+  lightWorkshop: {fileID: 0}
+  answer: 02000000
+  requireSettled: 1
 --- !u!114 &1927741896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3250447,7 +3250750,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1931538802
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3256725,7 +3257028,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44b3ad6c2a9e4f82809d044ae82f00fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BookTower.Rooms.RampGate
-  puzzle: {fileID: 505856114}
+  puzzle: {fileID: 1090809230}
   closedAngle: 90
   openSeconds: 1.1
   lockedBridge: {fileID: 1425290746}
@@ -3262084,7 +3262387,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1937793248
 Transform:
   m_ObjectHideFlags: 0
@@ -3271890,7 +3272193,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1944121807
 Transform:
   m_ObjectHideFlags: 0
@@ -3353691,7 +3353994,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1993025688
 Transform:
   m_ObjectHideFlags: 0
@@ -3387220,7 +3387523,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2012003594
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3411851,7 +3412154,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2026118687
 Transform:
   m_ObjectHideFlags: 0
@@ -3422924,7 +3423227,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44b3ad6c2a9e4f82809d044ae82f00fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BookTower.Rooms.RampGate
-  puzzle: {fileID: 382840301}
+  puzzle: {fileID: 2140820944}
   closedAngle: 90
   openSeconds: 1.1
   lockedBridge: {fileID: 1600649846}
@@ -3428542,7 +3428845,7 @@ Transform:
   m_GameObject: {fileID: 2036353007}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 13.400002, z: 0}
+  m_LocalPosition: {x: 0, y: 7.2, z: 0}
   m_LocalScale: {x: 63.36, y: 0.3, z: 63.36}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3428671,7 +3428974,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2036353190
 Transform:
   m_ObjectHideFlags: 0
@@ -3521270,7 +3521573,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2093467393
 Transform:
   m_ObjectHideFlags: 0
@@ -3532575,7 +3532878,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2100328057
 Transform:
   m_ObjectHideFlags: 0
@@ -3569896,7 +3570199,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2122350278
 Transform:
   m_ObjectHideFlags: 0
@@ -3580019,7 +3580322,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2128672890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3593116,7 +3593419,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2137509925
 Transform:
   m_ObjectHideFlags: 0
@@ -3598512,6 +3598815,7 @@ GameObject:
   - component: {fileID: 2140820947}
   - component: {fileID: 2140820945}
   - component: {fileID: 2140820946}
+  - component: {fileID: 2140820944}
   m_Layer: 0
   m_Name: "P6_\uD37C\uC990"
   m_TagString: Untagged
@@ -3598519,6 +3598823,26 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &2140820944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2140820943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f862a729839adfe4187ba396e0c0de1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BookTower.Puzzles.FoldCombinationPuzzle
+  puzzleId: P6
+  targetSeconds: 120
+  activateRadius: 39
+  logToConsole: 1
+  group: {fileID: 2140820945}
+  lightWorkshop: {fileID: 0}
+  answer: 020000000100000002000000
+  requireSettled: 1
 --- !u!114 &2140820945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3604844,7 +3605168,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2144533602
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3605575,7 +3605899,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2144909413
 MonoBehaviour:
   m_ObjectHideFlags: 0

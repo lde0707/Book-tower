@@ -128,3 +128,25 @@ __pycache__/
 
 # MCP 패키지 추가 전 백업 (되돌릴 때 쓴다)
 Packages/manifest.json.bak
+
+# Local caches and build packages (published separately as GitHub Releases)
+**/[Ll]ibrary/
+**/[Tt]emp/
+**/[Oo]bj/
+**/[Ll]ogs/
+**/[Uu]ser[Ss]ettings/
+**/[Bb]uilds/
+**/node_modules/
+**/__pycache__/
+**/.venv/
+**/.vs/
+**/.DS_Store
+**/Thumbs.db
+.env
+.env.*
+!.env.example
+*.keystore
+*.jks
+*.p12
+*.mobileprovision
+~$*

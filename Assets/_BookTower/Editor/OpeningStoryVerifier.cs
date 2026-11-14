@@ -92,6 +92,8 @@ namespace BookTower.EditorTools
         static IEnumerator Verify()
         {
             yield return 1f;story=Object.FindFirstObjectByType<OpeningStoryDirector>();ui=PaperUI.Instance;
+            float entryDeadline=Time.realtimeSinceStartup+8;
+            while(story.ActiveSequence!=OpeningStoryData.Promise&&Time.realtimeSinceStartup<entryDeadline)yield return .05f;
             Check(PaperSettingsRuntime.TestStoragePath!=null,"Test storage isolated from player records/settings");
             original=InputSystem.settings;var settings=Object.Instantiate(original);settings.updateMode=InputSettings.UpdateMode.ProcessEventsInDynamicUpdate;settings.backgroundBehavior=InputSettings.BackgroundBehavior.IgnoreFocus;settings.editorInputBehaviorInPlayMode=InputSettings.EditorInputBehaviorInPlayMode.AllDeviceInputAlwaysGoesToGameView;InputSystem.settings=settings;keyboard=InputSystem.AddDevice<Keyboard>();keyboard.MakeCurrent();
             mouse=InputSystem.AddDevice<Mouse>();mouse.MakeCurrent();Pointer();

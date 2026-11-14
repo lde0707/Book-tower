@@ -1,0 +1,10 @@
+PASS: Authored passage prefab instantiated in actual InGame
+PASS: No duplicate passage instances
+PASS: Art visible from both adjacent rooms
+PASS: Obsolete arrival rails no longer cut across dogleg
+PASS: Actual player capsule passes ramp, dogleg and reading-room entrance
+PASS: Actual player capsule returns through decorated dogleg and ramp
+PASS: All passage art stays visible in 1A
+PASS: All passage art stays visible in 1B
+PASS: All merged art meshes present
+PASS
